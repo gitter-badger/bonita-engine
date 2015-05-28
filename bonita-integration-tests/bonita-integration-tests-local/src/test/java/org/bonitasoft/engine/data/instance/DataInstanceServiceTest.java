@@ -13,11 +13,9 @@
  **/
 package org.bonitasoft.engine.data.instance;
 
-import static org.bonitasoft.engine.matchers.ListContainsMatcher.namesContain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
@@ -28,6 +26,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
+import org.assertj.core.api.Assertions;
 import org.bonitasoft.engine.archive.ArchiveService;
 import org.bonitasoft.engine.bpm.CommonBPMServicesTest;
 import org.bonitasoft.engine.builder.BuilderFactory;
@@ -141,7 +140,8 @@ public class DataInstanceServiceTest extends CommonBPMServicesTest {
     private void evaluateDefaultValueOf(final SDataDefinition dataDefinition, final SDataInstanceBuilder dataInstanceBuilder) throws SBonitaException {
         final SExpression expression = dataDefinition.getDefaultValueExpression();
         if (expression != null) {
-            dataInstanceBuilder.setValue((Serializable) expressionService.evaluate(expression, Collections.<String,Object>singletonMap("processDefinitionId",546l),EMPTY_RESOLVED_EXPRESSIONS, ContainerState.ACTIVE));
+            dataInstanceBuilder.setValue((Serializable) expressionService.evaluate(expression,
+                    Collections.<String, Object> singletonMap("processDefinitionId", 546l), EMPTY_RESOLVED_EXPRESSIONS, ContainerState.ACTIVE));
         }
     }
 
@@ -384,14 +384,14 @@ public class DataInstanceServiceTest extends CommonBPMServicesTest {
         final List<SDataInstance> dataInstances = dataInstanceService.getDataInstances(dataNames, containerId, containerType, parentContainerResolver);
         getTransactionService().complete();
         assertEquals(2, dataInstances.size());
-        assertThat("Not all data instances have been found", Arrays.asList(dataInstances.get(0), dataInstances.get(1)),
-                namesContain(instance1Name, instance2Name));
+        Assertions.assertThat(dataInstances).extracting("name").containsOnly(instance1Name, instance2Name);
     }
 
     @Test
     public void getSADataInstancesWithEmptyList() throws Exception {
         getTransactionService().begin();
-        final List<SADataInstance> dataInstances = dataInstanceService.getSADataInstances(13544L, "dummyContainerType", parentContainerResolver, Arrays.<String> asList(), 1111111L);
+        final List<SADataInstance> dataInstances = dataInstanceService.getSADataInstances(13544L, "dummyContainerType", parentContainerResolver,
+                Arrays.<String> asList(), 1111111L);
         getTransactionService().complete();
         assertEquals(0, dataInstances.size());
     }

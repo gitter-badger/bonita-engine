@@ -15,7 +15,6 @@ package org.bonitasoft.engine.process.document;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.tuple;
-import static org.bonitasoft.engine.matchers.ListElementMatcher.nameAre;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
@@ -82,7 +81,6 @@ import org.bonitasoft.engine.test.BuildTestUtil;
 import org.bonitasoft.engine.test.TestStates;
 import org.bonitasoft.engine.test.annotation.Cover;
 import org.bonitasoft.engine.test.annotation.Cover.BPMNConcept;
-import org.junit.Assert;
 import org.junit.Test;
 
 /**
@@ -1197,8 +1195,8 @@ public class DocumentIT extends TestWithUser {
     private void check(final ProcessInstance processInstance, final int one, final int two, final int three, final int four, final int five,
             final DocumentCriterion documentCriterion) throws ProcessInstanceNotFoundException, DocumentException {
         final List<Document> lastVersionOfDocuments = getProcessAPI().getLastVersionOfDocuments(processInstance.getId(), 0, 10, documentCriterion);
-        Assert.assertThat("the order was not respected for " + documentCriterion, lastVersionOfDocuments,
-                nameAre("textFile" + one, "textFile" + two, "textFile" + three, "textFile" + four, "textFile" + five));
+        assertThat(lastVersionOfDocuments).as("the order was not respected for " + documentCriterion).extracting("name")
+                .containsExactly("textFile" + one, "textFile" + two, "textFile" + three, "textFile" + four, "textFile" + five);
     }
 
     @Cover(jira = "ENGINE-1898", classes = { Document.class, CallActivityInstance.class }, concept = BPMNConcept.DOCUMENT, keywords = { "document",

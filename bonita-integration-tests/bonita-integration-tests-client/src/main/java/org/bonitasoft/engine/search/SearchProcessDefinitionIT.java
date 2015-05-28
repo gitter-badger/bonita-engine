@@ -13,11 +13,10 @@
  **/
 package org.bonitasoft.engine.search;
 
-import static org.bonitasoft.engine.matchers.ListElementMatcher.versionAre;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -165,12 +164,12 @@ public class SearchProcessDefinitionIT extends TestWithUser {
         optsBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.ASC);
         SearchResult<ProcessDeploymentInfo> searchRes0 = getProcessAPI().searchProcessDeploymentInfos(optsBuilder.done());
         assertEquals(5, searchRes0.getCount());
-        assertThat(searchRes0.getResult(), versionAre("1.00", "1.01", "1.02", "1.03", "1.04"));
+        assertThat(searchRes0.getResult()).extracting("version").containsExactly("1.00", "1.01", "1.02", "1.03", "1.04");
         optsBuilder = new SearchOptionsBuilder(0, 10);
         optsBuilder.sort(ProcessDeploymentInfoSearchDescriptor.VERSION, Order.DESC);
         searchRes0 = getProcessAPI().searchProcessDeploymentInfos(optsBuilder.done());
         assertEquals(5, searchRes0.getCount());
-        assertThat(searchRes0.getResult(), versionAre("1.04", "1.03", "1.02", "1.01", "1.00"));
+        assertThat(searchRes0.getResult()).extracting("version").containsExactly("1.04", "1.03", "1.02", "1.01", "1.00");
     }
 
     @Test
@@ -189,7 +188,7 @@ public class SearchProcessDefinitionIT extends TestWithUser {
         optsBuilder.filter(ProcessDeploymentInfoSearchDescriptor.VERSION, "1.03");
         SearchResult<ProcessDeploymentInfo> searchResult = getProcessAPI().searchProcessDeploymentInfos(optsBuilder.done());
         assertEquals(1, searchResult.getCount());
-        assertThat(searchResult.getResult(), versionAre("1.03"));
+        assertThat(searchResult.getResult()).extracting("version").containsExactly("1.03");
 
         // Filter on activation state
         optsBuilder = new SearchOptionsBuilder(0, 10);
@@ -236,7 +235,7 @@ public class SearchProcessDefinitionIT extends TestWithUser {
         optsBuilder.searchTerm("1.03");
         final SearchResult<ProcessDeploymentInfo> searchRes0 = getProcessAPI().searchProcessDeploymentInfos(optsBuilder.done());
         assertEquals(1, searchRes0.getCount());
-        assertThat(searchRes0.getResult(), versionAre("1.03"));
+        assertThat(searchRes0.getResult()).extracting("version").containsExactly("1.03");
     }
 
     private void createNbProcessDefinitionWithTwoHumanStepsAndDeployWithActor(final int nbProcess, final User user) throws BonitaException {

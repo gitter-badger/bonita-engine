@@ -13,20 +13,18 @@
  **/
 package org.bonitasoft.engine.data.instance;
 
-import static org.bonitasoft.engine.matchers.ListContainsMatcher.namesContain;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
+import org.assertj.core.api.Assertions;
 import org.bonitasoft.engine.bpm.CommonBPMServicesTest;
 import org.bonitasoft.engine.builder.BuilderFactory;
 import org.bonitasoft.engine.cache.CacheService;
@@ -51,9 +49,7 @@ import org.bonitasoft.engine.expression.model.builder.SExpressionBuilder;
 import org.bonitasoft.engine.expression.model.builder.SExpressionBuilderFactory;
 import org.bonitasoft.engine.recorder.model.EntityUpdateDescriptor;
 import org.junit.After;
-import org.junit.AfterClass;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 
 /**
@@ -72,7 +68,7 @@ public class TransientDataInstanceServiceIT extends CommonBPMServicesTest {
     protected CacheService cacheService;
 
     protected TransientDataService dataInstanceService;
-    
+
     @Before
     public void setup() {
         expressionService = getTenantAccessor().getExpressionService();
@@ -125,7 +121,8 @@ public class TransientDataInstanceServiceIT extends CommonBPMServicesTest {
     private void evaluateDefaultValueOf(final SDataDefinition dataDefinition, final SDataInstanceBuilder dataInstanceBuilder) throws SBonitaException {
         final SExpression expression = dataDefinition.getDefaultValueExpression();
         if (expression != null) {
-            dataInstanceBuilder.setValue((Serializable) expressionService.evaluate(expression, Collections.<String,Object>singletonMap("processDefinitionId",546l), EMPTY_RESOLVED_EXPRESSIONS, ContainerState.ACTIVE));
+            dataInstanceBuilder.setValue((Serializable) expressionService.evaluate(expression,
+                    Collections.<String, Object> singletonMap("processDefinitionId", 546l), EMPTY_RESOLVED_EXPRESSIONS, ContainerState.ACTIVE));
         }
     }
 
@@ -239,11 +236,11 @@ public class TransientDataInstanceServiceIT extends CommonBPMServicesTest {
     private void insertDataInstance(final SDataInstance dataInstance) throws SBonitaException {
         getTransactionService().begin();
         try {
-        // create data instance
-        dataInstanceService.createDataInstance(dataInstance);
-    } finally {
-        getTransactionService().complete();
-    }
+            // create data instance
+            dataInstanceService.createDataInstance(dataInstance);
+        } finally {
+            getTransactionService().complete();
+        }
     }
 
     private SDataInstance getDataInstance(final long dataInstanceId) throws SBonitaException {
@@ -354,8 +351,7 @@ public class TransientDataInstanceServiceIT extends CommonBPMServicesTest {
             getTransactionService().complete();
         }
         assertEquals(2, dataInstances.size());
-        assertThat("Not all data instances have been found", Arrays.asList(dataInstances.get(0), dataInstances.get(1)),
-                namesContain(instance1Name, instance2Name));
+        Assertions.assertThat(dataInstances).extracting("name").containsOnly(instance1Name, instance2Name);
     }
 
     @Test

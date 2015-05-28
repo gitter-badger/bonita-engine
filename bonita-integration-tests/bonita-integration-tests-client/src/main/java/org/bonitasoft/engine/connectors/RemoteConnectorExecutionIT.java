@@ -13,10 +13,9 @@
  **/
 package org.bonitasoft.engine.connectors;
 
-import static org.bonitasoft.engine.matchers.ListElementMatcher.nameAre;
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -27,7 +26,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.assertj.core.api.Assertions;
 import org.bonitasoft.engine.api.ProcessAPI;
 import org.bonitasoft.engine.bpm.bar.BarResource;
 import org.bonitasoft.engine.bpm.bar.BusinessArchive;
@@ -86,7 +84,6 @@ import org.bonitasoft.engine.test.BuildTestUtil;
 import org.bonitasoft.engine.test.TestStates;
 import org.bonitasoft.engine.test.annotation.Cover;
 import org.bonitasoft.engine.test.annotation.Cover.BPMNConcept;
-import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -94,9 +91,7 @@ import org.junit.rules.ExpectedException;
 @SuppressWarnings("javadoc")
 public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
 
-    @Rule
-    public ExpectedException expectedException = ExpectedException.none();
-
+    public static final String TEST_CONNECTOR_THAT_THROW_EXCEPTION_ID = "testConnectorThatThrowException";
     private static final String CONNECTOR_OUTPUT_NAME = "output1";
 
     private static final String CONNECTOR_INPUT_NAME = "input1";
@@ -106,8 +101,8 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
     private static final String FLOWNODE = "flowNode";
 
     private static final String PROCESS = "process";
-
-    public static final String TEST_CONNECTOR_THAT_THROW_EXCEPTION_ID = "testConnectorThatThrowException";
+    @Rule
+    public ExpectedException expectedException = ExpectedException.none();
 
     @Test
     public void executeConnectorWithJNDILookupAndAPICall() throws Exception {
@@ -1080,14 +1075,14 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
         SearchOptions searchOptions = getFirst100ConnectorInstanceSearchOptions(processInstance.getId(), PROCESS).done();
         SearchResult<ConnectorInstance> connectorInstances = getProcessAPI().searchConnectorInstances(searchOptions);
         assertEquals(2, connectorInstances.getCount());
-        assertThat(connectorInstances.getResult(), nameAre("onEnterConnector", "onFinishConnector"));
+        assertThat(connectorInstances.getResult()).extracting("name").containsExactly("onEnterConnector", "onFinishConnector");
 
         final SearchOptionsBuilder searchOptionsBuilder = getFirst100ConnectorInstanceSearchOptions(processInstance.getId(), PROCESS);
         searchOptionsBuilder.searchTerm("onEnter");
         searchOptions = searchOptionsBuilder.done();
         connectorInstances = getProcessAPI().searchConnectorInstances(searchOptions);
         assertEquals(1, connectorInstances.getCount());
-        assertThat(connectorInstances.getResult(), nameAre("onEnterConnector"));
+        assertThat(connectorInstances.getResult()).extracting("name").containsExactly("onEnterConnector");
 
         disableAndDeleteProcess(processDefinition);
     }
@@ -1112,7 +1107,7 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
         searchOptionsBuilder.sort(ArchiveConnectorInstancesSearchDescriptor.NAME, Order.ASC);
         SearchOptions searchOptions = searchOptionsBuilder.done();
         SearchResult<ArchivedConnectorInstance> connectorInstances = getProcessAPI().searchArchivedConnectorInstances(searchOptions);
-        assertThat(connectorInstances.getResult(), nameAre("myConnectorOnStep"));
+        assertThat(connectorInstances.getResult()).extracting("name").containsExactly("myConnectorOnStep");
 
         // finish process
         assignAndExecuteStep(step2Id, userId);
@@ -1125,14 +1120,14 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
         searchOptionsBuilder.sort(ArchiveConnectorInstancesSearchDescriptor.NAME, Order.ASC);
         searchOptions = searchOptionsBuilder.done();
         connectorInstances = getProcessAPI().searchArchivedConnectorInstances(searchOptions);
-        assertThat(connectorInstances.getResult(), nameAre("myConnectorOnProcess"));
+        assertThat(connectorInstances.getResult()).extracting("name").containsExactly("myConnectorOnProcess");
 
         // now also connector of process is archived
         searchOptionsBuilder = new SearchOptionsBuilder(0, 100);
         searchOptionsBuilder.sort(ArchiveConnectorInstancesSearchDescriptor.NAME, Order.ASC);
         searchOptions = searchOptionsBuilder.done();
         connectorInstances = getProcessAPI().searchArchivedConnectorInstances(searchOptions);
-        assertThat(connectorInstances.getResult(), nameAre("myConnectorOnProcess", "myConnectorOnStep"));
+        assertThat(connectorInstances.getResult()).extracting("name").containsExactly("myConnectorOnProcess", "myConnectorOnStep");
 
         disableAndDeleteProcess(processDefinition);
 
@@ -1372,8 +1367,8 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
         final ActivityInstance failedTask = waitForTaskToFail(processInstance);
         final SearchResult<ConnectorInstance> searchResult = getProcessAPI().searchConnectorInstances(
                 getFirst100ConnectorInstanceSearchOptions(failedTask.getId(), FLOWNODE).done());
-        Assertions.assertThat(searchResult.getCount()).isEqualTo(1);
-        Assertions.assertThat(searchResult.getResult().get(0).getState()).isEqualTo(ConnectorState.FAILED);
+        assertThat(searchResult.getCount()).isEqualTo(1);
+        assertThat(searchResult.getResult().get(0).getState()).isEqualTo(ConnectorState.FAILED);
 
         //when
         final SearchOptionsBuilder builder = new SearchOptionsBuilder(0, 10);
@@ -1383,7 +1378,7 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
         final SearchResult<ArchivedFlowNodeInstance> archivedFlowNodeInstanceSearchResult = getProcessAPI().searchArchivedFlowNodeInstances(builder.done());
 
         //then
-        Assertions.assertThat(archivedFlowNodeInstanceSearchResult.getCount()).isEqualTo(1);
+        assertThat(archivedFlowNodeInstanceSearchResult.getCount()).isEqualTo(1);
 
         disableAndDeleteProcess(processDefinition);
     }
@@ -1408,7 +1403,7 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
     }
 
     public ProcessDefinition deployAndEnableProcessWithActorAndTestConnectorThatThrowException(final ProcessDefinitionBuilder processDefinitionBuilder,
-                                                                                               final String actor, final User user) throws BonitaException, IOException {
+            final String actor, final User user) throws BonitaException, IOException {
         return deployAndEnableProcessWithActorAndConnectorAndParameter(processDefinitionBuilder, actor, user, null,
                 "TestConnectorThatThrowException.impl", TestConnectorThatThrowException.class, "TestConnectorThatThrowException.jar");
     }

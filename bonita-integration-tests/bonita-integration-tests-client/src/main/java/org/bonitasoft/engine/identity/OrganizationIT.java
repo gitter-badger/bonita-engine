@@ -14,14 +14,11 @@
 package org.bonitasoft.engine.identity;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.bonitasoft.engine.matchers.BonitaMatcher.match;
-import static org.bonitasoft.engine.matchers.ListElementMatcher.managersAre;
-import static org.bonitasoft.engine.matchers.ListElementMatcher.usernamesAre;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
@@ -465,8 +462,7 @@ public class OrganizationIT extends TestWithTechnicalUser {
 
     @Test
     public void importOrganizationWithCycle() throws Exception {
-        final InputStream xmlStream = OrganizationIT.class.getResourceAsStream("organizationWithCycle.xml");
-        try {
+        try (InputStream xmlStream = OrganizationIT.class.getResourceAsStream("organizationWithCycle.xml")) {
             final byte[] bs = IOUtils.toByteArray(xmlStream);
             final String organizationContent = new String(bs);
             getIdentityAPI().importOrganization(organizationContent);
@@ -474,12 +470,11 @@ public class OrganizationIT extends TestWithTechnicalUser {
             // clean-up
             getIdentityAPI().deleteOrganization();
             getIdentityAPI().importOrganization(organizationContent);
-        } finally {
-            xmlStream.close();
         }
 
         final List<User> users = getIdentityAPI().getUsers(0, 10, UserCriterion.USER_NAME_ASC);
-        assertThat(users, match(usernamesAre("user1", "user2", "user3")).and(managersAre(users.get(1).getId(), users.get(2).getId(), users.get(0).getId())));
+        assertThat(users).extracting("userName", "managerUserId").containsExactly(tuple("user1", users.get(1).getId()), tuple("user2", users.get(2).getId()),
+                tuple("user3", users.get(0).getId()));
         assertEquals(3, users.size());
 
         getIdentityAPI().deleteOrganization();

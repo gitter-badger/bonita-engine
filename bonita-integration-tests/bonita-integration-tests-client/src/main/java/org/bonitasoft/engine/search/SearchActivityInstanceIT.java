@@ -13,13 +13,10 @@
  **/
 package org.bonitasoft.engine.search;
 
-import static org.bonitasoft.engine.matchers.BonitaMatcher.match;
-import static org.bonitasoft.engine.matchers.ListContainsMatcher.namesContain;
-import static org.bonitasoft.engine.matchers.ListElementMatcher.nameAre;
-import static org.bonitasoft.engine.matchers.ListElementMatcher.stateAre;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.tuple;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
@@ -734,12 +731,13 @@ public class SearchActivityInstanceIT extends TestWithUser {
         builder = new SearchOptionsBuilder(0, 10);
         builder.sort(ArchivedHumanTaskInstanceSearchDescriptor.REACHED_STATE_DATE, Order.DESC);
         taskInstanceSearchResult = getProcessAPI().searchArchivedHumanTasks(builder.done());
-        assertThat(taskInstanceSearchResult.getResult(), match(stateAre("skipped", "skipped")).and(nameAre("userTask2", "userTask1")));
+        assertThat(taskInstanceSearchResult.getResult()).extracting("state", "name")
+                .containsExactly(tuple("skipped", "userTask2"), tuple("skipped", "userTask1"));
         builder = new SearchOptionsBuilder(0, 10);
         builder.sort(ArchivedHumanTaskInstanceSearchDescriptor.REACHED_STATE_DATE, Order.ASC);
         taskInstanceSearchResult = getProcessAPI().searchArchivedHumanTasks(builder.done());
-        assertThat(taskInstanceSearchResult.getResult(), match(stateAre("skipped", "skipped")).and(nameAre("userTask1", "userTask2")));
-
+        assertThat(taskInstanceSearchResult.getResult()).extracting("state", "name")
+                .containsExactly(tuple("skipped", "userTask1"), tuple("skipped", "userTask2"));
         disableAndDeleteProcess(processDefinition);
     }
 
@@ -1091,7 +1089,7 @@ public class SearchActivityInstanceIT extends TestWithUser {
         final SearchResult<HumanTaskInstance> searchHumanTaskInstances = getProcessAPI().searchHumanTaskInstances(builder.done());
         assertEquals(3, searchHumanTaskInstances.getCount());
         final List<HumanTaskInstance> tasks = searchHumanTaskInstances.getResult();
-        assertThat(tasks, nameAre("etape1", "step1", "userTask"));
+        assertThat(tasks).extracting("name").containsExactly("etape1", "step1", "userTask");
 
         disableAndDeleteProcess(processDefinition);
     }
@@ -1150,8 +1148,7 @@ public class SearchActivityInstanceIT extends TestWithUser {
 
         assertEquals(1, activityInstancesSearch.getCount());
         final ActivityInstance activityInstance2Result = activityInstancesSearch.getResult().get(0);
-        assertEquals(activityInstance2,activityInstance2Result);
-
+        assertEquals(activityInstance2, activityInstance2Result);
 
         // ********* DIFFERENT FROM operator *********
         SearchOptionsBuilder sob = new SearchOptionsBuilder(0, 10);
@@ -1176,7 +1173,6 @@ public class SearchActivityInstanceIT extends TestWithUser {
         sob.differentFrom(HumanTaskInstanceSearchDescriptor.ASSIGNEE_ID, 0);
         humanTasksSR = getProcessAPI().searchHumanTaskInstances(sob.done());
         assertEquals(2, humanTasksSR.getCount());
-
 
         disableAndDeleteProcess(processDef);
     }
@@ -1226,7 +1222,7 @@ public class SearchActivityInstanceIT extends TestWithUser {
         final SearchResult<HumanTaskInstance> searchHumanTaskInstancesWithEscapeCharacter = getProcessAPI().searchHumanTaskInstances(builder.done());
         assertEquals(3, searchHumanTaskInstancesWithEscapeCharacter.getCount());
         List<HumanTaskInstance> tasks = searchHumanTaskInstancesWithEscapeCharacter.getResult();
-        assertThat(tasks, namesContain("step#1_b", "step#1_c", "step#1a"));
+        assertThat(tasks).extracting("name").containsOnly("step#1_b", "step#1_c", "step#1a");
 
         builder = new SearchOptionsBuilder(0, 10);
         builder.sort(HumanTaskInstanceSearchDescriptor.NAME, Order.ASC);
@@ -1234,7 +1230,7 @@ public class SearchActivityInstanceIT extends TestWithUser {
         final SearchResult<HumanTaskInstance> searchHumanTaskInstancesWithUnderscoreCharacter = getProcessAPI().searchHumanTaskInstances(builder.done());
         assertEquals(2, searchHumanTaskInstancesWithUnderscoreCharacter.getCount());
         tasks = searchHumanTaskInstancesWithUnderscoreCharacter.getResult();
-        assertThat(tasks, nameAre("step#1_b", "step#1_c"));
+        assertThat(tasks).extracting("name").containsExactly("step#1_b", "step#1_c");
 
         builder = new SearchOptionsBuilder(0, 10);
         builder.sort(HumanTaskInstanceSearchDescriptor.NAME, Order.ASC);
@@ -1242,7 +1238,7 @@ public class SearchActivityInstanceIT extends TestWithUser {
         final SearchResult<HumanTaskInstance> searchHumanTaskInstancesWithPercentageCharacter = getProcessAPI().searchHumanTaskInstances(builder.done());
         assertEquals(2, searchHumanTaskInstancesWithPercentageCharacter.getCount());
         tasks = searchHumanTaskInstancesWithPercentageCharacter.getResult();
-        assertThat(tasks, nameAre("%step#2", "%step#4_a"));
+        assertThat(tasks).extracting("name").containsExactly("%step#2", "%step#4_a");
 
         disableAndDeleteProcess(processDefinition);
     }
