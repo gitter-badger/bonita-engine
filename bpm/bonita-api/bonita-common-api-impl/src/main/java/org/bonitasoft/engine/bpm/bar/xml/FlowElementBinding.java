@@ -40,29 +40,29 @@ import org.bonitasoft.engine.io.xml.ElementBinding;
  */
 public class FlowElementBinding extends ElementBinding {
 
-    private final List<ActivityDefinition> activities = new ArrayList<ActivityDefinition>();
+    private final List<ActivityDefinition> activities = new ArrayList<>();
 
-    private final List<GatewayDefinition> gateways = new ArrayList<GatewayDefinition>();
+    private final List<GatewayDefinition> gateways = new ArrayList<>();
 
-    private final List<TransitionDefinition> transitions = new ArrayList<TransitionDefinition>();
+    private final List<TransitionDefinition> transitions = new ArrayList<>();
 
-    private final List<StartEventDefinition> startEvents = new ArrayList<StartEventDefinition>();
+    private final List<StartEventDefinition> startEvents = new ArrayList<>();
 
-    private final List<IntermediateCatchEventDefinition> intermediateCatchEvents = new ArrayList<IntermediateCatchEventDefinition>();
+    private final List<IntermediateCatchEventDefinition> intermediateCatchEvents = new ArrayList<>();
 
-    private final List<EndEventDefinition> endEvents = new ArrayList<EndEventDefinition>();
+    private final List<EndEventDefinition> endEvents = new ArrayList<>();
 
-    private final List<IntermediateThrowEventDefinition> intermediateThrowEvents = new ArrayList<IntermediateThrowEventDefinition>();
+    private final List<IntermediateThrowEventDefinition> intermediateThrowEvents = new ArrayList<>();
 
-    private final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>();
+    private final List<DataDefinition> dataDefinitions = new ArrayList<>();
 
-    private final List<BusinessDataDefinition> businessDataDefinitions = new ArrayList<BusinessDataDefinition>();
+    private final List<BusinessDataDefinition> businessDataDefinitions = new ArrayList<>();
 
-    private final List<DocumentDefinition> documentDefinitions = new ArrayList<DocumentDefinition>();
+    private final List<DocumentDefinition> documentDefinitions = new ArrayList<>();
 
-    private final List<DocumentListDefinition> documentListDefinitions = new ArrayList<DocumentListDefinition>();
+    private final List<DocumentListDefinition> documentListDefinitions = new ArrayList<>();
 
-    private final List<ConnectorDefinition> connectors = new ArrayList<ConnectorDefinition>();
+    private final List<ConnectorDefinition> connectors = new ArrayList<>();
 
     @Override
     public void setChildObject(final String name, final Object value) {

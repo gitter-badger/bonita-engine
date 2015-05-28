@@ -96,7 +96,7 @@ public class ActorMappingServiceImpl implements ActorMappingService {
 
     @Override
     public Set<SActor> addActors(final Set<SActor> actors) throws SActorCreationException {
-        final Set<SActor> sActors = new HashSet<SActor>();
+        final Set<SActor> sActors = new HashSet<>();
         for (final SActor actor : actors) {
             sActors.add(addActor(actor));
         }
@@ -242,10 +242,8 @@ public class ActorMappingServiceImpl implements ActorMappingService {
                 }
                 actors = getActors(scopeId, queryOptions);
             }
-        } catch (final SBonitaReadException bre) {
+        } catch (final SBonitaReadException | SActorMemberDeletionException bre) {
             throw new SActorDeletionException(bre);
-        } catch (final SActorMemberDeletionException e) {
-            throw new SActorDeletionException(e);
         }
     }
 
@@ -323,9 +321,7 @@ public class ActorMappingServiceImpl implements ActorMappingService {
                 i += BATCH_SIZE;
             } while (groupChildren.size() == BATCH_SIZE);
             return addActorMember;
-        } catch (final SIdentityException e) {
-            throw new SActorMemberCreationException(e);
-        } catch (final SBonitaReadException e) {
+        } catch (final SIdentityException | SBonitaReadException e) {
             throw new SActorMemberCreationException(e);
         }
     }
@@ -469,7 +465,7 @@ public class ActorMappingServiceImpl implements ActorMappingService {
     }
 
     private List<Long> retrieveFirstResultsAndRemoveFromOriginalList(int howMany, List<Long> ids) {
-        List<Long> subList = new ArrayList<Long>(howMany);
+        List<Long> subList = new ArrayList<>(howMany);
         for (int i = 0; i < howMany && ids.size() > 0; i++) {
             subList.add(ids.remove(0));
         }
@@ -505,7 +501,7 @@ public class ActorMappingServiceImpl implements ActorMappingService {
     @Override
     public List<Long> getPossibleUserIdsOfActorId(final long actorId, final int startIndex, final int maxResults) throws SBonitaReadException {
         final Map<String, Object> parameters = Collections.singletonMap("actorId", (Object) actorId);
-        final SelectListDescriptor<Long> descriptor = new SelectListDescriptor<Long>("getPossibleUserIdsOfActorId", parameters, SActor.class, new QueryOptions(
+        final SelectListDescriptor<Long> descriptor = new SelectListDescriptor<>("getPossibleUserIdsOfActorId", parameters, SActor.class, new QueryOptions(
                 startIndex, maxResults));
         return persistenceService.selectList(descriptor);
     }

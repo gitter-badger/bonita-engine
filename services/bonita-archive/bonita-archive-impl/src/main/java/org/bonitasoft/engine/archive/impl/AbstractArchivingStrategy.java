@@ -29,7 +29,7 @@ public abstract class AbstractArchivingStrategy implements ArchivingStrategy {
     protected final Map<String, Boolean> archives;
 
     public AbstractArchivingStrategy() {
-        archives = new HashMap<String, Boolean>();
+        archives = new HashMap<>();
     }
 
     public AbstractArchivingStrategy(final Map<String, Boolean> archives) {

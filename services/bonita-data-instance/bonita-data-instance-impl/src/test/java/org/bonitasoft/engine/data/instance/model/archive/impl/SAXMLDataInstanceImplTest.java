@@ -32,7 +32,7 @@ public class SAXMLDataInstanceImplTest {
     @Test
     public void SAXMLDataInstanceImpl_should_return_given_value() {
         //given
-        final Serializable givenValue = new String("serializable value");
+        final Serializable givenValue = "serializable value";
         final SAXMLDataInstanceImpl sxmlObjectDataInstanceImpl = new SAXMLDataInstanceImpl(dataInstance);
 
         //when

@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.dependency.model.impl;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.bonitasoft.engine.dependency.model.SDependency;
 
@@ -118,61 +119,20 @@ public class SDependencyImpl implements SDependency {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (description == null ? 0 : description.hashCode());
-        result = prime * result + (fileName == null ? 0 : fileName.hashCode());
-        result = prime * result + (int) (id ^ id >>> 32);
-        result = prime * result + (name == null ? 0 : name.hashCode());
-        result = prime * result + (int) (tenantId ^ tenantId >>> 32);
-        result = prime * result + Arrays.hashCode(value_);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SDependencyImpl that = (SDependencyImpl) o;
+        return Objects.equals(tenantId, that.tenantId) &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(fileName, that.fileName) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(value_, that.value_);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SDependencyImpl other = (SDependencyImpl) obj;
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (fileName == null) {
-            if (other.fileName != null) {
-                return false;
-            }
-        } else if (!fileName.equals(other.fileName)) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        if (!Arrays.equals(value_, other.value_)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(tenantId, id, name, fileName, description, value_);
     }
-
 }

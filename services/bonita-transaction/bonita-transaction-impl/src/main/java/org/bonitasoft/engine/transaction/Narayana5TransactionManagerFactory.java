@@ -24,7 +24,7 @@ public class Narayana5TransactionManagerFactory {
     public Narayana5TransactionManagerFactory() throws Exception {
         final Class<?> jtaPropertyManagerClass = Class.forName("com.arjuna.ats.jta.common.jtaPropertyManager");
         final Method getJTAEnvironmentBeanMethod = jtaPropertyManagerClass.getMethod("getJTAEnvironmentBean");
-        final Object jtaEnvironmentBeanInstance = getJTAEnvironmentBeanMethod.invoke((Object) null);
+        final Object jtaEnvironmentBeanInstance = getJTAEnvironmentBeanMethod.invoke(null);
         final Class<?> jtaEnvironmentBeanClass = jtaEnvironmentBeanInstance.getClass();
 
         final Method getTransactionManagerMethod = jtaEnvironmentBeanClass.getMethod("getTransactionManager");

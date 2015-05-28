@@ -163,8 +163,8 @@ public class GetPossibleUsersOfPendingHumanTaskIT extends TestWithTechnicalUser 
     @Test
     public void getPossibleUsersOfTaskShouldReturnAllUsersInThePaginationRange() throws Exception {
         final int nbUsers = 21;
-        final List<User> users = new ArrayList<User>(nbUsers);
-        final List<Long> userMembershipIds = new ArrayList<Long>(nbUsers);
+        final List<User> users = new ArrayList<>(nbUsers);
+        final List<Long> userMembershipIds = new ArrayList<>(nbUsers);
         for (int i = 0; i < nbUsers; i++) {
             final User newUser = createUser("user_" + i, "pwd");
             users.add(newUser);

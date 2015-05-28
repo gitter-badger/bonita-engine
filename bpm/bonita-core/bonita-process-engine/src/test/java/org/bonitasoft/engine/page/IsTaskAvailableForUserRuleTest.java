@@ -57,8 +57,8 @@ public class IsTaskAvailableForUserRuleTest {
 
     @Test
     public void isAllowed_should_return_true_if_is_assignee() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
-        final Map<String, String[]> queryParameters = new HashMap<String, String[]>();
+        Map<String, Serializable> context = new HashMap<>();
+        final Map<String, String[]> queryParameters = new HashMap<>();
         queryParameters.put(URLAdapterConstants.ID_QUERY_PARAM, new String[] { Long.toString(taskInstanceId) });
         context.put(URLAdapterConstants.QUERY_PARAMETERS, (Serializable) queryParameters);
         when(humanTaskInstance.getAssigneeId()).thenReturn(userId);
@@ -69,8 +69,8 @@ public class IsTaskAvailableForUserRuleTest {
 
     @Test
     public void isAllowed_should_return_true_if_is_actor() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
-        final Map<String, String[]> queryParameters = new HashMap<String, String[]>();
+        Map<String, Serializable> context = new HashMap<>();
+        final Map<String, String[]> queryParameters = new HashMap<>();
         queryParameters.put(URLAdapterConstants.ID_QUERY_PARAM, new String[] { Long.toString(taskInstanceId) });
         context.put(URLAdapterConstants.QUERY_PARAMETERS, (Serializable) queryParameters);
         when(humanTaskInstance.getAssigneeId()).thenReturn(0L);
@@ -82,8 +82,8 @@ public class IsTaskAvailableForUserRuleTest {
 
     @Test
     public void isAllowed_should_return_false_if_is_assigneed_to_someone_else() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
-        final Map<String, String[]> queryParameters = new HashMap<String, String[]>();
+        Map<String, Serializable> context = new HashMap<>();
+        final Map<String, String[]> queryParameters = new HashMap<>();
         queryParameters.put(URLAdapterConstants.ID_QUERY_PARAM, new String[] { Long.toString(taskInstanceId) });
         context.put(URLAdapterConstants.QUERY_PARAMETERS, (Serializable) queryParameters);
         when(humanTaskInstance.getAssigneeId()).thenReturn(5L);
@@ -94,8 +94,8 @@ public class IsTaskAvailableForUserRuleTest {
 
     @Test
     public void isAllowed_should_return_false_if_is_not_actor() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
-        final Map<String, String[]> queryParameters = new HashMap<String, String[]>();
+        Map<String, Serializable> context = new HashMap<>();
+        final Map<String, String[]> queryParameters = new HashMap<>();
         queryParameters.put(URLAdapterConstants.ID_QUERY_PARAM, new String[] { Long.toString(taskInstanceId) });
         context.put(URLAdapterConstants.QUERY_PARAMETERS, (Serializable) queryParameters);
         when(humanTaskInstance.getAssigneeId()).thenReturn(0L);
@@ -107,8 +107,8 @@ public class IsTaskAvailableForUserRuleTest {
 
     @Test
     public void isAllowed_should_return_false_if_archived_task_performed_by_someone_else() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
-        final Map<String, String[]> queryParameters = new HashMap<String, String[]>();
+        Map<String, Serializable> context = new HashMap<>();
+        final Map<String, String[]> queryParameters = new HashMap<>();
         queryParameters.put(URLAdapterConstants.ID_QUERY_PARAM, new String[] { Long.toString(taskInstanceId) });
         context.put(URLAdapterConstants.QUERY_PARAMETERS, (Serializable) queryParameters);
         doThrow(SActivityInstanceNotFoundException.class).when(activityInstanceService).getHumanTaskInstance(taskInstanceId);
@@ -120,8 +120,8 @@ public class IsTaskAvailableForUserRuleTest {
 
     @Test
     public void isAllowed_should_return_true_if_archived_task_performed_by_user() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
-        final Map<String, String[]> queryParameters = new HashMap<String, String[]>();
+        Map<String, Serializable> context = new HashMap<>();
+        final Map<String, String[]> queryParameters = new HashMap<>();
         queryParameters.put(URLAdapterConstants.ID_QUERY_PARAM, new String[] { Long.toString(taskInstanceId) });
         context.put(URLAdapterConstants.QUERY_PARAMETERS, (Serializable) queryParameters);
         doThrow(SActivityInstanceNotFoundException.class).when(activityInstanceService).getHumanTaskInstance(taskInstanceId);
@@ -133,8 +133,8 @@ public class IsTaskAvailableForUserRuleTest {
 
     @Test(expected = SExecutionException.class)
     public void isAllowed_should_throw_exception_when_task_not_found() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
-        final Map<String, String[]> queryParameters = new HashMap<String, String[]>();
+        Map<String, Serializable> context = new HashMap<>();
+        final Map<String, String[]> queryParameters = new HashMap<>();
         queryParameters.put(URLAdapterConstants.ID_QUERY_PARAM, new String[] { Long.toString(taskInstanceId) });
         context.put(URLAdapterConstants.QUERY_PARAMETERS, (Serializable) queryParameters);
         doThrow(SActivityInstanceNotFoundException.class).when(activityInstanceService).getHumanTaskInstance(taskInstanceId);

@@ -28,7 +28,7 @@ public class IncrementItselfJob extends GroupJob {
 
     private static int value = 0;
 
-    private static List<Date> executionDates = new ArrayList<Date>();
+    private static List<Date> executionDates = new ArrayList<>();
 
     @Override
     public void execute() {
@@ -42,11 +42,11 @@ public class IncrementItselfJob extends GroupJob {
 
     public static void reset() {
         value = 0;
-        executionDates = new ArrayList<Date>();
+        executionDates = new ArrayList<>();
     }
 
     public static synchronized List<Date> getExecutionDates() {
-        return new ArrayList<Date>(executionDates);
+        return new ArrayList<>(executionDates);
     }
     synchronized void addToExecutionDates(Date date) {
         executionDates.add(date);

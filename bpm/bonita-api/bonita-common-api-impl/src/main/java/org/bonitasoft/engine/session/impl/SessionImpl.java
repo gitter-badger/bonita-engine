@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.session.impl;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.bonitasoft.engine.session.Session;
 
@@ -101,76 +102,26 @@ public abstract class SessionImpl implements Session {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-        result = prime * result + (int) (duration ^ (duration >>> 32));
-        result = prime * result + (int) (id ^ (id >>> 32));
-        result = prime * result + (technicalUser ? 1231 : 1237);
-        result = prime * result + (int) (userId ^ (userId >>> 32));
-        result = prime * result + ((userName == null) ? 0 : userName.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SessionImpl session = (SessionImpl) o;
+        return Objects.equals(id, session.id) &&
+                Objects.equals(duration, session.duration) &&
+                Objects.equals(userId, session.userId) &&
+                Objects.equals(technicalUser, session.technicalUser) &&
+                Objects.equals(creationDate, session.creationDate) &&
+                Objects.equals(userName, session.userName);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SessionImpl other = (SessionImpl) obj;
-        if (creationDate == null) {
-            if (other.creationDate != null) {
-                return false;
-            }
-        } else if (!creationDate.equals(other.creationDate)) {
-            return false;
-        }
-        if (duration != other.duration) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (technicalUser != other.technicalUser) {
-            return false;
-        }
-        if (userId != other.userId) {
-            return false;
-        }
-        if (userName == null) {
-            if (other.userName != null) {
-                return false;
-            }
-        } else if (!userName.equals(other.userName)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, creationDate, duration, userName, userId, technicalUser);
     }
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append("SessionImpl [id=");
-        builder.append(id);
-        builder.append(", creationDate=");
-        builder.append(creationDate);
-        builder.append(", duration=");
-        builder.append(duration);
-        builder.append(", userName=");
-        builder.append(userName);
-        builder.append(", userId=");
-        builder.append(userId);
-        builder.append(", technicalUser=");
-        builder.append(technicalUser);
-        builder.append("]");
-        return builder.toString();
+        return "SessionImpl [id=" + id + ", creationDate=" + creationDate + ", duration=" + duration + ", userName=" + userName + ", userId=" + userId + ", technicalUser=" + technicalUser + "]";
     }
 
 }

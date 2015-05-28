@@ -105,9 +105,7 @@ public class PermissionServiceImpl implements PermissionService {
         try {
             final File folder = BonitaHomeServer.getInstance().getSecurityScriptsFolder(tenantId);
             groovyClassLoader.addClasspath(folder.getAbsolutePath());
-        } catch (BonitaHomeNotSetException e) {
-            throw new SExecutionException(e);
-        } catch (IOException e) {
+        } catch (BonitaHomeNotSetException | IOException e) {
             throw new SExecutionException(e);
         }
     }

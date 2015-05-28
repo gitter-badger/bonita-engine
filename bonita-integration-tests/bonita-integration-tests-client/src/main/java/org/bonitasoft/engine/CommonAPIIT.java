@@ -62,7 +62,7 @@ public abstract class CommonAPIIT extends APITestUtil {
     private List<String> clean() throws BonitaException {
         loginOnDefaultTenantWithDefaultTechnicalUser();
 
-        final List<String> messages = new ArrayList<String>();
+        final List<String> messages = new ArrayList<>();
         messages.addAll(checkNoCommands());
         messages.addAll(checkNoFlowNodes());
         messages.addAll(checkNoArchivedFlowNodes());
@@ -98,7 +98,7 @@ public abstract class CommonAPIIT extends APITestUtil {
     }
 
     private List<BarResource> generateFilterImplementations(final String filterName) throws IOException {
-        final List<BarResource> resources = new ArrayList<BarResource>(1);
+        final List<BarResource> resources = new ArrayList<>(1);
         final InputStream inputStream = TestConnector.class.getClassLoader().getResourceAsStream("org/bonitasoft/engine/filter/user/" + filterName + ".impl");
         final byte[] data = IOUtil.getAllContentFrom(inputStream);
         inputStream.close();
@@ -107,7 +107,7 @@ public abstract class CommonAPIIT extends APITestUtil {
     }
 
     private List<BarResource> generateFilterDependencies() throws IOException {
-        final List<BarResource> resources = new ArrayList<BarResource>(1);
+        final List<BarResource> resources = new ArrayList<>(1);
         byte[] data = IOUtil.generateJar(TestFilterThatThrowException.class);
         resources.add(new BarResource("TestFilterThatThrowException.jar", data));
         data = IOUtil.generateJar(TestFilter.class);

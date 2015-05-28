@@ -281,7 +281,7 @@ public class DependencyServiceImpl implements DependencyService {
 
     private SDependency getDependencyByName(final String name) throws SDependencyNotFoundException {
         final Map<String, Object> parameters = Collections.singletonMap("name", (Object) name);
-        final SelectOneDescriptor<SDependency> desc = new SelectOneDescriptor<SDependency>("getDependencyByName", parameters, SDependency.class);
+        final SelectOneDescriptor<SDependency> desc = new SelectOneDescriptor<>("getDependencyByName", parameters, SDependency.class);
         try {
             final SDependency sDependency = persistenceService.selectOne(desc);
             if (sDependency == null) {
@@ -364,7 +364,7 @@ public class DependencyServiceImpl implements DependencyService {
         }
         NullCheckingUtil.checkArgsNotNull(ids);
         try {
-            final SelectListDescriptor<SDependency> desc = new SelectListDescriptor<SDependency>("getDependenciesByIds", CollectionUtil.buildSimpleMap("ids",
+            final SelectListDescriptor<SDependency> desc = new SelectListDescriptor<>("getDependenciesByIds", CollectionUtil.buildSimpleMap("ids",
                     ids), SDependency.class, QueryOptions.countQueryOptions());
             final List<SDependency> listSDependency = persistenceService.selectList(desc);
             if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
@@ -386,7 +386,7 @@ public class DependencyServiceImpl implements DependencyService {
         }
         NullCheckingUtil.checkArgsNotNull(id);
         try {
-            final SelectByIdDescriptor<SDependency> desc = new SelectByIdDescriptor<SDependency>("getDependencyById", SDependency.class, id);
+            final SelectByIdDescriptor<SDependency> desc = new SelectByIdDescriptor<>("getDependencyById", SDependency.class, id);
             final SDependency sDependency = persistenceService.selectById(desc);
             if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
                 logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogAfterMethod(this.getClass(), "getDependency"));
@@ -412,10 +412,10 @@ public class DependencyServiceImpl implements DependencyService {
         NullCheckingUtil.checkArgsNotNull(artifactId, artifactType, startIndex, maxResult);
         final QueryOptions queryOptions = new QueryOptions(startIndex, maxResult);
         try {
-            final Map<String, Object> parameters = new HashMap<String, Object>();
+            final Map<String, Object> parameters = new HashMap<>();
             parameters.put("artifactId", artifactId);
             parameters.put("artifactType", artifactType);
-            final SelectListDescriptor<Long> desc = new SelectListDescriptor<Long>("getDependencyIds", parameters, SDependencyMapping.class, Long.class,
+            final SelectListDescriptor<Long> desc = new SelectListDescriptor<>("getDependencyIds", parameters, SDependencyMapping.class, Long.class,
                     queryOptions);
             final List<Long> listIds = persistenceService.selectList(desc);
             if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
@@ -437,7 +437,7 @@ public class DependencyServiceImpl implements DependencyService {
         }
         NullCheckingUtil.checkArgsNotNull(id);
         try {
-            final SelectByIdDescriptor<SDependencyMapping> desc = new SelectByIdDescriptor<SDependencyMapping>("getDependencyMapping",
+            final SelectByIdDescriptor<SDependencyMapping> desc = new SelectByIdDescriptor<>("getDependencyMapping",
                     SDependencyMapping.class, id);
             final SDependencyMapping sDependencyMapping = persistenceService.selectById(desc);
             if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
@@ -483,9 +483,9 @@ public class DependencyServiceImpl implements DependencyService {
         }
         NullCheckingUtil.checkArgsNotNull(dependencyId, queryOptions);
         try {
-            final Map<String, Object> parameters = new HashMap<String, Object>();
+            final Map<String, Object> parameters = new HashMap<>();
             parameters.put("dependencyId", dependencyId);
-            final SelectListDescriptor<SDependencyMapping> desc = new SelectListDescriptor<SDependencyMapping>("getDependencyMappingsByDependency", parameters,
+            final SelectListDescriptor<SDependencyMapping> desc = new SelectListDescriptor<>("getDependencyMappingsByDependency", parameters,
                     SDependencyMapping.class, queryOptions);
             final List<SDependencyMapping> listSDependencyMapping = persistenceService.selectList(desc);
             if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
@@ -594,7 +594,7 @@ public class DependencyServiceImpl implements DependencyService {
         }
         QueryOptions loopQueryOptions = new QueryOptions(0, 100, SDependencyMapping.class, "id", OrderByType.ASC);
         List<SDependencyMapping> dependencyMappings;
-        final List<SDependencyMapping> result = new ArrayList<SDependencyMapping>();
+        final List<SDependencyMapping> result = new ArrayList<>();
         do {
             dependencyMappings = getDependencyMappings(loopQueryOptions);
             for (final SDependencyMapping dependencyMapping : dependencyMappings) {
@@ -619,7 +619,7 @@ public class DependencyServiceImpl implements DependencyService {
         }
 
         List<SDependencyMapping> dependencyMappings;
-        final List<SDependencyMapping> result = new ArrayList<SDependencyMapping>();
+        final List<SDependencyMapping> result = new ArrayList<>();
         int numberOfResultsFound = 0;
         final int startIndex = queryOptions.getFromIndex();
         final int numberOfResults = queryOptions.getNumberOfResults();
@@ -684,7 +684,7 @@ public class DependencyServiceImpl implements DependencyService {
     }
 
     private Map<String, byte[]> getDependenciesResources(final ScopeType type, final long id) throws SDependencyException {
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>();
+        final Map<String, byte[]> resources = new HashMap<>();
         int fromIndex = 0;
         List<Long> dependencyIds = null;
         do {
@@ -762,7 +762,7 @@ public class DependencyServiceImpl implements DependencyService {
     }
 
     private Map<String, SDependency> getMapOfNames(final List<SDependency> dependencies) {
-        final HashMap<String, SDependency> hashMap = new HashMap<String, SDependency>(dependencies.size());
+        final HashMap<String, SDependency> hashMap = new HashMap<>(dependencies.size());
         for (final SDependency sDependency : dependencies) {
             hashMap.put(sDependency.getName(), sDependency);
         }

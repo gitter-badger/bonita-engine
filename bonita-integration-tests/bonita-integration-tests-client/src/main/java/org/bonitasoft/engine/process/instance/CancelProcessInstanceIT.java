@@ -117,7 +117,7 @@ public class CancelProcessInstanceIT extends AbstractProcessInstanceIT {
         final SearchOptionsBuilder searchOptionsBuilder = new SearchOptionsBuilder(0, 10);
         searchOptionsBuilder.filter(WaitingEventSearchDescriptor.FLOW_NODE_NAME, catchMessageEvent);
 
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>(1);
+        final Map<String, Serializable> parameters = new HashMap<>(1);
         parameters.put(SEARCH_OPTIONS_KEY, searchOptionsBuilder.done());
 
         SearchResult<WaitingEvent> searchResult = (SearchResult<WaitingEvent>) getCommandAPI().execute(SEARCH_WAITING_EVENTS_COMMAND, parameters);
@@ -148,7 +148,7 @@ public class CancelProcessInstanceIT extends AbstractProcessInstanceIT {
         final SearchOptionsBuilder searchOptionsBuilder = new SearchOptionsBuilder(0, 10);
         searchOptionsBuilder.filter(WaitingEventSearchDescriptor.FLOW_NODE_NAME, catchMessageEvent);
 
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>(1);
+        final Map<String, Serializable> parameters = new HashMap<>(1);
         parameters.put(SEARCH_OPTIONS_KEY, searchOptionsBuilder.done());
 
         SearchResult<WaitingEvent> searchResult = (SearchResult<WaitingEvent>) getCommandAPI().execute(SEARCH_WAITING_EVENTS_COMMAND, parameters);

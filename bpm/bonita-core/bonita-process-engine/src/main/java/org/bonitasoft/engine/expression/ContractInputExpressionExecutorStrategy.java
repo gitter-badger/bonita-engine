@@ -51,10 +51,8 @@ public class ContractInputExpressionExecutorStrategy implements ExpressionExecut
             else {
                 return contractDataService.getUserTaskDataValue(containerId, expression.getContent());
             }
-        } catch (final SContractDataNotFoundException scdnfe) {
+        } catch (final SContractDataNotFoundException | SBonitaReadException scdnfe) {
             throw new SExpressionEvaluationException(scdnfe, expression.getName());
-        } catch (final SBonitaReadException sre) {
-            throw new SExpressionEvaluationException(sre, expression.getName());
         }
     }
 
@@ -71,7 +69,7 @@ public class ContractInputExpressionExecutorStrategy implements ExpressionExecut
     @Override
     public List<Object> evaluate(final List<SExpression> expressions, final Map<String, Object> context, final Map<Integer, Object> resolvedExpressions,
             final ContainerState containerState) throws SExpressionEvaluationException, SExpressionDependencyMissingException {
-        final List<Object> results = new ArrayList<Object>();
+        final List<Object> results = new ArrayList<>();
         for (final SExpression expression : expressions) {
             results.add(evaluate(expression, context, resolvedExpressions, containerState));
         }

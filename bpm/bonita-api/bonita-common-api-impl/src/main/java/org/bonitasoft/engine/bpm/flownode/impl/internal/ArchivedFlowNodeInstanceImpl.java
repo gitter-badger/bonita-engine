@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.bpm.flownode.impl.internal;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.bonitasoft.engine.bpm.flownode.ArchivedFlowNodeInstance;
 import org.bonitasoft.engine.bpm.internal.NamedElementImpl;
@@ -207,104 +208,6 @@ public abstract class ArchivedFlowNodeInstanceImpl extends NamedElementImpl impl
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (archiveDate == null ? 0 : archiveDate.hashCode());
-        result = prime * result + (description == null ? 0 : description.hashCode());
-        result = prime * result + (displayDescription == null ? 0 : displayDescription.hashCode());
-        result = prime * result + (displayName == null ? 0 : displayName.hashCode());
-        result = prime * result + (int) (executedBy ^ executedBy >>> 32);
-        result = prime * result + (int) (executedBySubstitute ^ executedBySubstitute >>> 32);
-        result = prime * result + (int) (flownodeDefinitionId ^ flownodeDefinitionId >>> 32);
-        result = prime * result + (int) (parentContainerId ^ parentContainerId >>> 32);
-        result = prime * result + (int) (processDefinitionId ^ processDefinitionId >>> 32);
-        result = prime * result + (int) (processInstanceId ^ processInstanceId >>> 32);
-        result = prime * result + (int) (rootContainerId ^ rootContainerId >>> 32);
-        result = prime * result + (int) (sourceObjectId ^ sourceObjectId >>> 32);
-        result = prime * result + (state == null ? 0 : state.hashCode());
-        result = prime * result + (terminal ? 1231 : 1237);
-        return result;
-    }
-
-    @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ArchivedFlowNodeInstanceImpl other = (ArchivedFlowNodeInstanceImpl) obj;
-        if (archiveDate == null) {
-            if (other.archiveDate != null) {
-                return false;
-            }
-        } else if (!archiveDate.equals(other.archiveDate)) {
-            return false;
-        }
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (displayDescription == null) {
-            if (other.displayDescription != null) {
-                return false;
-            }
-        } else if (!displayDescription.equals(other.displayDescription)) {
-            return false;
-        }
-        if (displayName == null) {
-            if (other.displayName != null) {
-                return false;
-            }
-        } else if (!displayName.equals(other.displayName)) {
-            return false;
-        }
-        if (executedBy != other.executedBy) {
-            return false;
-        }
-        if (executedBySubstitute != other.executedBySubstitute) {
-            return false;
-        }
-        if (flownodeDefinitionId != other.flownodeDefinitionId) {
-            return false;
-        }
-        if (parentContainerId != other.parentContainerId) {
-            return false;
-        }
-        if (processDefinitionId != other.processDefinitionId) {
-            return false;
-        }
-        if (processInstanceId != other.processInstanceId) {
-            return false;
-        }
-        if (rootContainerId != other.rootContainerId) {
-            return false;
-        }
-        if (sourceObjectId != other.sourceObjectId) {
-            return false;
-        }
-        if (state == null) {
-            if (other.state != null) {
-                return false;
-            }
-        } else if (!state.equals(other.state)) {
-            return false;
-        }
-        if (terminal != other.terminal) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
     public String toString() {
         return "ArchivedFlowNodeInstanceImpl [parentContainerId=" + parentContainerId + ", archiveDate=" + archiveDate + ", state=" + state
                 + ", rootContainerId=" + rootContainerId + ", processDefinitionId=" + processDefinitionId + ", processInstanceId=" + processInstanceId
@@ -313,4 +216,31 @@ public abstract class ArchivedFlowNodeInstanceImpl extends NamedElementImpl impl
                 + getName() + ", getId()=" + getId() + "]";
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ArchivedFlowNodeInstanceImpl that = (ArchivedFlowNodeInstanceImpl) o;
+        return Objects.equals(parentContainerId, that.parentContainerId) &&
+                Objects.equals(rootContainerId, that.rootContainerId) &&
+                Objects.equals(processDefinitionId, that.processDefinitionId) &&
+                Objects.equals(processInstanceId, that.processInstanceId) &&
+                Objects.equals(parentActivityInstanceId, that.parentActivityInstanceId) &&
+                Objects.equals(sourceObjectId, that.sourceObjectId) &&
+                Objects.equals(executedBy, that.executedBy) &&
+                Objects.equals(executedBySubstitute, that.executedBySubstitute) &&
+                Objects.equals(flownodeDefinitionId, that.flownodeDefinitionId) &&
+                Objects.equals(terminal, that.terminal) &&
+                Objects.equals(archiveDate, that.archiveDate) &&
+                Objects.equals(state, that.state) &&
+                Objects.equals(displayName, that.displayName) &&
+                Objects.equals(displayDescription, that.displayDescription) &&
+                Objects.equals(description, that.description);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), parentContainerId, archiveDate, state, rootContainerId, processDefinitionId, processInstanceId, parentActivityInstanceId, displayName, displayDescription, sourceObjectId, description, executedBy, executedBySubstitute, flownodeDefinitionId, terminal);
+    }
 }

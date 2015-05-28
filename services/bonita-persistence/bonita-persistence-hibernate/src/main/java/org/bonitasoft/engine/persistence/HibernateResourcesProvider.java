@@ -24,12 +24,12 @@ import java.util.Set;
  */
 public class HibernateResourcesProvider {
 
-    private Set<String> resources = new HashSet<String>();
+    private Set<String> resources = new HashSet<>();
 
-    private Map<? extends String, ? extends String> classAliasMappings = new HashMap<String, String>();
+    private Map<? extends String, ? extends String> classAliasMappings = new HashMap<>();
 
     public void setResources(final Set<String> resources) {
-        final Set<String> hashSet = new HashSet<String>(resources.size());
+        final Set<String> hashSet = new HashSet<>(resources.size());
         for (final String resource : resources) {
             hashSet.add(resource.trim());
         }

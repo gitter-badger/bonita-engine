@@ -58,8 +58,7 @@ public class SpringBeanIT {
     private void findAllBeansOfDocument(final Document document) throws Exception {
         final List<Element> list = document.getRootElement().elements("bean");
 
-        for (final Iterator<Element> iter = list.iterator(); iter.hasNext();) {
-            final Element attribute = iter.next();
+        for (final Element attribute : list) {
             final String id = attribute.attributeValue("id");
             final String clazz = attribute.attributeValue("class");
 

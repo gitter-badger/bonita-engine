@@ -77,7 +77,7 @@ public class DocumentListReferenceExpressionExecutorStrategy extends NonEmptyCon
         try {
             final Long time = (Long) context.get("time");
             final long processInstanceId = getProcessInstance(containerId, containerType, time != null);
-            final ArrayList<Object> results = new ArrayList<Object>(expressions.size());
+            final ArrayList<Object> results = new ArrayList<>(expressions.size());
             for (final SExpression expression : expressions) {
                 results.add(getDocumentList(processInstanceId, expression.getContent(), time));
             }
@@ -108,7 +108,7 @@ public class DocumentListReferenceExpressionExecutorStrategy extends NonEmptyCon
         }
         QueryOptions queryOptions = new QueryOptions(0, 100);
         List<SMappedDocument> mappedDocuments;
-        final List<SMappedDocument> result = new ArrayList<SMappedDocument>();
+        final List<SMappedDocument> result = new ArrayList<>();
         do {
             mappedDocuments = documentService.getDocumentList(name, processInstanceId, queryOptions.getFromIndex(), queryOptions.getNumberOfResults());
             result.addAll(mappedDocuments);

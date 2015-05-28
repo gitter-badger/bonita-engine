@@ -35,7 +35,7 @@ public class SearchArchivedDocumentDescriptor extends SearchEntityDescriptor {
     private final Map<Class<? extends PersistentObject>, Set<String>> documentAllFields;
 
     SearchArchivedDocumentDescriptor() {
-        searchEntityKeys = new HashMap<String, FieldDescriptor>(11);
+        searchEntityKeys = new HashMap<>(11);
         final SADocumentMappingBuilderFactory fact = BuilderFactory.get(SADocumentMappingBuilderFactory.class);
         searchEntityKeys.put(ArchivedDocumentsSearchDescriptor.ARCHIVE_DATE,
                 new FieldDescriptor(SAMappedDocument.class, fact.getArchiveDateKey()));
@@ -63,8 +63,8 @@ public class SearchArchivedDocumentDescriptor extends SearchEntityDescriptor {
         searchEntityKeys.put(ArchivedDocumentsSearchDescriptor.SOURCEOBJECT_ID,
                 new FieldDescriptor(SAMappedDocument.class, fact.getSourceObjectIdKey()));
 
-        documentAllFields = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
-        final Set<String> documentFields = new HashSet<String>(7);
+        documentAllFields = new HashMap<>(1);
+        final Set<String> documentFields = new HashSet<>(7);
         documentFields.add(fact.getNameKey());
         documentFields.add(fact.getDescriptionKey());
         documentFields.add("document." + fact.getFileNameKey());

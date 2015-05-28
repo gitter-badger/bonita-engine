@@ -35,30 +35,30 @@ import org.bonitasoft.engine.supervisor.mapping.model.SProcessSupervisorBuilderF
 public class SelectDescriptorBuilder {
 
     public static SelectByIdDescriptor<SProcessSupervisor> getSupervisor(final long supervisorId) {
-        return new SelectByIdDescriptor<SProcessSupervisor>("getSupervisorById", SProcessSupervisor.class, supervisorId);
+        return new SelectByIdDescriptor<>("getSupervisorById", SProcessSupervisor.class, supervisorId);
     }
 
     public static SelectOneDescriptor<Long> getNumberOfSupervisors(final long processDefId) {
         final Map<String, Object> parameters = Collections.singletonMap("processDefId", (Object) processDefId);
-        return new SelectOneDescriptor<Long>("getNumberOfSupervisorsOfProcessDef", parameters, SProcessSupervisor.class);
+        return new SelectOneDescriptor<>("getNumberOfSupervisorsOfProcessDef", parameters, SProcessSupervisor.class);
     }
 
     public static SelectOneDescriptor<SProcessSupervisor> getSupervisor(final long processDefId, final long userId) {
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("processDefId", processDefId);
         parameters.put("userId", userId);
-        return new SelectOneDescriptor<SProcessSupervisor>("getSupervisor", parameters, SProcessSupervisor.class);
+        return new SelectOneDescriptor<>("getSupervisor", parameters, SProcessSupervisor.class);
     }
 
     public static SelectListDescriptor<Long> getProcessDefIdsOfUser(final long userId, final int fromIndex, final int maxResult, final OrderByType orderByType) {
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("userId", userId);
 
         final OrderByOption orderByOption = new OrderByOption(SProcessSupervisor.class, BuilderFactory.get(SProcessSupervisorBuilderFactory.class).getProcessDefIdKey(),
                 orderByType);
         final QueryOptions queryOptions = new QueryOptions(fromIndex, maxResult, Collections.singletonList(orderByOption));
 
-        return new SelectListDescriptor<Long>("getProcessDefIdsOfUser", parameters, SProcessSupervisor.class, queryOptions);
+        return new SelectListDescriptor<>("getProcessDefIdsOfUser", parameters, SProcessSupervisor.class, queryOptions);
     }
 
 }

@@ -39,7 +39,7 @@ public class BusinessArchive implements Serializable {
 
     private Map<String, String> parameters;
 
-    private final Map<String, byte[]> resources = new HashMap<String, byte[]>();
+    private final Map<String, byte[]> resources = new HashMap<>();
 
     private FormMappingModel formMappingModel = new FormMappingModel();
 
@@ -76,7 +76,7 @@ public class BusinessArchive implements Serializable {
      */
     public Map<String, String> getParameters() {
         if (parameters == null) {
-            parameters = new HashMap<String, String>();
+            parameters = new HashMap<>();
         }
         return parameters;
     }

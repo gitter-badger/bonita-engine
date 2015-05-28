@@ -48,7 +48,7 @@ public class CheckConnectorImplementations implements TransactionContent {
 
     @Override
     public void execute() {
-        problems = new ArrayList<Problem>();
+        problems = new ArrayList<>();
         final List<SConnectorDefinition> processConnectors = sDefinition.getProcessContainer().getConnectors();
         if (processConnectors != null) {
             for (final SConnectorDefinition sConnectorDefinition : processConnectors) {

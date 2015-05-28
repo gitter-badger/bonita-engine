@@ -90,7 +90,7 @@ public class DependencyServiceTest extends CommonBPMServicesTest {
 
         dependencyService.deleteAllDependencies();
 
-        List<Long> ids = new ArrayList<Long>();
+        List<Long> ids = new ArrayList<>();
         ids.add(dependency.getId());
         assertEquals(0, dependencyService.getDependencies(ids).size());
 

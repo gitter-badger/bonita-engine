@@ -39,7 +39,7 @@ public class SearchProcessDefinitionsDescriptor extends SearchEntityDescriptor {
 
     public SearchProcessDefinitionsDescriptor() {
         final SProcessDefinitionDeployInfoBuilderFactory definitionDeployInfo = BuilderFactory.get(SProcessDefinitionDeployInfoBuilderFactory.class);
-        searchEntityKeys = new HashMap<String, FieldDescriptor>(12);
+        searchEntityKeys = new HashMap<>(12);
         searchEntityKeys.put(ProcessDeploymentInfoSearchDescriptor.ACTIVATION_STATE, new FieldDescriptor(SProcessDefinitionDeployInfo.class,
                 definitionDeployInfo.getActivationStateKey()));
         searchEntityKeys.put(ProcessDeploymentInfoSearchDescriptor.CONFIGURATION_STATE, new FieldDescriptor(SProcessDefinitionDeployInfo.class,
@@ -74,8 +74,8 @@ public class SearchProcessDefinitionsDescriptor extends SearchEntityDescriptor {
         searchEntityKeys.put(ProcessDeploymentInfoSearchDescriptor.CATEGORY_ID, new FieldDescriptor(SProcessCategoryMapping.class,
                 processCategoryMappingBuilderFactory.getCategoryIdKey()));
 
-        processDefDeployInfos = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
-        final Set<String> processFields = new HashSet<String>(3);
+        processDefDeployInfos = new HashMap<>(1);
+        final Set<String> processFields = new HashSet<>(3);
         processFields.add(definitionDeployInfo.getNameKey());
         processFields.add(definitionDeployInfo.getDisplayNameKey());
         processFields.add(definitionDeployInfo.getVersionKey());

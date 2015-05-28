@@ -27,7 +27,7 @@ public class GroupsBinding extends ElementBinding {
     private final List<String> groups;
 
     public GroupsBinding() {
-        groups = new ArrayList<String>();
+        groups = new ArrayList<>();
     }
 
     @Override

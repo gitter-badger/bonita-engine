@@ -57,7 +57,7 @@ public class JDTCompiler {
     }
 
     private String[] buildCommandLineArguments(final Collection<File> files, final File outputdirectory) {
-        final List<String> arguments = new ArrayList<String>();
+        final List<String> arguments = new ArrayList<>();
         arguments.add(COMPILER_COMPLIANCE_LEVEL);
         arguments.addAll(outputDirectoryArguments(outputdirectory));
         arguments.addAll(filesToBeCompiledArguments(files));
@@ -66,7 +66,7 @@ public class JDTCompiler {
 
 
     private List<String> filesToBeCompiledArguments(final Collection<File> files) {
-        final List<String> arguments = new ArrayList<String>(files.size());
+        final List<String> arguments = new ArrayList<>(files.size());
         for (final File file : files) {
             arguments.add(file.getAbsolutePath());
         }
@@ -86,13 +86,11 @@ public class JDTCompiler {
         outWriter.close();
 
         final ByteArrayOutputStream errorStream = new ByteArrayOutputStream();
-        final PrintWriter errorWriter = new PrintWriter(errorStream);
-        try {
+        try (PrintWriter errorWriter = new PrintWriter(errorStream)) {
             doCompilation(commandLine, outWriter, errorStream, errorWriter);
-        } finally {
-            // no need to close OutputStream, printWriter is doing it for us
-            errorWriter.close();
         }
+        // no need to close OutputStream, printWriter is doing it for us
+
     }
 
     private void doCompilation(final String[] commandLine, final PrintWriter outWriter, final ByteArrayOutputStream errorStream, final PrintWriter errorWriter)

@@ -50,7 +50,7 @@ public class ServerLazyLoaderTest {
         }
 
         public List<Addresses> getAddresses() {
-            return new ArrayList<Addresses>();
+            return new ArrayList<>();
         }
 
         public String getName() {
@@ -87,7 +87,7 @@ public class ServerLazyLoaderTest {
 
         final String queryName = "Addresses.findAddressesByEmployeePersistenceId";
         final Class<? extends Serializable> resultClass = Addresses.class;
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("persistenceId", persistenceId);
         final int startIndex = 0;
         final int maxResults = Integer.MAX_VALUE;
@@ -103,7 +103,7 @@ public class ServerLazyLoaderTest {
         //given
         final String queryName = "String.findNameByEmployeePersistenceId";
         final Class<? extends Serializable> resultClass = String.class;
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("persistenceId", persistenceId);
         final int startIndex = 0;
         final int maxResults = Integer.MAX_VALUE;
@@ -122,7 +122,7 @@ public class ServerLazyLoaderTest {
     public void should_load_single_object_throw_exception() throws Exception {
         final String queryName = "String.findNameByEmployeePersistenceId";
         final Class<? extends Serializable> resultClass = String.class;
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("persistenceId", persistenceId);
         final Method method = employee.getClass().getMethod("getName");
 

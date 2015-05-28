@@ -74,7 +74,7 @@ public class EJB3ServerAPI implements ServerAPI {
             serverAPIBeanName = SERVER_API_BEAN_NAME_JBOSS7;
         }
         try {
-            remoteServAPI = lookup(serverAPIBeanName, new Hashtable<String, String>(
+            remoteServAPI = lookup(serverAPIBeanName, new Hashtable<>(
                     parameters));
         } catch (final NamingException e) {
             throw new ServerAPIException("[" + serverAPIBeanName + "] Reference To Server API does not exists. Edit bonita-client.properties#"

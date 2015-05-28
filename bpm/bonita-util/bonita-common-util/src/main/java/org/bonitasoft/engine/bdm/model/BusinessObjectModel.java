@@ -42,7 +42,7 @@ public class BusinessObjectModel {
     private List<BusinessObject> businessObjects;
 
     public BusinessObjectModel() {
-        businessObjects = new ArrayList<BusinessObject>();
+        businessObjects = new ArrayList<>();
     }
 
     public List<BusinessObject> getBusinessObjects() {
@@ -58,7 +58,7 @@ public class BusinessObjectModel {
     }
 
     public Set<String> getBusinessObjectsClassNames() {
-        HashSet<String> set = new HashSet<String>();
+        HashSet<String> set = new HashSet<>();
         for (BusinessObject o : businessObjects) {
             set.add(o.getQualifiedName());
         }
@@ -66,7 +66,7 @@ public class BusinessObjectModel {
     }
 
     public List<BusinessObject> getReferencedBusinessObjectsByComposition() {
-        List<BusinessObject> refs = new ArrayList<BusinessObject>();
+        List<BusinessObject> refs = new ArrayList<>();
         for (BusinessObject bo : businessObjects) {
             refs.addAll(bo.getReferencedBusinessObjectsByComposition());
         }
@@ -74,7 +74,7 @@ public class BusinessObjectModel {
     }
 
     public List<UniqueConstraint> getUniqueConstraints() {
-        List<UniqueConstraint> constraints = new ArrayList<UniqueConstraint>();
+        List<UniqueConstraint> constraints = new ArrayList<>();
         for (BusinessObject bo : businessObjects) {
             constraints.addAll(bo.getUniqueConstraints());
         }
@@ -82,7 +82,7 @@ public class BusinessObjectModel {
     }
 
     public List<Index> getIndexes() {
-        List<Index> indexes = new ArrayList<Index>();
+        List<Index> indexes = new ArrayList<>();
         for (BusinessObject bo : businessObjects) {
             indexes.addAll(bo.getIndexes());
         }

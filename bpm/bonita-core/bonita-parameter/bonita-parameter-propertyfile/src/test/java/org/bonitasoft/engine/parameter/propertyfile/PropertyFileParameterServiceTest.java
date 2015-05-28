@@ -127,7 +127,7 @@ public class PropertyFileParameterServiceTest {
 
     @Test
     public void addAll() throws Exception {
-        final Map<String, String> parameters = new HashMap<String, String>(3);
+        final Map<String, String> parameters = new HashMap<>(3);
         parameters.put("param1", "value1");
         parameters.put("param2", "value2");
         parameters.put("param3", "value3");
@@ -212,7 +212,7 @@ public class PropertyFileParameterServiceTest {
 
     @Test
     public void getParameters() throws Exception {
-        final Map<String, String> map = new HashMap<String, String>(3);
+        final Map<String, String> map = new HashMap<>(3);
         map.put("c", "value3");
         map.put("a", "value1");
         map.put("b", "value2");
@@ -228,7 +228,7 @@ public class PropertyFileParameterServiceTest {
 
     @Test
     public void getParametersOrdered() throws Exception {
-        final Map<String, String> map = new HashMap<String, String>(3);
+        final Map<String, String> map = new HashMap<>(3);
         map.put("c", "value3");
         map.put("a", "value1");
         map.put("b", "value2");
@@ -244,7 +244,7 @@ public class PropertyFileParameterServiceTest {
 
     @Test
     public void getParametersPaginated() throws Exception {
-        final Map<String, String> map = new HashMap<String, String>(3);
+        final Map<String, String> map = new HashMap<>(3);
         map.put("a", "value1");
         map.put("b", "value2");
         map.put("c", "value3");
@@ -261,7 +261,7 @@ public class PropertyFileParameterServiceTest {
 
     @Test
     public void getParametersPaginatedOutOfBound() throws Exception {
-        final Map<String, String> map = new HashMap<String, String>(3);
+        final Map<String, String> map = new HashMap<>(3);
         map.put("a", "value1");
         map.put("b", "value2");
         propertyFileParameterService.addAll(P_ID, map);
@@ -273,7 +273,7 @@ public class PropertyFileParameterServiceTest {
 
     @Test
     public void getNullValues() throws Exception {
-        final Map<String, String> map = new HashMap<String, String>(3);
+        final Map<String, String> map = new HashMap<>(3);
         map.put("nullParam", null);
         map.put("emptyParam", "");
         map.put("notEmptyParam", "value");

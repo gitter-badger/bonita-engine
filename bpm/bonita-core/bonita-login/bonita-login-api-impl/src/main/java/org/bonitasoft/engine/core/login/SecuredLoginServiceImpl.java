@@ -73,7 +73,7 @@ public class SecuredLoginServiceImpl implements LoginService {
     @Override
     @Deprecated
     public SSession login(final long tenantId, final String userName, final String password) throws SLoginException {
-        final Map<String, Serializable> credentials = new HashMap<String, Serializable>();
+        final Map<String, Serializable> credentials = new HashMap<>();
         credentials.put(AuthenticationConstants.BASIC_TENANT_ID, String.valueOf(tenantId));
         credentials.put(AuthenticationConstants.BASIC_PASSWORD, password);
         credentials.put(AuthenticationConstants.BASIC_USERNAME, userName);
@@ -224,9 +224,7 @@ public class SecuredLoginServiceImpl implements LoginService {
             final String userName = (String) properties.get("userName");
             final String password = (String) properties.get("userPassword");
             return new TechnicalUser(userName, password);
-        } catch (final BonitaHomeNotSetException e) {
-            throw new SLoginException(e);
-        } catch (final IOException e) {
+        } catch (final BonitaHomeNotSetException | IOException e) {
             throw new SLoginException(e);
         }
     }

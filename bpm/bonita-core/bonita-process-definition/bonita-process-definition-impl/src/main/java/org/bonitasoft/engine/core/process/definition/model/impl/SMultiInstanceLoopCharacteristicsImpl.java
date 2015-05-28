@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.core.process.definition.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.bpm.flownode.MultiInstanceLoopCharacteristics;
 import org.bonitasoft.engine.core.process.definition.model.SMultiInstanceLoopCharacteristics;
 import org.bonitasoft.engine.core.process.definition.model.builder.ServerModelConvertor;
@@ -85,77 +87,22 @@ public class SMultiInstanceLoopCharacteristicsImpl implements SMultiInstanceLoop
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (completionCondition == null ? 0 : completionCondition.hashCode());
-        result = prime * result + (dataInputItemRef == null ? 0 : dataInputItemRef.hashCode());
-        result = prime * result + (dataOutputItemRef == null ? 0 : dataOutputItemRef.hashCode());
-        result = prime * result + (isSequential ? 1231 : 1237);
-        result = prime * result + (loopCardinality == null ? 0 : loopCardinality.hashCode());
-        result = prime * result + (loopDataInputRef == null ? 0 : loopDataInputRef.hashCode());
-        result = prime * result + (loopDataOutputRef == null ? 0 : loopDataOutputRef.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SMultiInstanceLoopCharacteristicsImpl that = (SMultiInstanceLoopCharacteristicsImpl) o;
+        return Objects.equals(isSequential, that.isSequential) &&
+                Objects.equals(loopCardinality, that.loopCardinality) &&
+                Objects.equals(completionCondition, that.completionCondition) &&
+                Objects.equals(loopDataInputRef, that.loopDataInputRef) &&
+                Objects.equals(loopDataOutputRef, that.loopDataOutputRef) &&
+                Objects.equals(dataInputItemRef, that.dataInputItemRef) &&
+                Objects.equals(dataOutputItemRef, that.dataOutputItemRef);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SMultiInstanceLoopCharacteristicsImpl other = (SMultiInstanceLoopCharacteristicsImpl) obj;
-        if (completionCondition == null) {
-            if (other.completionCondition != null) {
-                return false;
-            }
-        } else if (!completionCondition.equals(other.completionCondition)) {
-            return false;
-        }
-        if (dataInputItemRef == null) {
-            if (other.dataInputItemRef != null) {
-                return false;
-            }
-        } else if (!dataInputItemRef.equals(other.dataInputItemRef)) {
-            return false;
-        }
-        if (dataOutputItemRef == null) {
-            if (other.dataOutputItemRef != null) {
-                return false;
-            }
-        } else if (!dataOutputItemRef.equals(other.dataOutputItemRef)) {
-            return false;
-        }
-        if (isSequential != other.isSequential) {
-            return false;
-        }
-        if (loopCardinality == null) {
-            if (other.loopCardinality != null) {
-                return false;
-            }
-        } else if (!loopCardinality.equals(other.loopCardinality)) {
-            return false;
-        }
-        if (loopDataInputRef == null) {
-            if (other.loopDataInputRef != null) {
-                return false;
-            }
-        } else if (!loopDataInputRef.equals(other.loopDataInputRef)) {
-            return false;
-        }
-        if (loopDataOutputRef == null) {
-            if (other.loopDataOutputRef != null) {
-                return false;
-            }
-        } else if (!loopDataOutputRef.equals(other.loopDataOutputRef)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(isSequential, loopCardinality, completionCondition, loopDataInputRef, loopDataOutputRef, dataInputItemRef, dataOutputItemRef);
     }
 
     @Override

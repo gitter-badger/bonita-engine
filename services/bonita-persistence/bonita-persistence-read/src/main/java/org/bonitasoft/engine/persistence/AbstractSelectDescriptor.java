@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.persistence;
 
+import java.util.Objects;
+
 /**
  * @author Charles Souillard
  * @author Matthieu Chaffotte
@@ -49,49 +51,17 @@ public abstract class AbstractSelectDescriptor<T> {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((entityType == null) ? 0 : entityType.hashCode());
-        result = prime * result + ((queryName == null) ? 0 : queryName.hashCode());
-        result = prime * result + ((returnType == null) ? 0 : returnType.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AbstractSelectDescriptor<?> that = (AbstractSelectDescriptor<?>) o;
+        return Objects.equals(queryName, that.queryName) &&
+                Objects.equals(entityType, that.entityType) &&
+                Objects.equals(returnType, that.returnType);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final AbstractSelectDescriptor<?> other = (AbstractSelectDescriptor<?>) obj;
-        if (entityType == null) {
-            if (other.entityType != null) {
-                return false;
-            }
-        } else if (!entityType.equals(other.entityType)) {
-            return false;
-        }
-        if (queryName == null) {
-            if (other.queryName != null) {
-                return false;
-            }
-        } else if (!queryName.equals(other.queryName)) {
-            return false;
-        }
-        if (returnType == null) {
-            if (other.returnType != null) {
-                return false;
-            }
-        } else if (!returnType.equals(other.returnType)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(queryName, entityType, returnType);
     }
-
 }

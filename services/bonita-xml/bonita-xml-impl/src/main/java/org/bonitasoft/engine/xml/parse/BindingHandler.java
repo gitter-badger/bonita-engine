@@ -44,26 +44,25 @@ public class BindingHandler extends DefaultHandler {
 
     public BindingHandler(final List<Class<? extends ElementBinding>> binders) {
         this.binders = this.setBinders(binders);
-        model = new Stack<ElementBinding>();
-        elements = new Stack<String>();
-        tempAttributes = new HashMap<String, String>();
+        model = new Stack<>();
+        elements = new Stack<>();
+        tempAttributes = new HashMap<>();
         bindingsFactory = null;
     }
 
     public BindingHandler(final ElementBindingsFactory bindingsFactory) {
         this.bindingsFactory = bindingsFactory;
-        model = new Stack<ElementBinding>();
-        elements = new Stack<String>();
-        tempAttributes = new HashMap<String, String>();
+        model = new Stack<>();
+        elements = new Stack<>();
+        tempAttributes = new HashMap<>();
         binders = this.setBinders(bindingsFactory);
     }
 
     private Map<String, Class<? extends ElementBinding>> setBinders(final ElementBindingsFactory bindingsFactory) {
         final List<ElementBinding> elementBindings = bindingsFactory.getElementBindings();
 
-        final Map<String, Class<? extends ElementBinding>> temp = new HashMap<String, Class<? extends ElementBinding>>();
-        for (int i = 0; i < elementBindings.size(); i++) {
-            final ElementBinding elementBinding = elementBindings.get(i);
+        final Map<String, Class<? extends ElementBinding>> temp = new HashMap<>();
+        for (final ElementBinding elementBinding : elementBindings) {
             try {
                 final String tag = elementBinding.getElementTag();
                 temp.put(tag, elementBinding.getClass());
@@ -75,9 +74,8 @@ public class BindingHandler extends DefaultHandler {
     }
 
     private Map<String, Class<? extends ElementBinding>> setBinders(final List<Class<? extends ElementBinding>> binders) {
-        final Map<String, Class<? extends ElementBinding>> temp = new HashMap<String, Class<? extends ElementBinding>>();
-        for (int i = 0; i < binders.size(); i++) {
-            final Class<? extends ElementBinding> binderClass = binders.get(i);
+        final Map<String, Class<? extends ElementBinding>> temp = new HashMap<>();
+        for (final Class<? extends ElementBinding> binderClass : binders) {
             try {
                 final String tag = binderClass.newInstance().getElementTag();
                 temp.put(tag, binderClass);
@@ -109,7 +107,7 @@ public class BindingHandler extends DefaultHandler {
     public void startElement(final String uri, final String localName, final String qName, final Attributes attributes) throws SAXException {
         final Class<? extends ElementBinding> binderClass = binders.get(localName);
         if (binderClass != null) {
-            final Map<String, String> elementAttributes = new HashMap<String, String>();
+            final Map<String, String> elementAttributes = new HashMap<>();
             for (int i = 0; i < attributes.getLength(); i++) {
                 final String attributeLocalName = attributes.getLocalName(i);
                 final String attributeValue = attributes.getValue(i);
@@ -125,7 +123,7 @@ public class BindingHandler extends DefaultHandler {
                 throw new SAXException(e);
             }
         } else {
-            tempAttributes = new HashMap<String, String>();
+            tempAttributes = new HashMap<>();
             for (int i = 0; i < attributes.getLength(); i++) {
                 final String attributeLocalName = attributes.getLocalName(i);
                 final String attributeValue = attributes.getValue(i);

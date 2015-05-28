@@ -59,12 +59,12 @@ public class SearchProcessDeploymentInfosWithAssignedOrPendingHumanTasksSupervis
     public void before() throws Exception {
         super.before();
         // create users
-        users = new ArrayList<User>(2);
+        users = new ArrayList<>(2);
         users.add(createUser("chicobento", "bpm"));
         users.add(createUser("cebolinha", "bpm"));
 
         // create processes
-        enabledProcessDefinitions = new ArrayList<ProcessDefinition>(4);
+        enabledProcessDefinitions = new ArrayList<>(4);
         createProcessesDefinitions();
 
         supervisor = getProcessAPI().createProcessSupervisorForUser(enabledProcessDefinitions.get(0).getId(), users.get(0).getId());

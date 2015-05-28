@@ -66,9 +66,7 @@ public class ImportProfilesCommand extends TenantCommand {
 
             return (Serializable) ProfilesImporter.toWarnings(new ProfilesImporter(profileService, identityService, profiles, ImportPolicy.DELETE_EXISTING)
                     .importProfiles(SessionInfos.getUserIdFromSession()));
-        } catch (ExecutionException e) {
-            throw new SCommandExecutionException(e);
-        } catch (IOException e) {
+        } catch (ExecutionException | IOException e) {
             throw new SCommandExecutionException(e);
         }
     }

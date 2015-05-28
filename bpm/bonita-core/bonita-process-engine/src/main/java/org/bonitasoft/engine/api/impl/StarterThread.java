@@ -81,9 +81,7 @@ public class StarterThread extends Thread {
                     }
                 }
             }
-        } catch (RestartException e) {
-            technicalLoggerService.log(StarterThread.class, TechnicalLogSeverity.ERROR, "Error while restarting elements", e);
-        } catch (SBonitaException e) {
+        } catch (RestartException | SBonitaException e) {
             technicalLoggerService.log(StarterThread.class, TechnicalLogSeverity.ERROR, "Error while restarting elements", e);
         }
     }

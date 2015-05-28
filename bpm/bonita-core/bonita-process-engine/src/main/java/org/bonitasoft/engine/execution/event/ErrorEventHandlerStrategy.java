@@ -267,7 +267,7 @@ public class ErrorEventHandlerStrategy extends CoupleEventHandlerStrategy {
             final SWaitingErrorEventBuilderFactory waitingErrorEventKeyProvider = BuilderFactory.get(SWaitingErrorEventBuilderFactory.class);
             final OrderByOption orderByOption = new OrderByOption(SWaitingEvent.class, waitingErrorEventKeyProvider.getFlowNodeNameKey(), OrderByType.ASC);
 
-            final List<FilterOption> filters = new ArrayList<FilterOption>(3);
+            final List<FilterOption> filters = new ArrayList<>(3);
             filters.add(new FilterOption(SWaitingErrorEvent.class, waitingErrorEventKeyProvider.getErrorCodeKey(), catchingErrorCode));
             filters.add(new FilterOption(SWaitingErrorEvent.class, waitingErrorEventKeyProvider.getEventTypeKey(), SBPMEventType.EVENT_SUB_PROCESS.name()));
             filters.add(new FilterOption(SWaitingErrorEvent.class, waitingErrorEventKeyProvider.getParentProcessInstanceIdKey(), parentProcessInstanceId));

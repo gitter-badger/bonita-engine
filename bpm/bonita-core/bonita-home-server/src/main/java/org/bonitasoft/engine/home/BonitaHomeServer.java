@@ -87,7 +87,7 @@ public class BonitaHomeServer extends BonitaHome {
     }
 
     private String[] getResourcesFromFiles(final List<File> files) {
-        final List<String> resources = new ArrayList<String>();
+        final List<String> resources = new ArrayList<>();
         if (files != null) {
             for (File file : files) {
                 resources.add(file.getAbsolutePath());
@@ -170,7 +170,7 @@ public class BonitaHomeServer extends BonitaHome {
 
     private String[] getConfigurationFiles(final Folder... folders) throws BonitaHomeNotSetException, IOException {
         final Properties platformProperties = getPlatformProperties();
-        final List<File> files = new ArrayList<File>();
+        final List<File> files = new ArrayList<>();
         for (Folder folder : folders) {
             files.addAll(getXmlResourcesOfFolder(folder, new NonClusterXmlFilesFilter()));
         }
@@ -220,9 +220,7 @@ public class BonitaHomeServer extends BonitaHome {
 
     @Override
     protected void refresh() {
-        //System.err.println("----- REFRESH Thread: " + Thread.currentThread().getId() + "-----");
         platformProperties = null;
-        //System.err.println("----- END REFRESH Thread: " + Thread.currentThread().getId() + "-----");
     }
 
     private Properties mergeProperties(final Folder folder, Properties mergeInto) throws IOException {
@@ -236,11 +234,7 @@ public class BonitaHomeServer extends BonitaHome {
             Properties properties = getProperties(file);
             for (Map.Entry<Object, Object> property : properties.entrySet()) {
                 Object put = mergeInto.put(property.getKey(), property.getValue());
-                if (put != null) {
-                    //System.out.println("Overriding " + property.getKey() + " with " + property.getValue());
-                }
             }
-            properties.putAll(properties);
         }
         return mergeInto;
     }
@@ -316,7 +310,7 @@ public class BonitaHomeServer extends BonitaHome {
         return FolderMgr.getTenantWorkProcessClasspathFolder(getBonitaHomeFolder(), tenantId, processId);
     }
     public Map<String, byte[]> getProcessClasspath(final long tenantId, final long processId) throws BonitaHomeNotSetException, IOException {
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>();
+        final Map<String, byte[]> resources = new HashMap<>();
         final Folder processClasspathFolder = getProcessClasspathFolder(tenantId, processId);
         final File[] listFiles = processClasspathFolder.listFiles();
         for (final File jarFile : listFiles) {

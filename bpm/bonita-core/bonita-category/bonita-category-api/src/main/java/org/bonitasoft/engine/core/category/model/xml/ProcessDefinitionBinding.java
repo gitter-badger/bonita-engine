@@ -24,7 +24,7 @@ import org.bonitasoft.engine.xml.ElementBinding;
  */
 public class ProcessDefinitionBinding extends ElementBinding {
 
-    private final List<String> processDefinitionIds = new ArrayList<String>();
+    private final List<String> processDefinitionIds = new ArrayList<>();
 
     @Override
     public void setAttributes(final Map<String, String> attributes) {

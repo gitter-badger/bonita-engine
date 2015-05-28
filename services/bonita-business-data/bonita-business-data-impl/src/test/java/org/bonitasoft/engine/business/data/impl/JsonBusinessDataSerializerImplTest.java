@@ -61,7 +61,7 @@ public class JsonBusinessDataSerializerImplTest {
     public void testSerializeEntityList() throws Exception {
 
         // given
-        this.personList = new ArrayList<Entity>();
+        this.personList = new ArrayList<>();
         for (long i = 1L; i < 3L; i++) {
             personList.add(initPerson(i));
         }

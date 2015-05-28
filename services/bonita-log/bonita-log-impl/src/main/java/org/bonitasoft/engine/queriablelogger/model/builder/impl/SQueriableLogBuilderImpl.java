@@ -126,7 +126,7 @@ public class SQueriableLogBuilderImpl implements SQueriableLogBuilder {
     }
 
     private List<String> checkMandatoryFields() {
-        final List<String> problems = new ArrayList<String>();
+        final List<String> problems = new ArrayList<>();
         if (entity.getSeverity() == null) {
             problems.add("severity");
         }

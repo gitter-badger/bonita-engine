@@ -40,8 +40,7 @@ public class DescriptorNodeBuilder {
     private static XMLNode getJarDependencies(final JarDependencies jarDependencies) {
         final XMLNode jarDependenciesNode = new XMLNode(XMLDescriptor.JAR_DEPENDENCIES);
         final List<String> dependencies = jarDependencies.getDependencies();
-        for (int i = 0; i < dependencies.size(); i++) {
-            final String dependency = dependencies.get(i);
+        for (final String dependency : dependencies) {
             final XMLNode dependencyNode = new XMLNode(XMLDescriptor.JAR_DEPENDENCY);
             dependencyNode.setContent(dependency);
             jarDependenciesNode.addChild(dependencyNode);

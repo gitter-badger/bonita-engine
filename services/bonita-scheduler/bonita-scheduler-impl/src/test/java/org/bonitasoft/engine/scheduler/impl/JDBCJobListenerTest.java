@@ -75,7 +75,7 @@ public class JDBCJobListenerTest {
 
     private final SSchedulerException exeption1 = new SSchedulerException(new Exception("generic exception"));
 
-    private final Map<String, Serializable> context = new HashMap<String, Serializable>();
+    private final Map<String, Serializable> context = new HashMap<>();
 
     @Mock
     private JobService jobService;

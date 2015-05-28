@@ -254,7 +254,7 @@ public class ActorMappingServiceImplTest {
      */
     @Test
     public final void getActorMembersByActorPaginated() throws SBonitaReadException {
-        final List<SActorMember> actors = new ArrayList<SActorMember>();
+        final List<SActorMember> actors = new ArrayList<>();
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SActorMember>>any())).thenReturn(actors);
 
         Assert.assertEquals(actors, actorMappingServiceImpl.getActorMembers(4115L, 0, 1));
@@ -267,7 +267,7 @@ public class ActorMappingServiceImplTest {
      */
     @Test
     public final void getActorMembersOfGroup() throws SBonitaReadException {
-        final List<SActorMember> actors = new ArrayList<SActorMember>(6);
+        final List<SActorMember> actors = new ArrayList<>(6);
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SActorMember>> any())).thenReturn(actors);
 
         Assert.assertEquals(actors, actorMappingServiceImpl.getActorMembersOfGroup(41L, 0, 1));
@@ -280,7 +280,7 @@ public class ActorMappingServiceImplTest {
      */
     @Test
     public final void getActorMembersOfRole() throws SBonitaReadException {
-        final List<SActorMember> actors = new ArrayList<SActorMember>(3);
+        final List<SActorMember> actors = new ArrayList<>(3);
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SActorMember>> any())).thenReturn(actors);
 
         Assert.assertEquals(actors, actorMappingServiceImpl.getActorMembersOfRole(41L, 0, 1));
@@ -327,10 +327,10 @@ public class ActorMappingServiceImplTest {
      */
     @Test
     public final void getActorsByListOfIds() throws SBonitaReadException {
-        final List<SActor> actors = new ArrayList<SActor>(3);
+        final List<SActor> actors = new ArrayList<>(3);
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SActor>> any())).thenReturn(actors);
 
-        final List<Long> actorIds = new ArrayList<Long>(1);
+        final List<Long> actorIds = new ArrayList<>(1);
         actorIds.add(589L);
         Assert.assertEquals(actors, actorMappingServiceImpl.getActors(actorIds));
     }
@@ -354,7 +354,7 @@ public class ActorMappingServiceImplTest {
     @Test
     public final void getActors() throws SBonitaReadException {
         final QueryOptions queryOptions = new QueryOptions(0, 100, SActor.class, "id", OrderByType.ASC);
-        final List<SActor> actors = new ArrayList<SActor>(3);
+        final List<SActor> actors = new ArrayList<>(3);
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SActor>> any())).thenReturn(actors);
 
         Assert.assertEquals(actors, actorMappingServiceImpl.getActors(41564L, queryOptions));
@@ -367,7 +367,7 @@ public class ActorMappingServiceImplTest {
      */
     @Test
     public final void shouldBeAllowedToStartProcessDefinition() throws SBonitaReadException {
-        final List<Long> actorMembers = new ArrayList<Long>(1);
+        final List<Long> actorMembers = new ArrayList<>(1);
         actorMembers.add(123L);
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<Long>> any())).thenReturn(actorMembers);
         when(persistenceService.selectOne(Matchers.<SelectOneDescriptor<Long>>any())).thenReturn(3L);
@@ -377,7 +377,7 @@ public class ActorMappingServiceImplTest {
 
     @Test
     public final void shouldNotBeAllowedToStartProcessDefinitionIfNoActorMembers() throws SBonitaReadException {
-        final List<Long> actorMembers = new ArrayList<Long>(0);
+        final List<Long> actorMembers = new ArrayList<>(0);
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<Long>> any())).thenReturn(actorMembers);
 
         Assertions.assertThat(actorMappingServiceImpl.canUserStartProcessDefinition(315L, 5484L)).as("Should NOT be allowed to start Process").isFalse();
@@ -386,7 +386,7 @@ public class ActorMappingServiceImplTest {
 
     @Test
     public final void shouldNotBeAllowedToStartProcessDefinitionIfNoUserMemberships() throws SBonitaReadException {
-        final List<Long> actorMembers = new ArrayList<Long>(1);
+        final List<Long> actorMembers = new ArrayList<>(1);
         actorMembers.add(123L);
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<Long>> any())).thenReturn(actorMembers);
         when(persistenceService.selectOne(Matchers.<SelectOneDescriptor<Long>>any())).thenReturn(0L);
@@ -401,7 +401,7 @@ public class ActorMappingServiceImplTest {
      */
     @Test
     public final void getActorsByScopeIdsAndUserId() throws SBonitaReadException {
-        final List<SActor> actors = new ArrayList<SActor>(3);
+        final List<SActor> actors = new ArrayList<>(3);
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SActor>> any())).thenReturn(actors);
 
         Assert.assertEquals(actors, actorMappingServiceImpl.getActors(new HashSet<Long>(), 5484L));
@@ -414,7 +414,7 @@ public class ActorMappingServiceImplTest {
      */
     @Test
     public final void addActors() throws SActorCreationException {
-        final Set<SActor> actors = new HashSet<SActor>();
+        final Set<SActor> actors = new HashSet<>();
         actors.add(mock(SActor.class));
 
         final ActorMappingServiceImpl mockedActorMappingServiceImpl = mock(ActorMappingServiceImpl.class, withSettings().spiedInstance(actorMappingServiceImpl));
@@ -434,7 +434,7 @@ public class ActorMappingServiceImplTest {
 
     @Test
     public final void addActorsEmptyList() throws SActorCreationException {
-        final Set<SActor> actors = new HashSet<SActor>();
+        final Set<SActor> actors = new HashSet<>();
 
         final Set<SActor> result = actorMappingServiceImpl.addActors(actors);
         assertNotNull(result);
@@ -443,7 +443,7 @@ public class ActorMappingServiceImplTest {
 
     @Test(expected = SActorCreationException.class)
     public final void addActorsThrowException() throws SActorCreationException {
-        final Set<SActor> actors = new HashSet<SActor>();
+        final Set<SActor> actors = new HashSet<>();
         actors.add(mock(SActor.class));
 
         final ActorMappingServiceImpl mockedActorMappingServiceImpl = mock(ActorMappingServiceImpl.class, withSettings().spiedInstance(actorMappingServiceImpl));
@@ -539,12 +539,12 @@ public class ActorMappingServiceImplTest {
         final SActor sActor = mock(SActor.class);
         doReturn(3L).when(sActor).getId();
 
-        final List<SActorMember> sActorMembers = new ArrayList<SActorMember>();
+        final List<SActorMember> sActorMembers = new ArrayList<>();
         final SActorMember sActorMember = mock(SActorMember.class);
         doReturn(4L).when(sActorMember).getId();
         sActorMembers.add(sActorMember);
 
-        doReturn(Arrays.asList(sActor)).doReturn(new ArrayList<SActor>()).when(persistenceService)
+        doReturn(Collections.singletonList(sActor)).doReturn(new ArrayList<SActor>()).when(persistenceService)
                 .selectList(Matchers.<SelectListDescriptor<SActorMember>> any());
         doReturn(sActorMembers).doReturn(new ArrayList<SActorMember>()).when(persistenceService).selectList(SelectDescriptorBuilder.getActorMembers(3, 0, 50));
         doReturn(false).when(eventService).hasHandlers(anyString(), any(EventActionType.class));
@@ -562,7 +562,7 @@ public class ActorMappingServiceImplTest {
         final SActor sActor = mock(SActor.class);
         doReturn(3L).when(sActor).getId();
 
-        final List<SActorMember> sActorMembers = new ArrayList<SActorMember>();
+        final List<SActorMember> sActorMembers = new ArrayList<>();
 
         doReturn(Arrays.asList(sActor)).doReturn(new ArrayList<SActor>()).when(persistenceService)
                 .selectList(Matchers.<SelectListDescriptor<SActorMember>> any());

@@ -49,9 +49,9 @@ public class SynchroServiceImpl extends AbstractSynchroService {
      */
     private SynchroServiceImpl(final int initialCapacity, final TechnicalLoggerService logger, final CommonCacheService cacheService) {
         super(logger, cacheService);
-        waiters = new HashMap<Map<String, Serializable>, String>(initialCapacity);
-        eventKeyAndIdMap = new HashMap<String, Serializable>(initialCapacity);
-        eventSemaphores = new HashMap<String, Semaphore>();
+        waiters = new HashMap<>(initialCapacity);
+        eventKeyAndIdMap = new HashMap<>(initialCapacity);
+        eventSemaphores = new HashMap<>();
     }
 
     private static final class SynchroServiceImplReentrantLock extends ReentrantLock {
@@ -116,7 +116,7 @@ public class SynchroServiceImpl extends AbstractSynchroService {
 
     private String getSemaphoreKey(final Map<String, Serializable> event) {
         final StringBuilder sb = new StringBuilder();
-        final TreeMap<String, Serializable> orderedMap = new TreeMap<String, Serializable>(event);
+        final TreeMap<String, Serializable> orderedMap = new TreeMap<>(event);
         boolean first = true;
         for (final Map.Entry<String, Serializable> entry : orderedMap.entrySet()) {
             if (!first) {

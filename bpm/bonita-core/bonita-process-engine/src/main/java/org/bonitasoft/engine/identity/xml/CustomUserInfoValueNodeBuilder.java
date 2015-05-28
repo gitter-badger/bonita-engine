@@ -27,7 +27,7 @@ import org.bonitasoft.engine.xml.XMLNode;
  */
 public class CustomUserInfoValueNodeBuilder {
 
-    static final List<Class<? extends ElementBinding>> BINDINGS = new ArrayList<Class<? extends ElementBinding>>();
+    static final List<Class<? extends ElementBinding>> BINDINGS = new ArrayList<>();
 
     static {
         BINDINGS.add(CustomUserInfoValueBinding.class);

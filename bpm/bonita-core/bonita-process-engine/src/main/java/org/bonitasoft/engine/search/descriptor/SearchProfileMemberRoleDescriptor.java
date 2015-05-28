@@ -38,7 +38,7 @@ public class SearchProfileMemberRoleDescriptor extends SearchEntityDescriptor {
     private final Map<Class<? extends PersistentObject>, Set<String>> profileMemberAllFields;
 
     public SearchProfileMemberRoleDescriptor() {
-        searchEntityKeys = new HashMap<String, FieldDescriptor>(6);
+        searchEntityKeys = new HashMap<>(6);
         searchEntityKeys.put(ProfileMemberSearchDescriptor.ID, new FieldDescriptor(SProfileMember.class, SProfileMemberBuilderFactory.ID));
         searchEntityKeys.put(ProfileMemberSearchDescriptor.PROFILE_ID, new FieldDescriptor(SProfileMember.class, SProfileMemberBuilderFactory.PROFILE_ID));
         searchEntityKeys.put(ProfileMemberSearchDescriptor.ROLE_ID, new FieldDescriptor(SProfileMember.class, SProfileMemberBuilderFactory.ROLE_ID));
@@ -46,8 +46,8 @@ public class SearchProfileMemberRoleDescriptor extends SearchEntityDescriptor {
         searchEntityKeys.put(ProfileMemberSearchDescriptor.GROUP_ID, new FieldDescriptor(SProfileMember.class, SProfileMemberBuilderFactory.GROUP_ID));
         searchEntityKeys.put(ProfileMemberSearchDescriptor.DISPLAY_NAME_PART1, new FieldDescriptor(SRole.class, BuilderFactory.get(SRoleBuilderFactory.class).getNameKey()));
 
-        profileMemberAllFields = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
-        final Set<String> roleFields = new HashSet<String>(1);
+        profileMemberAllFields = new HashMap<>(1);
+        final Set<String> roleFields = new HashSet<>(1);
         roleFields.add(BuilderFactory.get(SRoleBuilderFactory.class).getNameKey());
         profileMemberAllFields.put(SRole.class, roleFields);
     }

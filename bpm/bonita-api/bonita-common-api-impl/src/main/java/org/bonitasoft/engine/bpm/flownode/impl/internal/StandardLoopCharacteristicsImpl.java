@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.bpm.flownode.impl.internal;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.bpm.flownode.StandardLoopCharacteristics;
 import org.bonitasoft.engine.bpm.process.ModelFinderVisitor;
 import org.bonitasoft.engine.expression.Expression;
@@ -58,45 +60,18 @@ public class StandardLoopCharacteristicsImpl implements StandardLoopCharacterist
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (testBefore ? 1231 : 1237);
-        result = prime * result + (loopCondition == null ? 0 : loopCondition.hashCode());
-        result = prime * result + (loopMax == null ? 0 : loopMax.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        StandardLoopCharacteristicsImpl that = (StandardLoopCharacteristicsImpl) o;
+        return Objects.equals(testBefore, that.testBefore) &&
+                Objects.equals(loopCondition, that.loopCondition) &&
+                Objects.equals(loopMax, that.loopMax);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final StandardLoopCharacteristicsImpl other = (StandardLoopCharacteristicsImpl) obj;
-        if (testBefore != other.testBefore) {
-            return false;
-        }
-        if (loopCondition == null) {
-            if (other.loopCondition != null) {
-                return false;
-            }
-        } else if (!loopCondition.equals(other.loopCondition)) {
-            return false;
-        }
-        if (loopMax == null) {
-            if (other.loopMax != null) {
-                return false;
-            }
-        } else if (!loopMax.equals(other.loopMax)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(loopCondition, testBefore, loopMax);
     }
 
     @Override

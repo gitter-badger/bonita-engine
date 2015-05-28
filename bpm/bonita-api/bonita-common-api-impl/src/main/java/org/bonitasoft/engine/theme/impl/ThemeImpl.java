@@ -140,7 +140,7 @@ public class ThemeImpl extends BaseElementImpl implements Theme {
 
     @Override
     public String toString() {
-        return "ThemeImpl [id=" + getId() + ", content=" + Arrays.toString(content) + ", cssContent=" + Arrays.toString(cssContent) + ", isDefault="
+        return "ThemeImpl [id=" + getId() + ", isDefault="
                 + isDefault + ", lastUpdateDate=" + lastUpdateDate + ", type=" + type + "]";
     }
 

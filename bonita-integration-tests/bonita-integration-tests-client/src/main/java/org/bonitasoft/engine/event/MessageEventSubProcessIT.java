@@ -200,7 +200,7 @@ public class MessageEventSubProcessIT extends AbstractWaitingEventIT {
         final Expression correlationKey = new ExpressionBuilder().createConstantStringExpression("productName");
         final Expression catchCorrelationValue = new ExpressionBuilder().createDataExpression(SHORT_DATA_NAME, String.class.getName());
 
-        final ProcessDefinition process = deployAndEnableProcessWithMessageEventSubProcessAndData(Collections.singletonList(new BEntry<Expression, Expression>(
+        final ProcessDefinition process = deployAndEnableProcessWithMessageEventSubProcessAndData(Collections.singletonList(new BEntry<>(
                 correlationKey, catchCorrelationValue)));
         final ProcessInstance processInstance = getProcessAPI().startProcess(process.getId());
         waitForUserTask(processInstance, PARENT_PROCESS_USER_TASK_NAME);
@@ -234,7 +234,7 @@ public class MessageEventSubProcessIT extends AbstractWaitingEventIT {
 
         // Receiver
         final ProcessDefinition receiverProcessDefinition = deployAndEnableProcessWithMessageEventSubProcessAndData(Collections
-                .singletonList(new BEntry<Expression, Expression>(correlationKey, correlationValue)));
+                .singletonList(new BEntry<>(correlationKey, correlationValue)));
         final ProcessInstance receiverProcessInstance = getProcessAPI().startProcess(receiverProcessDefinition.getId());
         waitForUserTask(receiverProcessInstance, PARENT_PROCESS_USER_TASK_NAME);
 

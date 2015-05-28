@@ -150,8 +150,8 @@ public class GatewayInstanceServiceImpl implements GatewayInstanceService {
 
         List<String> hitByTransitionList = getHitByTransitionList(gatewayInstance);
         List<STransitionDefinition> incomingTransitions = gatewayDefinition.getIncomingTransitions();
-        List<STransitionDefinition> incomingWithTokens = new ArrayList<STransitionDefinition>();
-        List<STransitionDefinition> incomingWithoutTokens = new ArrayList<STransitionDefinition>();
+        List<STransitionDefinition> incomingWithTokens = new ArrayList<>();
+        List<STransitionDefinition> incomingWithoutTokens = new ArrayList<>();
 
         logger.log(TAG, TechnicalLogSeverity.DEBUG, "HitBys = " + gatewayInstance.getHitBys());
         for (int i = 0; i < incomingTransitions.size(); i++) {
@@ -166,8 +166,8 @@ public class GatewayInstanceServiceImpl implements GatewayInstanceService {
             We create two lists that will contain transition definitions that have a path to the gateway finishing with
             a token and the list of transition that does not have a path to the gateway finishing with a token
          */
-        List<STransitionDefinition> finishWithAToken = new ArrayList<STransitionDefinition>();
-        List<STransitionDefinition> doesNotFinishWithAToken = new ArrayList<STransitionDefinition>();
+        List<STransitionDefinition> finishWithAToken = new ArrayList<>();
+        List<STransitionDefinition> doesNotFinishWithAToken = new ArrayList<>();
 
         /*
          * we calculate all transition definitions that can block the gateway
@@ -182,8 +182,8 @@ public class GatewayInstanceServiceImpl implements GatewayInstanceService {
 
     boolean transitionsContainsAToken(List<STransitionDefinition> transitions, SFlowNodeDefinition gatewayDefinition, long processInstanceId,
                                               SFlowElementContainerDefinition processContainer) throws SBonitaReadException {
-        List<SFlowNodeDefinition> sourceElements = new ArrayList<SFlowNodeDefinition>();
-        List<SFlowNodeDefinition> targetElements = new ArrayList<SFlowNodeDefinition>();
+        List<SFlowNodeDefinition> sourceElements = new ArrayList<>();
+        List<SFlowNodeDefinition> targetElements = new ArrayList<>();
 
         logger.log(TAG, TechnicalLogSeverity.DEBUG, "Check if there is a token on "+transitions);
         for (STransitionDefinition sTransitionDefinition : transitions) {
@@ -205,7 +205,7 @@ public class GatewayInstanceServiceImpl implements GatewayInstanceService {
     }
 
     List<SFlowNodeDefinition> extractElementThatAreSourceAndTarget(List<SFlowNodeDefinition> sourceElements, List<SFlowNodeDefinition> targetElements) {
-        List<SFlowNodeDefinition> sourceAndTarget = new ArrayList<SFlowNodeDefinition>();
+        List<SFlowNodeDefinition> sourceAndTarget = new ArrayList<>();
         Iterator<SFlowNodeDefinition> iterator = sourceElements.iterator();
         while (iterator.hasNext()){
             SFlowNodeDefinition sourceElement = iterator.next();
@@ -243,7 +243,7 @@ public class GatewayInstanceServiceImpl implements GatewayInstanceService {
     }
 
     private List<SFlowNodeInstance> getFlowNodes(long processInstanceId, SFlowNodeDefinition sourceElement) throws SBonitaReadException {
-        List<FilterOption> filters = new ArrayList<FilterOption>();
+        List<FilterOption> filters = new ArrayList<>();
         filters.add(new FilterOption(SFlowNodeInstance.class, "name", sourceElement.getName()));
         filters.add(new FilterOption(SFlowNodeInstance.class, "parentContainerId", processInstanceId));
         QueryOptions searchOptions = new QueryOptions(0, 20, Collections.<OrderByOption>emptyList(), filters, null);
@@ -353,7 +353,7 @@ public class GatewayInstanceServiceImpl implements GatewayInstanceService {
         if(remaining.isEmpty()){
             return Collections.emptyList();
         }
-        List<SGatewayInstance> toFire = new ArrayList<SGatewayInstance>();
+        List<SGatewayInstance> toFire = new ArrayList<>();
         SGatewayInstance newGatewayInstance = createGatewayWithRemainingTokens(gatewayInstance, remaining);
         if(checkMergingCondition(processDefinition,newGatewayInstance)){
             toFire.add(newGatewayInstance);
@@ -379,7 +379,7 @@ public class GatewayInstanceServiceImpl implements GatewayInstanceService {
     }
 
     private ArrayList<String> unique(List<String> hitBys) {
-        ArrayList<String> merged = new ArrayList<String>();
+        ArrayList<String> merged = new ArrayList<>();
         for (String hitBy : hitBys) {
             if(!merged.contains(hitBy)){
                 merged.add(hitBy);
@@ -389,7 +389,7 @@ public class GatewayInstanceServiceImpl implements GatewayInstanceService {
     }
 
     ArrayList<String> getRemainingTokens(List<String> hitBys, List<String> merged) {
-        ArrayList<String> remaining = new ArrayList<String>(hitBys);
+        ArrayList<String> remaining = new ArrayList<>(hitBys);
         for (String mergedToken : merged) {
             remaining.remove(mergedToken);
         }
@@ -427,7 +427,7 @@ public class GatewayInstanceServiceImpl implements GatewayInstanceService {
     @Override
     public List<SGatewayInstance> getInclusiveGatewaysOfProcessInstanceThatShouldFire(SProcessDefinition processDefinition, long processInstanceId) throws SBonitaReadException {
         List<SGatewayInstance> sGatewayInstances = getInclusiveGatewayInstanceOfProcessInstance(processInstanceId);
-        ArrayList<SGatewayInstance> shouldFire = new ArrayList<SGatewayInstance>();
+        ArrayList<SGatewayInstance> shouldFire = new ArrayList<>();
         for (SGatewayInstance sGatewayInstance : sGatewayInstances) {
             if(isInclusiveGatewayActivated(processDefinition, sGatewayInstance)){
                 shouldFire.add(sGatewayInstance);
@@ -437,9 +437,9 @@ public class GatewayInstanceServiceImpl implements GatewayInstanceService {
     }
 
     private List<SGatewayInstance> getInclusiveGatewayInstanceOfProcessInstance(long processInstanceId) throws SBonitaReadException {
-        final HashMap<String, Object> hashMap = new HashMap<String, Object>(2);
+        final HashMap<String, Object> hashMap = new HashMap<>(2);
         hashMap.put("processInstanceId", processInstanceId);
-        SelectListDescriptor<SGatewayInstance> getGatewayMergingToken = new SelectListDescriptor<SGatewayInstance>("getInclusiveGatewayInstanceOfProcessInstance", hashMap, SGatewayInstance.class, new QueryOptions(0, QueryOptions.UNLIMITED_NUMBER_OF_RESULTS));
+        SelectListDescriptor<SGatewayInstance> getGatewayMergingToken = new SelectListDescriptor<>("getInclusiveGatewayInstanceOfProcessInstance", hashMap, SGatewayInstance.class, new QueryOptions(0, QueryOptions.UNLIMITED_NUMBER_OF_RESULTS));
         return persistenceRead.selectList(getGatewayMergingToken);
     }
 }

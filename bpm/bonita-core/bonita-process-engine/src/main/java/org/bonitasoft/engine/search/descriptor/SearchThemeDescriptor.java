@@ -33,13 +33,13 @@ public class SearchThemeDescriptor extends SearchEntityDescriptor {
     private final Map<Class<? extends PersistentObject>, Set<String>> themeAllFields;
 
     public SearchThemeDescriptor() {
-        searchEntityKeys = new HashMap<String, FieldDescriptor>(1);
+        searchEntityKeys = new HashMap<>(1);
         searchEntityKeys.put(ThemeSearchDescriptor.ID, new FieldDescriptor(STheme.class, SThemeBuilderFactory.ID));
         searchEntityKeys.put(ThemeSearchDescriptor.IS_DEFAULT, new FieldDescriptor(STheme.class, SThemeBuilderFactory.IS_DEFAULT));
         searchEntityKeys.put(ThemeSearchDescriptor.TYPE, new FieldDescriptor(STheme.class, SThemeBuilderFactory.TYPE));
 
-        themeAllFields = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
-        final Set<String> fields = new HashSet<String>(3);
+        themeAllFields = new HashMap<>(1);
+        final Set<String> fields = new HashSet<>(3);
         fields.add(SThemeBuilderFactory.TYPE);
         themeAllFields.put(STheme.class, fields);
     }

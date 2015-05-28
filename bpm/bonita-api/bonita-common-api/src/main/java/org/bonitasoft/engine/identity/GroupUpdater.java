@@ -42,7 +42,7 @@ public class GroupUpdater implements Serializable {
      * Default Constructor.
      */
     public GroupUpdater() {
-        fields = new HashMap<GroupField, Serializable>(3);
+        fields = new HashMap<>(3);
     }
 
     /**

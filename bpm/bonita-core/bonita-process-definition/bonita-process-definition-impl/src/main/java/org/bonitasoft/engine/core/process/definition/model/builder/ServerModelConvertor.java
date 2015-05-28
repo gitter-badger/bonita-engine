@@ -50,7 +50,7 @@ public class ServerModelConvertor {
         if (value == null) {
             return null;
         }
-        final ArrayList<SExpression> dependencies = new ArrayList<SExpression>();
+        final ArrayList<SExpression> dependencies = new ArrayList<>();
         for (final Expression expression : value.getDependencies()) {
             dependencies.add(convertExpression(expression));
         }
@@ -84,7 +84,7 @@ public class ServerModelConvertor {
         if (operations == null) {
             return Collections.emptyList();
         }
-        final List<SOperation> sOperations = new ArrayList<SOperation>(operations.size());
+        final List<SOperation> sOperations = new ArrayList<>(operations.size());
         for (final Operation operation : operations) {
             sOperations.add(convertOperation(operation));
         }

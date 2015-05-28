@@ -32,7 +32,7 @@ public abstract class SearchEntityMemberDescriptor extends SearchEntityDescripto
 
     public SearchEntityMemberDescriptor() {
         final SExternalIdentityMappingBuilderFactory fact = BuilderFactory.get(SExternalIdentityMappingBuilderFactory.class);
-        fieldDescriptorMap = new HashMap<String, FieldDescriptor>(4);
+        fieldDescriptorMap = new HashMap<>(4);
         fieldDescriptorMap.put(EntityMemberSearchDescriptor.EXTERNAL_ID, new FieldDescriptor(SExternalIdentityMapping.class, fact.getExternalIdKey()));
         fieldDescriptorMap.put(EntityMemberSearchDescriptor.USER_ID, new FieldDescriptor(SExternalIdentityMapping.class, fact.getUserIdKey()));
         fieldDescriptorMap.put(EntityMemberSearchDescriptor.GROUP_ID, new FieldDescriptor(SExternalIdentityMapping.class, fact.getGroupIdKey()));

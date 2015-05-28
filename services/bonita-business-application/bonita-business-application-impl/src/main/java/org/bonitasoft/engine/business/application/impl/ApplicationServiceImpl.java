@@ -205,7 +205,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public SApplication getApplication(final long applicationId) throws SBonitaReadException, SObjectNotFoundException {
         final SApplication application = persistenceService
-                .selectById(new SelectByIdDescriptor<SApplication>("getApplicationById", SApplication.class, applicationId));
+                .selectById(new SelectByIdDescriptor<>("getApplicationById", SApplication.class, applicationId));
         if (application == null) {
             throw new SObjectNotFoundException("No application found with id '" + applicationId + "'.");
         }
@@ -241,11 +241,7 @@ public class ApplicationServiceImpl implements ApplicationService {
             handleHomePageUpdate(updateDescriptor);
             final SApplication application = getApplication(applicationId);
             return updateApplication(application, updateDescriptor);
-        } catch (final SObjectNotFoundException e) {
-            throw e;
-        } catch (final SObjectAlreadyExistsException e) {
-            throw e;
-        } catch (final SObjectModificationException e) {
+        } catch (final SObjectNotFoundException | SObjectModificationException | SObjectAlreadyExistsException e) {
             throw e;
         } catch (final SBonitaException e) {
             log(applicationId, SQueriableLog.STATUS_FAIL, logBuilder, methodName);
@@ -353,7 +349,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     }
 
     public SApplicationPage getApplicationPage(final long applicationId, final String applicationPageToken) throws SBonitaReadException {
-        final Map<String, Object> inputParameters = new HashMap<String, Object>(2);
+        final Map<String, Object> inputParameters = new HashMap<>(2);
         inputParameters.put("applicationId", applicationId);
         inputParameters.put("applicationPageToken", applicationPageToken);
         final SApplicationPage applicationPage = persistenceService
@@ -364,7 +360,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public SApplicationPage getApplicationPage(final String applicationToken, final String applicationPageToken) throws SBonitaReadException,
             SObjectNotFoundException {
-        final Map<String, Object> inputParameters = new HashMap<String, Object>(2);
+        final Map<String, Object> inputParameters = new HashMap<>(2);
         inputParameters.put("applicationToken", applicationToken);
         inputParameters.put("applicationPageToken", applicationPageToken);
         final SApplicationPage applicationPage = persistenceService
@@ -392,7 +388,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     private SApplicationPage executeGetApplicationPageById(final long applicationPageId) throws SBonitaReadException {
         return persistenceService
-                .selectById(new SelectByIdDescriptor<SApplicationPage>("getApplicationPageById", SApplicationPage.class, applicationPageId));
+                .selectById(new SelectByIdDescriptor<>("getApplicationPageById", SApplicationPage.class, applicationPageId));
     }
 
     @Override
@@ -436,7 +432,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public SApplicationPage getApplicationHomePage(final long applicationId) throws SBonitaReadException, SObjectNotFoundException {
-        final Map<String, Object> inputParameters = new HashMap<String, Object>(2);
+        final Map<String, Object> inputParameters = new HashMap<>(2);
         inputParameters.put("applicationId", applicationId);
         final SApplicationPage applicationPage = persistenceService
                 .selectOne(new SelectOneDescriptor<SApplicationPage>("getApplicationHomePage", inputParameters, SApplicationPage.class));
@@ -539,7 +535,7 @@ public class ApplicationServiceImpl implements ApplicationService {
     @Override
     public SApplicationMenu getApplicationMenu(final long applicationMenuId) throws SBonitaReadException, SObjectNotFoundException {
         final SApplicationMenu applicationMenu = persistenceService
-                .selectById(new SelectByIdDescriptor<SApplicationMenu>("getApplicationMenuById", SApplicationMenu.class, applicationMenuId));
+                .selectById(new SelectByIdDescriptor<>("getApplicationMenuById", SApplicationMenu.class, applicationMenuId));
         if (applicationMenu == null) {
             throw new SObjectNotFoundException("No application found with id '" + applicationMenuId + "'.");
         }
@@ -598,7 +594,7 @@ public class ApplicationServiceImpl implements ApplicationService {
 
     @Override
     public List<String> getAllPagesForProfile(final long profileId) throws SBonitaReadException {
-        final SelectListDescriptor<String> selectList = new SelectListDescriptor<String>("getAllPagesForProfile", Collections.<String, Object> singletonMap(
+        final SelectListDescriptor<String> selectList = new SelectListDescriptor<>("getAllPagesForProfile", Collections.<String, Object>singletonMap(
                 "profileId", profileId), SApplicationPage.class, new QueryOptions(0, QueryOptions.UNLIMITED_NUMBER_OF_RESULTS));
         return persistenceService.selectList(selectList);
     }
@@ -606,11 +602,11 @@ public class ApplicationServiceImpl implements ApplicationService {
     protected Integer executeGetLastUsedIndexQuery(final Long parentMenuId) throws SBonitaReadException {
         SelectOneDescriptor<Integer> selectDescriptor;
         if (parentMenuId == null) {
-            selectDescriptor = new SelectOneDescriptor<Integer>("getLastIndexForRootMenu", Collections.<String, Object> emptyMap(),
+            selectDescriptor = new SelectOneDescriptor<>("getLastIndexForRootMenu", Collections.<String, Object>emptyMap(),
                     SApplicationMenu.class);
         } else {
             final SApplicationMenuBuilderFactoryImpl factory = new SApplicationMenuBuilderFactoryImpl();
-            selectDescriptor = new SelectOneDescriptor<Integer>("getLastIndexForChildOf", Collections.<String, Object> singletonMap(
+            selectDescriptor = new SelectOneDescriptor<>("getLastIndexForChildOf", Collections.<String, Object>singletonMap(
                     factory.getParentIdKey(), parentMenuId),
                     SApplicationMenu.class);
         }

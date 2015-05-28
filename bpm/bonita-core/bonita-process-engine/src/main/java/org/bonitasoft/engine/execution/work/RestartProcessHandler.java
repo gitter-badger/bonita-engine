@@ -114,7 +114,7 @@ public class RestartProcessHandler implements TenantRestartHandler {
         }
     }
 
-    private final Map<Long, List<Long>> processInstancesByTenant = new HashMap<Long, List<Long>>();
+    private final Map<Long, List<Long>> processInstancesByTenant = new HashMap<>();
 
     @Override
     public void beforeServicesStart(final PlatformServiceAccessor platformServiceAccessor, final TenantServiceAccessor tenantServiceAccessor)
@@ -123,7 +123,7 @@ public class RestartProcessHandler implements TenantRestartHandler {
         final TechnicalLoggerService logger = tenantServiceAccessor.getTechnicalLoggerService();
         final long tenantId = tenantServiceAccessor.getTenantId();
 
-        final List<Long> ids = new ArrayList<Long>();
+        final List<Long> ids = new ArrayList<>();
         processInstancesByTenant.put(tenantId, ids);
         QueryOptions queryOptions = new QueryOptions(0, 1000, SProcessInstance.class, "id", OrderByType.ASC);
         try {

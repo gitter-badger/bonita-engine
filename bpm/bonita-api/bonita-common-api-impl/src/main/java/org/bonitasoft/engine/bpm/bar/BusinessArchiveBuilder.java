@@ -209,7 +209,7 @@ public class BusinessArchiveBuilder {
         if (entity.getProcessDefinition() == null) {
             throw new InvalidBusinessArchiveFormatException("missing process definition");
         }
-        final ArrayList<String> errors = new ArrayList<String>();
+        final ArrayList<String> errors = new ArrayList<>();
         for (final DocumentDefinition document : entity.getProcessDefinition().getProcessContainer().getDocumentDefinitions()) {
             if (document.getFile() != null && !document.getFile().isEmpty()) {
                 final byte[] resources = entity.getResource("documents/" + document.getFile());

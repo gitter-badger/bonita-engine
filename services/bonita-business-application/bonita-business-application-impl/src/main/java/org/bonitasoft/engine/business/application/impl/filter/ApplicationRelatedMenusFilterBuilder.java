@@ -41,7 +41,7 @@ public class ApplicationRelatedMenusFilterBuilder implements FilterBuilder {
     public QueryOptions buildQueryOptions() {
         SApplicationMenuBuilderFactoryImpl factory = new SApplicationMenuBuilderFactoryImpl();
         List<OrderByOption> orderByOptions = Collections.singletonList(new OrderByOption(SApplicationMenu.class, factory.getIdKey(), OrderByType.ASC));
-        List<FilterOption> filters = new ArrayList<FilterOption>(2);
+        List<FilterOption> filters = new ArrayList<>(2);
         filters.add(new FilterOption(SApplicationMenu.class, factory.getApplicationIdKey(), applicationId));
         //only too menu will be deleted as children menus will be deleted by the parent
         filters.add(new FilterOption(SApplicationMenu.class, factory.getParentIdKey(), null));

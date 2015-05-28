@@ -67,7 +67,7 @@ public class ExportedParentProfileEntry extends ExportedProfileEntry {
     }
 
     public List<ImportError> getErrors() {
-        final List<ImportError> errors = new ArrayList<ImportError>();
+        final List<ImportError> errors = new ArrayList<>();
         if (hasError()) {
             errors.add(getError());
         }

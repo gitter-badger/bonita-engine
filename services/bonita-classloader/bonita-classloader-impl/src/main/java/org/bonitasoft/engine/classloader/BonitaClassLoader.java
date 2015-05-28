@@ -66,8 +66,8 @@ public class BonitaClassLoader extends MonoParentJarFileClassLoader {
         this.id = id;
         this.uuid = UUID.randomUUID().toString();
 
-        nonJarResources = new HashMap<String, byte[]>();
-        urls = new HashSet<URL>();
+        nonJarResources = new HashMap<>();
+        urls = new HashSet<>();
         temporaryDirectory = new File(temporaryDirectoryUri);
         if (!temporaryDirectory.exists()) {
             temporaryDirectory.mkdirs();
@@ -87,8 +87,6 @@ public class BonitaClassLoader extends MonoParentJarFileClassLoader {
                         final String path = file.getAbsolutePath();
                         final URL url = new File(path).toURI().toURL();
                         urls.add(url);
-                    } catch (final MalformedURLException e) {
-                        e.printStackTrace();
                     } catch (final Exception e) {
                         e.printStackTrace();
                     }

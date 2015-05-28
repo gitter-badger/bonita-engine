@@ -28,7 +28,7 @@ public class VariableStorage implements Serializable {
     public static final VariableStorage INSTANCE = new VariableStorage();
 
     private VariableStorage() {
-        variables = new HashMap<String, Object>();
+        variables = new HashMap<>();
     }
 
     public static VariableStorage getInstance() {

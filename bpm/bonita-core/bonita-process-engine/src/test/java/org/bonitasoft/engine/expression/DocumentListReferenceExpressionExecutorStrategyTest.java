@@ -117,7 +117,7 @@ public class DocumentListReferenceExpressionExecutorStrategyTest {
     }
 
     private List<SDocumentListDefinition> createListOfDocumentListDefinition(final String... names) {
-        final List<SDocumentListDefinition> list = new ArrayList<SDocumentListDefinition>();
+        final List<SDocumentListDefinition> list = new ArrayList<>();
         for (final String name : names) {
             list.add(new SDocumentListDefinitionImpl(name));
         }

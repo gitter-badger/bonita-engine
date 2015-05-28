@@ -18,6 +18,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.bonitasoft.engine.bpm.flownode.CallActivityDefinition;
 import org.bonitasoft.engine.core.operation.model.SOperation;
@@ -106,61 +107,21 @@ public class SCallActivityDefinitionImpl extends SActivityDefinitionImpl impleme
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (callableElement == null ? 0 : callableElement.hashCode());
-        result = prime * result + (callableElementType == null ? 0 : callableElementType.hashCode());
-        result = prime * result + (callableElementVersion == null ? 0 : callableElementVersion.hashCode());
-        result = prime * result + (dataInputOperations == null ? 0 : dataInputOperations.hashCode());
-        result = prime * result + (dataOutputOperations == null ? 0 : dataOutputOperations.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        SCallActivityDefinitionImpl that = (SCallActivityDefinitionImpl) o;
+        return Objects.equals(callableElement, that.callableElement) &&
+                Objects.equals(callableElementVersion, that.callableElementVersion) &&
+                Objects.equals(dataInputOperations, that.dataInputOperations) &&
+                Objects.equals(contractInputs, that.contractInputs) &&
+                Objects.equals(dataOutputOperations, that.dataOutputOperations) &&
+                Objects.equals(callableElementType, that.callableElementType);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SCallActivityDefinitionImpl other = (SCallActivityDefinitionImpl) obj;
-        if (callableElement == null) {
-            if (other.callableElement != null) {
-                return false;
-            }
-        } else if (!callableElement.equals(other.callableElement)) {
-            return false;
-        }
-        if (callableElementType != other.callableElementType) {
-            return false;
-        }
-        if (callableElementVersion == null) {
-            if (other.callableElementVersion != null) {
-                return false;
-            }
-        } else if (!callableElementVersion.equals(other.callableElementVersion)) {
-            return false;
-        }
-        if (dataInputOperations == null) {
-            if (other.dataInputOperations != null) {
-                return false;
-            }
-        } else if (!dataInputOperations.equals(other.dataInputOperations)) {
-            return false;
-        }
-        if (dataOutputOperations == null) {
-            if (other.dataOutputOperations != null) {
-                return false;
-            }
-        } else if (!dataOutputOperations.equals(other.dataOutputOperations)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), callableElement, callableElementVersion, dataInputOperations, contractInputs, dataOutputOperations, callableElementType);
     }
-
 }

@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.identity.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.identity.model.SRole;
 
 /**
@@ -96,53 +98,20 @@ public class SRoleImpl extends SNamedElementImpl implements SRole {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (int) (createdBy ^ createdBy >>> 32);
-        result = prime * result + (int) (creationDate ^ creationDate >>> 32);
-        result = prime * result + (iconName == null ? 0 : iconName.hashCode());
-        result = prime * result + (iconPath == null ? 0 : iconPath.hashCode());
-        result = prime * result + (int) (lastUpdate ^ lastUpdate >>> 32);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        SRoleImpl sRole = (SRoleImpl) o;
+        return Objects.equals(createdBy, sRole.createdBy) &&
+                Objects.equals(creationDate, sRole.creationDate) &&
+                Objects.equals(lastUpdate, sRole.lastUpdate) &&
+                Objects.equals(iconName, sRole.iconName) &&
+                Objects.equals(iconPath, sRole.iconPath);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SRoleImpl other = (SRoleImpl) obj;
-        if (createdBy != other.createdBy) {
-            return false;
-        }
-        if (creationDate != other.creationDate) {
-            return false;
-        }
-        if (iconName == null) {
-            if (other.iconName != null) {
-                return false;
-            }
-        } else if (!iconName.equals(other.iconName)) {
-            return false;
-        }
-        if (iconPath == null) {
-            if (other.iconPath != null) {
-                return false;
-            }
-        } else if (!iconPath.equals(other.iconPath)) {
-            return false;
-        }
-        if (lastUpdate != other.lastUpdate) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), iconName, iconPath, createdBy, creationDate, lastUpdate);
     }
-
 }

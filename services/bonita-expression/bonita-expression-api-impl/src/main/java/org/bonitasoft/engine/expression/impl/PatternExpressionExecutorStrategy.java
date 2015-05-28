@@ -37,7 +37,7 @@ public class PatternExpressionExecutorStrategy extends NonEmptyContentExpression
     public Serializable evaluate(final SExpression expression, final Map<String, Object> context, final Map<Integer, Object> resolvedExpressions,
             final ContainerState containerState) throws SExpressionDependencyMissingException {
         final List<SExpression> dependencies = expression.getDependencies();
-        final Map<String, Object> values = new HashMap<String, Object>(dependencies.size());
+        final Map<String, Object> values = new HashMap<>(dependencies.size());
         for (final SExpression exp : dependencies) {
             final String name = exp.getName();
             final Object value = resolvedExpressions.get(exp.getDiscriminant());
@@ -58,7 +58,7 @@ public class PatternExpressionExecutorStrategy extends NonEmptyContentExpression
     @Override
     public List<Object> evaluate(final List<SExpression> expressions, final Map<String, Object> context, final Map<Integer, Object> resolvedExpressions,
             final ContainerState containerState) throws SExpressionDependencyMissingException {
-        final List<Object> list = new ArrayList<Object>(expressions.size());
+        final List<Object> list = new ArrayList<>(expressions.size());
         for (final SExpression expression : expressions) {
             list.add(evaluate(expression, context, resolvedExpressions, containerState));
         }

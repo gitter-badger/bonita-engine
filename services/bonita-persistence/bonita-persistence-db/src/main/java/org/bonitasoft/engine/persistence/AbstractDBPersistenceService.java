@@ -53,7 +53,7 @@ public abstract class AbstractDBPersistenceService implements TenantPersistenceS
 
     protected final DataSource datasource;
 
-    private final Set<Class<? extends PersistentObject>> wordSearchExclusionMappings = new HashSet<Class<? extends PersistentObject>>();
+    private final Set<Class<? extends PersistentObject>> wordSearchExclusionMappings = new HashSet<>();
 
     private final boolean enableWordSearch;
 
@@ -142,7 +142,7 @@ public abstract class AbstractDBPersistenceService implements TenantPersistenceS
         }
         final String queryName = getQueryName("getNumberOf", querySuffix, entityClass, filters);
 
-        final SelectListDescriptor<Long> descriptor = new SelectListDescriptor<Long>(queryName, parameters, entityClass, Long.class, options);
+        final SelectListDescriptor<Long> descriptor = new SelectListDescriptor<>(queryName, parameters, entityClass, Long.class, options);
         return selectList(descriptor).get(0);
     }
 
@@ -156,13 +156,13 @@ public abstract class AbstractDBPersistenceService implements TenantPersistenceS
     public <T extends PersistentObject> List<T> searchEntity(final Class<T> entityClass, final String querySuffix, final QueryOptions options,
             final Map<String, Object> parameters) throws SBonitaReadException {
         final String queryName = getQueryName("search", querySuffix, entityClass, options.getFilters());
-        final SelectListDescriptor<T> descriptor = new SelectListDescriptor<T>(queryName, parameters, entityClass, options);
+        final SelectListDescriptor<T> descriptor = new SelectListDescriptor<>(queryName, parameters, entityClass, options);
         return selectList(descriptor);
     }
 
     private <T extends PersistentObject> String getQueryName(final String prefix, final String suffix, final Class<T> entityClass,
             final List<FilterOption> filters) {
-        final SortedSet<String> query = new TreeSet<String>();
+        final SortedSet<String> query = new TreeSet<>();
         for (final FilterOption filter : filters) {
             // if filter is just an operator, PersistentClass is not defined:
             if (filter.getPersistentClass() != null) {

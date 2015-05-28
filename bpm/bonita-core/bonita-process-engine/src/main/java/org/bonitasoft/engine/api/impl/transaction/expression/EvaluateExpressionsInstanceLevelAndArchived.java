@@ -46,7 +46,7 @@ TransactionContentWithResult<Map<String, Serializable>> {
 
     private final ExpressionResolverService expressionResolver;
 
-    private final Map<String, Serializable> results = new HashMap<String, Serializable>(0);
+    private final Map<String, Serializable> results = new HashMap<>(0);
 
     public EvaluateExpressionsInstanceLevelAndArchived(final Map<Expression, Map<String, Serializable>> expressions, final long containerId,
             final String containerType, final long processDefinitionId, final long time, final ExpressionResolverService expressionService,

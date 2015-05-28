@@ -43,7 +43,7 @@ public class EvaluateExpressionsInstanceLevel extends AbstractEvaluateExpression
 
     private final ExpressionResolverService expressionResolver;
 
-    private final Map<String, Serializable> results = new HashMap<String, Serializable>(0);
+    private final Map<String, Serializable> results = new HashMap<>(0);
 
     public EvaluateExpressionsInstanceLevel(final Map<Expression, Map<String, Serializable>> expressions, final long containerId, final String containerType,
             final long processDefinitionId, final ExpressionResolverService expressionService,

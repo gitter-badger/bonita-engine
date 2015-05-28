@@ -43,7 +43,7 @@ public class PlatformEhCacheCacheService extends CommonEhCacheCacheService imple
     @Override
     public List<String> getCachesNames() {
         final String[] cacheNames = cacheManager.getCacheNames();
-        final List<String> cacheNamesList = new ArrayList<String>(cacheNames.length);
+        final List<String> cacheNamesList = new ArrayList<>(cacheNames.length);
         final String prefix = "P_";
         for (final String cacheName : cacheNames) {
             if (cacheName.startsWith(prefix)) {

@@ -122,7 +122,7 @@ public class ProcessDefinitionBARContribution implements BusinessArchiveContribu
     private XMLHandler handler;
 
     public ProcessDefinitionBARContribution() {
-        final List<Class<? extends ElementBinding>> bindings = new ArrayList<Class<? extends ElementBinding>>();
+        final List<Class<? extends ElementBinding>> bindings = new ArrayList<>();
         bindings.add(ProcessDefinitionBinding.class);
         bindings.add(ActorDefinitionBinding.class);
         bindings.add(ActorInitiatorDefinitionBinding.class);

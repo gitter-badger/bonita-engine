@@ -102,7 +102,7 @@ public class GetProcessDefinitionIT extends TestWithTechnicalUser {
 
     private void beforeSearchProcessDefinitionsUserCanStart() throws BonitaException {
         // create users
-        users = new ArrayList<User>(2);
+        users = new ArrayList<>(2);
         final User chico = createUser("chicobento", "bpm");
         final User cebolinha = createUser("cebolinha", "bpm");
         final User cascao = createUser("cascao", "bpm");
@@ -117,21 +117,21 @@ public class GetProcessDefinitionIT extends TestWithTechnicalUser {
         users.add(dorinha);
 
         // create groups
-        groups = new ArrayList<Group>(2);
+        groups = new ArrayList<>(2);
         final Group group1 = createGroup("group1");
         groups.add(group1);
         final Group group2 = createGroup("group2");
         groups.add(group2);
 
         // create roles
-        roles = new ArrayList<Role>(2);
+        roles = new ArrayList<>(2);
         final Role role1 = createRole("role1");
         final Role role2 = createRole("role2");
         roles.add(role1);
         roles.add(role2);
 
         // create user memberships
-        userMemberships = new ArrayList<UserMembership>(3);
+        userMemberships = new ArrayList<>(3);
         userMemberships.add(getIdentityAPI().addUserMembership(magali.getId(), group1.getId(), role1.getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(monica.getId(), group1.getId(), role2.getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(dorinha.getId(), group2.getId(), role1.getId()));
@@ -139,7 +139,7 @@ public class GetProcessDefinitionIT extends TestWithTechnicalUser {
         // create processes
         createProcessesDefForSearchProcessUserCanStart();
 
-        categories = new ArrayList<Category>(3);
+        categories = new ArrayList<>(3);
         final Category category1 = getProcessAPI().createCategory("category1", "the first known category");
         final Category category2 = getProcessAPI().createCategory("category2", "the second known category");
         final Category category3 = getProcessAPI().createCategory("category3", "the third known category");
@@ -153,7 +153,7 @@ public class GetProcessDefinitionIT extends TestWithTechnicalUser {
     }
 
     private void createProcessesDefForSearchProcessUserCanStart() throws BonitaException {
-        enabledProcessDefinitions = new ArrayList<ProcessDefinition>(4);
+        enabledProcessDefinitions = new ArrayList<>(4);
         final String actor1 = ACTOR_NAME;
         final DesignProcessDefinition designProcessDefinition1 = BuildTestUtil.buildProcessDefinitionWithHumanAndAutomaticSteps("My_Process1", "1.0",
                 Arrays.asList("step1", "step2"), Arrays.asList(true, true), actor1, true);
@@ -731,7 +731,7 @@ public class GetProcessDefinitionIT extends TestWithTechnicalUser {
         for (final BarResource barResource : impl) {
             businessArchiveBuilder.addUserFilters(barResource);
         }
-        final List<BarResource> generateFilterDependencies = new ArrayList<BarResource>(1);
+        final List<BarResource> generateFilterDependencies = new ArrayList<>(1);
         final byte[] data = IOUtil.generateJar(TestFilter.class);
         generateFilterDependencies.add(new BarResource("TestFilter.jar", data));
         for (final BarResource barResource : generateFilterDependencies) {
@@ -753,7 +753,7 @@ public class GetProcessDefinitionIT extends TestWithTechnicalUser {
     }
 
     private List<BarResource> generateFilterImplementations(final String filterName) throws IOException {
-        final List<BarResource> resources = new ArrayList<BarResource>(1);
+        final List<BarResource> resources = new ArrayList<>(1);
         final InputStream inputStream = TestConnector.class.getClassLoader().getResourceAsStream("org/bonitasoft/engine/filter/user/" + filterName + ".impl");
         final byte[] data = IOUtil.getAllContentFrom(inputStream);
         inputStream.close();

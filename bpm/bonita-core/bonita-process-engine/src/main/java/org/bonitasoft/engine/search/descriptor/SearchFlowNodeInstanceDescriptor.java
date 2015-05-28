@@ -36,7 +36,7 @@ public class SearchFlowNodeInstanceDescriptor extends SearchEntityDescriptor {
 
     public SearchFlowNodeInstanceDescriptor() {
         final SFlowNodeInstanceBuilderFactory keyProvider = BuilderFactory.get(SUserTaskInstanceBuilderFactory.class);
-        flowNodeInstanceDescriptorKeys = new HashMap<String, FieldDescriptor>(8);
+        flowNodeInstanceDescriptorKeys = new HashMap<>(8);
         flowNodeInstanceDescriptorKeys.put(FlowNodeInstanceSearchDescriptor.NAME,
                 new FieldDescriptor(SFlowNodeInstance.class, keyProvider.getNameKey()));
         flowNodeInstanceDescriptorKeys.put(FlowNodeInstanceSearchDescriptor.STATE_NAME,
@@ -56,10 +56,10 @@ public class SearchFlowNodeInstanceDescriptor extends SearchEntityDescriptor {
         flowNodeInstanceDescriptorKeys.put(FlowNodeInstanceSearchDescriptor.LAST_UPDATE_DATE,
                 new FieldDescriptor(SFlowNodeInstance.class, keyProvider.getLastUpdateDateKey()));
 
-        final Set<String> tasksInstanceFields = new HashSet<String>(2);
+        final Set<String> tasksInstanceFields = new HashSet<>(2);
         tasksInstanceFields.add(keyProvider.getNameKey());
         tasksInstanceFields.add(keyProvider.getDisplayNameKey());
-        flowNodeInstanceDescriptorAllFields = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
+        flowNodeInstanceDescriptorAllFields = new HashMap<>(1);
         flowNodeInstanceDescriptorAllFields.put(SFlowNodeInstance.class, tasksInstanceFields);
     }
 

@@ -102,7 +102,7 @@ public class TransientDataLeftOperandHandlerTest {
         // given
         final SShortTextDataInstanceImpl data = createData();
         when(transientDataService.getDataInstance("myData", 42, "ctype")).thenReturn(data);
-        Map<String, Object> contextToSet = new HashMap<String, Object>();
+        Map<String, Object> contextToSet = new HashMap<>();
         // when
         transientDataLeftOperandHandler.loadLeftOperandInContext(createLeftOperand("myData"), new SExpressionContext(42l, "ctype", 12l), contextToSet);
 
@@ -139,7 +139,7 @@ public class TransientDataLeftOperandHandlerTest {
         doReturn(sProcessDefinitionImpl).when(processDefinitionService).getProcessDefinition(processDefId);
         final SShortTextDataInstanceImpl data = createData();
         doThrow(SDataInstanceNotFoundException.class).doReturn(data).when(transientDataService).getDataInstance("myData", taskId, "ctype");
-        Map<String, Object> contextToSet = new HashMap<String, Object>();
+        Map<String, Object> contextToSet = new HashMap<>();
 
         // when
         transientDataLeftOperandHandler.loadLeftOperandInContext(createLeftOperand("myData"), new SExpressionContext(taskId, "ctype", processDefId), contextToSet);

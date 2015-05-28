@@ -32,7 +32,7 @@ public class STypeIntegerValidationTest {
     @Test
     public void Integer_are_valid() throws Exception {
 
-        boolean validation = SType.INTEGER.validate(Integer.valueOf(12));
+        boolean validation = SType.INTEGER.validate(12);
 
         assertThat(validation).isTrue();
     }
@@ -48,7 +48,7 @@ public class STypeIntegerValidationTest {
     @Test
     public void Long_are_valid() throws Exception {
 
-        boolean validation = SType.INTEGER.validate(Long.valueOf(12));
+        boolean validation = SType.INTEGER.validate((long) 12);
 
         assertThat(validation).isTrue();
     }
@@ -72,7 +72,7 @@ public class STypeIntegerValidationTest {
     @Test
     public void Short_are_valid() throws Exception {
 
-        boolean validation = SType.INTEGER.validate(Short.valueOf((short) 87));
+        boolean validation = SType.INTEGER.validate((short) 87);
 
         assertThat(validation).isTrue();
     }
@@ -88,7 +88,7 @@ public class STypeIntegerValidationTest {
     @Test
     public void Byte_are_valid() throws Exception {
 
-        boolean validation = SType.INTEGER.validate(Byte.valueOf((byte) 2));
+        boolean validation = SType.INTEGER.validate((byte) 2);
 
         assertThat(validation).isTrue();
     }

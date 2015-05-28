@@ -44,7 +44,7 @@ public class ClassloaderRefresher {
     public ClassLoader loadClientModelInClassloader(final byte[] clientZipContent, final ClassLoader contextClassLoader, final String modelClass,
             final File fsFolderToPutJars) throws IOException, MalformedURLException {
         final Map<String, byte[]> ressources = IOUtils.unzip(clientZipContent);
-        final List<URL> urls = new ArrayList<URL>();
+        final List<URL> urls = new ArrayList<>();
         for (final Entry<String, byte[]> e : ressources.entrySet()) {
             final File file = new File(fsFolderToPutJars, e.getKey());
             if (file.getName().endsWith(".jar")) {

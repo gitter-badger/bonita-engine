@@ -28,14 +28,14 @@ public final class VariableStorage implements Serializable {
     private final Map<String, Object> variables;
 
     private VariableStorage() {
-        variables = new HashMap<String, Object>();
+        variables = new HashMap<>();
     }
 
     private static class VariableStorageHolder {
 
         public static final VariableStorage INSTANCE = new VariableStorage();
 
-        public static final Map<Long, VariableStorage> instances = new HashMap<Long, VariableStorage>();
+        public static final Map<Long, VariableStorage> instances = new HashMap<>();
     }
 
     public static VariableStorage getInstance() {

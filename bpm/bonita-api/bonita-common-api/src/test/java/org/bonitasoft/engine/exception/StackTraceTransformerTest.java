@@ -62,7 +62,7 @@ public class StackTraceTransformerTest {
     }
 
     private void noDuplicate(final Throwable throwable) throws Exception {
-        HashSet<StackTraceElement> hashSet = new HashSet<StackTraceElement>();
+        HashSet<StackTraceElement> hashSet = new HashSet<>();
         for (StackTraceElement stackTraceElement : throwable.getStackTrace()) {
             if (!hashSet.add(stackTraceElement) && stackTraceElement.toString().contains("org.bonitasoft")) {
                 Logger.getLogger(this.getClass().getName()).log(Level.SEVERE, "the stacktrace contains 2 times " + stackTraceElement, throwable);

@@ -47,15 +47,15 @@ public abstract class SActivityDefinitionImpl extends SFlowNodeDefinitionImpl im
 
     private static final long serialVersionUID = 8767258220640127769L;
 
-    protected List<SDataDefinition> sDataDefinitions = new ArrayList<SDataDefinition>();
+    protected List<SDataDefinition> sDataDefinitions = new ArrayList<>();
 
-    private final List<SBusinessDataDefinition> businessDataDefinitions = new ArrayList<SBusinessDataDefinition>();
+    private final List<SBusinessDataDefinition> businessDataDefinitions = new ArrayList<>();
 
-    protected List<SOperation> sOperations = new ArrayList<SOperation>();
+    protected List<SOperation> sOperations = new ArrayList<>();
 
     protected SLoopCharacteristics loopCharacteristics;
 
-    private final List<SBoundaryEventDefinition> sBoundaryEventDefinitions = new ArrayList<SBoundaryEventDefinition>();
+    private final List<SBoundaryEventDefinition> sBoundaryEventDefinitions = new ArrayList<>();
 
     public SActivityDefinitionImpl(final long id, final String name) {
         super(id, name);

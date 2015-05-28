@@ -36,12 +36,12 @@ public class SelectDescriptorBuilder {
     }
 
     public static <T extends PersistentObject> SelectByIdDescriptor<T> getElementById(final Class<T> clazz, final String elementName, final long id) {
-        return new SelectByIdDescriptor<T>("get" + elementName + "ById", clazz, id);
+        return new SelectByIdDescriptor<>("get" + elementName + "ById", clazz, id);
     }
 
     public static SelectOneDescriptor<Long> getNumberOfElement(final String elementName, final Class<? extends PersistentObject> clazz) {
         final Map<String, Object> parameters = Collections.emptyMap();
-        return new SelectOneDescriptor<Long>("getNumberOf" + elementName, parameters, clazz, Long.class);
+        return new SelectOneDescriptor<>("getNumberOf" + elementName, parameters, clazz, Long.class);
     }
 
     public static <T extends PersistentObject> SelectListDescriptor<T> getElements(final Class<T> clazz, final String elementName, final int fromIndex,
@@ -59,19 +59,19 @@ public class SelectDescriptorBuilder {
     public static <T extends PersistentObject> SelectListDescriptor<T> getElements(final Class<T> clazz, final String elementName,
             final QueryOptions queryOptions) {
         final Map<String, Object> parameters = Collections.emptyMap();
-        return new SelectListDescriptor<T>("get" + elementName + "s", parameters, clazz, queryOptions);
+        return new SelectListDescriptor<>("get" + elementName + "s", parameters, clazz, queryOptions);
     }
 
     public static SelectOneDescriptor<STheme> getTheme(SThemeType type, boolean isDefault) {
-        final Map<String, Object> inputParameters = new HashMap<String, Object>(1);
+        final Map<String, Object> inputParameters = new HashMap<>(1);
         inputParameters.put("type", type);
         inputParameters.put("isDefault", isDefault);
-        return new SelectOneDescriptor<STheme>("getTheme", inputParameters, STheme.class);
+        return new SelectOneDescriptor<>("getTheme", inputParameters, STheme.class);
     }
 
     public static SelectOneDescriptor<STheme> getLastModifiedTheme(SThemeType type) {
-        final Map<String, Object> inputParameters = new HashMap<String, Object>(1);
+        final Map<String, Object> inputParameters = new HashMap<>(1);
         inputParameters.put("type", type);
-        return new SelectOneDescriptor<STheme>("getLastModifiedTheme", inputParameters, STheme.class);
+        return new SelectOneDescriptor<>("getLastModifiedTheme", inputParameters, STheme.class);
     }
 }

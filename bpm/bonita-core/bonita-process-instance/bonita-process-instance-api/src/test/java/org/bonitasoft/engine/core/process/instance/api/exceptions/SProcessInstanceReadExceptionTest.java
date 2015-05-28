@@ -37,7 +37,7 @@ public class SProcessInstanceReadExceptionTest {
 
     @Test
     public void constructTheExceptionWithADescriptor() {
-        final SelectOneDescriptor<PersistentObject> descriptor = new SelectOneDescriptor<PersistentObject>("getPersistentObject", null, PersistentObject.class);
+        final SelectOneDescriptor<PersistentObject> descriptor = new SelectOneDescriptor<>("getPersistentObject", null, PersistentObject.class);
         final SBonitaReadException cause = new SBonitaReadException("problem", null, descriptor);
         final SProcessInstanceReadException exception = new SProcessInstanceReadException(cause);
         assertEquals(descriptor.toString(), exception.getMessage());

@@ -34,7 +34,7 @@ public class DesignerTestUtils {
     }
 
     public static <O> String stringify(Collection<O> items, Stringifier<O> stringifier) {
-        List<String> strings = new ArrayList<String>(items.size());
+        List<String> strings = new ArrayList<>(items.size());
         for (O item : items) {
             strings.add(stringifier.stringify(item));
         }

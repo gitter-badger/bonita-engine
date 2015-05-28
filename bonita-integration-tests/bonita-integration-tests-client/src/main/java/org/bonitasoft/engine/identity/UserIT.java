@@ -272,7 +272,7 @@ public class UserIT extends TestWithTechnicalUser {
         final User userCreated1 = getIdentityAPI().createUser("zhang", "engine");
          final User userCreated2 = getIdentityAPI().createUser("jmege", "engine");
 
-        final List<Long> userIds = new ArrayList<Long>();
+        final List<Long> userIds = new ArrayList<>();
         userIds.add(userCreated1.getId());
         userIds.add(userCreated2.getId());
 
@@ -293,7 +293,7 @@ public class UserIT extends TestWithTechnicalUser {
         final User userCreated1 = getIdentityAPI().createUser("zhang", "engine");
         final User userCreated2 = getIdentityAPI().createUser("jmege", "engine");
 
-        final List<Long> userIds = new ArrayList<Long>();
+        final List<Long> userIds = new ArrayList<>();
         userIds.add(userCreated1.getId());
         userIds.add(userCreated2.getId() + 100);
 
@@ -367,7 +367,7 @@ public class UserIT extends TestWithTechnicalUser {
 
     @Test
     public void deleteUsers() throws BonitaException {
-        final List<Long> userIds = new ArrayList<Long>();
+        final List<Long> userIds = new ArrayList<>();
         userIds.add(getIdentityAPI().createUser("user1", "engine").getId());
         userIds.add(getIdentityAPI().createUser("user2", "engine").getId());
         userIds.add(getIdentityAPI().createUser("user3", "engine").getId());
@@ -385,7 +385,7 @@ public class UserIT extends TestWithTechnicalUser {
 
     @Test
     public void deleteUsersDeleteAllExistingOnesAndIgnoresOthers() throws BonitaException {
-        final List<Long> userIds = new ArrayList<Long>();
+        final List<Long> userIds = new ArrayList<>();
         userIds.add(getIdentityAPI().createUser("user1", "engine").getId());
         userIds.add(getIdentityAPI().createUser("user2", "engine").getId());
         userIds.add(152458L);
@@ -690,7 +690,7 @@ public class UserIT extends TestWithTechnicalUser {
             "Column not unique" }, jira = "ENGINE-1557")
     @Test
     public void searchUser() throws BonitaException {
-        final List<User> users = new ArrayList<User>();
+        final List<User> users = new ArrayList<>();
         users.add(getIdentityAPI().createUser("jgrGF[|00", "bpm", "John", "Taylor"));
         users.add(getIdentityAPI().createUser("45èDG'fgb", "bpm", "Jack", "Jack"));
         users.add(getIdentityAPI().createUser("à\"(èg", "bpm", "John", "Smith"));
@@ -956,13 +956,13 @@ public class UserIT extends TestWithTechnicalUser {
 
     @Test
     public void getUsersFromIdsShouldReturnUsersInTheRightOrder() throws BonitaException {
-        final List<User> expectedUsers = new ArrayList<User>();
+        final List<User> expectedUsers = new ArrayList<>();
         expectedUsers.add(getIdentityAPI().createUser("zhao", "engine"));
         expectedUsers.add(getIdentityAPI().createUser("qian", "engine"));
         expectedUsers.add(getIdentityAPI().createUser("sun", "engine"));
         expectedUsers.add(getIdentityAPI().createUser("li", "engine"));
         expectedUsers.add(getIdentityAPI().createUser("zhou", "engine"));
-        final List<Long> userIds = new ArrayList<Long>(5);
+        final List<Long> userIds = new ArrayList<>(5);
         userIds.add(expectedUsers.get(4).getId());
         userIds.add(expectedUsers.get(0).getId());
         userIds.add(expectedUsers.get(2).getId());
@@ -1000,7 +1000,7 @@ public class UserIT extends TestWithTechnicalUser {
         final User matti = getIdentityAPI().createUser("matti", "bpm");
         final User jani = getIdentityAPI().createUser("jani", "bpm");
 
-        final List<String> userNames = new ArrayList<String>(3);
+        final List<String> userNames = new ArrayList<>(3);
         userNames.add("jani");
         userNames.add("liisa");
         userNames.add("matti");

@@ -48,7 +48,7 @@ public class BusinessObjectDAOFactory {
             throw new IllegalArgumentException(daoInterface.getName() + " is not an interface");
         }
         final String daoClassName = daoInterface.getName();
-        Class<T> daoImplClass = null;
+        Class<T> daoImplClass;
         try {
             daoImplClass = loadClass(daoClassName);
         } catch (final ClassNotFoundException e) {
@@ -58,17 +58,7 @@ public class BusinessObjectDAOFactory {
             try {
                 final Constructor<T> constructor = daoImplClass.getConstructor(APISession.class);
                 return constructor.newInstance(session);
-            } catch (final SecurityException e) {
-                throw new BusinessObjectDaoCreationException(e);
-            } catch (final NoSuchMethodException e) {
-                throw new BusinessObjectDaoCreationException(e);
-            } catch (final IllegalArgumentException e) {
-                throw new BusinessObjectDaoCreationException(e);
-            } catch (final InstantiationException e) {
-                throw new BusinessObjectDaoCreationException(e);
-            } catch (final IllegalAccessException e) {
-                throw new BusinessObjectDaoCreationException(e);
-            } catch (final InvocationTargetException e) {
+            } catch (final SecurityException | InvocationTargetException | IllegalAccessException | InstantiationException | IllegalArgumentException | NoSuchMethodException e) {
                 throw new BusinessObjectDaoCreationException(e);
             }
         }

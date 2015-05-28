@@ -126,7 +126,7 @@ public class GroupIT extends TestWithTechnicalUser {
         final String group2 = "Group2";
         final Group groupCreated2 = getIdentityAPI().createGroup(group2, null);
 
-        final List<Long> groupIds = new ArrayList<Long>();
+        final List<Long> groupIds = new ArrayList<>();
         groupIds.add(groupCreated1.getId());
         groupIds.add(groupCreated2.getId());
 
@@ -146,7 +146,7 @@ public class GroupIT extends TestWithTechnicalUser {
         final String group2 = "Group2";
         final Group groupCreated2 = getIdentityAPI().createGroup(group2, null);
 
-        final List<Long> groupIds = new ArrayList<Long>();
+        final List<Long> groupIds = new ArrayList<>();
         groupIds.add(groupCreated1.getId());
         groupIds.add(groupCreated2.getId() + 100);
 
@@ -243,7 +243,7 @@ public class GroupIT extends TestWithTechnicalUser {
     public void deleteGroups() throws BonitaException {
         assertNotNull(getIdentityAPI().getNumberOfGroups());
         assertEquals(1, getIdentityAPI().getNumberOfGroups());
-        final List<Long> groupIdList = new ArrayList<Long>();
+        final List<Long> groupIdList = new ArrayList<>();
 
         final Group group1 = getIdentityAPI().createGroup("testName1", null);
         groupIdList.add(group1.getId());
@@ -262,7 +262,7 @@ public class GroupIT extends TestWithTechnicalUser {
     public void deleteGroupsWithNotExistId() throws BonitaException {
         assertNotNull(getIdentityAPI().getNumberOfGroups());
         assertEquals(1, getIdentityAPI().getNumberOfGroups());
-        final List<Long> groupIdList = new ArrayList<Long>();
+        final List<Long> groupIdList = new ArrayList<>();
 
         final Group group1 = getIdentityAPI().createGroup("testName1", null);
         groupIdList.add(group1.getId());
@@ -421,7 +421,7 @@ public class GroupIT extends TestWithTechnicalUser {
         final User dUser = getIdentityAPI().createUser("testnameD", "bpm");
 
         final Group group = createGroup("group", "testLabel", "description");
-        final List<Long> userIds = new ArrayList<Long>();
+        final List<Long> userIds = new ArrayList<>();
         userIds.add(aUserInRoleA.getId());
         userIds.add(bUserInRoleA.getId());
         final RoleCreator roleCreatorA = new RoleCreator("RoleA");
@@ -429,7 +429,7 @@ public class GroupIT extends TestWithTechnicalUser {
         final Role testRoleA = getIdentityAPI().createRole(roleCreatorA);
         getIdentityAPI().addUserMemberships(userIds, defaultGroup.getId(), testRoleA.getId());
 
-        final List<Long> testIds = new ArrayList<Long>();
+        final List<Long> testIds = new ArrayList<>();
         testIds.add(cUserInRoleB.getId());
         final RoleCreator roleCreatorB = new RoleCreator("RoleB");
         roleCreatorB.setDisplayName("LabelB").setDescription("DescriptionB");
@@ -457,7 +457,7 @@ public class GroupIT extends TestWithTechnicalUser {
     public void getNumberOfUsersInGroup() throws BonitaException {
         final User aUser = getIdentityAPI().createUser("testnameA", "bpm");
         final User bUser = getIdentityAPI().createUser("testnameB", "bpm");
-        final List<Long> userIds = new ArrayList<Long>();
+        final List<Long> userIds = new ArrayList<>();
         userIds.add(aUser.getId());
         userIds.add(bUser.getId());
         final Role testRole = getIdentityAPI().createRole("testRole");

@@ -27,11 +27,11 @@ import org.bonitasoft.engine.expression.Expression;
  */
 public abstract class FlowNodeDefinitionBinding extends NamedElementBinding {
 
-    protected final List<ConnectorDefinition> connectors = new ArrayList<ConnectorDefinition>();
+    protected final List<ConnectorDefinition> connectors = new ArrayList<>();
 
-    protected final List<TransitionDefinition> incomingTransitions = new ArrayList<TransitionDefinition>();
+    protected final List<TransitionDefinition> incomingTransitions = new ArrayList<>();
 
-    protected final List<TransitionDefinition> outgoingTransitions = new ArrayList<TransitionDefinition>();
+    protected final List<TransitionDefinition> outgoingTransitions = new ArrayList<>();
 
     private TransitionDefinition defaultTransition;
 

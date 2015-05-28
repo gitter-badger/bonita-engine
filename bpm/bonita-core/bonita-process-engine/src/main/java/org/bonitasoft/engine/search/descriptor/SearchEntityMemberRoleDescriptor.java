@@ -36,8 +36,8 @@ public class SearchEntityMemberRoleDescriptor extends SearchEntityMemberDescript
         super();
         putField(EntityMemberSearchDescriptor.DISPLAY_NAME_PART1, new FieldDescriptor(SRole.class, BuilderFactory.get(SRoleBuilderFactory.class).getNameKey()));
 
-        entityMemberAllFields = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
-        final Set<String> roleFields = new HashSet<String>(1);
+        entityMemberAllFields = new HashMap<>(1);
+        final Set<String> roleFields = new HashSet<>(1);
         roleFields.add(BuilderFactory.get(SRoleBuilderFactory.class).getNameKey());
         entityMemberAllFields.put(SRole.class, roleFields);
     }

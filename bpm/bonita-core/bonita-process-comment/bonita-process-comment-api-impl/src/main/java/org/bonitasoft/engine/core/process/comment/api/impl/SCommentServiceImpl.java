@@ -119,14 +119,14 @@ public class SCommentServiceImpl implements SCommentService {
         final Map<String, Object> parameters = Collections.singletonMap("processInstanceId", (Object) processInstanceId);
         final OrderByOption orderByOption = new OrderByOption(SComment.class, "id", OrderByType.ASC);
         final QueryOptions queryOptions = new QueryOptions(Arrays.asList(orderByOption));
-        final SelectListDescriptor<SComment> selectDescriptor = new SelectListDescriptor<SComment>("getSComments", parameters, SComment.class, queryOptions);
+        final SelectListDescriptor<SComment> selectDescriptor = new SelectListDescriptor<>("getSComments", parameters, SComment.class, queryOptions);
         return persistenceService.selectList(selectDescriptor);
     }
 
     @Override
     public List<SComment> getComments(final long processInstanceId, final QueryOptions queryOptions) throws SBonitaReadException {
         final Map<String, Object> parameters = Collections.singletonMap("processInstanceId", (Object) processInstanceId);
-        final SelectListDescriptor<SComment> selectDescriptor = new SelectListDescriptor<SComment>("getSComments", parameters, SComment.class, queryOptions);
+        final SelectListDescriptor<SComment> selectDescriptor = new SelectListDescriptor<>("getSComments", parameters, SComment.class, queryOptions);
         return persistenceService.selectList(selectDescriptor);
     }
 
@@ -264,7 +264,7 @@ public class SCommentServiceImpl implements SCommentService {
     @Override
     public SAComment getArchivedComment(final long archivedCommentId) throws SCommentNotFoundException, SBonitaReadException {
         final ReadPersistenceService persistenceService = archiveService.getDefinitiveArchiveReadPersistenceService();
-        final SAComment selectById = persistenceService.selectById(new SelectByIdDescriptor<SAComment>("getArchivedCommentById", SAComment.class,
+        final SAComment selectById = persistenceService.selectById(new SelectByIdDescriptor<>("getArchivedCommentById", SAComment.class,
                 archivedCommentId));
         if (selectById == null) {
             throw new SCommentNotFoundException("Archived comment not found with id=" + archivedCommentId);

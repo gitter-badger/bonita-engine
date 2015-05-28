@@ -26,7 +26,7 @@ public class BinaryComparatorMapper {
     private Map<String, BinaryComparator> evaluators;
 
     public BinaryComparatorMapper(EqualityComparator equalityComparator, InequalityComparator inequalityComparator) {
-        evaluators = new HashMap<String, BinaryComparator>();
+        evaluators = new HashMap<>();
         evaluators.put(ConditionExpressionExecutorStrategy.EQUALS_COMPARATOR, new EqualsComparator(equalityComparator));
         evaluators.put(ConditionExpressionExecutorStrategy.NOT_EQUALS_COMPARATOR, new DifferentComparator(equalityComparator));
         evaluators.put(ConditionExpressionExecutorStrategy.GREATER_THAN_COMPARATOR, new GreaterThanComparator(inequalityComparator));

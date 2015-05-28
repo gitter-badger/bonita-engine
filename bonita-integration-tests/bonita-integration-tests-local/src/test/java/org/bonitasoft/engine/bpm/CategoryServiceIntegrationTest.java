@@ -452,7 +452,7 @@ public class CategoryServiceIntegrationTest extends CommonBPMServicesTest {
     }
 
     private List<SCategory> createCategories(final int count, final String name, final String description) throws Exception {
-        final List<SCategory> categoryList = new ArrayList<SCategory>();
+        final List<SCategory> categoryList = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
             final SCategory category = categoryService.createCategory(name + i, description + i);
             categoryList.add(category);

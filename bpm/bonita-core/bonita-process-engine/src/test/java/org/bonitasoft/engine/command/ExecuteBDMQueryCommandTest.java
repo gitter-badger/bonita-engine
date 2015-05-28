@@ -54,10 +54,10 @@ public class ExecuteBDMQueryCommandTest {
 
     @Test
     public void should_Execute_call_findByNamedQuery() throws Exception {
-        Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        Map<String, Serializable> parameters = new HashMap<>();
         Class<? extends Serializable> resultClass = String.class;
         String queryName = "testQuery";
-        Map<String, Serializable> queryParameters = new HashMap<String, Serializable>();
+        Map<String, Serializable> queryParameters = new HashMap<>();
         boolean returnsList = false;
 
         parameters.put(ExecuteBDMQueryCommand.QUERY_NAME, queryName);
@@ -72,10 +72,10 @@ public class ExecuteBDMQueryCommandTest {
 
     @Test
     public void should_Execute_call_findListByNamedQuery() throws Exception {
-        Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        Map<String, Serializable> parameters = new HashMap<>();
         Class<? extends Serializable> resultClass = String.class;
         String queryName = "testQuery";
-        Map<String, Serializable> queryParameters = new HashMap<String, Serializable>();
+        Map<String, Serializable> queryParameters = new HashMap<>();
         boolean returnsList = true;
 
         parameters.put(ExecuteBDMQueryCommand.QUERY_NAME, queryName);
@@ -92,7 +92,7 @@ public class ExecuteBDMQueryCommandTest {
 
     @Test(expected = SCommandParameterizationException.class)
     public void should_Execute_throw_SCommandParameterizationException_if_no_query_name() throws Exception {
-        Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(ExecuteBDMQueryCommand.QUERY_NAME, null);
         command.execute(parameters, tenantServiceAccessor);
         parameters.put(ExecuteBDMQueryCommand.QUERY_NAME, "");
@@ -101,7 +101,7 @@ public class ExecuteBDMQueryCommandTest {
 
     @Test(expected = SCommandParameterizationException.class)
     public void should_Execute_throw_SCommandParameterizationException_if_no_return_type() throws Exception {
-        Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(ExecuteBDMQueryCommand.RETURN_TYPE, null);
         command.execute(parameters, tenantServiceAccessor);
         parameters.put(ExecuteBDMQueryCommand.RETURN_TYPE, "");

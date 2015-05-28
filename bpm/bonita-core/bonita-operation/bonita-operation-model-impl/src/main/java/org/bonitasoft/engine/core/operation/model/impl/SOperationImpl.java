@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.core.operation.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.core.operation.model.SLeftOperand;
 import org.bonitasoft.engine.core.operation.model.SOperation;
 import org.bonitasoft.engine.core.operation.model.SOperatorType;
@@ -71,53 +73,19 @@ public class SOperationImpl implements SOperation {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (leftOperand == null ? 0 : leftOperand.hashCode());
-        result = prime * result + (operator == null ? 0 : operator.hashCode());
-        result = prime * result + (rightOperand == null ? 0 : rightOperand.hashCode());
-        result = prime * result + (type == null ? 0 : type.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SOperationImpl that = (SOperationImpl) o;
+        return Objects.equals(leftOperand, that.leftOperand) &&
+                Objects.equals(type, that.type) &&
+                Objects.equals(operator, that.operator) &&
+                Objects.equals(rightOperand, that.rightOperand);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SOperationImpl other = (SOperationImpl) obj;
-        if (leftOperand == null) {
-            if (other.leftOperand != null) {
-                return false;
-            }
-        } else if (!leftOperand.equals(other.leftOperand)) {
-            return false;
-        }
-        if (operator == null) {
-            if (other.operator != null) {
-                return false;
-            }
-        } else if (!operator.equals(other.operator)) {
-            return false;
-        }
-        if (rightOperand == null) {
-            if (other.rightOperand != null) {
-                return false;
-            }
-        } else if (!rightOperand.equals(other.rightOperand)) {
-            return false;
-        }
-        if (type != other.type) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(leftOperand, type, operator, rightOperand);
     }
 
     @Override

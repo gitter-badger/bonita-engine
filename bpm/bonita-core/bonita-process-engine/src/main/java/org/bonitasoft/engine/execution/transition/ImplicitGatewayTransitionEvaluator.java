@@ -45,7 +45,7 @@ public class ImplicitGatewayTransitionEvaluator {
 
     private List<STransitionDefinition> buildChosenTransitions(final EvaluatedTransitions evaluatedTransitions, final FlowNodeTransitionsWrapper transitions,
             final SProcessDefinition sDefinition, final SFlowNodeInstance flowNodeInstance) throws SActivityExecutionException {
-        final List<STransitionDefinition> chosenTransitions = new ArrayList<STransitionDefinition>(evaluatedTransitions.getUnconditionalTransitions().size()
+        final List<STransitionDefinition> chosenTransitions = new ArrayList<>(evaluatedTransitions.getUnconditionalTransitions().size()
                 + evaluatedTransitions.getTrueTransitions().size());
         if (evaluatedTransitions.hasUnconditionalTransitions()) {
             chosenTransitions.addAll(evaluatedTransitions.getUnconditionalTransitions());

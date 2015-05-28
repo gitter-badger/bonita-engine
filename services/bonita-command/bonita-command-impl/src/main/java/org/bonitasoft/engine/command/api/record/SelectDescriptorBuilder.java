@@ -32,22 +32,22 @@ public class SelectDescriptorBuilder {
 
     public static SelectOneDescriptor<SCommand> getCommandByName(final String commandName) {
         final Map<String, Object> parameters = Collections.singletonMap("name", (Object) commandName);
-        return new SelectOneDescriptor<SCommand>("getCommandByName", parameters, SCommand.class);
+        return new SelectOneDescriptor<>("getCommandByName", parameters, SCommand.class);
     }
 
     public static SelectListDescriptor<SCommand> getCommands(final String field, final OrderByType order, final int fromIndex, final int numberOfElements) {
         final Map<String, Object> parameters = Collections.emptyMap();
         final QueryOptions queryOptions = new QueryOptions(fromIndex, numberOfElements, SCommand.class, field, order);
-        return new SelectListDescriptor<SCommand>("getCommands", parameters, SCommand.class, queryOptions);
+        return new SelectListDescriptor<>("getCommands", parameters, SCommand.class, queryOptions);
     }
 
     public static SelectListDescriptor<SCommand> getUserCommands(final String field, final OrderByType order, final int fromIndex, final int numberOfElements) {
         final Map<String, Object> parameters = Collections.singletonMap("system", (Object) false);
         final QueryOptions queryOptions = new QueryOptions(fromIndex, numberOfElements, SCommand.class, field, order);
-        return new SelectListDescriptor<SCommand>("getUserCommands", parameters, SCommand.class, queryOptions);
+        return new SelectListDescriptor<>("getUserCommands", parameters, SCommand.class, queryOptions);
     }
 
     public static SelectByIdDescriptor<SCommand> getCommandById(final long commandId) {
-        return new SelectByIdDescriptor<SCommand>("getCommandById", SCommand.class, commandId);
+        return new SelectByIdDescriptor<>("getCommandById", SCommand.class, commandId);
     }
 }

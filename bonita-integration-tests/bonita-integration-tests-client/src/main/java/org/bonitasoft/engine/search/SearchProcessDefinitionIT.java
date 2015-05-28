@@ -53,8 +53,8 @@ public class SearchProcessDefinitionIT extends TestWithUser {
     @Before
     public void before() throws Exception {
         super.before();
-        enabledProcessDefinitions = new ArrayList<ProcessDefinition>(2);
-        disabledProcessDefinitions = new ArrayList<ProcessDefinition>(2);
+        enabledProcessDefinitions = new ArrayList<>(2);
+        disabledProcessDefinitions = new ArrayList<>(2);
     }
 
     @Override

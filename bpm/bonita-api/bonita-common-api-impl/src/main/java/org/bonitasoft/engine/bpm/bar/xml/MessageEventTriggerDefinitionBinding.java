@@ -28,7 +28,7 @@ public abstract class MessageEventTriggerDefinitionBinding extends ElementBindin
 
     private String messageName;
 
-    private final List<CorrelationDefinition> correlations = new ArrayList<CorrelationDefinition>();
+    private final List<CorrelationDefinition> correlations = new ArrayList<>();
 
     @Override
     public void setAttributes(final Map<String, String> attributes) {

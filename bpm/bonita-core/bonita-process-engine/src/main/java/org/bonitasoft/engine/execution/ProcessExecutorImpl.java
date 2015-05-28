@@ -466,7 +466,7 @@ public class ProcessExecutorImpl implements ProcessExecutor {
 
     private List<Long> initializeMultipleBusinessDataIds(SExpressionContext expressionContext, SExpression expression) throws SExpressionTypeUnknownException,
             SExpressionEvaluationException, SExpressionDependencyMissingException, SInvalidExpressionException {
-        final List<Long> dataIds = new ArrayList<Long>();
+        final List<Long> dataIds = new ArrayList<>();
         if (expression != null) {
             final List<Entity> businessData = (List<Entity>) expressionResolverService.evaluate(expression, expressionContext);
             for (final Entity entity : businessData) {
@@ -523,7 +523,7 @@ public class ProcessExecutorImpl implements ProcessExecutor {
             final SExpressionContext expressionContext,
             final Map<String, Object> context, final List<SDocumentDefinition> documentDefinitions) throws SExpressionTypeUnknownException,
             SExpressionEvaluationException, SExpressionDependencyMissingException, SInvalidExpressionException, SOperationExecutionException {
-        final List<SExpression> initialValuesExpressions = new ArrayList<SExpression>(documentDefinitions.size());
+        final List<SExpression> initialValuesExpressions = new ArrayList<>(documentDefinitions.size());
         Map<SExpression, DocumentValue> evaluatedDocumentValue = new HashMap<>();
         for (final SDocumentDefinition documentDefinition : documentDefinitions) {
             if (documentDefinition.getInitialValue() != null) {
@@ -559,7 +559,7 @@ public class ProcessExecutorImpl implements ProcessExecutor {
     private List<Object> evaluateInitialExpressionsOfDocumentLists(final SProcessInstance processInstance, final SExpressionContext expressionContext,
             final Map<String, Object> context, final List<SDocumentListDefinition> documentListDefinitions) throws SExpressionTypeUnknownException,
             SExpressionEvaluationException, SExpressionDependencyMissingException, SInvalidExpressionException {
-        final List<SExpression> initialValuesExpressions = new ArrayList<SExpression>(documentListDefinitions.size());
+        final List<SExpression> initialValuesExpressions = new ArrayList<>(documentListDefinitions.size());
         for (final SDocumentListDefinition documentList : documentListDefinitions) {
             initialValuesExpressions.add(documentList.getExpression());
         }
@@ -688,9 +688,9 @@ public class ProcessExecutorImpl implements ProcessExecutor {
         final SFlowNodeDefinition sFlowNodeDefinition = processDefinition.getProcessContainer().getFlowNode(child.getFlowNodeDefinitionId());
         final FlowNodeTransitionsWrapper transitionsDescriptor = transitionEvaluator.buildTransitionsWrapper(sFlowNodeDefinition, processDefinition, child);
 
-        final List<STransitionDefinition> chosenGatewaysTransitions = new ArrayList<STransitionDefinition>(transitionsDescriptor
+        final List<STransitionDefinition> chosenGatewaysTransitions = new ArrayList<>(transitionsDescriptor
                 .getValidOutgoingTransitionDefinitions().size());
-        final List<SFlowNodeDefinition> chosenFlowNode = new ArrayList<SFlowNodeDefinition>(transitionsDescriptor.getValidOutgoingTransitionDefinitions()
+        final List<SFlowNodeDefinition> chosenFlowNode = new ArrayList<>(transitionsDescriptor.getValidOutgoingTransitionDefinitions()
                 .size());
         for (final STransitionDefinition sTransitionDefinition : transitionsDescriptor.getValidOutgoingTransitionDefinitions()) {
             final SFlowNodeDefinition flowNodeDefinition = processDefinitionService.getNextFlowNode(processDefinition, sTransitionDefinition.getName());
@@ -808,7 +808,7 @@ public class ProcessExecutorImpl implements ProcessExecutor {
             final SProcessInstance sProcessInstance = createProcessInstance(sProcessDefinition, starterId, starterSubstituteId, callerId);
 
             final boolean isInitializing = initialize(starterId, sProcessDefinition, sProcessInstance, expressionContext,
-                    operations != null ? new ArrayList<SOperation>(operations) : null, context, selector.getContainer(), connectors,
+                    operations != null ? new ArrayList<>(operations) : null, context, selector.getContainer(), connectors,
                     selector, processInputs);
             try {
                 handleEventSubProcess(sProcessDefinition, sProcessInstance, selector.getSubProcessDefinitionId());
@@ -826,9 +826,7 @@ public class ProcessExecutorImpl implements ProcessExecutor {
                 return sProcessInstance;
             }
             return startElements(sProcessInstance, selector);
-        } catch (final BonitaException e) {
-            throw new SProcessInstanceCreationException(e);
-        } catch (final IOException e) {
+        } catch (final BonitaException | IOException e) {
             throw new SProcessInstanceCreationException(e);
         } catch (final SProcessInstanceCreationException e) {
             throw e;

@@ -52,7 +52,7 @@ public class CSVFlushEventListener implements FlushEventListener {
     @Override
     public CSVFlushResult flush(final FlushEvent flushEvent) throws Exception {
         final List<Record> records = flushEvent.getRecords();
-        final List<List<String>> csvContent = new ArrayList<List<String>>();
+        final List<List<String>> csvContent = new ArrayList<>();
         csvContent.add(getHeaderRow());
         for (final Record record : records) {
             final List<String> row = getRow(record);
@@ -81,7 +81,7 @@ public class CSVFlushEventListener implements FlushEventListener {
         final int second = cal.get(Calendar.SECOND);
         final int milisecond = cal.get(Calendar.MILLISECOND);
 
-        final List<String> row = new ArrayList<String>();
+        final List<String> row = new ArrayList<>();
         row.add(String.valueOf(timestamp));
         row.add(String.valueOf(year));
         row.add(String.valueOf(month));
@@ -97,7 +97,7 @@ public class CSVFlushEventListener implements FlushEventListener {
     }
 
     private List<String> getHeaderRow() {
-        final List<String> header = new ArrayList<String>();
+        final List<String> header = new ArrayList<>();
         header.add("timestamp");
         header.add("year");
         header.add("month");

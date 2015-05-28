@@ -53,7 +53,7 @@ public class ApplicationMenuCreator implements Serializable {
      * @see org.bonitasoft.engine.business.application.Application
      */
     public ApplicationMenuCreator(final Long applicationId, final String displayName) {
-        fields = new HashMap<ApplicationMenuField, Serializable>(4);
+        fields = new HashMap<>(4);
         fields.put(ApplicationMenuField.DISPLAY_NAME, displayName);
         fields.put(ApplicationMenuField.APPLICATION_ID, applicationId);
     }

@@ -18,7 +18,7 @@ public class DeleteSessionCommand extends CommandWithParameters {
         Long sessionId = (Long)parameters.get("sessionId");
         SessionService sessionService = serviceAccessor.getSessionService();
         try {
-            sessionService.deleteSession(sessionId.longValue());
+            sessionService.deleteSession(sessionId);
         } catch(SSessionNotFoundException e) {
             throw new SCommandExecutionException(e);
         }

@@ -34,7 +34,7 @@ public class VirtualClassLoaderTest {
     @Test
     public void loadClassStudentInformation_to_VirtualClassLoarder_should_be_get_as_resource() throws Exception {
         VirtualClassLoader vcl = new VirtualClassLoader("org.bonitasoft", 1L, Thread.currentThread().getContextClassLoader());
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>(1);
+        final Map<String, byte[]> resources = new HashMap<>(1);
         resources.put("UOSFaasApplication.jar", FileUtils.readFileToByteArray(new File("src/test/resources/UOSFaasApplication.jar")));
         final File tempDir = new File(System.getProperty("java.io.tmpdir"), "VirtualClassLoaderTest");
         final BonitaClassLoader bonitaClassLoader = new BonitaClassLoader(resources, "here", 154L, tempDir.toURI(), BonitaClassLoader.class.getClassLoader());
@@ -58,7 +58,7 @@ public class VirtualClassLoaderTest {
     @Test
     public void loadStudentInformation_toVirtualClassLoader_should_be_usable_via_JavaMethodInvoker() throws Exception {
         final VirtualClassLoader vcl = new VirtualClassLoader("org.bonitasoft", 1L, Thread.currentThread().getContextClassLoader());
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>(1);
+        final Map<String, byte[]> resources = new HashMap<>(1);
         resources.put("UOSFaasApplication.jar", FileUtils.readFileToByteArray(new File("src/test/resources/UOSFaasApplication.jar")));
         final File tempDir = new File(System.getProperty("java.io.tmpdir"), "VirtualClassLoaderTest");
         final BonitaClassLoader bonitaClassLoader = new BonitaClassLoader(resources, "here", 154L, tempDir.toURI(), BonitaClassLoader.class.getClassLoader());

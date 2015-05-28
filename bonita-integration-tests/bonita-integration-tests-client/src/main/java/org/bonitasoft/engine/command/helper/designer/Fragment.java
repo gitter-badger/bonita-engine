@@ -26,7 +26,7 @@ import org.bonitasoft.engine.bpm.process.impl.ProcessDefinitionBuilder;
  */
 public abstract class Fragment {
 
-    private final Map<String, Transition> transitions = new HashMap<String, Transition>();
+    private final Map<String, Transition> transitions = new HashMap<>();
 
     public Fragment when(final String step, final Transition transition) {
         transitions.put(step, transition);

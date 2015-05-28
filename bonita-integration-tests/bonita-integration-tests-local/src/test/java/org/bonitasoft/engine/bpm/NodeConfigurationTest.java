@@ -47,7 +47,7 @@ public class NodeConfigurationTest {
     @Cover(classes = NodeConfiguration.class, concept = BPMNConcept.NONE, keywords = { "NodeConfiguration", "RestartHandlers" }, story = "Test set restart handlers.", jira = "ENGINE-612")
     @Test
     public void setRestartHandlers() {
-        List<RestartHandler> lRestartHandlers = new ArrayList<RestartHandler>();
+        List<RestartHandler> lRestartHandlers = new ArrayList<>();
         RestartHandler rh = new RestartHandler() {
 
             @Override

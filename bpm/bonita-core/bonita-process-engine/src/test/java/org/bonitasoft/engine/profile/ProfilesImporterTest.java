@@ -434,7 +434,7 @@ public class ProfilesImporterTest {
         // given
         createImporter(new IgnoreDuplicateImportStrategy(profileService));
         final ExportedProfileMapping exportedProfileMapping = new ExportedProfileMapping();
-        exportedProfileMapping.setMemberships(Arrays.asList(new Pair<String, String>("group", "role")));
+        exportedProfileMapping.setMemberships(Arrays.asList(new Pair<>("group", "role")));
         doThrow(new SGroupNotFoundException("group")).when(identityService).getGroupByPath("group");
         // when
         final List<ImportError> importProfileMapping = profilesImporter.importProfileMapping(profileService, identityService, 123, exportedProfileMapping);
@@ -449,7 +449,7 @@ public class ProfilesImporterTest {
         // given
         createImporter(new IgnoreDuplicateImportStrategy(profileService));
         final ExportedProfileMapping exportedProfileMapping = new ExportedProfileMapping();
-        exportedProfileMapping.setMemberships(Arrays.asList(new Pair<String, String>("group", "role")));
+        exportedProfileMapping.setMemberships(Arrays.asList(new Pair<>("group", "role")));
         doThrow(new SRoleNotFoundException("role")).when(identityService).getRoleByName("role");
         // when
         final List<ImportError> importProfileMapping = profilesImporter.importProfileMapping(profileService, identityService, 123, exportedProfileMapping);
@@ -464,7 +464,7 @@ public class ProfilesImporterTest {
         // given
         createImporter(new IgnoreDuplicateImportStrategy(profileService));
         final ExportedProfileMapping exportedProfileMapping = new ExportedProfileMapping();
-        exportedProfileMapping.setMemberships(Arrays.asList(new Pair<String, String>("group", "role")));
+        exportedProfileMapping.setMemberships(Arrays.asList(new Pair<>("group", "role")));
         doThrow(new SRoleNotFoundException("role")).when(identityService).getRoleByName("role");
         doThrow(new SGroupNotFoundException("group")).when(identityService).getGroupByPath("group");
         // when
@@ -481,7 +481,7 @@ public class ProfilesImporterTest {
         // given
         createImporter(new IgnoreDuplicateImportStrategy(profileService));
         final ExportedProfileMapping exportedProfileMapping = new ExportedProfileMapping();
-        exportedProfileMapping.setMemberships(Arrays.asList(new Pair<String, String>("group", "role")));
+        exportedProfileMapping.setMemberships(Arrays.asList(new Pair<>("group", "role")));
         final SRole role = mock(SRole.class);
         when(role.getId()).thenReturn(456l);
         when(role.getName()).thenReturn("role");

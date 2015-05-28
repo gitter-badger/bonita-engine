@@ -173,7 +173,7 @@ public class ProfileServiceImpl implements ProfileService {
     @Override
     public List<SProfile> getProfiles(final List<Long> profileIds) throws SProfileNotFoundException {
         logBeforeMethod("getProfiles");
-        final List<SProfile> profiles = new ArrayList<SProfile>();
+        final List<SProfile> profiles = new ArrayList<>();
         if (profileIds != null) {
             for (final Long profileId : profileIds) {
                 final SProfile profile = getProfile(profileId);
@@ -227,10 +227,7 @@ public class ProfileServiceImpl implements ProfileService {
             logOnExceptionMethod("deleteProfile", re);
             log(profile.getId(), SQueriableLog.STATUS_FAIL, logBuilder, "deleteProfile");
             throw new SProfileDeletionException(re);
-        } catch (final SProfileEntryDeletionException e) {
-            logOnExceptionMethod("deleteProfile", e);
-            throw e;
-        } catch (final SProfileMemberDeletionException e) {
+        } catch (final SProfileEntryDeletionException | SProfileMemberDeletionException e) {
             logOnExceptionMethod("deleteProfile", e);
             throw e;
         }
@@ -715,7 +712,7 @@ public class ProfileServiceImpl implements ProfileService {
         long userId;
         try {
             userId = getSessionUserId();
-            final Map<String, Object> params = new HashMap<String, Object>();
+            final Map<String, Object> params = new HashMap<>();
             params.put("lastUpdateDate", System.currentTimeMillis());
             params.put("lastUpdatedBy", userId);
             params.put("id", profileId);

@@ -36,7 +36,7 @@ public class SearchApplicationMenuDescriptor extends SearchEntityDescriptor {
 
     SearchApplicationMenuDescriptor() {
         final SApplicationMenuBuilderFactory appMenuKeyProvider = BuilderFactory.get(SApplicationMenuBuilderFactory.class);
-        keys = new HashMap<String, FieldDescriptor>(6);
+        keys = new HashMap<>(6);
         keys.put(ApplicationMenuSearchDescriptor.ID, new FieldDescriptor(SApplicationMenu.class, appMenuKeyProvider.getIdKey()));
         keys.put(ApplicationMenuSearchDescriptor.APPLICATION_PAGE_ID, new FieldDescriptor(SApplicationMenu.class, appMenuKeyProvider.getApplicationPageIdKey()));
         keys.put(ApplicationMenuSearchDescriptor.DISPLAY_NAME, new FieldDescriptor(SApplicationMenu.class, appMenuKeyProvider.getDisplayNameKey()));
@@ -44,9 +44,9 @@ public class SearchApplicationMenuDescriptor extends SearchEntityDescriptor {
         keys.put(ApplicationMenuSearchDescriptor.APPLICATION_ID, new FieldDescriptor(SApplicationMenu.class, appMenuKeyProvider.getApplicationIdKey()));
         keys.put(ApplicationMenuSearchDescriptor.PARENT_ID, new FieldDescriptor(SApplicationMenu.class, appMenuKeyProvider.getParentIdKey()));
 
-        allFields = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
+        allFields = new HashMap<>(1);
 
-        final Set<String> pageFields = new HashSet<String>(1);
+        final Set<String> pageFields = new HashSet<>(1);
         pageFields.add(appMenuKeyProvider.getDisplayNameKey());
         allFields.put(SApplicationMenu.class, pageFields);
     }

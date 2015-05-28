@@ -46,9 +46,7 @@ public class EntityMerger {
                     newCollection.add(proxyfier.proxify((Entity) item));
                 }
                 return (Serializable) newCollection;
-            } catch (final InstantiationException e) {
-                throw new IllegalStateException(e);
-            } catch (final IllegalAccessException e) {
+            } catch (final InstantiationException | IllegalAccessException e) {
                 throw new IllegalStateException(e);
             }
         } else if (isAnEntity(value)) {

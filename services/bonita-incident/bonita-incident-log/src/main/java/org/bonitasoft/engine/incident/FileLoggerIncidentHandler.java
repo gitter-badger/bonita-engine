@@ -38,7 +38,7 @@ public class FileLoggerIncidentHandler implements IncidentHandler {
     private final Map<Long, Logger> loggers;
 
     public FileLoggerIncidentHandler() {
-        loggers = new HashMap<Long, Logger>(2);
+        loggers = new HashMap<>(2);
     }
 
     @Override
@@ -52,11 +52,7 @@ public class FileLoggerIncidentHandler implements IncidentHandler {
             if (recoveryProcedure != null && !recoveryProcedure.isEmpty()) {
                 logger.log(Level.SEVERE, "Procedure to recover: " + recoveryProcedure);
             }
-        } catch (final SecurityException e) {
-            e.printStackTrace();
-        } catch (final IOException e) {
-            e.printStackTrace();
-        } catch (BonitaHomeNotSetException e) {
+        } catch (final SecurityException | BonitaHomeNotSetException | IOException e) {
             e.printStackTrace();
         }
     }

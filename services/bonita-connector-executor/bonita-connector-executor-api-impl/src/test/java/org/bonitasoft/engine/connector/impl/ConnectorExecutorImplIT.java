@@ -85,7 +85,7 @@ public class ConnectorExecutorImplIT {
         final List<Callable<Void>> tasks1 = Collections.nCopies(50, task);
         final List<Callable<Void>> tasks2 = Collections.nCopies(50, task2);
 
-        final List<Callable<Void>> tasks = new ArrayList<Callable<Void>>(tasks1);
+        final List<Callable<Void>> tasks = new ArrayList<>(tasks1);
         tasks.addAll(tasks2);
 
         final List<Future<Void>> all = service.invokeAll(tasks);

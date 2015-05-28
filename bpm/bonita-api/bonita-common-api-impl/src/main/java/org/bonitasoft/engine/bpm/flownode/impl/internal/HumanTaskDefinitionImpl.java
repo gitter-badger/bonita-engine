@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.bpm.flownode.impl.internal;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.bpm.flownode.impl.HumanTaskDefinition;
 import org.bonitasoft.engine.bpm.process.ModelFinderVisitor;
 import org.bonitasoft.engine.bpm.userfilter.UserFilterDefinition;
@@ -78,57 +80,20 @@ public abstract class HumanTaskDefinitionImpl extends TaskDefinitionImpl impleme
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (actorName == null ? 0 : actorName.hashCode());
-        result = prime * result + (expectedDuration == null ? 0 : expectedDuration.hashCode());
-        result = prime * result + (priority == null ? 0 : priority.hashCode());
-        result = prime * result + (userFilterDefinition == null ? 0 : userFilterDefinition.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        HumanTaskDefinitionImpl that = (HumanTaskDefinitionImpl) o;
+        return Objects.equals(actorName, that.actorName) &&
+                Objects.equals(userFilterDefinition, that.userFilterDefinition) &&
+                Objects.equals(expectedDuration, that.expectedDuration) &&
+                Objects.equals(priority, that.priority);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final HumanTaskDefinitionImpl other = (HumanTaskDefinitionImpl) obj;
-        if (actorName == null) {
-            if (other.actorName != null) {
-                return false;
-            }
-        } else if (!actorName.equals(other.actorName)) {
-            return false;
-        }
-        if (expectedDuration == null) {
-            if (other.expectedDuration != null) {
-                return false;
-            }
-        } else if (!expectedDuration.equals(other.expectedDuration)) {
-            return false;
-        }
-        if (priority == null) {
-            if (other.priority != null) {
-                return false;
-            }
-        } else if (!priority.equals(other.priority)) {
-            return false;
-        }
-        if (userFilterDefinition == null) {
-            if (other.userFilterDefinition != null) {
-                return false;
-            }
-        } else if (!userFilterDefinition.equals(other.userFilterDefinition)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), actorName, userFilterDefinition, expectedDuration, priority);
     }
 
     @Override

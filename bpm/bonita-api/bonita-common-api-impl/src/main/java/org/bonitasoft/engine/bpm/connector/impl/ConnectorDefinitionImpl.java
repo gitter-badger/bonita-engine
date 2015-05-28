@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
 import org.bonitasoft.engine.bpm.connector.ConnectorDefinition;
 import org.bonitasoft.engine.bpm.connector.ConnectorEvent;
@@ -35,9 +36,9 @@ public class ConnectorDefinitionImpl extends NamedElementImpl implements Connect
 
     private final String connectorId;
 
-    private final Map<String, Expression> inputs = new HashMap<String, Expression>();
+    private final Map<String, Expression> inputs = new HashMap<>();
 
-    private final List<Operation> outputs = new ArrayList<Operation>();
+    private final List<Operation> outputs = new ArrayList<>();
 
     private final ConnectorEvent actiationEvent;
 
@@ -113,73 +114,23 @@ public class ConnectorDefinitionImpl extends NamedElementImpl implements Connect
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (actiationEvent == null ? 0 : actiationEvent.hashCode());
-        result = prime * result + (connectorId == null ? 0 : connectorId.hashCode());
-        result = prime * result + (errorCode == null ? 0 : errorCode.hashCode());
-        result = prime * result + (failAction == null ? 0 : failAction.hashCode());
-        result = prime * result + (inputs == null ? 0 : inputs.hashCode());
-        result = prime * result + (outputs == null ? 0 : outputs.hashCode());
-        result = prime * result + (version == null ? 0 : version.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ConnectorDefinitionImpl that = (ConnectorDefinitionImpl) o;
+        return Objects.equals(connectorId, that.connectorId) &&
+                Objects.equals(inputs, that.inputs) &&
+                Objects.equals(outputs, that.outputs) &&
+                Objects.equals(actiationEvent, that.actiationEvent) &&
+                Objects.equals(version, that.version) &&
+                Objects.equals(failAction, that.failAction) &&
+                Objects.equals(errorCode, that.errorCode);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ConnectorDefinitionImpl other = (ConnectorDefinitionImpl) obj;
-        if (actiationEvent != other.actiationEvent) {
-            return false;
-        }
-        if (connectorId == null) {
-            if (other.connectorId != null) {
-                return false;
-            }
-        } else if (!connectorId.equals(other.connectorId)) {
-            return false;
-        }
-        if (errorCode == null) {
-            if (other.errorCode != null) {
-                return false;
-            }
-        } else if (!errorCode.equals(other.errorCode)) {
-            return false;
-        }
-        if (failAction != other.failAction) {
-            return false;
-        }
-        if (inputs == null) {
-            if (other.inputs != null) {
-                return false;
-            }
-        } else if (!inputs.equals(other.inputs)) {
-            return false;
-        }
-        if (outputs == null) {
-            if (other.outputs != null) {
-                return false;
-            }
-        } else if (!outputs.equals(other.outputs)) {
-            return false;
-        }
-        if (version == null) {
-            if (other.version != null) {
-                return false;
-            }
-        } else if (!version.equals(other.version)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), connectorId, inputs, outputs, actiationEvent, version, failAction, errorCode);
     }
 
     @Override

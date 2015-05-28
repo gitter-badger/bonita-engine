@@ -121,7 +121,7 @@ public class ServerAPIImplTest {
             Throwable, ServerWrappedException {
         final String apiInterfaceName = "apiInterfaceName";
         final String methodName = "methodName";
-        final List<String> classNameParameters = new ArrayList<String>();
+        final List<String> classNameParameters = new ArrayList<>();
         final Object[] parametersValues = null;
 
         ServerAPIImpl serverAPIImpl = spy(new ServerAPIImpl(true, accessResolver));
@@ -131,7 +131,7 @@ public class ServerAPIImplTest {
         doThrow(toBeThrown).when(serverAPIImpl).invokeAPI(apiInterfaceName, apiInterfaceName, classNameParameters, parametersValues, session);
 
         serverAPIImpl.setTechnicalLogger(technicalLogger);
-        final Map<String, Serializable> options = new HashMap<String, Serializable>();
+        final Map<String, Serializable> options = new HashMap<>();
         options.put("session", session);
         try {
             serverAPIImpl.invokeMethod(options, apiInterfaceName, methodName, classNameParameters, parametersValues);
@@ -146,7 +146,7 @@ public class ServerAPIImplTest {
         final String apiInterfaceName = "apiInterfaceName";
         // must be an existing method name (on Object):
         final String methodName = "toString";
-        final List<String> classNameParameters = new ArrayList<String>();
+        final List<String> classNameParameters = new ArrayList<>();
         final Object[] parametersValues = null;
         Session session = new APISessionImpl(1L, new Date(), 120L, "userName", 5487L, "mon_tenant", 25L);
 
@@ -180,7 +180,7 @@ public class ServerAPIImplTest {
         // given:
         final String apiInterfaceName = "apiInterfaceName";
         final String methodName = "customTxAPIMethod";
-        final List<String> classNameParameters = new ArrayList<String>();
+        final List<String> classNameParameters = new ArrayList<>();
         final Object[] parametersValues = null;
         Session session = new APISessionImpl(1L, new Date(), 120L, "userName", 5487L, "mon_tenant", 25L);
 
@@ -205,7 +205,7 @@ public class ServerAPIImplTest {
         // given:
         final String apiInterfaceName = "apiInterfaceName";
         final String methodName = "noSessionRequiredMethod";
-        final List<String> classNameParameters = new ArrayList<String>();
+        final List<String> classNameParameters = new ArrayList<>();
         final Object[] parametersValues = null;
         Session session = new APISessionImpl(1L, new Date(), 120L, "userName", 5487L, "mon_tenant", 25L);
 
@@ -231,7 +231,7 @@ public class ServerAPIImplTest {
         // given:
         final String apiInterfaceName = "apiInterfaceName";
         final String methodName = "notAnnotatedMethod";
-        final List<String> classNameParameters = new ArrayList<String>();
+        final List<String> classNameParameters = new ArrayList<>();
         final Object[] parametersValues = null;
         Session session = new APISessionImpl(1L, new Date(), 120L, "userName", 5487L, "mon_tenant", 25L);
 

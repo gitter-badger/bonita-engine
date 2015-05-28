@@ -62,7 +62,7 @@ public class JavaMethodCallExpressionExecutorStrategy extends NonEmptyContentExp
     @Override
     public List<Object> evaluate(final List<SExpression> expressions, final Map<String, Object> context, final Map<Integer, Object> resolvedExpressions,
             final ContainerState containerState) throws SExpressionEvaluationException {
-        final List<Object> result = new ArrayList<Object>(2);
+        final List<Object> result = new ArrayList<>(2);
         for (final SExpression expression : expressions) {
             result.add(evaluate(expression, context, resolvedExpressions, containerState));
         }

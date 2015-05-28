@@ -41,8 +41,8 @@ public class PageMappingServiceImplTest {
     @Test
     public void get_should_return_page_mappings() throws Exception {
         final QueryOptions options = new QueryOptions(0, 2);
-        final SelectListDescriptor<SPageMapping> listDescriptor = new SelectListDescriptor<SPageMapping>("getPageMappingByPageId",
-                Collections.<String, Object> singletonMap("pageId", 1983L), SPageMapping.class, options);
+        final SelectListDescriptor<SPageMapping> listDescriptor = new SelectListDescriptor<>("getPageMappingByPageId",
+                Collections.<String, Object>singletonMap("pageId", 1983L), SPageMapping.class, options);
 
         pageMappingService.get(1983L, 0, 2);
 

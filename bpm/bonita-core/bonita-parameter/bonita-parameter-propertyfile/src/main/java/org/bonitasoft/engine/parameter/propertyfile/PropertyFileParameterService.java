@@ -111,7 +111,7 @@ public class PropertyFileParameterService implements ParameterService {
     }
 
     private List<SParameter> getListProperties(final Properties properties, final boolean onlyNulls) throws IOException, SCacheException {
-        final List<SParameter> parameters = new ArrayList<SParameter>();
+        final List<SParameter> parameters = new ArrayList<>();
         for (final Entry<Object, Object> property : properties.entrySet()) {
             String value = (String) property.getValue();
             if (NULL.equals(value)) {
@@ -135,7 +135,7 @@ public class PropertyFileParameterService implements ParameterService {
                 break;
         }
         final List<SParameter> parameters = getListProperties(properties, onlyNulls);
-        final List<SParameter> sortedList = new ArrayList<SParameter>(parameters);
+        final List<SParameter> sortedList = new ArrayList<>(parameters);
         Collections.sort(sortedList, sorting);
         return sortedList;
     }
@@ -225,7 +225,7 @@ public class PropertyFileParameterService implements ParameterService {
                 return Collections.emptyList();
             }
             final int maxIndex = fromIndex + numberOfResult > numberOfParameters ? numberOfParameters : fromIndex + numberOfResult;
-            final List<SParameter> parameters = new ArrayList<SParameter>();
+            final List<SParameter> parameters = new ArrayList<>();
             for (int i = fromIndex; i < maxIndex; i++) {
                 final SParameter parameterDef = orderedParameters.get(i);
                 parameters.add(parameterDef);

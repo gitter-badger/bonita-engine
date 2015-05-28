@@ -43,7 +43,7 @@ public class ResourcesLoader {
     }
 
     private List<URL> getURLs(Resource[] resources) throws IOException {
-        List<URL> classNames = new ArrayList<URL>();
+        List<URL> classNames = new ArrayList<>();
         for (Resource resource : resources) {
             classNames.add(resource.getURL());
         }

@@ -118,7 +118,7 @@ public class ExecutingMultiInstanceActivityStateImpl implements FlowNodeState {
                 activityInstanceService.addMultiInstanceNumberOfCompletedActivities(miActivity, 1);
                 // check the completionCondition
                 final SExpression completionCondition = loopCharacteristics.getCompletionCondition();
-                final Map<String, Object> input = new HashMap<String, Object>(1);
+                final Map<String, Object> input = new HashMap<>(1);
                 input.put(ExpressionConstants.NUMBER_OF_ACTIVE_INSTANCES.getEngineConstantName(), miActivity.getNumberOfActiveInstances());
                 input.put(ExpressionConstants.NUMBER_OF_TERMINATED_INSTANCES.getEngineConstantName(), miActivity.getNumberOfTerminatedInstances());
                 input.put(ExpressionConstants.NUMBER_OF_COMPLETED_INSTANCES.getEngineConstantName(), miActivity.getNumberOfCompletedInstances());
@@ -167,7 +167,7 @@ public class ExecutingMultiInstanceActivityStateImpl implements FlowNodeState {
         final SUserTaskInstanceBuilderFactory keyProvider = BuilderFactory.get(SUserTaskInstanceBuilderFactory.class);
         do {
             final OrderByOption orderByOption = new OrderByOption(SActivityInstance.class, keyProvider.getNameKey(), OrderByType.ASC);
-            final List<FilterOption> filters = new ArrayList<FilterOption>(2);
+            final List<FilterOption> filters = new ArrayList<>(2);
             filters.add(new FilterOption(SActivityInstance.class, keyProvider.getParentActivityInstanceKey(), flowNodeInstance.getId()));
             filters.add(new FilterOption(SActivityInstance.class, keyProvider.getTerminalKey(), false));
             filters.add(new FilterOption(SActivityInstance.class, keyProvider.getStateCategoryKey(), SStateCategory.NORMAL.name()));

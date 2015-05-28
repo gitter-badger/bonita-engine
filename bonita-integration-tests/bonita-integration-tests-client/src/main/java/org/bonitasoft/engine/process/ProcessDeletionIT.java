@@ -68,7 +68,7 @@ public class ProcessDeletionIT extends TestWithUser {
     @Before
     public void before() throws Exception {
         super.before();
-        processDefinitions = new ArrayList<ProcessDefinition>();
+        processDefinitions = new ArrayList<>();
     }
 
     @Override

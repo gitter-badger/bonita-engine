@@ -48,7 +48,7 @@ public class SearchPageDescriptor extends SearchEntityDescriptor {
 
         pageAllFields = new HashMap<>(1);
 
-        final Set<String> pageFields = new HashSet<String>(2);
+        final Set<String> pageFields = new HashSet<>(2);
         pageFields.add(keyProvider.getNameKey());
         pageFields.add(keyProvider.getDisplayNameKey());
         pageAllFields.put(SPage.class, pageFields);

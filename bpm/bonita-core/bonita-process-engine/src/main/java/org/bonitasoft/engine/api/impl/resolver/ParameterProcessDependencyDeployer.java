@@ -51,7 +51,7 @@ public class ParameterProcessDependencyDeployer implements ProcessDependencyDepl
         }
         final ParameterService parameterService = tenantAccessor.getParameterService();
         final Map<String, String> defaultParamterValues = businessArchive.getParameters();
-        final Map<String, String> storedParameters = new HashMap<String, String>();
+        final Map<String, String> storedParameters = new HashMap<>();
         for (final SParameterDefinition sParameterDefinition : parameters) {
             final String name = sParameterDefinition.getName();
             final String value = defaultParamterValues.get(sParameterDefinition.getName());
@@ -79,7 +79,7 @@ public class ParameterProcessDependencyDeployer implements ProcessDependencyDepl
         final ParameterService parameterService = tenantAccessor.getParameterService();
 
         List<SParameter> parameters;
-        final ArrayList<Problem> problems = new ArrayList<Problem>();
+        final ArrayList<Problem> problems = new ArrayList<>();
         int i = 0;
         do {
             try {

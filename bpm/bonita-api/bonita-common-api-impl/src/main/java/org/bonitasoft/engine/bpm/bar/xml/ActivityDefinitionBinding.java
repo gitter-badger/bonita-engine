@@ -30,15 +30,15 @@ import org.bonitasoft.engine.operation.Operation;
  */
 public abstract class ActivityDefinitionBinding extends FlowNodeDefinitionBinding {
 
-    protected final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>();
+    protected final List<DataDefinition> dataDefinitions = new ArrayList<>();
 
-    private final List<BusinessDataDefinition> businessDataDefinitions = new ArrayList<BusinessDataDefinition>();
+    private final List<BusinessDataDefinition> businessDataDefinitions = new ArrayList<>();
 
-    protected final List<Operation> operations = new ArrayList<Operation>();
+    protected final List<Operation> operations = new ArrayList<>();
 
     protected LoopCharacteristics loopCharacteristics;
 
-    private final List<BoundaryEventDefinition> boundaryEventDefinitions = new ArrayList<BoundaryEventDefinition>(1);
+    private final List<BoundaryEventDefinition> boundaryEventDefinitions = new ArrayList<>(1);
 
     @Override
     public void setChildObject(final String name, final Object value) {

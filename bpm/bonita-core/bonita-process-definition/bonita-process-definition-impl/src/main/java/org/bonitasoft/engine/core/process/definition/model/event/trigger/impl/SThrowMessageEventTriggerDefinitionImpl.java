@@ -39,13 +39,13 @@ public class SThrowMessageEventTriggerDefinitionImpl extends SMessageEventTrigge
     private final List<SDataDefinition> sDataDefinitions;
 
     public SThrowMessageEventTriggerDefinitionImpl() {
-        sDataDefinitions = new ArrayList<SDataDefinition>();
+        sDataDefinitions = new ArrayList<>();
     }
 
     public SThrowMessageEventTriggerDefinitionImpl(final ThrowMessageEventTriggerDefinition throwMessageEventTrigger) {
         super(throwMessageEventTrigger);
         final List<DataDefinition> dataDefinitions = throwMessageEventTrigger.getDataDefinitions();
-        sDataDefinitions = new ArrayList<SDataDefinition>(dataDefinitions.size());
+        sDataDefinitions = new ArrayList<>(dataDefinitions.size());
         for (final DataDefinition dataDefinition : dataDefinitions) {
             sDataDefinitions.add(buildSDataDefinition(dataDefinition));
         }

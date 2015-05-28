@@ -30,12 +30,12 @@ public class VariableStorageByTenant implements Serializable {
     private final Object lock = new Object();
 
     private VariableStorageByTenant() {
-        variables = new HashMap<String, Object>();
+        variables = new HashMap<>();
     }
 
     private static class VariableStorageHolder {
 
-        public static final Map<Long, VariableStorageByTenant> instances = new HashMap<Long, VariableStorageByTenant>();
+        public static final Map<Long, VariableStorageByTenant> instances = new HashMap<>();
     }
 
     public static VariableStorageByTenant getInstance(final long tenantId) {

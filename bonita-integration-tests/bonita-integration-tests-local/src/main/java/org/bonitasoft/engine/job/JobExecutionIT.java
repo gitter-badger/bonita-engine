@@ -83,7 +83,7 @@ public class JobExecutionIT extends CommonAPILocalIT {
     public void retryAJob_should_execute_again_a_failed_job_and_clean_related_job_logs_and_jobDescriptor_if_not_recurrent() throws Exception {
         //given
         getCommandAPI().register("except", "Throws Exception when scheduling a job", AddJobCommand.class.getName());
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         try {
             getCommandAPI().execute("except", parameters);
             final FailedJob failedJob = waitForFailedJob("ThrowsExceptionJob", 0);
@@ -164,7 +164,7 @@ public class JobExecutionIT extends CommonAPILocalIT {
     public void retryAJob_should_update_job_log_when_execution_fails_again() throws Exception {
         //given
         getCommandAPI().register("except", "Throws Exception when scheduling a job", AddJobCommand.class.getName());
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         try {
             getCommandAPI().execute("except", parameters);
             FailedJob failedJob = waitForFailedJob("ThrowsExceptionJob", 0);

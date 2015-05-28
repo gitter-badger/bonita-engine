@@ -33,8 +33,8 @@ public class XMLNode {
 
     public XMLNode(final String name) {
         this.name = name;
-        attributes = new HashMap<String, String>();
-        childNodes = new ArrayList<XMLNode>();
+        attributes = new HashMap<>();
+        childNodes = new ArrayList<>();
     }
 
     public void addAttribute(final String name, final String value) {

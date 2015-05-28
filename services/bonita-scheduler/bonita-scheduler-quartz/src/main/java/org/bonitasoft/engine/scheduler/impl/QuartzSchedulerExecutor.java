@@ -329,7 +329,7 @@ public class QuartzSchedulerExecutor implements SchedulerExecutor {
         try {
             checkSchedulerState();
             final Set<JobKey> jobKeys = scheduler.getJobKeys(jobGroupEquals(groupName));
-            final List<String> jobsNames = new ArrayList<String>(jobKeys.size());
+            final List<String> jobsNames = new ArrayList<>(jobKeys.size());
             for (final JobKey jobKey : jobKeys) {
                 jobsNames.add(jobKey.getName());
             }
@@ -344,7 +344,7 @@ public class QuartzSchedulerExecutor implements SchedulerExecutor {
         try {
             checkSchedulerState();
             final Set<JobKey> jobKeys = scheduler.getJobKeys(GroupMatcher.jobGroupStartsWith(""));
-            final List<String> jobsNames = new ArrayList<String>(jobKeys.size());
+            final List<String> jobsNames = new ArrayList<>(jobKeys.size());
             for (final JobKey jobKey : jobKeys) {
                 jobsNames.add(jobKey.getName());
             }

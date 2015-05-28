@@ -54,7 +54,7 @@ public class ErrorEventSubProcessIT extends AbstractWaitingEventIT {
     @Before
     public void before() throws Exception {
         super.before();
-        processDefinitions = new ArrayList<ProcessDefinition>();
+        processDefinitions = new ArrayList<>();
     }
 
     @Override
@@ -217,7 +217,7 @@ public class ErrorEventSubProcessIT extends AbstractWaitingEventIT {
 
     private void checkEvaluateExpression(final ActivityInstance subStep, final String dataName, final Class<?> expressionType, final Serializable expectedValue)
             throws InvalidExpressionException, ExpressionEvaluationException {
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>(1);
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>(1);
         final Expression contVarExpr = new ExpressionBuilder().createDataExpression(dataName, expressionType.getName());
         expressions.put(contVarExpr, null);
 

@@ -212,7 +212,7 @@ public class ProcessInstanceServiceIntegrationTest extends CommonBPMServicesTest
                 parentProcessInstance.getContainerId(), processDefinitionId, parentProcessInstance.getId(),
                 parentProcessInstance.getId()).done();
         activityInstanceService.createActivityInstance(activityInstance);
-        final List<Long> childInstanceIds = new ArrayList<Long>();
+        final List<Long> childInstanceIds = new ArrayList<>();
         SProcessInstance childProcessInstance;
         for (int i = 0; i < 10; i++) {
             childProcessInstance = sProcessInstanceBuilder.createNewInstance("child process instance " + i, processDefinitionId)
@@ -280,7 +280,7 @@ public class ProcessInstanceServiceIntegrationTest extends CommonBPMServicesTest
 
         transactionService.begin();
         // second create 10 child processes:
-        final List<Long> childInstanceIds = new ArrayList<Long>();
+        final List<Long> childInstanceIds = new ArrayList<>();
         SProcessInstance childProcessInstance;
         SActivityInstance activityInstance = sCallActivityInstanceBuilder.createNewCallActivityInstance("callActivity", 1,
                 parentProcessInstance.getContainerId(),

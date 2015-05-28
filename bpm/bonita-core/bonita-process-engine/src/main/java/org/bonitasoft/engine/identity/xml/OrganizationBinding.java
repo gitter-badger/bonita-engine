@@ -31,15 +31,15 @@ import org.bonitasoft.engine.xml.ElementBinding;
  */
 public class OrganizationBinding extends ElementBinding {
     
-    private final List<CustomUserInfoDefinitionCreator> customUserInfoDefinitionCreators = new ArrayList<CustomUserInfoDefinitionCreator>();
+    private final List<CustomUserInfoDefinitionCreator> customUserInfoDefinitionCreators = new ArrayList<>();
 
-    private final List<ExportedUser> users = new ArrayList<ExportedUser>();
+    private final List<ExportedUser> users = new ArrayList<>();
 
-    private final List<RoleCreator> roleCreators = new ArrayList<RoleCreator>();
+    private final List<RoleCreator> roleCreators = new ArrayList<>();
 
-    private final List<GroupCreator> groupCreators = new ArrayList<GroupCreator>();
+    private final List<GroupCreator> groupCreators = new ArrayList<>();
 
-    private final List<UserMembership> memberships = new ArrayList<UserMembership>();
+    private final List<UserMembership> memberships = new ArrayList<>();
 
     @Override
     public void setAttributes(final Map<String, String> attributes) {

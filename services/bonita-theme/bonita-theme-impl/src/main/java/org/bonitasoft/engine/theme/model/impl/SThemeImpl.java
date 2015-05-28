@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.theme.model.impl;
 
 import java.util.Arrays;
+import java.util.Objects;
 
 import org.bonitasoft.engine.persistence.PersistentObjectId;
 import org.bonitasoft.engine.theme.model.STheme;
@@ -99,49 +100,21 @@ public class SThemeImpl extends PersistentObjectId implements STheme {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (type == null ? 0 : type.hashCode());
-        result = prime * result + (int) (lastUpdateDate ^ lastUpdateDate >>> 32);
-        result = prime * result + (isDefault ? 1231 : 1237);
-        result = prime * result + Arrays.hashCode(content);
-        result = prime * result + Arrays.hashCode(cssContent);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        SThemeImpl sTheme = (SThemeImpl) o;
+        return Objects.equals(isDefault, sTheme.isDefault) &&
+                Objects.equals(lastUpdateDate, sTheme.lastUpdateDate) &&
+                Objects.equals(content, sTheme.content) &&
+                Objects.equals(cssContent, sTheme.cssContent) &&
+                Objects.equals(type, sTheme.type);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SThemeImpl other = (SThemeImpl) obj;
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (type == null) {
-            if (other.type != null) {
-                return false;
-            }
-        } else if (!type.equals(other.type)) {
-            return false;
-        }
-        if (lastUpdateDate != other.lastUpdateDate) {
-            return false;
-        }
-        if (!Arrays.equals(content, other.content)) {
-            return false;
-        }
-        if (!Arrays.equals(cssContent, other.cssContent)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), content, cssContent, isDefault, lastUpdateDate, type);
     }
 
     @Override

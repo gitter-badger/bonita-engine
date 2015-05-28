@@ -111,13 +111,13 @@ public class ContractVariableHelperTest {
         final Map<String, Serializable> hotelExpenseLine = aMap().put("nature", "hotel").put("amount", 1000).put("date", "2014-10-16")
                 .put("comment", "expensive")
                 .build();
-        final List<Map<String, Serializable>> expenseLines = new ArrayList<Map<String, Serializable>>();
+        final List<Map<String, Serializable>> expenseLines = new ArrayList<>();
         expenseLines.add(taxiExpenseLine);
         expenseLines.add(hotelExpenseLine);
 
         final Map<String, Serializable> expenseReport = aMap().put("expenseReport", (Serializable) expenseLines).build();
 
-        final List<Map<String, Serializable>> expenseReports = new ArrayList<Map<String, Serializable>>();
+        final List<Map<String, Serializable>> expenseReports = new ArrayList<>();
         expenseReports.add(expenseReport);
         expenseReports.add(expenseReport);
         expenseReports.add(expenseReport);

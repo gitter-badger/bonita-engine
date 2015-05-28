@@ -540,9 +540,7 @@ public class ProcessAPIImpl implements ProcessAPI {
                     deleteProcessInstancesFromProcessDefinition(processDefinitionId, tenantAccessor);
                     try {
                         processManagementAPIImplDelegate.deleteProcessDefinition(processDefinitionId);
-                    } catch (final BonitaHomeNotSetException e) {
-                        throw new SProcessDeletionException(e, processDefinitionId);
-                    } catch (final IOException e) {
+                    } catch (final BonitaHomeNotSetException | IOException e) {
                         throw new SProcessDeletionException(e, processDefinitionId);
                     }
                     return null;
@@ -831,8 +829,6 @@ public class ProcessAPIImpl implements ProcessAPI {
             enableProcess.execute();
         } catch (final SProcessDefinitionNotFoundException e) {
             throw new ProcessDefinitionNotFoundException(e);
-        } catch (final SBonitaException sbe) {
-            throw new ProcessEnablementException(sbe);
         } catch (final Exception e) {
             throw new ProcessEnablementException(e);
         }
@@ -849,9 +845,7 @@ public class ProcessAPIImpl implements ProcessAPI {
     public void executeFlowNode(final long userId, final long flownodeInstanceId) throws FlowNodeExecutionException {
         try {
             executeFlowNode(userId, flownodeInstanceId, true, new HashMap<String, Serializable>());
-        } catch (final ContractViolationException e) {
-            throw new FlowNodeExecutionException(e);
-        } catch (final SBonitaException e) {
+        } catch (final ContractViolationException | SBonitaException e) {
             throw new FlowNodeExecutionException(e);
         }
     }
@@ -859,9 +853,7 @@ public class ProcessAPIImpl implements ProcessAPI {
     protected void executeFlowNode(final long userId, final long flownodeInstanceId, final boolean wrapInTransaction) throws FlowNodeExecutionException {
         try {
             executeFlowNode(userId, flownodeInstanceId, wrapInTransaction, new HashMap<String, Serializable>());
-        } catch (final ContractViolationException e) {
-            throw new FlowNodeExecutionException(e);
-        } catch (final SBonitaException e) {
+        } catch (final ContractViolationException | SBonitaException e) {
             throw new FlowNodeExecutionException(e);
         }
     }
@@ -1831,10 +1823,8 @@ public class ProcessAPIImpl implements ProcessAPI {
             final TransactionContent transactionContent = new AddProcessDefinitionToCategory(categoryId, processDefinitionId, categoryService,
                     processDefinitionService);
             transactionContent.execute();
-        } catch (final SProcessDefinitionNotFoundException e) {
+        } catch (final SProcessDefinitionNotFoundException | SCategoryNotFoundException e) {
             throw new CreationException(e);
-        } catch (final SCategoryNotFoundException scnfe) {
-            throw new CreationException(scnfe);
         } catch (final SCategoryInProcessAlreadyExistsException cipaee) {
             throw new AlreadyExistsException(cipaee);
         } catch (final SBonitaException sbe) {
@@ -1850,10 +1840,8 @@ public class ProcessAPIImpl implements ProcessAPI {
             for (final Long processDefinitionId : processDefinitionIds) {
                 new AddProcessDefinitionToCategory(categoryId, processDefinitionId, categoryService, processDefinitionService).execute();
             }
-        } catch (final SProcessDefinitionNotFoundException e) {
+        } catch (final SProcessDefinitionNotFoundException | SCategoryNotFoundException e) {
             throw new CreationException(e);
-        } catch (final SCategoryNotFoundException scnfe) {
-            throw new CreationException(scnfe);
         } catch (final SCategoryInProcessAlreadyExistsException cipaee) {
             throw new AlreadyExistsException(cipaee);
         } catch (final SBonitaException sbe) {
@@ -2142,8 +2130,6 @@ public class ProcessAPIImpl implements ProcessAPI {
             assignUserTask.execute();
         } catch (final SUserNotFoundException sunfe) {
             throw new UpdateException(sunfe);
-        } catch (final SActivityInstanceNotFoundException sainfe) {
-            throw new UpdateException(sainfe);
         } catch (final SBonitaException sbe) {
             throw new UpdateException(sbe);
         }
@@ -2354,9 +2340,7 @@ public class ProcessAPIImpl implements ProcessAPI {
         final Map<String, byte[]> processResources;
         try {
             processResources = BonitaHomeServer.getInstance().getProcessResources(getTenantAccessor().getTenantId(), processDefinitionId, filenamesPattern);
-        } catch (BonitaHomeNotSetException e) {
-            throw new RetrieveException(e);
-        } catch (IOException e) {
+        } catch (BonitaHomeNotSetException | IOException e) {
             throw new RetrieveException(e);
         }
         return processResources;
@@ -2441,9 +2425,7 @@ public class ProcessAPIImpl implements ProcessAPI {
             final List<SDataInstance> sDataInstances = dataInstanceService.getDataInstances(dataNames, processInstanceId,
                     DataInstanceContainer.PROCESS_INSTANCE.toString(), parentContainerResolver);
             updateDataInstances(sDataInstances, dataNameValues, processClassLoader);
-        } catch (final SBonitaException e) {
-            throw new UpdateException(e);
-        } catch (final ClassNotFoundException e) {
+        } catch (final SBonitaException | ClassNotFoundException e) {
             throw new UpdateException(e);
         } finally {
             Thread.currentThread().setContextClassLoader(contextClassLoader);
@@ -3178,10 +3160,8 @@ public class ProcessAPIImpl implements ProcessAPI {
                     operations.add(operation);
                 }
             }
-        } catch (final SClassLoaderException cle) {
+        } catch (final SClassLoaderException | InvalidExpressionException cle) {
             throw new ProcessExecutionException(cle);
-        } catch (final InvalidExpressionException iee) {
-            throw new ProcessExecutionException(iee);
         } finally {
             Thread.currentThread().setContextClassLoader(contextClassLoader);
         }
@@ -3331,9 +3311,7 @@ public class ProcessAPIImpl implements ProcessAPI {
                 return executeOperations(connectorResult, operations, operationInputValues, expcontext, classLoader, tenantAccessor);
             }
             return getSerializableResultOfConnector(connectorDefinitionVersion, connectorResult, connectorService);
-        } catch (final SBonitaException e) {
-            throw new ConnectorExecutionException(e);
-        } catch (final NotSerializableException e) {
+        } catch (final SBonitaException | NotSerializableException e) {
             throw new ConnectorExecutionException(e);
         }
     }
@@ -3706,8 +3684,6 @@ public class ProcessAPIImpl implements ProcessAPI {
             deleteProcessInstanceInTransaction(tenantAccessor, processInstanceId);
         } catch (final SProcessInstanceHierarchicalDeletionException e) {
             throw new ProcessInstanceHierarchicalDeletionException(e.getMessage(), e.getProcessInstanceId());
-        } catch (final SProcessInstanceNotFoundException e) {
-            throw new DeletionException(e);
         } catch (final SBonitaException e) {
             throw new DeletionException(e);
         } finally {
@@ -4432,9 +4408,7 @@ public class ProcessAPIImpl implements ProcessAPI {
         final TenantServiceAccessor tenantAccessor = getTenantAccessor();
         try {
             tenantAccessor.getProcessInstanceService().getProcessInstance(processInstanceId);
-        } catch (final SProcessInstanceReadException e) {
-            throw new RetrieveException(buildCantAddCommentOnProcessInstance(), e); // FIXME: should be another exception
-        } catch (final SProcessInstanceNotFoundException e) {
+        } catch (final SProcessInstanceReadException | SProcessInstanceNotFoundException e) {
             throw new RetrieveException(buildCantAddCommentOnProcessInstance(), e); // FIXME: should be another exception
         }
         final SCommentService commentService = tenantAccessor.getCommentService();
@@ -4861,9 +4835,7 @@ public class ProcessAPIImpl implements ProcessAPI {
             final SetProcessInstanceState transactionContent = new SetProcessInstanceState(processInstanceService, processInstance.getId(),
                     processInstanceState);
             transactionContent.execute();
-        } catch (final IllegalArgumentException e) {
-            throw new UpdateException(e.getMessage());
-        } catch (final SBonitaException e) {
+        } catch (final IllegalArgumentException | SBonitaException e) {
             throw new UpdateException(e.getMessage());
         }
     }
@@ -5031,8 +5003,6 @@ public class ProcessAPIImpl implements ProcessAPI {
         try {
             final SetExpectedEndDate updateProcessInstance = new SetExpectedEndDate(activityInstanceService, userTaskId, dueDate);
             updateProcessInstance.execute();
-        } catch (final SFlowNodeNotFoundException e) {
-            throw new UpdateException(e);
         } catch (final SBonitaException e) {
             throw new UpdateException(e);
         }

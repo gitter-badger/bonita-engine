@@ -48,14 +48,14 @@ public final class UpdateRecord extends Record {
 
     public void addField(final String fieldName, final Object fieldValue) {
         if (fields == null) {
-            fields = new HashMap<String, Object>();
+            fields = new HashMap<>();
         }
         fields.put(fieldName, fieldValue);
     }
 
     public void addFields(final Map<String, Object> fields) {
         if (this.fields == null) {
-            this.fields = new HashMap<String, Object>();
+            this.fields = new HashMap<>();
         }
         this.fields.putAll(fields);
     }

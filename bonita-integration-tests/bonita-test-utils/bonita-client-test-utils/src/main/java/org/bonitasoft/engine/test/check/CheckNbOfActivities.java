@@ -58,7 +58,7 @@ public final class CheckNbOfActivities extends WaitUntil {
     @Override
     protected boolean check() {
         final List<ActivityInstance> activities = processAPI.getActivities(processInstance.getId(), 0, 200);
-        result = new HashSet<ActivityInstance>(activities.size());
+        result = new HashSet<>(activities.size());
         // The number of activities is the one expected...
 
         if (activityState != null) {

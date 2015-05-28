@@ -139,7 +139,7 @@ public class ExpressionServiceTest extends AbstractExpressionServiceTest {
         SExpression dataExpr = null;
         final long containerId = 987456L;
         final String containerType = "process";
-        final Map<String, Object> dependencyValues = new HashMap<String, Object>();
+        final Map<String, Object> dependencyValues = new HashMap<>();
         dependencyValues.put("containerId", containerId);
         dependencyValues.put("containerType", containerType);
         try {
@@ -196,10 +196,10 @@ public class ExpressionServiceTest extends AbstractExpressionServiceTest {
         final SExpression exprConstant = buildExpression(strConstant, SExpression.TYPE_CONSTANT, String.class.getName(), null, null);
         final SExpression exprData = buildExpression(dataName, SExpression.TYPE_VARIABLE, String.class.getName(), null, null);
         final SExpression expr = buildExpression(null, SExpression.TYPE_LIST, List.class.getName(), null, Arrays.asList(exprConstant, exprData));
-        final Map<String, Object> ctx = new HashMap<String, Object>(2);
+        final Map<String, Object> ctx = new HashMap<>(2);
         ctx.put("containerId", containerId);
         ctx.put("containerType", containerType);
-        final Map<Integer, Object> evaluatedExpressions = new HashMap<Integer, Object>(2);
+        final Map<Integer, Object> evaluatedExpressions = new HashMap<>(2);
         evaluatedExpressions.put(exprConstant.getDiscriminant(), evaluate(exprConstant, EMPTY_RESOLVED_EXPRESSIONS));
         evaluatedExpressions.put(exprData.getDiscriminant(), evaluate(exprData, ctx, EMPTY_RESOLVED_EXPRESSIONS));
         final Object res = evaluate(expr, null, evaluatedExpressions);
@@ -260,7 +260,7 @@ public class ExpressionServiceTest extends AbstractExpressionServiceTest {
     @Test(expected = SExpressionDependencyMissingException.class)
     public void evaluatePatternExpressionWithException() throws Exception {
         final String expressionContent = "Expression with missing dependencies";
-        final List<SExpression> dependencies = new ArrayList<SExpression>(1);
+        final List<SExpression> dependencies = new ArrayList<>(1);
         dependencies.add(buildExpression("value_will_be_missing", SExpression.TYPE_CONSTANT, Double.class.getName(), null, null));
         final SExpression simplePatternExpression = newPatternExpression(expressionContent, dependencies);
         evaluate(simplePatternExpression, EMPTY_RESOLVED_EXPRESSIONS);
@@ -285,13 +285,13 @@ public class ExpressionServiceTest extends AbstractExpressionServiceTest {
         final String constant2Content = "123456789";
         final SExpression intExpr = buildExpression(constant2Content, SExpression.TYPE_CONSTANT, Integer.class.getName(), null, null);
 
-        final List<SExpression> dependencyExpresssions = new ArrayList<SExpression>(2);
+        final List<SExpression> dependencyExpresssions = new ArrayList<>(2);
         dependencyExpresssions.add(data1Expr);
         dependencyExpresssions.add(intExpr);
 
         final String expressionContent = " ";
         final SExpression patternExpression = newPatternExpression(expressionContent, dependencyExpresssions);
-        final Map<String, Object> expressionEvalContext = new HashMap<String, Object>(2);
+        final Map<String, Object> expressionEvalContext = new HashMap<>(2);
         expressionEvalContext.put(data1Content, "EXPRESSION");
         expressionEvalContext.put(constant2Content, 2);
         evaluate(patternExpression, expressionEvalContext, EMPTY_RESOLVED_EXPRESSIONS);
@@ -331,7 +331,7 @@ public class ExpressionServiceTest extends AbstractExpressionServiceTest {
     public void evaluateUnkonwnExpressionType() throws SBonitaException {
         final String expressionContent = "str";
         final SExpression expression = buildExpression(expressionContent, "TYPE_UNKNOWN", Boolean.class.getName(), null, null);
-        final Map<String, Object> map = new HashMap<String, Object>();
+        final Map<String, Object> map = new HashMap<>();
         map.put(expressionContent, "abc");
         evaluate(expression, map, EMPTY_RESOLVED_EXPRESSIONS);
     }
@@ -405,7 +405,7 @@ public class ExpressionServiceTest extends AbstractExpressionServiceTest {
         insertDataInstance(dataInstance);
         // definite expression
         final SExpression variableExpr = buildExpression(expressionContent, SExpression.TYPE_VARIABLE, classType.getName(), null, null);
-        final Map<String, Object> dependencyValues = new HashMap<String, Object>();
+        final Map<String, Object> dependencyValues = new HashMap<>();
         dependencyValues.put("containerId", containerId);
         dependencyValues.put("containerType", containerType);
 

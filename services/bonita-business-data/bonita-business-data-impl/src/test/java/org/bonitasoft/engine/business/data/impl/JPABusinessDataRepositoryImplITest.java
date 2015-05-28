@@ -112,7 +112,7 @@ public class JPABusinessDataRepositoryImplITest {
         ut = TransactionManagerServices.getTransactionManager();
         ut.begin();
 
-        final Set<String> classNames = new HashSet<String>();
+        final Set<String> classNames = new HashSet<>();
         classNames.add(Employee.class.getName());
         classNames.add(Person.class.getName());
 
@@ -215,7 +215,7 @@ public class JPABusinessDataRepositoryImplITest {
     
     @Test
     public void should_return_an_empty_list_when_getting_entities_with_empty_ids_list() throws Exception {
-       ArrayList<Long> emptyIdsList = new ArrayList<Long>();
+       ArrayList<Long> emptyIdsList = new ArrayList<>();
         
         List<Employee> emps = businessDataRepository.findByIds(Employee.class, emptyIdsList);
         

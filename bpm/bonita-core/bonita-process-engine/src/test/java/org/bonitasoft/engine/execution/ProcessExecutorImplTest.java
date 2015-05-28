@@ -176,9 +176,9 @@ public class ProcessExecutorImplTest {
     public void startProcessShouldInitializeBusinessData() throws Exception {
         final long starterId = 1L;
         final long starterSubstituteId = 9L;
-        final List<SOperation> operations = new ArrayList<SOperation>(1);
+        final List<SOperation> operations = new ArrayList<>(1);
         operations.add(mock(SOperation.class));
-        final Map<String, Object> context = new HashMap<String, Object>(1);
+        final Map<String, Object> context = new HashMap<>(1);
         context.put("input", "value");
 
         final ProcessExecutorImpl mockedProcessExecutorImpl = mock(ProcessExecutorImpl.class, withSettings().spiedInstance(processExecutorImpl));
@@ -200,9 +200,9 @@ public class ProcessExecutorImplTest {
     public void startProcessWithOperationsAndContext() throws Exception {
         final long starterId = 1L;
         final long starterSubstituteId = 9L;
-        final List<SOperation> operations = new ArrayList<SOperation>(1);
+        final List<SOperation> operations = new ArrayList<>(1);
         operations.add(mock(SOperation.class));
-        final Map<String, Object> context = new HashMap<String, Object>(1);
+        final Map<String, Object> context = new HashMap<>(1);
         context.put("input", "value");
 
         final ProcessExecutorImpl mockedProcessExecutorImpl = mock(ProcessExecutorImpl.class, withSettings().spiedInstance(processExecutorImpl));
@@ -224,12 +224,12 @@ public class ProcessExecutorImplTest {
     public void startProcessWithOperationsAndContextAndExpressionContextAndConnectors() throws Exception {
         final long starterId = 1L;
         final long starterSubstituteId = 9L;
-        final List<SOperation> operations = new ArrayList<SOperation>(1);
+        final List<SOperation> operations = new ArrayList<>(1);
         operations.add(mock(SOperation.class));
-        final Map<String, Object> context = new HashMap<String, Object>(1);
+        final Map<String, Object> context = new HashMap<>(1);
         context.put("input", "value");
         final SExpressionContext expressionContext = mock(SExpressionContext.class);
-        final List<ConnectorDefinitionWithInputValues> connectors = new ArrayList<ConnectorDefinitionWithInputValues>();
+        final List<ConnectorDefinitionWithInputValues> connectors = new ArrayList<>();
         connectors.add(mock(ConnectorDefinitionWithInputValues.class));
         final long callerId = 1L;
         final long subProcessDefinitionId = 1L;

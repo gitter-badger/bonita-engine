@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.actor.mapping.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.actor.mapping.model.SActor;
 
 /**
@@ -120,65 +122,21 @@ public class SActorImpl implements SActor {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + ((displayName == null) ? 0 : displayName.hashCode());
-        result = prime * result + (int) (id ^ (id >>> 32));
-        result = prime * result + (initiator ? 1231 : 1237);
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + (int) (scopeId ^ (scopeId >>> 32));
-        result = prime * result + (int) (tenantId ^ (tenantId >>> 32));
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SActorImpl sActor = (SActorImpl) o;
+        return Objects.equals(tenantId, sActor.tenantId) &&
+                Objects.equals(id, sActor.id) &&
+                Objects.equals(scopeId, sActor.scopeId) &&
+                Objects.equals(initiator, sActor.initiator) &&
+                Objects.equals(name, sActor.name) &&
+                Objects.equals(displayName, sActor.displayName) &&
+                Objects.equals(description, sActor.description);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SActorImpl other = (SActorImpl) obj;
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (displayName == null) {
-            if (other.displayName != null) {
-                return false;
-            }
-        } else if (!displayName.equals(other.displayName)) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (initiator != other.initiator) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (scopeId != other.scopeId) {
-            return false;
-        }
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(tenantId, id, scopeId, name, displayName, description, initiator);
     }
-
 }

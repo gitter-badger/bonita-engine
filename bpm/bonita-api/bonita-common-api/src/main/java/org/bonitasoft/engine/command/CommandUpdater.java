@@ -35,7 +35,7 @@ public class CommandUpdater implements Serializable {
     private final Map<CommandField, Serializable> fields;
 
     public CommandUpdater() {
-        fields = new HashMap<CommandField, Serializable>(2);
+        fields = new HashMap<>(2);
     }
 
     public void setName(final String name) {

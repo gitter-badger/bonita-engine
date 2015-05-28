@@ -233,8 +233,8 @@ public class PageMappingServiceImpl implements PageMappingService {
     @Override
     public List<SPageMapping> get(final long pageId, final int startIndex, final int maxResults) throws SBonitaReadException {
         final QueryOptions options = new QueryOptions(startIndex, maxResults);
-        final SelectListDescriptor<SPageMapping> listDescriptor = new SelectListDescriptor<SPageMapping>("getPageMappingByPageId",
-                Collections.<String, Object> singletonMap("pageId", pageId), SPageMapping.class, options);
+        final SelectListDescriptor<SPageMapping> listDescriptor = new SelectListDescriptor<>("getPageMappingByPageId",
+                Collections.<String, Object>singletonMap("pageId", pageId), SPageMapping.class, options);
         return persistenceService.selectList(listDescriptor);
     }
 

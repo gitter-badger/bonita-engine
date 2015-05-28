@@ -91,7 +91,7 @@ public class ActorMappingServiceTest extends CommonBPMServicesTest {
 
     @Test
     public void getAnActor() throws SBonitaException {
-        final Set<SActor> actors = new HashSet<SActor>();
+        final Set<SActor> actors = new HashSet<>();
         final String manager = "Manager";
         final long scopeId = 12;
         final SActor actor = sActorBuilderFactory.create(manager, scopeId, false).getActor();
@@ -116,7 +116,7 @@ public class ActorMappingServiceTest extends CommonBPMServicesTest {
 
     @Test
     public void getActorsFromActorIds() throws SBonitaException {
-        final Set<SActor> actors = new HashSet<SActor>();
+        final Set<SActor> actors = new HashSet<>();
 
         final String manager = "Manager";
         final long scopeId = 12;
@@ -179,7 +179,7 @@ public class ActorMappingServiceTest extends CommonBPMServicesTest {
 
     @Test
     public void addAndRemoveAUserOfAnActor() throws Exception {
-        Set<SActor> actors = new HashSet<SActor>();
+        Set<SActor> actors = new HashSet<>();
         final SActor actor = sActorBuilderFactory.create("Manager", 12, false).getActor();
         actors.add(actor);
 
@@ -216,7 +216,7 @@ public class ActorMappingServiceTest extends CommonBPMServicesTest {
 
     @Test
     public void addAndRemoveARoleOfAnActor() throws Exception {
-        Set<SActor> actors = new HashSet<SActor>();
+        Set<SActor> actors = new HashSet<>();
         final SActor actor = sActorBuilderFactory.create("Manager", 12, false).getActor();
         actors.add(actor);
 
@@ -247,7 +247,7 @@ public class ActorMappingServiceTest extends CommonBPMServicesTest {
 
     @Test
     public void addAndRemoveAGroupOfAnActor() throws Exception {
-        Set<SActor> actors = new HashSet<SActor>();
+        Set<SActor> actors = new HashSet<>();
         final SActor actor = sActorBuilderFactory.create("Manager", 12, false).getActor();
         actors.add(actor);
 
@@ -278,7 +278,7 @@ public class ActorMappingServiceTest extends CommonBPMServicesTest {
 
     @Test
     public void addAndRemoveAGroupWithSubGroupsOfAnActor() throws Exception {
-        Set<SActor> actors = new HashSet<SActor>();
+        Set<SActor> actors = new HashSet<>();
         final SActor actor = sActorBuilderFactory.create("Manager", 12, false).getActor();
         actors.add(actor);
 
@@ -311,7 +311,7 @@ public class ActorMappingServiceTest extends CommonBPMServicesTest {
 
     @Test
     public void addAndRemoveAMembershipOfAnActor() throws Exception {
-        Set<SActor> actors = new HashSet<SActor>();
+        Set<SActor> actors = new HashSet<>();
         final SActor actor = sActorBuilderFactory.create("Manager", 12, false).getActor();
         actors.add(actor);
 
@@ -342,7 +342,7 @@ public class ActorMappingServiceTest extends CommonBPMServicesTest {
 
     @Test
     public void addAndRemoveAMembershipOfAnActorWithSubGroups() throws Exception {
-        Set<SActor> actors = new HashSet<SActor>();
+        Set<SActor> actors = new HashSet<>();
         final SActor actor = sActorBuilderFactory.create("Manager", 12, false).getActor();
         actors.add(actor);
 

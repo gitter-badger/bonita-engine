@@ -949,7 +949,7 @@ public class DocumentIT extends TestWithUser {
         final Operation docContentOperation = new OperationBuilder().createSetDocument(docName,
                 new ExpressionBuilder().createInputExpression("documentValue", DocumentValue.class.getName()));
 
-        final Map<String, Serializable> expressionContext = new HashMap<String, Serializable>(2);
+        final Map<String, Serializable> expressionContext = new HashMap<>(2);
         final String documentFileName = "updatedContent.txt";
         expressionContext.put("documentValue", new DocumentValue("Binary content of the document".getBytes(), "plain/text", documentFileName));
         expressionContext.put("documentReference", new DocumentValue(docUrl));
@@ -1240,7 +1240,7 @@ public class DocumentIT extends TestWithUser {
         final SearchResult<Document> searchDocuments = getProcessAPI().searchDocuments(searchOptionsBuilder.done());
         assertEquals(3, searchDocuments.getCount());
         final List<Document> documents = searchDocuments.getResult();
-        final List<String> urls = new ArrayList<String>();
+        final List<String> urls = new ArrayList<>();
         urls.add(documents.get(0).getUrl());
         urls.add(documents.get(1).getUrl());
         urls.add(documents.get(2).getUrl());
@@ -1278,7 +1278,7 @@ public class DocumentIT extends TestWithUser {
         final long step1Id = waitForUserTask("step1");
 
         final Expression expression = expressionBuilder.createDocumentReferenceExpression("document1");
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>(5);
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>(5);
         expressions.put(expression, new HashMap<String, Serializable>());
 
         final Map<String, Serializable> docsMap = getProcessAPI().evaluateExpressionsOnActivityInstance(step1Id, expressions);
@@ -1574,7 +1574,7 @@ public class DocumentIT extends TestWithUser {
         final SearchResult<Document> list1_search = getProcessAPI().searchDocuments(
                 new SearchOptionsBuilder(0, 100).filter(DocumentsSearchDescriptor.PROCESSINSTANCE_ID, processInstance.getId())
                         .filter(DocumentsSearchDescriptor.DOCUMENT_NAME, "list1").sort(DocumentsSearchDescriptor.LIST_INDEX, Order.DESC).done());
-        final ArrayList<Document> reversedList1 = new ArrayList<Document>(list1);
+        final ArrayList<Document> reversedList1 = new ArrayList<>(list1);
         Collections.reverse(reversedList1);
         assertThat(list1_search.getResult()).isEqualTo(reversedList1);
         assertThat(list1).hasSize(7);
@@ -1588,7 +1588,7 @@ public class DocumentIT extends TestWithUser {
         assertThat(updated.getIndex()).isEqualTo(document.getIndex());
         assertThat(updated.getUrl()).isEqualTo("The new value");
 
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>();
         expressions.put(new ExpressionBuilder().createDocumentListExpression("list1"), Collections.<String, Serializable> emptyMap());
         final List<Document> initialList1 = (List<Document>) getProcessAPI().evaluateExpressionsAtProcessInstanciation(processInstance.getId(), expressions)
                 .get("list1");

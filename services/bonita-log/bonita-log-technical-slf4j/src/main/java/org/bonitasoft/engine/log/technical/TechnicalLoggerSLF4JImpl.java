@@ -28,17 +28,17 @@ import org.slf4j.LoggerFactory;
  */
 public class TechnicalLoggerSLF4JImpl implements TechnicalLoggerService {
 
-    private final Map<Class<?>, Boolean> classIsTraceLoggable = new HashMap<Class<?>, Boolean>();
+    private final Map<Class<?>, Boolean> classIsTraceLoggable = new HashMap<>();
 
-    private final Map<Class<?>, Boolean> classIsDebugLoggable = new HashMap<Class<?>, Boolean>();
+    private final Map<Class<?>, Boolean> classIsDebugLoggable = new HashMap<>();
 
-    private final Map<Class<?>, Boolean> classIsInfoLoggable = new HashMap<Class<?>, Boolean>();
+    private final Map<Class<?>, Boolean> classIsInfoLoggable = new HashMap<>();
 
-    private final Map<Class<?>, Boolean> classIsWarnLoggable = new HashMap<Class<?>, Boolean>();
+    private final Map<Class<?>, Boolean> classIsWarnLoggable = new HashMap<>();
 
-    private final Map<Class<?>, Boolean> classIsErrorLoggable = new HashMap<Class<?>, Boolean>();
+    private final Map<Class<?>, Boolean> classIsErrorLoggable = new HashMap<>();
 
-    private final Map<Class<?>, Logger> classLoggers = new HashMap<Class<?>, Logger>();
+    private final Map<Class<?>, Logger> classLoggers = new HashMap<>();
 
     private String hostname = null;
 

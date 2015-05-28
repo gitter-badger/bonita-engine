@@ -68,10 +68,10 @@ public class BusinessObject {
     private List<Query> queries;
 
     public BusinessObject() {
-        fields = new ArrayList<Field>();
-        uniqueConstraints = new ArrayList<UniqueConstraint>();
-        queries = new ArrayList<Query>();
-        indexes = new ArrayList<Index>();
+        fields = new ArrayList<>();
+        uniqueConstraints = new ArrayList<>();
+        queries = new ArrayList<>();
+        indexes = new ArrayList<>();
     }
 
     public String getQualifiedName() {
@@ -165,7 +165,7 @@ public class BusinessObject {
     }
 
     public List<BusinessObject> getReferencedBusinessObjectsByComposition() {
-        List<BusinessObject> refs = new ArrayList<BusinessObject>();
+        List<BusinessObject> refs = new ArrayList<>();
         for (Field field : fields) {
             if (isACompositionField(field)) {
                 refs.add(((RelationField) field).getReference());
@@ -196,7 +196,7 @@ public class BusinessObject {
 
     public String getSimpleName() {
         String simpleName = qualifiedName;
-        if (simpleName != null && simpleName.indexOf(".") != -1) {
+        if (simpleName != null && simpleName.contains(".")) {
             final String[] split = simpleName.split("\\.");
             simpleName = split[split.length - 1];
         }

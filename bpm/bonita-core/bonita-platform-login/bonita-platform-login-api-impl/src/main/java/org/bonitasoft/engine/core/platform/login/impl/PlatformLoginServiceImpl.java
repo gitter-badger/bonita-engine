@@ -44,11 +44,7 @@ public class PlatformLoginServiceImpl implements PlatformLoginService {
         try {
             authenticationService.checkUserCredentials(userName, password);
             return sessionService.createSession(userName);
-        } catch (final SInvalidUserException e) {
-            throw new SPlatformLoginException(e);
-        } catch (final SInvalidPasswordException e) {
-            throw new SPlatformLoginException(e);
-        } catch (final SSessionException e) {
+        } catch (final SInvalidUserException | SSessionException | SInvalidPasswordException e) {
             throw new SPlatformLoginException(e);
         }
     }

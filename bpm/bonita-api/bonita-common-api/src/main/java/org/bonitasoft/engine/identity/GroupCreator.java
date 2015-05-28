@@ -45,7 +45,7 @@ public class GroupCreator implements Serializable {
      *        The name of the group that will be created
      */
     public GroupCreator(final String name) {
-        fields = new HashMap<GroupField, Serializable>(3);
+        fields = new HashMap<>(3);
         fields.put(GroupField.NAME, name);
     }
 

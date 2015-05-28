@@ -241,7 +241,7 @@ public class ExternalIdentityMappingServiceImpl implements ExternalIdentityMappi
             logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "getNumberOfExternalIdentityMappingsForUser"));
         }
         try {
-            final Map<String, Object> parameters = new HashMap<String, Object>(2);
+            final Map<String, Object> parameters = new HashMap<>(2);
             parameters.put("kind", kind);
             parameters.put("userId", userId);
             parameters.put("externalId", externalId);
@@ -266,7 +266,7 @@ public class ExternalIdentityMappingServiceImpl implements ExternalIdentityMappi
         if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
             logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "searchExternalIdentityMappingsForUser"));
         }
-        final Map<String, Object> parameters = new HashMap<String, Object>(2);
+        final Map<String, Object> parameters = new HashMap<>(2);
         parameters.put("kind", kind);
         parameters.put("userId", userId);
         parameters.put("externalId", externalId);
@@ -285,7 +285,7 @@ public class ExternalIdentityMappingServiceImpl implements ExternalIdentityMappi
             logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "getNumberOfExternalIdentityMappings"));
         }
         try {
-            final Map<String, Object> parameters = new HashMap<String, Object>(1);
+            final Map<String, Object> parameters = new HashMap<>(1);
             parameters.put("kind", kind);
             final long number = persistenceService.getNumberOfEntities(SExternalIdentityMapping.class, querySuffix, searchOptions, parameters);
             if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
@@ -308,7 +308,7 @@ public class ExternalIdentityMappingServiceImpl implements ExternalIdentityMappi
             logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "searchExternalIdentityMappings"));
         }
         try {
-            final Map<String, Object> parameters = new HashMap<String, Object>(1);
+            final Map<String, Object> parameters = new HashMap<>(1);
             parameters.put("kind", kind);
             final List<SExternalIdentityMapping> listSExternalIdentityMappings = persistenceService.searchEntity(SExternalIdentityMapping.class, querySuffix,
                     queryOptions, parameters);
@@ -331,7 +331,7 @@ public class ExternalIdentityMappingServiceImpl implements ExternalIdentityMappi
             logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "searchExternalIdentityMappings"));
         }
         try {
-            final Map<String, Object> parameters = new HashMap<String, Object>(2);
+            final Map<String, Object> parameters = new HashMap<>(2);
             parameters.put("kind", kind);
             parameters.put("externalId", externalId);
             if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {

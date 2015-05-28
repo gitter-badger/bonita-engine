@@ -98,14 +98,15 @@ public class SConnectorImplementationDescriptor implements Serializable, Compara
     @Override
     public int compareTo(final SConnectorImplementationDescriptor connectorImplementation) {
         if (comparedFiled != null) {
-            if (comparedFiled.equals(SConnectorImplementationDescriptor.IMPLEMENTATION_CLASS_NAME)) {
-                return implementationClassName.compareTo(connectorImplementation.getImplementationClassName());
-            } else if (comparedFiled.equals(SConnectorImplementationDescriptor.VERSION)) {
-                return version.compareTo(connectorImplementation.getVersion());
-            } else if (comparedFiled.equals(SConnectorImplementationDescriptor.DEFINITION_ID)) {
-                return definitionId.compareTo(connectorImplementation.getDefinitionId());
-            } else if (comparedFiled.equals(SConnectorImplementationDescriptor.DEFINITION_VERSION)) {
-                return definitionVersion.compareTo(connectorImplementation.getDefinitionVersion());
+            switch (comparedFiled) {
+                case SConnectorImplementationDescriptor.IMPLEMENTATION_CLASS_NAME:
+                    return implementationClassName.compareTo(connectorImplementation.getImplementationClassName());
+                case SConnectorImplementationDescriptor.VERSION:
+                    return version.compareTo(connectorImplementation.getVersion());
+                case SConnectorImplementationDescriptor.DEFINITION_ID:
+                    return definitionId.compareTo(connectorImplementation.getDefinitionId());
+                case SConnectorImplementationDescriptor.DEFINITION_VERSION:
+                    return definitionVersion.compareTo(connectorImplementation.getDefinitionVersion());
             }
         }
         return id.compareTo(connectorImplementation.getId());

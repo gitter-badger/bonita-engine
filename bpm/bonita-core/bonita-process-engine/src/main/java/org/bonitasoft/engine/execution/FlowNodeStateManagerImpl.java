@@ -87,13 +87,13 @@ import org.bonitasoft.engine.log.technical.TechnicalLoggerService;
  */
 public class FlowNodeStateManagerImpl implements FlowNodeStateManager {
 
-    protected final Map<Integer, FlowNodeState> states = new HashMap<Integer, FlowNodeState>();
+    protected final Map<Integer, FlowNodeState> states = new HashMap<>();
 
-    protected final Map<SFlowNodeType, Map<Integer, FlowNodeState>> normalTransitions = new HashMap<SFlowNodeType, Map<Integer, FlowNodeState>>();
+    protected final Map<SFlowNodeType, Map<Integer, FlowNodeState>> normalTransitions = new HashMap<>();
 
-    protected final Map<SFlowNodeType, Map<Integer, FlowNodeState>> abortTransitions = new HashMap<SFlowNodeType, Map<Integer, FlowNodeState>>();
+    protected final Map<SFlowNodeType, Map<Integer, FlowNodeState>> abortTransitions = new HashMap<>();
 
-    protected final Map<SFlowNodeType, Map<Integer, FlowNodeState>> cancelTransitions = new HashMap<SFlowNodeType, Map<Integer, FlowNodeState>>();
+    protected final Map<SFlowNodeType, Map<Integer, FlowNodeState>> cancelTransitions = new HashMap<>();
 
     protected Set<Integer> unstableStates;
 
@@ -360,8 +360,8 @@ public class FlowNodeStateManagerImpl implements FlowNodeStateManager {
         interruptedFlowNodeState = new InterruptedFlowNodeState();
         completingSubTaskState = new CompletingSubTaskStateImpl(stateBehaviors);
 
-        final Set<Integer> unstableStatesModifiable = new HashSet<Integer>();
-        final Set<Integer> stableStatesModifiable = new HashSet<Integer>();
+        final Set<Integer> unstableStatesModifiable = new HashSet<>();
+        final Set<Integer> stableStatesModifiable = new HashSet<>();
 
         // fill map of states
         addToMap(failed);
@@ -436,7 +436,7 @@ public class FlowNodeStateManagerImpl implements FlowNodeStateManager {
 
     private void defineTransitionsForFlowNode(final SFlowNodeType flowNodeType, final Map<SFlowNodeType, Map<Integer, FlowNodeState>> transitions,
             final FlowNodeState... states) {
-        final Map<Integer, FlowNodeState> taskTransitions = new HashMap<Integer, FlowNodeState>();
+        final Map<Integer, FlowNodeState> taskTransitions = new HashMap<>();
         int stateIndex = 0;
         taskTransitions.put(-1, states[0]);
         while (stateIndex < states.length - 1) {
@@ -508,7 +508,7 @@ public class FlowNodeStateManagerImpl implements FlowNodeStateManager {
     public Set<String> getSupportedState(final FlowNodeType nodeType) {
         final SFlowNodeType type = SFlowNodeType.valueOf(nodeType.toString());
         final Map<Integer, FlowNodeState> states = normalTransitions.get(type);
-        final Set<String> stateNames = new HashSet<String>();
+        final Set<String> stateNames = new HashSet<>();
         for (final FlowNodeState state : states.values()) {
             stateNames.add(state.getName());
         }

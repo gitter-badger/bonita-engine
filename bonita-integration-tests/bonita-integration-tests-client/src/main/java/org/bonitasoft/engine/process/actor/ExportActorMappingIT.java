@@ -44,12 +44,9 @@ public class ExportActorMappingIT extends TestWithUser {
         final ProcessDefinition definition = deployAndEnableProcessWithActor(processBuilder.done(), ACTOR_NAME, user);
 
         final String xmlContent = getProcessAPI().exportActorMapping(definition.getId());
-        final InputStream xmlStream = ImportActorMappingIT.class.getResourceAsStream("simpleActorMapping.xml");
-        try {
+        try (InputStream xmlStream = ImportActorMappingIT.class.getResourceAsStream("simpleActorMapping.xml")) {
             final byte[] actormapping = IOUtils.toByteArray(xmlStream);
             assertEquals(removewhitespaces(new String(actormapping)), removewhitespaces(xmlContent));
-        } finally {
-            xmlStream.close();
         }
         disableAndDeleteProcess(definition);
     }
@@ -176,12 +173,9 @@ public class ExportActorMappingIT extends TestWithUser {
         getProcessAPI().addRoleAndGroupToActor(actor.getId(), role.getId(), rd.getId());
 
         final String xmlContent = getProcessAPI().exportActorMapping(definition.getId());
-        final InputStream xmlStream = ImportActorMappingIT.class.getResourceAsStream("complexActorMapping.xml");
-        try {
+        try (InputStream xmlStream = ImportActorMappingIT.class.getResourceAsStream("complexActorMapping.xml")) {
             final byte[] actormapping = IOUtils.toByteArray(xmlStream);
             assertEquals(removewhitespaces(new String(actormapping)), removewhitespaces(xmlContent));
-        } finally {
-            xmlStream.close();
         }
         // getIdentityAPI().deleteUserMembership(createUserMembership.getId());
         getIdentityAPI().deleteGroup(rd.getId());

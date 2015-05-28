@@ -61,7 +61,7 @@ public class SearchProcessDeploymentInfosCanBeStartedByIT extends TestWithTechni
         super.before();
 
         // create users
-        users = new ArrayList<User>(2);
+        users = new ArrayList<>(2);
         users.add(createUser("chicobento", "bpm"));
         users.add(createUser("cebolinha", "bpm"));
         users.add(createUser("cascao", "bpm"));
@@ -70,27 +70,27 @@ public class SearchProcessDeploymentInfosCanBeStartedByIT extends TestWithTechni
         users.add(createUser("dorinha", "bpm"));
 
         // create groups
-        groups = new ArrayList<Group>(2);
+        groups = new ArrayList<>(2);
         groups.add(createGroup("group1"));
         groups.add(createGroup("group2"));
 
         // create roles
-        roles = new ArrayList<Role>(2);
+        roles = new ArrayList<>(2);
         roles.add(createRole("role1"));
         roles.add(createRole("role2"));
 
         // create user memberships
-        userMemberships = new ArrayList<UserMembership>(3);
+        userMemberships = new ArrayList<>(3);
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(3).getId(), groups.get(0).getId(), roles.get(0).getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(4).getId(), groups.get(0).getId(), roles.get(1).getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(5).getId(), groups.get(1).getId(), roles.get(0).getId()));
 
         // create processes
-        enabledProcessDefinitions = new ArrayList<ProcessDefinition>(4);
-        disabledProcessDefinitions = new ArrayList<ProcessDefinition>(1);
+        enabledProcessDefinitions = new ArrayList<>(4);
+        disabledProcessDefinitions = new ArrayList<>(1);
         createProcessesDefForSearchProcessUserCanStart();
 
-        categories = new ArrayList<Category>(3);
+        categories = new ArrayList<>(3);
         categories.add(getProcessAPI().createCategory("category1", "the first known category"));
         categories.add(getProcessAPI().createCategory("category2", "the second known category"));
         categories.add(getProcessAPI().createCategory("category3", "the third known category"));

@@ -173,9 +173,7 @@ public class SFlowElementContainerDefinitionImpl extends SBaseElementImpl implem
         final List<GatewayDefinition> gateways2 = container.getGatewaysList();
         gateways = new HashSet<>(gateways2.size());
         gatewaysMap = new HashMap<>(gateways2.size());
-        final Iterator<GatewayDefinition> iterator1 = gateways2.iterator();
-        while (iterator1.hasNext()) {
-            final GatewayDefinition gatewayDefinition = iterator1.next();
+        for (GatewayDefinition gatewayDefinition : gateways2) {
             final SGatewayDefinitionImpl gateway;
             gateway = new SGatewayDefinitionImpl(gatewayDefinition, transitionsMap);
             addGateway(gateway);
@@ -229,9 +227,7 @@ public class SFlowElementContainerDefinitionImpl extends SBaseElementImpl implem
     }
 
     private void initializeActivities(final List<ActivityDefinition> activities2) {
-        final Iterator<ActivityDefinition> iterator = activities2.iterator();
-        while (iterator.hasNext()) {
-            final ActivityDefinition activityDefinition = iterator.next();
+        for (ActivityDefinition activityDefinition : activities2) {
             final SActivityDefinitionImpl activity;
             if (activityDefinition instanceof AutomaticTaskDefinitionImpl) {
                 activity = new SAutomaticTaskDefinitionImpl(activityDefinition, transitionsMap);

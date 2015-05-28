@@ -83,7 +83,7 @@ public class ProfileMemberUtils {
     }
 
     public static Map<String, Serializable> memberAsProfileMembersMap(final SProfileMember profileMember) {
-        final Map<String, Serializable> profileMemeber = new HashMap<String, Serializable>();
+        final Map<String, Serializable> profileMemeber = new HashMap<>();
         profileMemeber.put(PROFILE_ID, profileMember.getProfileId());
         profileMemeber.put(USER_ID, profileMember.getUserId());
         profileMemeber.put(GROUP_ID, profileMember.getGroupId());
@@ -96,7 +96,7 @@ public class ProfileMemberUtils {
     }
 
     public static List<Map<String, Serializable>> membersAsProfileMembersMapList(final List<SProfileMember> serverObjects) {
-        final List<Map<String, Serializable>> profileMemberMaps = new ArrayList<Map<String, Serializable>>();
+        final List<Map<String, Serializable>> profileMemberMaps = new ArrayList<>();
         for (final SProfileMember profileMember : serverObjects) {
             profileMemberMaps.add(memberAsProfileMembersMap(profileMember));
         }

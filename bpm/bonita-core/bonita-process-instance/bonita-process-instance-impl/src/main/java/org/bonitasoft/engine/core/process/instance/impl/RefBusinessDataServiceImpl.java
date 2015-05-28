@@ -142,7 +142,7 @@ public class RefBusinessDataServiceImpl implements RefBusinessDataService {
     @Override
     public void updateRefBusinessDataInstance(final SSimpleRefBusinessDataInstance refBusinessDataInstance, final Long dataId)
             throws SRefBusinessDataInstanceModificationException {
-        final Map<String, Object> fields = new HashMap<String, Object>();
+        final Map<String, Object> fields = new HashMap<>();
         fields.put("dataId", dataId);
         updateRefBusinessDataInstance(refBusinessDataInstance, fields);
     }
@@ -150,7 +150,7 @@ public class RefBusinessDataServiceImpl implements RefBusinessDataService {
     @Override
     public void updateRefBusinessDataInstance(final SMultiRefBusinessDataInstance refBusinessDataInstance, final List<Long> dataIds)
             throws SRefBusinessDataInstanceModificationException {
-        final Map<String, Object> fields = new HashMap<String, Object>();
+        final Map<String, Object> fields = new HashMap<>();
         fields.put("dataIds", dataIds);
         updateRefBusinessDataInstance(refBusinessDataInstance, fields);
     }

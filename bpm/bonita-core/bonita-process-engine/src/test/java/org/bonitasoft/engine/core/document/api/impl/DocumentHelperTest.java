@@ -142,7 +142,7 @@ public class DocumentHelperTest {
     }
 
     private List<SDocumentListDefinition> createListOfDocumentListDefinition(String... names) {
-        List<SDocumentListDefinition> list = new ArrayList<SDocumentListDefinition>();
+        List<SDocumentListDefinition> list = new ArrayList<>();
         for (String name : names) {
             list.add(new SDocumentListDefinitionImpl(name));
         }
@@ -160,14 +160,14 @@ public class DocumentHelperTest {
         List<SMappedDocument> theList = documentHelper.getAllDocumentOfTheList(PROCESS_INSTANCE_ID, "theList");
 
         //then
-        ArrayList<SMappedDocument> expected = new ArrayList<SMappedDocument>(list);
+        ArrayList<SMappedDocument> expected = new ArrayList<>(list);
         expected.addAll(list2);
         assertThat(theList).hasSize(150);
         assertThat(theList).isEqualTo(expected);
     }
 
     private List<SMappedDocument> createList(int size) {
-        List<SMappedDocument> sMappedDocuments = new ArrayList<SMappedDocument>(size);
+        List<SMappedDocument> sMappedDocuments = new ArrayList<>(size);
         for (int i = 0; i < size; i++) {
             SMappedDocumentImpl sMappedDocument = new SMappedDocumentImpl();
             sMappedDocument.setId(size + (i * 1000));

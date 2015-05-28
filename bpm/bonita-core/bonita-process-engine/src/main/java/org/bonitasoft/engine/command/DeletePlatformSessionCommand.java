@@ -18,7 +18,7 @@ public class DeletePlatformSessionCommand extends PlatformCommand {
         Long sessionId = (Long)parameters.get("sessionId");
         PlatformSessionService sessionService = serviceAccessor.getPlatformSessionService();
         try {
-            sessionService.deleteSession(sessionId.longValue());
+            sessionService.deleteSession(sessionId);
         } catch(SSessionNotFoundException e) {
             throw new SCommandExecutionException(e);
         }

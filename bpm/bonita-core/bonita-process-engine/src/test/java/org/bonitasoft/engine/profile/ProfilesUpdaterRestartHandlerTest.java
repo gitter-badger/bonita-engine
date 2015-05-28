@@ -125,7 +125,7 @@ public class ProfilesUpdaterRestartHandlerTest {
     @Test
     public void callable_call_do_update() throws Exception {
         //given
-        ArrayList<ExportedProfile> exportedProfiles = new ArrayList<ExportedProfile>();
+        ArrayList<ExportedProfile> exportedProfiles = new ArrayList<>();
         Callable<Object> content = profilesUpdaterRestartHandler.getCallable(tenantServiceAccessor, md5File, "content", exportedProfiles);
         doReturn(null).when(profilesUpdaterRestartHandler).doUpdateProfiles(any(TenantServiceAccessor.class), anyListOf(ExportedProfile.class), any(File.class),
                 anyString());
@@ -139,7 +139,7 @@ public class ProfilesUpdaterRestartHandlerTest {
     @Test
     public void doUpdate_call_importer() throws IOException, NoSuchAlgorithmException, ExecutionException {
         //when
-        ArrayList<ExportedProfile> profilesFromXML = new ArrayList<ExportedProfile>();
+        ArrayList<ExportedProfile> profilesFromXML = new ArrayList<>();
         profilesUpdaterRestartHandler.doUpdateProfiles(tenantServiceAccessor, profilesFromXML, md5File, "content of profiles");
         //then
         verify(profilesUpdaterRestartHandler).createProfilesImporter(tenantServiceAccessor, profilesFromXML);
@@ -153,7 +153,7 @@ public class ProfilesUpdaterRestartHandlerTest {
         IOUtil.writeFile(md5File,"oldHash");
         doThrow(new ExecutionException("")).when(profilesImporter).importProfiles(anyLong());
         //when
-        ArrayList<ExportedProfile> profilesFromXML = new ArrayList<ExportedProfile>();
+        ArrayList<ExportedProfile> profilesFromXML = new ArrayList<>();
         profilesUpdaterRestartHandler.doUpdateProfiles(tenantServiceAccessor, profilesFromXML, md5File, "content of profiles");
         //then
         assertThat(md5File).hasContent("oldHash");

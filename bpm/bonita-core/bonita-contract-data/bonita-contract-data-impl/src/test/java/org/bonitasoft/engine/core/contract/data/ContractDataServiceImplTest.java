@@ -126,7 +126,7 @@ public class ContractDataServiceImplTest {
 
     @Test
     public void deleteUserTaskData_deletes_data() throws Exception {
-        final List<STaskContractData> data = new ArrayList<STaskContractData>();
+        final List<STaskContractData> data = new ArrayList<>();
         data.add(new STaskContractData(1983L, "id", 456478L));
         data.add(new STaskContractData(1983L, "id2", 4564456478L));
         when(queriableLoggerService.isLoggable(anyString(), any(SQueriableLogSeverity.class))).thenReturn(false);
@@ -140,7 +140,7 @@ public class ContractDataServiceImplTest {
     @Test(expected = SContractDataDeletionException.class)
     public void deleteUserTaskData_throws_exception() throws Exception {
         when(queriableLoggerService.isLoggable(anyString(), any(SQueriableLogSeverity.class))).thenReturn(false);
-        final List<STaskContractData> data = new ArrayList<STaskContractData>();
+        final List<STaskContractData> data = new ArrayList<>();
         data.add(new STaskContractData(1983L, "id", 456478L));
         data.add(new STaskContractData(1983L, "id2", 4564456478L));
         when(queriableLoggerService.isLoggable(anyString(), any(SQueriableLogSeverity.class))).thenReturn(false);
@@ -162,7 +162,7 @@ public class ContractDataServiceImplTest {
     public void archiveUserTaskData_should_create_archive_data() throws Exception {
         final long usertTaskId = 1983L;
         final long time = 1010101010101001L;
-        final List<STaskContractData> data = new ArrayList<STaskContractData>();
+        final List<STaskContractData> data = new ArrayList<>();
         final STaskContractData scd1 = new STaskContractData(usertTaskId, "id", 456478L);
         final STaskContractData scd2 = new STaskContractData(usertTaskId, "id2", 4564456478L);
         data.add(scd1);
@@ -181,7 +181,7 @@ public class ContractDataServiceImplTest {
     public void archiveUserTaskData_should_not_create_archive_data_if_no_data_defined() throws Exception {
         final long usertTaskId = 1983L;
         final long time = 1010101010101001L;
-        final List<STaskContractData> data = new ArrayList<STaskContractData>();
+        final List<STaskContractData> data = new ArrayList<>();
         when(persistenceService.selectList(any(SelectListDescriptor.class))).thenReturn(data);
 
         contractDataService.archiveAndDeleteUserTaskData(usertTaskId, time);
@@ -283,7 +283,7 @@ public class ContractDataServiceImplTest {
 
     @Test
     public void deleteProcessData_deletes_data() throws Exception {
-        final List<SProcessContractData> data = new ArrayList<SProcessContractData>();
+        final List<SProcessContractData> data = new ArrayList<>();
         data.add(new SProcessContractData(1983L, "id", 456478L));
         data.add(new SProcessContractData(1983L, "id2", 4564456478L));
         when(queriableLoggerService.isLoggable(anyString(), any(SQueriableLogSeverity.class))).thenReturn(false);
@@ -297,7 +297,7 @@ public class ContractDataServiceImplTest {
     @Test(expected = SContractDataDeletionException.class)
     public void deleteProcessData_throws_exception() throws Exception {
         when(queriableLoggerService.isLoggable(anyString(), any(SQueriableLogSeverity.class))).thenReturn(false);
-        final List<SProcessContractData> data = new ArrayList<SProcessContractData>();
+        final List<SProcessContractData> data = new ArrayList<>();
         data.add(new SProcessContractData(1983L, "id", 456478L));
         data.add(new SProcessContractData(1983L, "id2", 4564456478L));
         when(queriableLoggerService.isLoggable(anyString(), any(SQueriableLogSeverity.class))).thenReturn(false);
@@ -319,7 +319,7 @@ public class ContractDataServiceImplTest {
     public void archiveProcessData_should_create_archive_data() throws Exception {
         final long processInstanceId = 1983L;
         final long time = 1010101010101001L;
-        final List<SProcessContractData> data = new ArrayList<SProcessContractData>();
+        final List<SProcessContractData> data = new ArrayList<>();
         final SProcessContractData scd1 = new SProcessContractData(processInstanceId, "id", 456478L);
         final SProcessContractData scd2 = new SProcessContractData(processInstanceId, "id2", 4564456478L);
         data.add(scd1);
@@ -338,7 +338,7 @@ public class ContractDataServiceImplTest {
     public void archiveProcessData_should_not_create_archive_data_if_no_data_defined() throws Exception {
         final long usertProcessId = 1983L;
         final long time = 1010101010101001L;
-        final List<SProcessContractData> data = new ArrayList<SProcessContractData>();
+        final List<SProcessContractData> data = new ArrayList<>();
         when(persistenceService.selectList(any(SelectListDescriptor.class))).thenReturn(data);
 
         contractDataService.archiveAndDeleteProcessData(usertProcessId, time);

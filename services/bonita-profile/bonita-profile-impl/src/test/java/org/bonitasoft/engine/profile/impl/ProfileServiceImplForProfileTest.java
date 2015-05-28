@@ -215,11 +215,11 @@ public class ProfileServiceImplForProfileTest {
      */
     @Test
     public final void getProfiles() throws SProfileNotFoundException, SBonitaReadException {
-        final List<Long> profileIds = new ArrayList<Long>();
+        final List<Long> profileIds = new ArrayList<>();
         profileIds.add(1L);
         profileIds.add(2L);
 
-        final List<SProfile> sProfiles = new ArrayList<SProfile>();
+        final List<SProfile> sProfiles = new ArrayList<>();
         final SProfile sProfile = mock(SProfile.class);
         sProfiles.add(sProfile);
         sProfiles.add(sProfile);
@@ -231,7 +231,7 @@ public class ProfileServiceImplForProfileTest {
 
     @Test(expected = SProfileNotFoundException.class)
     public final void getNoProfiles() throws SProfileNotFoundException, SBonitaReadException {
-        final List<Long> profileIds = new ArrayList<Long>();
+        final List<Long> profileIds = new ArrayList<>();
         profileIds.add(1L);
 
         doReturn(null).when(persistenceService).selectById(Matchers.<SelectByIdDescriptor<SProfile>> any());
@@ -241,7 +241,7 @@ public class ProfileServiceImplForProfileTest {
 
     @Test
     public final void getProfilesWithEmptyList() throws SProfileNotFoundException {
-        final List<Long> profileIds = new ArrayList<Long>();
+        final List<Long> profileIds = new ArrayList<>();
 
         assertTrue(profileServiceImpl.getProfiles(profileIds).isEmpty());
     }
@@ -259,7 +259,7 @@ public class ProfileServiceImplForProfileTest {
      */
     @Test
     public final void getProfilesOfUser() throws SBonitaReadException {
-        final List<SProfile> sProfiles = new ArrayList<SProfile>();
+        final List<SProfile> sProfiles = new ArrayList<>();
         final SProfile sProfile = mock(SProfile.class);
         sProfiles.add(sProfile);
 
@@ -270,7 +270,7 @@ public class ProfileServiceImplForProfileTest {
 
     @Test
     public final void getNoProfilesOfUser() throws SBonitaReadException {
-        final List<SProfile> sProfiles = new ArrayList<SProfile>();
+        final List<SProfile> sProfiles = new ArrayList<>();
 
         doReturn(sProfiles).when(persistenceService).selectList(Matchers.<SelectListDescriptor<SProfile>> any());
 
@@ -385,12 +385,12 @@ public class ProfileServiceImplForProfileTest {
         final SProfile sProfile = mock(SProfile.class);
         doReturn(3L).when(sProfile).getId();
 
-        final List<SProfileEntry> sProfileEntries = new ArrayList<SProfileEntry>();
+        final List<SProfileEntry> sProfileEntries = new ArrayList<>();
         final SProfileEntry sProfileEntry = mock(SProfileEntry.class);
         doReturn(6L).when(sProfileEntry).getId();
         sProfileEntries.add(sProfileEntry);
 
-        final List<SProfileMember> sProfileMembers = new ArrayList<SProfileMember>();
+        final List<SProfileMember> sProfileMembers = new ArrayList<>();
         final SProfileMember sProfileMember = mock(SProfileMember.class);
         doReturn(4L).when(sProfileMember).getId();
         sProfileMembers.add(sProfileMember);
@@ -435,12 +435,12 @@ public class ProfileServiceImplForProfileTest {
     @Test
     public final void deleteProfileByIdWithNoEntry() throws SProfileNotFoundException, SProfileDeletionException, SRecorderException, SBonitaReadException,
             SProfileEntryDeletionException, SProfileMemberDeletionException {
-        final List<SProfile> sProfiles = new ArrayList<SProfile>(3);
+        final List<SProfile> sProfiles = new ArrayList<>(3);
         final SProfile sProfile = mock(SProfile.class);
         doReturn(3L).when(sProfile).getId();
         sProfiles.add(sProfile);
 
-        final List<SProfileMember> sProfileMembers = new ArrayList<SProfileMember>();
+        final List<SProfileMember> sProfileMembers = new ArrayList<>();
         final SProfileMember sProfileMember = mock(SProfileMember.class);
         doReturn(4L).when(sProfileMember).getId();
         sProfileMembers.add(sProfileMember);
@@ -463,7 +463,7 @@ public class ProfileServiceImplForProfileTest {
         final SProfile sProfile = mock(SProfile.class);
         doReturn(3L).when(sProfile).getId();
 
-        final List<SProfileEntry> sProfileEntries = new ArrayList<SProfileEntry>();
+        final List<SProfileEntry> sProfileEntries = new ArrayList<>();
         final SProfileEntry sProfileEntry = mock(SProfileEntry.class);
         doReturn(6L).when(sProfileEntry).getId();
         sProfileEntries.add(sProfileEntry);
@@ -494,12 +494,12 @@ public class ProfileServiceImplForProfileTest {
         final SProfile sProfile = mock(SProfile.class);
         doReturn(3L).when(sProfile).getId();
 
-        final List<SProfileEntry> sProfileEntries = new ArrayList<SProfileEntry>();
+        final List<SProfileEntry> sProfileEntries = new ArrayList<>();
         final SProfileEntry sProfileEntry = mock(SProfileEntry.class);
         doReturn(6L).when(sProfileEntry).getId();
         sProfileEntries.add(sProfileEntry);
 
-        final List<SProfileMember> sProfileMembers = new ArrayList<SProfileMember>();
+        final List<SProfileMember> sProfileMembers = new ArrayList<>();
         final SProfileMember sProfileMember = mock(SProfileMember.class);
         doReturn(4L).when(sProfileMember).getId();
         sProfileMembers.add(sProfileMember);
@@ -538,12 +538,12 @@ public class ProfileServiceImplForProfileTest {
     @Test
     public final void deleteProfileByObjectWithNoEntry() throws Exception,
             SProfileEntryDeletionException, SProfileMemberDeletionException {
-        final List<SProfile> sProfiles = new ArrayList<SProfile>(3);
+        final List<SProfile> sProfiles = new ArrayList<>(3);
         final SProfile sProfile = mock(SProfile.class);
         doReturn(3L).when(sProfile).getId();
         sProfiles.add(sProfile);
 
-        final List<SProfileMember> sProfileMembers = new ArrayList<SProfileMember>();
+        final List<SProfileMember> sProfileMembers = new ArrayList<>();
         final SProfileMember sProfileMember = mock(SProfileMember.class);
         doReturn(4L).when(sProfileMember).getId();
         sProfileMembers.add(sProfileMember);
@@ -565,7 +565,7 @@ public class ProfileServiceImplForProfileTest {
             SProfileEntryDeletionException, SProfileMemberDeletionException {
         doReturn(3L).when(sProfile).getId();
 
-        final List<SProfileEntry> sProfileEntries = new ArrayList<SProfileEntry>();
+        final List<SProfileEntry> sProfileEntries = new ArrayList<>();
         final SProfileEntry sProfileEntry = mock(SProfileEntry.class);
         doReturn(6L).when(sProfileEntry).getId();
         sProfileEntries.add(sProfileEntry);

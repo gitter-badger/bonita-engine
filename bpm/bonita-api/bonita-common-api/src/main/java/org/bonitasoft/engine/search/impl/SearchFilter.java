@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.search.impl;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import org.bonitasoft.engine.exception.IncorrectParameterException;
 import org.bonitasoft.engine.search.SearchFilterOperation;
@@ -139,61 +140,19 @@ public class SearchFilter implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (field == null ? 0 : field.hashCode());
-        result = prime * result + (from == null ? 0 : from.hashCode());
-        result = prime * result + (operation == null ? 0 : operation.hashCode());
-        result = prime * result + (to == null ? 0 : to.hashCode());
-        result = prime * result + (value == null ? 0 : value.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchFilter that = (SearchFilter) o;
+        return Objects.equals(field, that.field) &&
+                Objects.equals(operation, that.operation) &&
+                Objects.equals(value, that.value) &&
+                Objects.equals(from, that.from) &&
+                Objects.equals(to, that.to);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SearchFilter other = (SearchFilter) obj;
-        if (field == null) {
-            if (other.field != null) {
-                return false;
-            }
-        } else if (!field.equals(other.field)) {
-            return false;
-        }
-        if (from == null) {
-            if (other.from != null) {
-                return false;
-            }
-        } else if (!from.equals(other.from)) {
-            return false;
-        }
-        if (operation != other.operation) {
-            return false;
-        }
-        if (to == null) {
-            if (other.to != null) {
-                return false;
-            }
-        } else if (!to.equals(other.to)) {
-            return false;
-        }
-        if (value == null) {
-            if (other.value != null) {
-                return false;
-            }
-        } else if (!value.equals(other.value)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(field, operation, value, from, to);
     }
-
 }

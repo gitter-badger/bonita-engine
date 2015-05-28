@@ -17,6 +17,7 @@ package com.company.model;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -66,7 +67,7 @@ public class Person implements org.bonitasoft.engine.bdm.Entity
     @OneToMany(orphanRemoval = true, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "PERSON_PID", nullable = false)
     @OrderColumn
-    private List<com.company.model.Phone> phones = new ArrayList<com.company.model.Phone>(10);
+    private List<com.company.model.Phone> phones = new ArrayList<>(10);
     @Column(name = "BIRTHDAY", nullable = true)
     @Temporal(TemporalType.TIMESTAMP)
     private Date birthday;
@@ -75,7 +76,7 @@ public class Person implements org.bonitasoft.engine.bdm.Entity
     @ElementCollection(fetch = FetchType.EAGER)
     @OrderColumn
     @Column(name = "BOOLS", nullable = true)
-    private List<Boolean> bools = new ArrayList<Boolean>(10);
+    private List<Boolean> bools = new ArrayList<>(10);
 
     public Person() {
     }

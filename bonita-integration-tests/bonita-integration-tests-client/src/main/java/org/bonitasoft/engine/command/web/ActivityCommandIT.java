@@ -81,7 +81,7 @@ public class ActivityCommandIT extends TestWithUser {
         final long activityInstanceId = waitForUserTaskAndAssigneIt(processInstance, "step1", user).getId();
 
         // Execute it with operation using the command to update data instance
-        final Map<String, Serializable> fieldValues = new HashMap<String, Serializable>();
+        final Map<String, Serializable> fieldValues = new HashMap<>();
         fieldValues.put("field_fieldId1", updatedValue);
         final Expression rightOperand = new ExpressionBuilder().createInputExpression("field_fieldId1", String.class.getName());
         executeActionsAndTerminate("dataName", true, activityInstanceId, fieldValues, rightOperand);
@@ -104,7 +104,7 @@ public class ActivityCommandIT extends TestWithUser {
         final long activityInstanceId = waitForUserTaskAndAssigneIt(processInstance, "step1", user).getId();
 
         // execute it with operation using the command
-        final Map<String, Serializable> fieldValues = new HashMap<String, Serializable>();
+        final Map<String, Serializable> fieldValues = new HashMap<>();
         // the operation execute a groovy script that depend in a class in the jar
         final Expression rightOperand = new ExpressionBuilder().createGroovyScriptExpression("myScript",
                 "new org.bonitasoft.engine.test.TheClassOfMyLibrary().aPublicMethod()", String.class.getName());
@@ -123,7 +123,7 @@ public class ActivityCommandIT extends TestWithUser {
         final long activityInstanceId = waitForUserTaskAndAssigneIt(processInstance, "step1", user).getId();
 
         // execute it with operation using the command
-        final Map<String, Serializable> fieldValues = new HashMap<String, Serializable>();
+        final Map<String, Serializable> fieldValues = new HashMap<>();
         fieldValues.put("field_fieldId1", "Excel");
         final Expression rightOperand = new ExpressionBuilder().createInputExpression("field_fieldId1", String.class.getName());
         executeActionsAndTerminate("application", false, activityInstanceId, fieldValues, rightOperand);
@@ -148,7 +148,7 @@ public class ActivityCommandIT extends TestWithUser {
 
         try {
             // execute it with operation using the command
-            final HashMap<String, Serializable> parameters = new HashMap<String, Serializable>();
+            final HashMap<String, Serializable> parameters = new HashMap<>();
             parameters.put("ACTIVITY_INSTANCE_ID_KEY", activityInstanceId);
             parameters.put("USER_ID_KEY", john.getId());
             getCommandAPI().execute(COMMAND_EXECUTE_OPERATIONS_AND_TERMINATE, parameters);
@@ -179,7 +179,7 @@ public class ActivityCommandIT extends TestWithUser {
     @Cover(classes = CommandAPI.class, concept = BPMNConcept.ACTIVITIES, keywords = { "Command", "Activity", "Wrong parameter" }, story = "Execute activity command with wrong parameter", jira = "ENGINE-586")
     @Test(expected = CommandParameterizationException.class)
     public void executeActionsAndTerminateCommandWithWrongParameter() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_KEY", "bad_value");
 
         getCommandAPI().execute(COMMAND_EXECUTE_OPERATIONS_AND_TERMINATE, parameters);
@@ -236,9 +236,9 @@ public class ActivityCommandIT extends TestWithUser {
             final Expression rightOperand)
             throws CommandNotFoundException, CommandParameterizationException, CommandExecutionException {
         final Operation operation = BuildTestUtil.buildOperation(dataName, isTransient, OperatorType.ASSIGNMENT, "=", rightOperand);
-        final List<Operation> operations = new ArrayList<Operation>();
+        final List<Operation> operations = new ArrayList<>();
         operations.add(operation);
-        final HashMap<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final HashMap<String, Serializable> parameters = new HashMap<>();
         parameters.put("ACTIVITY_INSTANCE_ID_KEY", taskId);
         parameters.put("OPERATIONS_LIST_KEY", (Serializable) operations);
         parameters.put("OPERATIONS_INPUT_KEY", (Serializable) fieldValues);

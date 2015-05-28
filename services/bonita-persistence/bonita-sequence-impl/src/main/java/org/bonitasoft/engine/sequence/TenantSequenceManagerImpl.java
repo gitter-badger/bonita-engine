@@ -47,13 +47,13 @@ public class TenantSequenceManagerImpl {
     private final Map<Long, Integer> sequenceIdToRangeSize;
 
     // Map of available IDs: key=sequenceId, value = nextAvailableId to be assigned to a new entity of the given sequence
-    private final Map<Long, Long> nextAvailableIds = new HashMap<Long, Long>();
+    private final Map<Long, Long> nextAvailableIds = new HashMap<>();
 
     // Map of lastId that can be consumed for a given sequence
-    private final Map<Long, Long> lastIdInRanges = new HashMap<Long, Long>();
+    private final Map<Long, Long> lastIdInRanges = new HashMap<>();
 
     // Map of sequenceId, mutex
-    private static final Map<Long, Object> SEQUENCE_MUTEXS = new HashMap<Long, Object>();
+    private static final Map<Long, Object> SEQUENCE_MUTEXS = new HashMap<>();
 
     private final Map<String, Long> classNameToSequenceId;
 
@@ -95,8 +95,7 @@ public class TenantSequenceManagerImpl {
         if (sequenceId == null) {
             throw new SObjectNotFoundException("No sequence id found for " + entityName);
         }
-        final Object sequenceMutex = SEQUENCE_MUTEXS.get(sequenceId);
-        synchronized (sequenceMutex) {
+        synchronized (SEQUENCE_MUTEXS.get(sequenceId)) {
             Long nextAvailableId = nextAvailableIds.get(sequenceId);
             final Long lastIdInRange = lastIdInRanges.get(sequenceId);
             if (nextAvailableId > lastIdInRange) {

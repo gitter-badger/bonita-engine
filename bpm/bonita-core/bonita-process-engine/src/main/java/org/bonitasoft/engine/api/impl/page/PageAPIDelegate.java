@@ -103,9 +103,7 @@ public class PageAPIDelegate {
     public Page getPage(final long pageId) throws PageNotFoundException {
         try {
             return convertToPage(pageService.getPage(pageId));
-        } catch (final SBonitaReadException e) {
-            throw new PageNotFoundException(e);
-        } catch (final SObjectNotFoundException e) {
+        } catch (final SBonitaReadException | SObjectNotFoundException e) {
             throw new PageNotFoundException(e);
         }
     }
@@ -113,11 +111,9 @@ public class PageAPIDelegate {
     public byte[] getPageContent(final long pageId) throws PageNotFoundException {
         try {
             return pageService.getPageContent(pageId);
-        } catch (final SBonitaReadException e) {
+        } catch (final SBonitaReadException | SObjectNotFoundException e) {
             throw new PageNotFoundException(e);
 
-        } catch (final SObjectNotFoundException e) {
-            throw new PageNotFoundException(e);
         }
     }
 

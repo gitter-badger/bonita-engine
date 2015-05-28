@@ -192,7 +192,7 @@ public class ConnectorInstanceServiceImplTest {
     @Test
     public void getConnectorInstanceWithFailureInfo_should_return_the_result_of_select_list() throws Exception {
         //given
-        Map<String, Object> parameters = new HashMap<String, Object>();
+        Map<String, Object> parameters = new HashMap<>();
         parameters.put("containerId", 1L);
         parameters.put("containerType", "flowNode");
         parameters.put("state", "failed");

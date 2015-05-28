@@ -48,14 +48,14 @@ public class WorkServiceTest extends CommonBPMServicesTest {
 
     @Test(expected = SWorkRegisterException.class)
     public void testWorkOnNotActiveTransaction() throws Exception {
-        final List<String> works = new ArrayList<String>();
+        final List<String> works = new ArrayList<>();
         getWorkService().registerWork(new ListAdder(works, "1"));
     }
 
     @Test
     public void testWorkInMultipleTransactions() throws Exception {
         getTransactionService().begin();
-        final List<String> works = new ArrayList<String>();
+        final List<String> works = new ArrayList<>();
         final WorkService workService = getWorkService();
         workService.registerWork(new ListAdder(works, "1"));
         getTransactionService().complete();
@@ -74,7 +74,7 @@ public class WorkServiceTest extends CommonBPMServicesTest {
     @Test
     public void testMultipleContinuation() throws Exception {
         getTransactionService().begin();
-        final List<String> works = new ArrayList<String>();
+        final List<String> works = new ArrayList<>();
         getWorkService().registerWork(new ListAdder(works, "1"));
         getWorkService().registerWork(new ListAdder(works, "2"));
         getWorkService().registerWork(new ListAdder(works, "3"));

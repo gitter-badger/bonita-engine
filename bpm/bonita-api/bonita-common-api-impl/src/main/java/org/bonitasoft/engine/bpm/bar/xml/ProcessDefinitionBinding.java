@@ -37,11 +37,11 @@ public class ProcessDefinitionBinding extends NamedElementBinding {
 
     private String version;
 
-    private final List<ActorDefinitionImpl> actors = new ArrayList<ActorDefinitionImpl>();
+    private final List<ActorDefinitionImpl> actors = new ArrayList<>();
 
     private String actorInitiatorName;
 
-    private final Set<ParameterDefinition> parameters = new HashSet<ParameterDefinition>();
+    private final Set<ParameterDefinition> parameters = new HashSet<>();
 
     private DesignProcessDefinitionImpl processDefinitionImpl;
 
@@ -51,7 +51,7 @@ public class ProcessDefinitionBinding extends NamedElementBinding {
 
     private FlowElementContainerDefinition processContainer;
 
-    private final List<StringIndex> stringIndexes = new ArrayList<StringIndex>(5);
+    private final List<StringIndex> stringIndexes = new ArrayList<>(5);
     private ContractDefinition contract;
     private List<ContextEntry> context;
 

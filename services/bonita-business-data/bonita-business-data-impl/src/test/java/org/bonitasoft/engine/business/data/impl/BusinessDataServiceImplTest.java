@@ -98,8 +98,8 @@ public class BusinessDataServiceImplTest {
 
         public EntityPojo(final Long persistenceId) {
             this.persistenceId = persistenceId;
-            aggregationEntities = new ArrayList<Entity>();
-            compositionEntities = new ArrayList<Entity>();
+            aggregationEntities = new ArrayList<>();
+            compositionEntities = new ArrayList<>();
 
         }
 
@@ -226,7 +226,7 @@ public class BusinessDataServiceImplTest {
     @Test
     public void isBusinessDataShouldBeFalseWithList() throws Exception {
         assertThat(businessDataService.isBusinessData("not a list")).isFalse();
-        assertThat(businessDataService.isBusinessData(Arrays.asList(new Long(1L)))).isFalse();
+        assertThat(businessDataService.isBusinessData(Arrays.asList(1L))).isFalse();
     }
 
     @Test
@@ -248,7 +248,7 @@ public class BusinessDataServiceImplTest {
 
     @Test
     public void callJavaOperationShouldInvokeListMethod() throws Exception {
-        final List<Entity> entities = new ArrayList<Entity>();
+        final List<Entity> entities = new ArrayList<>();
         entities.add(new EntityPojo(1L));
         businessDataService.callJavaOperation(entities, entities, "contains", Object.class.getName());
     }
@@ -570,7 +570,7 @@ public class BusinessDataServiceImplTest {
                 PARAMETER_BUSINESSDATA_CLASS_URI_VALUE);
 
         //then
-        final List<Entity> list = new ArrayList<Entity>();
+        final List<Entity> list = new ArrayList<>();
         list.add(childEntity);
         verify(jsonEntitySerializer).serializeEntity(list, PARAMETER_BUSINESSDATA_CLASS_URI_VALUE);
 
@@ -580,14 +580,14 @@ public class BusinessDataServiceImplTest {
     public void getJsonQueryEntities_should_return_json() throws Exception {
         //given
         final EntityPojo entity = new EntityPojo(1562L);
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(PARAMETER_STRING, "a");
         parameters.put(PARAMETER_INTEGER, "12");
         parameters.put(PARAMETER_LONG, "34");
 
         doReturn(entity.getClass()).when(businessDataService).loadClass(entity.getClass().getName());
 
-        final List<Entity> entities = new ArrayList<Entity>();
+        final List<Entity> entities = new ArrayList<>();
         entities.add(entity);
         doReturn(entities).when(businessDataRepository).findListByNamedQuery(anyString(), any(Class.class), anyMap(), anyInt(), anyInt());
 
@@ -610,7 +610,7 @@ public class BusinessDataServiceImplTest {
 
         //given
         final EntityPojo entity = new EntityPojo(1562L);
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(PARAMETER_STRING, "a");
         parameters.put(PARAMETER_INTEGER, "12");
         parameters.put(PARAMETER_LONG, "34");
@@ -630,7 +630,7 @@ public class BusinessDataServiceImplTest {
 
         //given
         final EntityPojo entity = new EntityPojo(1562L);
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(PARAMETER_STRING, "a");
         parameters.put(PARAMETER_INTEGER, "12");
         parameters.put(PARAMETER_LONG, "34");

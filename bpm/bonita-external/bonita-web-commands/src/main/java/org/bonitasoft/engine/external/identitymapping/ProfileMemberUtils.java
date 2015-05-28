@@ -77,7 +77,7 @@ public class ProfileMemberUtils {
     public static final String ROLE_AND_GROUP_SUFFIX = "ForRoleAndGroup";
 
     public static HashMap<String, Serializable> memberAsProfileMembersMap(final SProfileMember profileMember) {
-        final HashMap<String, Serializable> profileMemeber = new HashMap<String, Serializable>();
+        final HashMap<String, Serializable> profileMemeber = new HashMap<>();
         profileMemeber.put(PROFILE_ID, profileMember.getProfileId());
         profileMemeber.put(USER_ID, profileMember.getUserId());
         profileMemeber.put(GROUP_ID, profileMember.getGroupId());
@@ -90,7 +90,7 @@ public class ProfileMemberUtils {
     }
 
     public static List<HashMap<String, Serializable>> membersAsProfileMembersMapList(final List<SProfileMember> members) {
-        final ArrayList<HashMap<String, Serializable>> profileMemberMaps = new ArrayList<HashMap<String, Serializable>>();
+        final ArrayList<HashMap<String, Serializable>> profileMemberMaps = new ArrayList<>();
         for (final SProfileMember profileMember : members) {
             profileMemberMaps.add(memberAsProfileMembersMap(profileMember));
         }

@@ -89,7 +89,7 @@ public class InclusiveExclusiveTransitionEvaluatorTest extends AbstractTransitio
             throws Exception {
         //given
         FlowNodeTransitionsWrapper transitions = new FlowNodeTransitionsWrapper();
-        transitions.setAllOutgoingTransitionDefinitions(new ArrayList<STransitionDefinition>(Arrays.asList(falseTransition,
+        transitions.setAllOutgoingTransitionDefinitions(new ArrayList<>(Arrays.asList(falseTransition,
                 nullTransition)));
         given(defaultTransitionGetter.getDefaultTransition(transitions, processDefinition, flowNodeInstance)).willReturn(defaultTransition);
 
@@ -106,7 +106,7 @@ public class InclusiveExclusiveTransitionEvaluatorTest extends AbstractTransitio
             throws Exception {
         //given
         FlowNodeTransitionsWrapper transitions = new FlowNodeTransitionsWrapper();
-        transitions.setAllOutgoingTransitionDefinitions(new ArrayList<STransitionDefinition>(Arrays.asList(falseTransition, nullTransition)));
+        transitions.setAllOutgoingTransitionDefinitions(new ArrayList<>(Arrays.asList(falseTransition, nullTransition)));
         given(defaultTransitionGetter.getDefaultTransition(transitions, processDefinition, flowNodeInstance)).willReturn(defaultTransition);
 
         //when

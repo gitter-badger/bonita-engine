@@ -462,10 +462,9 @@ public class PageAPIIT extends CommonAPIIT {
 
     private final Map<String, String> unzip(final byte[] zipFile) throws Exception {
         final ByteArrayInputStream bais = new ByteArrayInputStream(zipFile);
-        final ZipInputStream zipInputstream = new ZipInputStream(bais);
         ZipEntry zipEntry = null;
-        final Map<String, String> zipMap = new HashMap<String, String>();
-        try {
+        final Map<String, String> zipMap = new HashMap<>();
+        try (ZipInputStream zipInputstream = new ZipInputStream(bais)) {
             while ((zipEntry = zipInputstream.getNextEntry()) != null) {
                 final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 int bytesRead;
@@ -475,8 +474,6 @@ public class PageAPIIT extends CommonAPIIT {
                 }
                 zipMap.put(zipEntry.getName(), new String(byteArrayOutputStream.toByteArray(), UTF8));
             }
-        } finally {
-            zipInputstream.close();
         }
         return zipMap;
     }

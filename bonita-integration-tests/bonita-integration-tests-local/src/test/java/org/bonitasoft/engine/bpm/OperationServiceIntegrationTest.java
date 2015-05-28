@@ -91,7 +91,7 @@ public class OperationServiceIntegrationTest extends CommonBPMServicesTest {
         assertEquals(defaultValue, dataInstance.getValue());
 
         final SOperation operation;
-        final Map<String, Serializable> expressionContexts = new HashMap<String, Serializable>();
+        final Map<String, Serializable> expressionContexts = new HashMap<>();
         expressionContexts.put("containerId", containerId);
         expressionContexts.put("containerType", containerType);
         operation = buildAssignmentOperation(dataInstanceName, newConstantValue);
@@ -121,7 +121,7 @@ public class OperationServiceIntegrationTest extends CommonBPMServicesTest {
         assertTrue(dataInstance.getValue() instanceof ArrayList<?>);
 
         final SOperation operation;
-        final Map<String, Serializable> expressionContexts = new HashMap<String, Serializable>();
+        final Map<String, Serializable> expressionContexts = new HashMap<>();
         expressionContexts.put("containerId", containerId);
         expressionContexts.put("containerType", containerType);
         operation = buildJavaMethodOperation(dataInstanceName, newConstantValue);

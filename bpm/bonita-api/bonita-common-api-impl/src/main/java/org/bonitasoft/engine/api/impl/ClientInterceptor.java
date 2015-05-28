@@ -69,18 +69,18 @@ public class ClientInterceptor implements InvocationHandler, Serializable {
     public Object invoke(final Object proxy, final Method method, final Object[] args) throws Throwable {
         try {
             final Class<?>[] parameterTypes = method.getParameterTypes();
-            final List<String> classNameParameters = new ArrayList<String>();
+            final List<String> classNameParameters = new ArrayList<>();
             for (final Class<?> parameterType : parameterTypes) {
                 classNameParameters.add(parameterType.getName());
             }
             if (LOGGER.isLoggable(LOG_LEVEL)) {
                 LOGGER.log(LOG_LEVEL, "Calling method " + method.getName() + " on API " + this.api.getClass().getName());
             }
-            Map<String, Serializable> options = new HashMap<String, Serializable>();
+            Map<String, Serializable> options = new HashMap<>();
             if (method.isAnnotationPresent(NoSessionRequired.class)) {
                 options = Collections.emptyMap();
             } else {
-                options = new HashMap<String, Serializable>();
+                options = new HashMap<>();
                 options.put("session", this.session);
             }
 
@@ -90,13 +90,7 @@ public class ClientInterceptor implements InvocationHandler, Serializable {
                 LOGGER.log(LOG_LEVEL, "Quitting method " + method.getName() + " on API " + this.api.getClass().getName());
             }
             return object;
-        } catch (final ServerWrappedException e) {
-            if (LOGGER.isLoggable(LOG_LEVEL)) {
-                LOGGER.log(LOG_LEVEL, "Quitting method " + method.getName() + " on API " + this.api.getClass().getName() + " with exception " + e.getMessage());
-            }
-            final Throwable cause = e.getCause();
-            throw cause;
-        } catch (final RemoteException e) {
+        } catch (final ServerWrappedException | RemoteException e) {
             if (LOGGER.isLoggable(LOG_LEVEL)) {
                 LOGGER.log(LOG_LEVEL, "Quitting method " + method.getName() + " on API " + this.api.getClass().getName() + " with exception " + e.getMessage());
             }

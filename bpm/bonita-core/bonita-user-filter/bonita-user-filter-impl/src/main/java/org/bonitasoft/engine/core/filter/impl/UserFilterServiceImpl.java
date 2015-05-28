@@ -80,7 +80,7 @@ public class UserFilterServiceImpl implements UserFilterService {
         this.sessionAccessor = sessionAccessor;
         this.expressionResolverService = expressionResolverService;
         this.logger = logger;
-        final List<Class<? extends ElementBinding>> bindings = new ArrayList<Class<? extends ElementBinding>>(2);
+        final List<Class<? extends ElementBinding>> bindings = new ArrayList<>(2);
         bindings.add(JarDependenciesBinding.class);
         bindings.add(UserFilterImplementationBinding.class);
         parser = parserFactory.createParser(bindings);
@@ -149,7 +149,7 @@ public class UserFilterServiceImpl implements UserFilterService {
                 throw new SUserFilterExecutionException("Can not instantiate UserFilter " + implementationClassName + ". It is null.");
             }
             final SConnectorUserFilterAdapter sConnectorAdapter = new SConnectorUserFilterAdapter(filter, actorName);
-            final HashMap<String, Object> inputParameters = new HashMap<String, Object>(parameters.size());
+            final HashMap<String, Object> inputParameters = new HashMap<>(parameters.size());
             for (final Entry<String, SExpression> input : parameters.entrySet()) {
                 if (expressionContext != null) {
                     inputParameters.put(input.getKey(), expressionResolverService.evaluate(input.getValue(), expressionContext));
@@ -184,9 +184,7 @@ public class UserFilterServiceImpl implements UserFilterService {
                                 FILTER_CACHE_NAME,
                                 getUserFilterImplementationIdInCache(processDefinitionId, userFilterImplementationDescriptor.getDefinitionId(),
                                         userFilterImplementationDescriptor.getDefinitionVersion()), userFilterImplementationDescriptor);
-                    } catch (final IOException e) {
-                        throw new SUserFilterLoadingException("Can not load userFilterImplementationDescriptor XML. The file name is " + name, e);
-                    } catch (final SXMLParseException e) {
+                    } catch (final IOException | SXMLParseException e) {
                         throw new SUserFilterLoadingException("Can not load userFilterImplementationDescriptor XML. The file name is " + name, e);
                     } catch (final SCacheException e) {
                         throw new SUserFilterLoadingException("Unable to cache the user filter implementation" + name, e);

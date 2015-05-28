@@ -67,7 +67,7 @@ public class CustomUserInfoValueImporterTest {
         given(skillsDef.getId()).willReturn(SKILLS_ID);
         given(locationDef.getId()).willReturn(LOCATION_ID);
 
-        Map<String, SCustomUserInfoDefinition> infoDefinitions = new HashMap<String, SCustomUserInfoDefinition>(1);
+        Map<String, SCustomUserInfoDefinition> infoDefinitions = new HashMap<>(1);
         infoDefinitions.put(SKILLS_NAME, skillsDef);
         infoDefinitions.put(LOCATION_NAME, locationDef);
 
@@ -77,7 +77,7 @@ public class CustomUserInfoValueImporterTest {
     @Test
     public void importCustomUserInfoValues_should_call_setCustomUserInfoValue() throws Exception {
         // given
-        List<ExportedCustomUserInfoValue> customUserInfoValues = new ArrayList<ExportedCustomUserInfoValue>(2);
+        List<ExportedCustomUserInfoValue> customUserInfoValues = new ArrayList<>(2);
         customUserInfoValues.add(new ExportedCustomUserInfoValue(SKILLS_NAME, SKILLS_VALUE));
         customUserInfoValues.add(new ExportedCustomUserInfoValue(LOCATION_NAME, LOCATION_VALUE));
 

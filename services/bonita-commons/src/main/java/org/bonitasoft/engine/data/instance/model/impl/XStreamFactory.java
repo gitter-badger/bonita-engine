@@ -21,7 +21,7 @@ import com.thoughtworks.xstream.io.xml.StaxDriver;
 
 public class XStreamFactory {
 
-    private static final Map<ClassLoader, XStream> XSTREAM_MAP = new WeakHashMap<ClassLoader, XStream>();
+    private static final Map<ClassLoader, XStream> XSTREAM_MAP = new WeakHashMap<>();
 
     public static XStream getXStream() {
         final ClassLoader classLoader = Thread.currentThread().getContextClassLoader();

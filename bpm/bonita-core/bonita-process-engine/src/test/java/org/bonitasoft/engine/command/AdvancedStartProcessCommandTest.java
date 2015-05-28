@@ -69,12 +69,12 @@ public class AdvancedStartProcessCommandTest {
     
     @Before
     public void setUp() throws Exception {
-        parameters = new HashMap<String, Serializable>(2);
+        parameters = new HashMap<>(2);
         parameters.put(AdvancedStartProcessCommand.PROCESS_DEFINITION_ID, PROCESS_DEFINITION_ID);
         parameters.put(AdvancedStartProcessCommand.STARTED_BY, 123L);
         parameters.put(AdvancedStartProcessCommand.ACTIVITY_NAME, "");
         
-        Set<SFlowNodeDefinition> flowNodes = new HashSet<SFlowNodeDefinition>();
+        Set<SFlowNodeDefinition> flowNodes = new HashSet<>();
         flowNodes.add(userTask);
         flowNodes.add(boundary);
         

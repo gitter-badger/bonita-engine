@@ -65,7 +65,7 @@ public class ProfileImportCommandIT extends AbstractCommandProfileIT {
         final byte[] xmlContent1 = IOUtils.toByteArray(xmlStream1);
         xmlStream1.close();
 
-        final Map<String, Serializable> importParameters1 = new HashMap<String, Serializable>();
+        final Map<String, Serializable> importParameters1 = new HashMap<>();
         importParameters1.put("xmlContent", xmlContent1);
         final List<String> warningMsgs1 = (List<String>) getCommandAPI().execute(IMPORT_PROFILES_CMD, importParameters1);
         assertEquals(0, warningMsgs1.size());
@@ -101,7 +101,7 @@ public class ProfileImportCommandIT extends AbstractCommandProfileIT {
         final byte[] xmlContent = IOUtils.toByteArray(xmlStream);
         xmlStream.close();
 
-        final Map<String, Serializable> importParameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> importParameters = new HashMap<>();
         importParameters.put("xmlContent", xmlContent);
         final List<String> warningMsgs = (List<String>) getCommandAPI().execute(IMPORT_PROFILES_CMD, importParameters);
         assertEquals(0, warningMsgs.size());
@@ -162,7 +162,7 @@ public class ProfileImportCommandIT extends AbstractCommandProfileIT {
     @Cover(classes = CommandAPI.class, concept = BPMNConcept.PROFILE, keywords = { "Command", "Profile", "Import", "Wrong parameter" }, story = "Execute profile import command with wrong parameter", jira = "ENGINE-586")
     @Test(expected = CommandParameterizationException.class)
     public void importProfilesCommandWithWrongParameter() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_KEY", "bad_value");
 
         getCommandAPI().execute(IMPORT_PROFILES_CMD, parameters);

@@ -28,7 +28,7 @@ import org.bonitasoft.engine.business.application.ApplicationMenuField;
  */
 public class ApplicationMenuCreatorValidator {
 
-    protected final List<String> problems = new ArrayList<String>(2);
+    protected final List<String> problems = new ArrayList<>(2);
 
     public boolean isValid(final ApplicationMenuCreator creator) {
         problems.clear();

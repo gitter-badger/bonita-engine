@@ -52,7 +52,7 @@ public class PersistenceUnitBuilderTest {
         Document document = builder.done();
         assertThat(document.getElementsByTagName("class").getLength()).isEqualTo(2);
         NodeList nodeList = document.getElementsByTagName("class");
-        Set<String> classnames = new HashSet<String>();
+        Set<String> classnames = new HashSet<>();
         for (int i = 0; i < nodeList.getLength(); i++) {
             classnames.add(nodeList.item(i).getTextContent());
         }

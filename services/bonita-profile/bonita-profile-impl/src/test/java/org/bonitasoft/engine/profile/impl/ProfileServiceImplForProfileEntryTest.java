@@ -206,7 +206,7 @@ public class ProfileServiceImplForProfileEntryTest {
      */
     @Test
     public final void getEntriesOfProfileByParentId() throws SBonitaReadException {
-        final List<SProfileEntry> sProfileEntries = new ArrayList<SProfileEntry>();
+        final List<SProfileEntry> sProfileEntries = new ArrayList<>();
         final SProfileEntry sProfileEntry = createProfileEntry(1);
         sProfileEntries.add(sProfileEntry);
 
@@ -217,7 +217,7 @@ public class ProfileServiceImplForProfileEntryTest {
 
     @Test
     public final void getNoEntriesOfProfileByParentId() throws SBonitaReadException {
-        final List<SProfileEntry> sProfileEntries = new ArrayList<SProfileEntry>();
+        final List<SProfileEntry> sProfileEntries = new ArrayList<>();
 
         doReturn(sProfileEntries).when(persistenceService).selectList(Matchers.<SelectListDescriptor<SProfileEntry>> any());
 
@@ -240,7 +240,7 @@ public class ProfileServiceImplForProfileEntryTest {
      */
     @Test
     public final void getEntriesOfProfile() throws SBonitaReadException {
-        final List<SProfileEntry> sProfileEntries = new ArrayList<SProfileEntry>();
+        final List<SProfileEntry> sProfileEntries = new ArrayList<>();
         final SProfileEntry sProfileEntry = createProfileEntry(1);
         sProfileEntries.add(sProfileEntry);
 
@@ -251,7 +251,7 @@ public class ProfileServiceImplForProfileEntryTest {
 
     @Test
     public final void getNoEntriesOfProfile() throws SBonitaReadException {
-        final List<SProfileEntry> sProfileEntries = new ArrayList<SProfileEntry>();
+        final List<SProfileEntry> sProfileEntries = new ArrayList<>();
 
         doReturn(sProfileEntries).when(persistenceService).selectList(Matchers.<SelectListDescriptor<SProfileEntry>> any());
 

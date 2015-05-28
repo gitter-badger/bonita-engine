@@ -78,7 +78,7 @@ public abstract class AbstractContextWorkTest {
 
     @Test
     public void work() throws Exception {
-        final Map<String, Object> singletonMap = new HashMap<String, Object>();
+        final Map<String, Object> singletonMap = new HashMap<>();
         txBonitawork.work(singletonMap);
         verify(wrappedWork, times(1)).work(singletonMap);
     }

@@ -113,7 +113,7 @@ public class WaitingEventsInterrupter {
 
     private List<FilterOption> getFilterForWaitingEventsToInterrupt(final long instanceId, final Class<? extends SWaitingEvent> waitingEventClass) {
         final SWaitingEventKeyProviderBuilderFactory waitingEventKeyProvider = BuilderFactory.get(SWaitingEventKeyProviderBuilderFactory.class);
-        final List<FilterOption> filters = new ArrayList<FilterOption>(2);
+        final List<FilterOption> filters = new ArrayList<>(2);
         filters.add(new FilterOption(waitingEventClass, waitingEventKeyProvider.getFlowNodeInstanceIdKey(), instanceId));
         filters.add(new FilterOption(waitingEventClass, waitingEventKeyProvider.getActiveKey(), true));
         return filters;

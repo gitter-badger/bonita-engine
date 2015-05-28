@@ -377,7 +377,7 @@ public class UserTaskContractITest extends CommonAPIIT {
         final UserTaskDefinitionBuilder userTaskDefinitionBuilder = builder.addUserTask(TASK1, ACTOR_NAME);
         userTaskDefinitionBuilder.addContract()
                 .addInput("input", Type.TEXT, "multiple input", true);
-        final List<String> inputs = new ArrayList<String>();
+        final List<String> inputs = new ArrayList<>();
         userTaskDefinitionBuilder.addData("inputListData", inputs.getClass().getName(), null);
         userTaskDefinitionBuilder.addOperation(new OperationBuilder().createSetDataOperation("inputListData",
                 new ExpressionBuilder().createContractInputExpression("input", inputs.getClass().getName())));

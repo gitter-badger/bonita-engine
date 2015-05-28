@@ -93,14 +93,14 @@ public class FailureHandlingBonitaWorkTest {
 
     @Test
     public void testWork() throws Exception {
-        final Map<String, Object> singletonMap = new HashMap<String, Object>();
+        final Map<String, Object> singletonMap = new HashMap<>();
         txBonitawork.work(singletonMap);
         verify(wrappedWork, times(1)).work(singletonMap);
     }
 
     @Test
     public void testWorkFailureIsHandled() throws Throwable {
-        final Map<String, Object> singletonMap = new HashMap<String, Object>();
+        final Map<String, Object> singletonMap = new HashMap<>();
         final Exception e = new Exception();
         doThrow(e).when(wrappedWork).work(singletonMap);
         txBonitawork.work(singletonMap);
@@ -110,7 +110,7 @@ public class FailureHandlingBonitaWorkTest {
 
     @Test
     public void testFailureHandlingFail() throws Throwable {
-        final Map<String, Object> singletonMap = new HashMap<String, Object>();
+        final Map<String, Object> singletonMap = new HashMap<>();
         final Exception e1 = new Exception();
         final Exception e2 = new Exception();
         doThrow(e1).when(wrappedWork).work(singletonMap);
@@ -123,7 +123,7 @@ public class FailureHandlingBonitaWorkTest {
 
     @Test
     public void putInMap() {
-        final Map<String, Object> singletonMap = new HashMap<String, Object>();
+        final Map<String, Object> singletonMap = new HashMap<>();
         txBonitawork.work(singletonMap);
         assertEquals(tenantAccessor, singletonMap.get("tenantAccessor"));
     }
@@ -176,7 +176,7 @@ public class FailureHandlingBonitaWorkTest {
 
     @Test
     public void handleFailureForAllOtherExceptions() throws Throwable {
-        final Map<String, Object> context = new HashMap<String, Object>();
+        final Map<String, Object> context = new HashMap<>();
         final Exception e = new Exception();
         doThrow(e).when(wrappedWork).work(context);
         txBonitawork.work(context);
@@ -185,7 +185,7 @@ public class FailureHandlingBonitaWorkTest {
 
     @Test
     public void work_should_log_in_error_level_when_an_exception_occurs_in_wrapped_work() throws Throwable {
-        final Map<String, Object> context = new HashMap<String, Object>();
+        final Map<String, Object> context = new HashMap<>();
         final SExpressionEvaluationException seee = new SExpressionEvaluationException("message", "expressionName");
         doThrow(seee).when(wrappedWork).work(context);
         when(loggerService.isLoggable(any(Class.class), eq(TechnicalLogSeverity.ERROR))).thenReturn(true);
@@ -197,7 +197,7 @@ public class FailureHandlingBonitaWorkTest {
 
     @Test
     public void handleFailure_should_log_in_error_level_when_an_exception_occurs_in_wrapped_work() throws Throwable {
-        final Map<String, Object> context = new HashMap<String, Object>();
+        final Map<String, Object> context = new HashMap<>();
         final SExpressionEvaluationException seee = new SExpressionEvaluationException("message", "expressionName");
         doThrow(seee).when(wrappedWork).work(context);
         // Yes for all log level, in order to simulate a TRACE configuration

@@ -102,10 +102,8 @@ public final class SABlobDataInstanceImpl extends SADataInstanceImpl {
                 }
             };
             return (Serializable) ois.readObject();
-        } catch (final IOException ioe) {
+        } catch (final IOException | ClassNotFoundException ioe) {
             throw new SBonitaRuntimeException(ioe);
-        } catch (final ClassNotFoundException cnfe) {
-            throw new SBonitaRuntimeException(cnfe);
         } finally {
             if (ois != null) {
                 try {

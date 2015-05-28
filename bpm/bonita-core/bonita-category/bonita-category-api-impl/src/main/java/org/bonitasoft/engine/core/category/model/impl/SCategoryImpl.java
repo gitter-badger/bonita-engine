@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.core.category.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.core.category.model.SCategory;
 
 /**
@@ -131,61 +133,21 @@ public class SCategoryImpl implements SCategory {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (creationDate ^ (creationDate >>> 32));
-        result = prime * result + (int) (creator ^ (creator >>> 32));
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + (int) (id ^ (id >>> 32));
-        result = prime * result + (int) (lastUpdateDate ^ (lastUpdateDate >>> 32));
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + (int) (tenantId ^ (tenantId >>> 32));
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SCategoryImpl sCategory = (SCategoryImpl) o;
+        return Objects.equals(tenantId, sCategory.tenantId) &&
+                Objects.equals(id, sCategory.id) &&
+                Objects.equals(creator, sCategory.creator) &&
+                Objects.equals(creationDate, sCategory.creationDate) &&
+                Objects.equals(lastUpdateDate, sCategory.lastUpdateDate) &&
+                Objects.equals(name, sCategory.name) &&
+                Objects.equals(description, sCategory.description);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SCategoryImpl other = (SCategoryImpl) obj;
-        if (creationDate != other.creationDate) {
-            return false;
-        }
-        if (creator != other.creator) {
-            return false;
-        }
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (lastUpdateDate != other.lastUpdateDate) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(tenantId, id, name, description, creator, creationDate, lastUpdateDate);
     }
-
 }

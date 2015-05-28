@@ -156,7 +156,7 @@ public class JobServiceImpl implements JobService {
     @Override
     public List<SJobParameter> createJobParameters(final List<SJobParameter> sJobParameters, final long tenantId, final long jobDescriptorId)
             throws SJobParameterCreationException {
-        final List<SJobParameter> createdSJobParameters = new ArrayList<SJobParameter>();
+        final List<SJobParameter> createdSJobParameters = new ArrayList<>();
         if (sJobParameters != null) {
             for (final SJobParameter sJobParameter : sJobParameters) {
                 createdSJobParameters.add(createJobParameter(sJobParameter, tenantId, jobDescriptorId));
@@ -175,7 +175,7 @@ public class JobServiceImpl implements JobService {
     protected void deleteAllJobParameters(final long jobDescriptorId) throws SJobParameterCreationException {
         try {
             final int limit = 100;
-            final List<FilterOption> filters = new ArrayList<FilterOption>(1);
+            final List<FilterOption> filters = new ArrayList<>(1);
 
             filters.add(new FilterOption(SJobParameter.class, "jobDescriptorId", jobDescriptorId));
             final List<OrderByOption> orderByOptions = Arrays.asList(new OrderByOption(SJobParameter.class, "id", OrderByType.ASC));
@@ -353,7 +353,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void deleteJobDescriptorByJobName(final String jobName) throws SJobDescriptorDeletionException {
-        final List<FilterOption> filters = new ArrayList<FilterOption>();
+        final List<FilterOption> filters = new ArrayList<>();
         filters.add(new FilterOption(SJobDescriptor.class, "jobName", jobName));
         final List<OrderByOption> orders = Arrays.asList(new OrderByOption(SJobDescriptor.class, "id", OrderByType.ASC));
         final QueryOptions queryOptions = new QueryOptions(0, 1, orders, filters, null);
@@ -369,7 +369,7 @@ public class JobServiceImpl implements JobService {
 
     @Override
     public void deleteAllJobDescriptors() throws SJobDescriptorDeletionException {
-        final List<FilterOption> filters = new ArrayList<FilterOption>();
+        final List<FilterOption> filters = new ArrayList<>();
         final QueryOptions queryOptions = new QueryOptions(0, 100, null, filters, null);
         try {
             final List<SJobDescriptor> jobDescriptors = searchJobDescriptors(queryOptions);

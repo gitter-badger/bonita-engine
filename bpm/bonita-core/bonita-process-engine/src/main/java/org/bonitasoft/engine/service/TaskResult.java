@@ -53,15 +53,15 @@ public class TaskResult<T> {
     }
 
     public static <T> TaskResult<T> error(final Throwable e) {
-        return new TaskResult<T>(e);
+        return new TaskResult<>(e);
     }
 
     public static <T> TaskResult<T> ok(final T result) {
-        return new TaskResult<T>(result);
+        return new TaskResult<>(result);
     }
 
     public static <T> TaskResult<T> timeout(final long timeout, final TimeUnit timeunit) {
-        return new TaskResult<T>(timeout, timeunit);
+        return new TaskResult<>(timeout, timeunit);
     }
 
     public boolean isError() {

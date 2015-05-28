@@ -49,7 +49,7 @@ public class ExecuteConnectorOfActivityTest {
 
     @Before
     public void setUp() {
-        context = new HashMap<String, Object>();
+        context = new HashMap<>();
         context.put(TenantAwareBonitaWork.TENANT_ACCESSOR, accessor);
 
         when(accessor.getActivityInstanceService()).thenReturn(activityInstanceService);

@@ -25,7 +25,7 @@ public class ApplicationMenuUpdater implements Serializable {
     private final Map<ApplicationMenuField, Serializable> fields;
 
     public ApplicationMenuUpdater() {
-        fields = new HashMap<ApplicationMenuField, Serializable>(4);
+        fields = new HashMap<>(4);
     }
 
     /**

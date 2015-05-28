@@ -59,7 +59,7 @@ public class CommandIT extends TestWithTechnicalUser {
 
     @Test(expected = CommandNotFoundException.class)
     public void executeUnknownCommand() throws BonitaException {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("n1", "v1");
         getCommandAPI().execute("com", parameters);
     }
@@ -72,7 +72,7 @@ public class CommandIT extends TestWithTechnicalUser {
         stream.close();
         getCommandAPI().addDependency("commands", byteArray);
         getCommandAPI().register("intReturn", "Retrieving the integer value", "org.bonitasoft.engine.command.IntergerCommand");
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("int", 83);
         final Integer actual = (Integer) getCommandAPI().execute("intReturn", parameters);
         assertEquals(Integer.valueOf(83), actual);
@@ -88,7 +88,7 @@ public class CommandIT extends TestWithTechnicalUser {
         stream.close();
         getCommandAPI().addDependency("commands", byteArray);
         getCommandAPI().register("except", "Throws ParameterizationException", "org.bonitasoft.engine.command.ParameterizationExceptionCommand");
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("key", 83);
         try {
             getCommandAPI().execute("except", parameters);
@@ -106,7 +106,7 @@ public class CommandIT extends TestWithTechnicalUser {
         stream.close();
         getCommandAPI().addDependency("commands", byteArray);
         getCommandAPI().register("except", "Throws ExecutionExceptionCommand", "org.bonitasoft.engine.command.ExecutionExceptionCommand");
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("key", 83);
         try {
             getCommandAPI().execute("except", parameters);
@@ -380,7 +380,7 @@ public class CommandIT extends TestWithTechnicalUser {
         final CommandDescriptor commandById = getCommandAPI().get(command.getId());
         assertEquals(commandById.getId(), command.getId());
 
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("int", 83);
         final Integer actual = (Integer) getCommandAPI().execute(commandById.getId(), parameters);
         assertEquals(Integer.valueOf(83), actual);

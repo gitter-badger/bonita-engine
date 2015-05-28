@@ -83,8 +83,8 @@ public class GatewayInstanceServiceImplTest {
         SFlowNodeDefinition step2 = node(2, "step2");
         SFlowNodeDefinition step3 = node(3, "step3");
 
-        List<SFlowNodeDefinition> sourceElements = new ArrayList<SFlowNodeDefinition>(Arrays.asList(step1, step2));
-        List<SFlowNodeDefinition> targetElements = new ArrayList<SFlowNodeDefinition>(Arrays.asList(step2, step3));
+        List<SFlowNodeDefinition> sourceElements = new ArrayList<>(Arrays.asList(step1, step2));
+        List<SFlowNodeDefinition> targetElements = new ArrayList<>(Arrays.asList(step2, step3));
         List<SFlowNodeDefinition> sourceAndTarget = gatewayInstanceService.extractElementThatAreSourceAndTarget(sourceElements, targetElements);
 
         assertThat(sourceElements).isEmpty();
@@ -165,7 +165,7 @@ public class GatewayInstanceServiceImplTest {
     }
 
     List<SFlowNodeDefinition> flowNodeDefList(String... names) {
-        ArrayList<SFlowNodeDefinition> list = new ArrayList<SFlowNodeDefinition>();
+        ArrayList<SFlowNodeDefinition> list = new ArrayList<>();
         for (String name : names) {
             list.add(node(1, name));
         }
@@ -173,7 +173,7 @@ public class GatewayInstanceServiceImplTest {
     }
 
     private void instanceInDatabase(String name, long processInstanceId, boolean terminal) throws Exception {
-        List<FilterOption> filters = new ArrayList<FilterOption>();
+        List<FilterOption> filters = new ArrayList<>();
         filters.add(new FilterOption(SFlowNodeInstance.class, "name", name));
         filters.add(new FilterOption(SFlowNodeInstance.class, "parentContainerId", processInstanceId));
         QueryOptions searchOptions = new QueryOptions(0, 20, Collections.<OrderByOption>emptyList(), filters, null);
@@ -301,7 +301,7 @@ public class GatewayInstanceServiceImplTest {
         transition(5, 6);
         transition(4, 6);
         List<STransitionDefinition> startTransition = Arrays.asList(transition(6, 666), transition(3, 666));
-        List<STransitionDefinition> toComplete = new ArrayList<STransitionDefinition>();
+        List<STransitionDefinition> toComplete = new ArrayList<>();
         gatewayInstanceService.addBackwardReachableTransitions(processContainer, gate, startTransition, toComplete,
                 Collections.<STransitionDefinition>emptyList());
 
@@ -317,7 +317,7 @@ public class GatewayInstanceServiceImplTest {
         transition(666, 1);
         transition(2,666);
         List<STransitionDefinition> startTransition = Arrays.asList(transition(1, 666));
-        List<STransitionDefinition> toComplete = new ArrayList<STransitionDefinition>();
+        List<STransitionDefinition> toComplete = new ArrayList<>();
         gatewayInstanceService.addBackwardReachableTransitions(processContainer, gate, startTransition, toComplete,
                 Collections.<STransitionDefinition>emptyList());
 

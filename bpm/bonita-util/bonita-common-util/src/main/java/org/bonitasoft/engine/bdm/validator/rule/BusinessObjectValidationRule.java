@@ -89,7 +89,7 @@ public class BusinessObjectValidationRule extends ValidationRule<BusinessObject>
     }
 
     private void validateConstraints(final BusinessObject bo, final ValidationStatus status) {
-        final Set<String> constraintNames = new HashSet<String>();
+        final Set<String> constraintNames = new HashSet<>();
         for (final UniqueConstraint uc : bo.getUniqueConstraints()) {
             if (constraintNames.contains(uc.getName())) {
                 status.addError("The constraint named \"" + uc.getName() + "\" already exists for " + bo.getQualifiedName());

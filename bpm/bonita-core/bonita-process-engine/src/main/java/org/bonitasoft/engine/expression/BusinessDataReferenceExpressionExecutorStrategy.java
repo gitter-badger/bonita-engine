@@ -68,7 +68,7 @@ public class BusinessDataReferenceExpressionExecutorStrategy extends CommonBusin
     @Override
     public List<Object> evaluate(final List<SExpression> expressions, final Map<String, Object> context, final Map<Integer, Object> resolvedExpressions,
                                  final ContainerState containerState) throws SExpressionEvaluationException {
-        final List<Object> bizData = new ArrayList<Object>(expressions.size());
+        final List<Object> bizData = new ArrayList<>(expressions.size());
         for (final SExpression expression : expressions) {
             bizData.add(evaluate(expression, context, resolvedExpressions, containerState));
         }

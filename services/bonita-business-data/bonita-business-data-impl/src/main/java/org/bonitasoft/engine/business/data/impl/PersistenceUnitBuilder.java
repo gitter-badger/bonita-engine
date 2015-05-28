@@ -36,7 +36,7 @@ public class PersistenceUnitBuilder {
 
     private final Document document;
 
-    private final Set<String> classes = new HashSet<String>();
+    private final Set<String> classes = new HashSet<>();
 
     public PersistenceUnitBuilder() throws ParserConfigurationException, SAXException, IOException {
         document = initializeDefaultPersistenceDocument();
@@ -46,11 +46,8 @@ public class PersistenceUnitBuilder {
         final DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
         documentBuilderFactory.setValidating(false);
         final DocumentBuilder documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        final InputStream is = JPABusinessDataRepositoryImpl.class.getResourceAsStream("persistence.xml");
-        try {
+        try (InputStream is = JPABusinessDataRepositoryImpl.class.getResourceAsStream("persistence.xml")) {
             return documentBuilder.parse(is);
-        } finally {
-            is.close();
         }
     }
 

@@ -29,7 +29,7 @@ public class SAXParserTest {
 
     @Before
     public void before() {
-        final List<Class<? extends ElementBinding>> bindings = new ArrayList<Class<? extends ElementBinding>>();
+        final List<Class<? extends ElementBinding>> bindings = new ArrayList<>();
         bindings.add(AddressBookBinding.class);
         bindings.add(PersonBinding.class);
         parser.setBindings(bindings);

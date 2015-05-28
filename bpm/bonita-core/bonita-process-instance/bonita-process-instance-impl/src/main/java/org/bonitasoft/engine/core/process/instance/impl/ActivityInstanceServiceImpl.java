@@ -273,7 +273,7 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
     @Override
     public List<SActivityInstance> getActivitiesWithStates(final long rootContainerId, final Set<Integer> stateIds, final int fromIndex, final int maxResults,
             final String sortingField, final OrderByType sortingOrder) throws SActivityReadException {
-        final HashMap<String, Object> parameters = new HashMap<String, Object>();
+        final HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("rootContainerId", rootContainerId);
         parameters.put("stateIds", stateIds);
         final SelectListDescriptor<SActivityInstance> elements = SelectDescriptorBuilder.getSpecificQueryWithParameters(SActivityInstance.class,
@@ -541,7 +541,7 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
         }
         // get assigned tasks for each user
         final List<Map<String, Long>> result = getPersistenceService().selectList(SelectDescriptorBuilder.getNumbersOfAssignedOpenTasks(userIds));
-        final Map<Long, Long> userTaskNumbermap = new HashMap<Long, Long>();
+        final Map<Long, Long> userTaskNumbermap = new HashMap<>();
         for (final Map<String, Long> record : result) {
             userTaskNumbermap.put(record.get("userId"), record.get("numberOfTasks")); // "userId" and "numberOfTasks" are embed in mybatis/hibernate query
                                                                                       // statements named "getNumbersOfOpenTasksForUsers"
@@ -596,7 +596,7 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
         }
         // get assigned overdue open tasks for each user
         final List<Map<Long, Long>> result = getPersistenceService().selectList(SelectDescriptorBuilder.getNumbersOfAssignedOverdueOpenTasks(userIds));
-        final Map<Long, Long> userTaskNumbermap = new HashMap<Long, Long>();
+        final Map<Long, Long> userTaskNumbermap = new HashMap<>();
         for (final Map<Long, Long> record : result) {
             userTaskNumbermap.put(record.get("userId"), record.get("numberOfTasks")); // "userId" and "numberOfTasks" are embed in mybatis/hibernate query
                                                                                       // statements named "getNumbersOfOpenTasksForUsers"
@@ -616,10 +616,10 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
     @Override
     public List<SActivityInstance> getChildrenOfAnActivity(final long parentActivityInstanceId, final int fromIndex, final int numberOfResults)
             throws SActivityReadException {
-        final HashMap<String, Object> parameters = new HashMap<String, Object>();
+        final HashMap<String, Object> parameters = new HashMap<>();
         parameters.put("parentActivityInstanceId", parentActivityInstanceId);
         final QueryOptions queryOptions = new QueryOptions(fromIndex, numberOfResults, SFlowNodeInstance.class, "id", OrderByType.ASC);
-        final SelectListDescriptor<SActivityInstance> descriptor = new SelectListDescriptor<SActivityInstance>("getChildrenOfAnActivity", parameters,
+        final SelectListDescriptor<SActivityInstance> descriptor = new SelectListDescriptor<>("getChildrenOfAnActivity", parameters,
                 SActivityInstance.class, queryOptions);
         try {
         return getPersistenceService().selectList(descriptor);
@@ -802,10 +802,10 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
     @Override
     public List<Long> getPossibleUserIdsOfPendingTasks(final long humanTaskInstanceId, final int startIndex, final int maxResults)
             throws SActivityReadException {
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("humanTaskInstanceId", humanTaskInstanceId);
         final QueryOptions queryOptions = new QueryOptions(startIndex, maxResults);
-        final SelectListDescriptor<Long> elements = new SelectListDescriptor<Long>("getPossibleUserIdsOfPendingTasks", parameters, SActivityInstance.class,
+        final SelectListDescriptor<Long> elements = new SelectListDescriptor<>("getPossibleUserIdsOfPendingTasks", parameters, SActivityInstance.class,
                 queryOptions);
         try {
         return getPersistenceService().selectList(elements);
@@ -816,10 +816,10 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
 
     @Override
     public boolean isTaskPendingForUser(final long humanTaskInstanceId, final long userId) throws SBonitaReadException {
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("humanTaskInstanceId", humanTaskInstanceId);
         parameters.put("userId", userId);
-        final SelectOneDescriptor<Long> elements = new SelectOneDescriptor<Long>("isTaskPendingForUser", parameters, SActivityInstance.class);
+        final SelectOneDescriptor<Long> elements = new SelectOneDescriptor<>("isTaskPendingForUser", parameters, SActivityInstance.class);
         Long aLong = getPersistenceService().selectOne(elements);
         return aLong == 1;
     }
@@ -867,7 +867,7 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
     @Override
     public long getNumberOfAssignedAndPendingHumanTasksFor(final long rootProcessDefinitionId, final long userId, final QueryOptions queryOptions)
             throws SBonitaReadException {
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("userId", userId);
         parameters.put("rootProcessDefinitionId", rootProcessDefinitionId);
         return getPersistenceService().getNumberOfEntities(SHumanTaskInstance.class, ASSIGNED_AND_PENDING_BY_ROOT_PROCESS_FOR, queryOptions, parameters);
@@ -876,7 +876,7 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
     @Override
     public List<SHumanTaskInstance> searchAssignedAndPendingHumanTasksFor(final long rootProcessDefinitionId, final long userId, final QueryOptions queryOptions)
             throws SBonitaReadException {
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("userId", userId);
         parameters.put("rootProcessDefinitionId", rootProcessDefinitionId);
         return getPersistenceService().searchEntity(SHumanTaskInstance.class, ASSIGNED_AND_PENDING_BY_ROOT_PROCESS_FOR, queryOptions, parameters);
@@ -908,7 +908,7 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
 
     private void deleteArchivedFlowNodeInstancesAndElements(final long processInstanceId) throws SFlowNodeReadException, SBonitaReadException,
             SConnectorInstanceDeletionException, SDataInstanceException, SFlowNodeDeletionException {
-        Set<Long> sourceActivityIds = new HashSet<Long>();
+        Set<Long> sourceActivityIds = new HashSet<>();
         List<SAFlowNodeInstance> saFlowNodeInstances;
         do {
             saFlowNodeInstances = getArchivedFlowNodeInstances(processInstanceId, 0, BATCH_SIZE);
@@ -918,7 +918,7 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
 
     private Set<Long> deleteArchivedFlowNodeInstancesAndElements(final Set<Long> sourceActivityIds, final List<SAFlowNodeInstance> saFlowNodeInstances)
             throws SBonitaReadException, SConnectorInstanceDeletionException, SDataInstanceException, SFlowNodeDeletionException {
-        Set<Long> newSourceActivityIds = new HashSet<Long>(sourceActivityIds);
+        Set<Long> newSourceActivityIds = new HashSet<>(sourceActivityIds);
         for (final SAFlowNodeInstance saFlowNodeInstance : saFlowNodeInstances) {
             newSourceActivityIds = deleteArchivedFlowNodeInstanceAndElements(newSourceActivityIds, saFlowNodeInstance);
         }
@@ -927,7 +927,7 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
 
     private Set<Long> deleteArchivedFlowNodeInstanceAndElements(final Set<Long> sourceActivityIds, final SAFlowNodeInstance saFlowNodeInstance)
             throws SBonitaReadException, SConnectorInstanceDeletionException, SDataInstanceException, SFlowNodeDeletionException {
-        final Set<Long> newSourceActivityIds = new HashSet<Long>(sourceActivityIds);
+        final Set<Long> newSourceActivityIds = new HashSet<>(sourceActivityIds);
         if (saFlowNodeInstance instanceof SAActivityInstance && !sourceActivityIds.contains(saFlowNodeInstance.getSourceObjectId())) {
             newSourceActivityIds.add(saFlowNodeInstance.getSourceObjectId());
             deleteArchivedFlowNodeInstanceElements((SAActivityInstance) saFlowNodeInstance);
@@ -949,7 +949,7 @@ public class ActivityInstanceServiceImpl extends FlowNodeInstancesServiceImpl im
     public QueryOptions buildQueryOptionsForSubActivitiesInNormalStateAndNotTerminal(final long parentActivityInstanceId, final int numberOfResults) {
         final SUserTaskInstanceBuilderFactory flowNodeKeyProvider = BuilderFactory.get(SUserTaskInstanceBuilderFactory.class);
 
-        final List<FilterOption> filters = new ArrayList<FilterOption>(3);
+        final List<FilterOption> filters = new ArrayList<>(3);
         filters.add(new FilterOption(SActivityInstance.class, flowNodeKeyProvider.getParentActivityInstanceKey(), parentActivityInstanceId));
         filters.add(new FilterOption(SActivityInstance.class, flowNodeKeyProvider.getTerminalKey(), false));
         filters.add(new FilterOption(SActivityInstance.class, flowNodeKeyProvider.getStateCategoryKey(), SStateCategory.NORMAL.name()));

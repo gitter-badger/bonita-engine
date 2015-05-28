@@ -94,7 +94,7 @@ public interface ActorMappingService {
 
     /**
      * Update actor by its id
-     * If the actor by a given actorId is not found, it will throw processDefinitionNotFountExcetion
+     * If the actor by a given actorId is not found, it will throw processDefinitionNotFountException
      *
      * @param actorId
      *        Id of actor

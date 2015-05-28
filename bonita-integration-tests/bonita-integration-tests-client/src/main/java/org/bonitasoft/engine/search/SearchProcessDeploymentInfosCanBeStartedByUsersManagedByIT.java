@@ -57,7 +57,7 @@ public class SearchProcessDeploymentInfosCanBeStartedByUsersManagedByIT extends 
     public void before() throws Exception {
         super.before();
         // create users
-        users = new ArrayList<User>(10);
+        users = new ArrayList<>(10);
         users.add(createUser("magali", "bpm"));
         users.add(createUser("monica", "bpm"));
         users.add(createUser("manager", "bpm"));
@@ -70,25 +70,25 @@ public class SearchProcessDeploymentInfosCanBeStartedByUsersManagedByIT extends 
         users.add(createUser("dorinha3", users.get(1).getId()));
 
         // create groups
-        groups = new ArrayList<Group>(2);
+        groups = new ArrayList<>(2);
         groups.add(createGroup("groups.get(0)"));
         groups.add(createGroup("groups.get(1)"));
 
         // create roles
-        roles = new ArrayList<Role>(2);
+        roles = new ArrayList<>(2);
         roles.add(createRole("roles.get(0)"));
         roles.add(createRole("roles.get(1)"));
 
         // create user memberships
-        userMemberships = new ArrayList<UserMembership>(4);
+        userMemberships = new ArrayList<>(4);
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(7).getId(), groups.get(0).getId(), roles.get(0).getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(8).getId(), groups.get(0).getId(), roles.get(1).getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(9).getId(), groups.get(1).getId(), roles.get(0).getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(4).getId(), groups.get(0).getId(), roles.get(0).getId()));
 
         // create processes
-        enabledProcessDefinitions = new ArrayList<ProcessDefinition>(4);
-        disabledProcessDefinitions = new ArrayList<ProcessDefinition>(1);
+        enabledProcessDefinitions = new ArrayList<>(4);
+        disabledProcessDefinitions = new ArrayList<>(1);
         createProcessesDefForSearchProcessUserCanStart();
     }
 

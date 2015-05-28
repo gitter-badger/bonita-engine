@@ -52,11 +52,11 @@ public class UserCreator implements Serializable {
      * @param password the password of the user to create
      */
     public UserCreator(final String name, final String password) {
-        fields = new HashMap<UserField, Serializable>(5);
+        fields = new HashMap<>(5);
         fields.put(UserField.NAME, name);
         fields.put(UserField.PASSWORD, password);
-        persoFields = new HashMap<ContactDataCreator.ContactDataField, Serializable>();
-        proFields = new HashMap<ContactDataCreator.ContactDataField, Serializable>();
+        persoFields = new HashMap<>();
+        proFields = new HashMap<>();
     }
 
     /**

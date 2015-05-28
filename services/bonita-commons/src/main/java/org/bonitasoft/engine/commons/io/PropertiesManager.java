@@ -39,20 +39,14 @@ public class PropertiesManager {
     }
 
     public static void saveProperties(final Properties properties, final File file) throws IOException {
-        final FileOutputStream outputStream = new FileOutputStream(file);
-        try {
+        try (FileOutputStream outputStream = new FileOutputStream(file)) {
             properties.store(outputStream, "Storing modified properties");
-        } finally {
-            outputStream.close();
         }
     }
 
     public static Properties getProperties(final URL url) throws IOException {
-        final InputStreamReader reader = new InputStreamReader(url.openStream());
-        try {
+        try (InputStreamReader reader = new InputStreamReader(url.openStream())) {
             return getProperties(reader);
-        } finally {
-            reader.close();
         }
     }
 
@@ -61,11 +55,8 @@ public class PropertiesManager {
     }
 
     public static Properties getProperties(final File file) throws IOException {
-        final FileReader reader = new FileReader(file);
-        try {
+        try (FileReader reader = new FileReader(file)) {
             return getProperties(reader);
-        } finally {
-            reader.close();
         }
     }
 
@@ -76,22 +67,16 @@ public class PropertiesManager {
     }
 
     public static void savePropertiesToXML(final Properties properties, final File file) throws IOException {
-        final FileOutputStream outputStream = new FileOutputStream(file);
-        try {
+        try (FileOutputStream outputStream = new FileOutputStream(file)) {
             properties.storeToXML(outputStream, "Storing modified properties", "UTF-8");
-        } finally {
-            outputStream.close();
         }
     }
 
     public static Properties getPropertiesFromXML(final File file) throws IOException {
         final Properties properties = new Properties();
-        final FileInputStream fileInputStream = new FileInputStream(file);
-        try {
+        try (FileInputStream fileInputStream = new FileInputStream(file)) {
             properties.loadFromXML(fileInputStream);
             return properties;
-        } finally {
-            fileInputStream.close();
         }
     }
 

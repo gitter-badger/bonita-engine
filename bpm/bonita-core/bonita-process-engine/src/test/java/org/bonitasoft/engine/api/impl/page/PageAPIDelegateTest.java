@@ -217,7 +217,7 @@ public class PageAPIDelegateTest {
     @Test
     public void testDeletePages() throws Exception {
         // given
-        final List<Long> pageIds = new ArrayList<Long>();
+        final List<Long> pageIds = new ArrayList<>();
         for (long pageId = 0; pageId < 10; pageId++) {
             pageIds.add(pageId);
         }
@@ -269,7 +269,7 @@ public class PageAPIDelegateTest {
         doReturn(page).when(pageAPIDelegate).convertToPage(any(SPage.class));
 
         // given
-        final Map<PageUpdateField, String> map = new HashMap<PageUpdater.PageUpdateField, String>();
+        final Map<PageUpdateField, String> map = new HashMap<>();
         doReturn(map).when(pageUpdater).getFields();
 
         // when
@@ -300,7 +300,7 @@ public class PageAPIDelegateTest {
 
     @Test
     public void testUpdatePage() throws Exception {
-        final Map<PageUpdateField, String> map = new HashMap<PageUpdater.PageUpdateField, String>();
+        final Map<PageUpdateField, String> map = new HashMap<>();
         doReturn(sPage).when(pageAPIDelegate).constructPage(any(PageUpdater.class), anyLong());
         doReturn(page).when(pageAPIDelegate).convertToPage(any(SPage.class));
         doReturn(sPageUpdateBuilder).when(pageAPIDelegate).getPageUpdateBuilder();

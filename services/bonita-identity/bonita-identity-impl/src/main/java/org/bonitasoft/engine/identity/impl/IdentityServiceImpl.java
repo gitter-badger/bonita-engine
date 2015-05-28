@@ -182,9 +182,7 @@ public class IdentityServiceImpl implements IdentityService {
             log(customUserInfo.getId(), SQueriableLog.STATUS_OK, logBuilder, methodName);
             logAfterMethod(methodName);
             return customUserInfo;
-        } catch (final SRecorderException e) {
-            throw handleCustomUserInfoDefinitionCreationFailure(customUserInfo, methodName, logBuilder, e);
-        } catch (final SBonitaReadException e) {
+        } catch (final SRecorderException | SBonitaReadException e) {
             throw handleCustomUserInfoDefinitionCreationFailure(customUserInfo, methodName, logBuilder, e);
         }
     }
@@ -361,7 +359,7 @@ public class IdentityServiceImpl implements IdentityService {
     public List<Long> deleteChildrenGroup(final long groupId) throws SGroupDeletionException, SGroupNotFoundException {
         final String methodName = "deleteChildrenGroup";
         logBeforeMethod(methodName);
-        final ArrayList<Long> deletedGroups = new ArrayList<Long>();
+        final ArrayList<Long> deletedGroups = new ArrayList<>();
         try {
             List<SGroup> childrenGroup;
             final int nbGroup = 20;
@@ -986,10 +984,10 @@ public class IdentityServiceImpl implements IdentityService {
             } else {
                 queryName = "getUserIdsWithCustomUserInfo";
             }
-            final Map<String, Object> parameters = new HashMap<String, Object>(2);
+            final Map<String, Object> parameters = new HashMap<>(2);
             parameters.put("userInfoName", userInfoName);
             parameters.put("userInfoValue", userInfoValue);
-            final SelectListDescriptor<Long> descriptor = new SelectListDescriptor<Long>(queryName, parameters, SUser.class, Long.class,
+            final SelectListDescriptor<Long> descriptor = new SelectListDescriptor<>(queryName, parameters, SUser.class, Long.class,
                     new QueryOptions(fromIndex, maxResults));
             return persistenceService.selectList(descriptor);
         } catch (final SBonitaReadException e) {
@@ -1233,7 +1231,7 @@ public class IdentityServiceImpl implements IdentityService {
         logBeforeMethod(methodName);
         try {
             final Map<String, Object> parameters = Collections.singletonMap("id", (Object) userMembershipId);
-            final SelectOneDescriptor<SUserMembership> desc = new SelectOneDescriptor<SUserMembership>("getSUserMembershipById", parameters,
+            final SelectOneDescriptor<SUserMembership> desc = new SelectOneDescriptor<>("getSUserMembershipById", parameters,
                     SUserMembership.class);
             final SUserMembership selectOne = persistenceService.selectOne(desc);
             if (selectOne == null) {
@@ -1538,10 +1536,7 @@ public class IdentityServiceImpl implements IdentityService {
     public void updateUserContactInfo(final SContactInfo contactInfo, final EntityUpdateDescriptor descriptor) throws SIdentityException {
         final String methodName = "updateUserContactInfo";
         logBeforeMethod(methodName);
-        final StringBuilder sb = new StringBuilder();
-        sb.append("Updating " + (contactInfo.isPersonal() ? "personal" : "professional") + " user contact Info for user with Id ");
-        sb.append(contactInfo.getUserId());
-        final SContactInfoLogBuilder logBuilder = getUserContactInfoLog(ActionType.UPDATED, sb.toString(), contactInfo);
+        final SContactInfoLogBuilder logBuilder = getUserContactInfoLog(ActionType.UPDATED, "Updating " + (contactInfo.isPersonal() ? "personal" : "professional") + " user contact Info for user with Id " + contactInfo.getUserId(), contactInfo);
         try {
             final UpdateRecord updateRecord = UpdateRecord.buildSetFields(contactInfo, descriptor);
             SUpdateEvent updateEvent = null;
@@ -1564,14 +1559,7 @@ public class IdentityServiceImpl implements IdentityService {
     public void updateUserMembership(final SUserMembership userMembership, final EntityUpdateDescriptor descriptor) throws SIdentityException {
         final String methodName = "updateUserMembership";
         logBeforeMethod(methodName);
-        final StringBuilder sb = new StringBuilder();
-        sb.append("Updating user membership for user ");
-        sb.append(userMembership.getUsername());
-        sb.append(" with role ");
-        sb.append(userMembership.getRoleName());
-        sb.append(" in group ");
-        sb.append(userMembership.getGroupName());
-        final SUserMembershipLogBuilder logBuilder = getUserMembershipLog(ActionType.UPDATED, sb.toString(), userMembership);
+        final SUserMembershipLogBuilder logBuilder = getUserMembershipLog(ActionType.UPDATED, "Updating user membership for user " + userMembership.getUsername() + " with role " + userMembership.getRoleName() + " in group " + userMembership.getGroupName(), userMembership);
         try {
             final UpdateRecord updateRecord = UpdateRecord.buildSetFields(userMembership, descriptor);
             SUpdateEvent updateEvent = null;

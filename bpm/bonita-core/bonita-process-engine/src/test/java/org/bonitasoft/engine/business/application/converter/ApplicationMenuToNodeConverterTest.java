@@ -74,10 +74,10 @@ public class ApplicationMenuToNodeConverterTest {
 
         final String displayName1 = "HR";
         final SApplicationMenu sApplicationMenu1 = new SApplicationMenuImpl(displayName1, applicationId, applicationPageId1, 1);
-        final List<SApplicationMenu> level1Menus = new ArrayList<SApplicationMenu>();
+        final List<SApplicationMenu> level1Menus = new ArrayList<>();
         level1Menus.add(sApplicationMenu1);
 
-        final List<SApplicationMenu> level2Menus = new ArrayList<SApplicationMenu>();
+        final List<SApplicationMenu> level2Menus = new ArrayList<>();
         final String displayName11 = "Legal HR procedures";
         final SApplicationMenu sApplicationMenu11 = new SApplicationMenuImpl(displayName11, applicationId, null, 1);
         level2Menus.add(sApplicationMenu11);

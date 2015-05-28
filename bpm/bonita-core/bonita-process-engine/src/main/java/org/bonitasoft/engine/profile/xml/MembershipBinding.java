@@ -49,7 +49,7 @@ public class MembershipBinding extends ElementBinding {
 
     @Override
     public Object getObject() {
-        return new Pair<String, String>(group, role);
+        return new Pair<>(group, role);
     }
 
     @Override

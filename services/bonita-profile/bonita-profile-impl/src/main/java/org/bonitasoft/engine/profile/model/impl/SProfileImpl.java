@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.profile.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.profile.model.SProfile;
 
 /**
@@ -145,70 +147,23 @@ public class SProfileImpl implements SProfile {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (tenantId ^ tenantId >>> 32);
-        result = prime * result + (int) (id ^ id >>> 32);
-        result = prime * result + (isDefault ? 1231 : 1237);
-        result = prime * result + (name == null ? 0 : name.hashCode());
-        result = prime * result + (description == null ? 0 : description.hashCode());
-        result = prime * result + (int) (creationDate ^ creationDate >>> 32);
-        result = prime * result + (int) (createdBy ^ createdBy >>> 32);
-        result = prime * result + (int) (lastUpdateDate ^ lastUpdateDate >>> 32);
-        result = prime * result + (int) (lastUpdatedBy ^ lastUpdatedBy >>> 32);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SProfileImpl sProfile = (SProfileImpl) o;
+        return Objects.equals(id, sProfile.id) &&
+                Objects.equals(tenantId, sProfile.tenantId) &&
+                Objects.equals(isDefault, sProfile.isDefault) &&
+                Objects.equals(creationDate, sProfile.creationDate) &&
+                Objects.equals(createdBy, sProfile.createdBy) &&
+                Objects.equals(lastUpdateDate, sProfile.lastUpdateDate) &&
+                Objects.equals(lastUpdatedBy, sProfile.lastUpdatedBy) &&
+                Objects.equals(name, sProfile.name) &&
+                Objects.equals(description, sProfile.description);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SProfileImpl other = (SProfileImpl) obj;
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (isDefault != other.isDefault) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (creationDate != other.creationDate) {
-            return false;
-        }
-        if (createdBy != other.createdBy) {
-            return false;
-        }
-        if (lastUpdateDate != other.lastUpdateDate) {
-            return false;
-        }
-        if (lastUpdatedBy != other.lastUpdatedBy) {
-            return false;
-        }
-
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, tenantId, isDefault, name, description, creationDate, createdBy, lastUpdateDate, lastUpdatedBy);
     }
-
 }

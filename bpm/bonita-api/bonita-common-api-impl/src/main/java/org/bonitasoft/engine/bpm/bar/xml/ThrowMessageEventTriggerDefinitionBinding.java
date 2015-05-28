@@ -31,7 +31,7 @@ public class ThrowMessageEventTriggerDefinitionBinding extends MessageEventTrigg
 
     private Expression targetFlowNode;
 
-    private final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>(5);
+    private final List<DataDefinition> dataDefinitions = new ArrayList<>(5);
 
     @Override
     public Object getObject() {

@@ -98,7 +98,7 @@ public class CommandServiceImplTest {
     @Test
     public final void getAllCommands() throws SCommandGettingException, SBonitaReadException {
         // Given
-        final List<SCommand> sCommands = new ArrayList<SCommand>();
+        final List<SCommand> sCommands = new ArrayList<>();
         final String field = "name";
         final OrderByType orderByType = OrderByType.ASC;
         final int startIndex = 0;
@@ -245,7 +245,7 @@ public class CommandServiceImplTest {
     @Test
     public final void getUserCommands() throws SCommandGettingException, SBonitaReadException {
         // Given
-        final List<SCommand> sCommands = new ArrayList<SCommand>();
+        final List<SCommand> sCommands = new ArrayList<>();
         final String field = "name";
         final OrderByType orderByType = OrderByType.ASC;
         final int startIndex = 0;
@@ -282,7 +282,7 @@ public class CommandServiceImplTest {
     @Test
     public final void searchCommands() throws SBonitaReadException {
         // Given
-        final List<SCommand> sCommands = new ArrayList<SCommand>();
+        final List<SCommand> sCommands = new ArrayList<>();
         final QueryOptions options = mock(QueryOptions.class);
         when(persistence.searchEntity(SCommand.class, options, null)).thenReturn(sCommands);
 

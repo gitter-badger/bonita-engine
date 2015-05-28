@@ -79,7 +79,7 @@ public class ProcessWithExpressionLocalIT extends TestWithUser {
         final Expression exprOperand1 = new ExpressionBuilder().createDataExpression("emp1", Employee.class.getName());
         final Expression exprOperand2 = new ExpressionBuilder().createDataExpression("emp2", Employee.class.getName());
 
-        final Map<String, Serializable> inputValues = new HashMap<String, Serializable>(2);
+        final Map<String, Serializable> inputValues = new HashMap<>(2);
         inputValues.put("emp1", emp1);
         inputValues.put("emp2", emp2);
 
@@ -105,7 +105,7 @@ public class ProcessWithExpressionLocalIT extends TestWithUser {
         final Expression exprOperand2 = new ExpressionBuilder().createDataExpression("emp2", Employee.class.getName());
         final Expression exprOperand3 = new ExpressionBuilder().createDataExpression("emp3", Employee.class.getName());
 
-        final Map<String, Serializable> inputValues = new HashMap<String, Serializable>(3);
+        final Map<String, Serializable> inputValues = new HashMap<>(3);
         inputValues.put("emp1", emp1);
         inputValues.put("emp2", emp2);
         inputValues.put("emp3", emp3);
@@ -128,7 +128,7 @@ public class ProcessWithExpressionLocalIT extends TestWithUser {
         final Expression exprOperand1 = new ExpressionBuilder().createDataExpression("emp1", Employee.class.getName());
         final Expression exprOperand2 = new ExpressionBuilder().createDataExpression("emp2", Secretary.class.getName());
 
-        final Map<String, Serializable> inputValues = new HashMap<String, Serializable>(2);
+        final Map<String, Serializable> inputValues = new HashMap<>(2);
         inputValues.put("emp1", employee);
         inputValues.put("emp2", secretary);
 
@@ -184,7 +184,7 @@ public class ProcessWithExpressionLocalIT extends TestWithUser {
 
     private Map<String, Serializable> evaluateTransientDataWithExpression(final HumanTaskInstance step1) throws ExpressionEvaluationException,
             InvalidExpressionException {
-        final Map<Expression, Map<String, Serializable>> expressionMap = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<Expression, Map<String, Serializable>> expressionMap = new HashMap<>();
         expressionMap
                 .put(new ExpressionBuilder().createTransientDataExpression("tData", String.class.getName()), Collections.<String, Serializable> emptyMap());
         return getProcessAPI().evaluateExpressionsOnActivityInstance(step1.getId(), expressionMap);

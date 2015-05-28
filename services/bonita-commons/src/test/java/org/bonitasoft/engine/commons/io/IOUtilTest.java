@@ -90,7 +90,7 @@ public class IOUtilTest {
         final ByteArrayInputStream bais = new ByteArrayInputStream(updatedJar);
         final JarInputStream jis = new JarInputStream(bais);
         JarEntry entry = null;
-        final Map<String, byte[]> entryNames = new HashMap<String, byte[]>();
+        final Map<String, byte[]> entryNames = new HashMap<>();
         final byte[] buffer = new byte[4096];
         while ((entry = jis.getNextJarEntry()) != null) {
             if (!entry.isDirectory()) {

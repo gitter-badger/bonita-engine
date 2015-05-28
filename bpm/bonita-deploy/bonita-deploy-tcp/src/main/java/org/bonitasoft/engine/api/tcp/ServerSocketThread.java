@@ -57,10 +57,9 @@ public class ServerSocketThread extends Thread {
     public void run() {
         while (true) {
             try {
-                final Socket clientSocket = serverSocket.accept();
                 ObjectInputStream ois = null;
                 ObjectOutputStream oos = null;
-                try {
+                try (Socket clientSocket = serverSocket.accept()) {
                     ois = new ObjectInputStream(clientSocket.getInputStream());
                     final MethodCall methodCall = (MethodCall) ois.readObject();
                     final Object callResult = invokeMethod(methodCall);
@@ -76,7 +75,7 @@ public class ServerSocketThread extends Thread {
                     if (oos != null) {
                         oos.close();
                     }
-                    clientSocket.close();
+
                 }
             } catch (Exception e) {
                 e.printStackTrace();

@@ -48,7 +48,7 @@ public class BusinessDataProcessDependencyDeployerTest {
     @Before
     public void setUp() {
         resolver = new BusinessDataProcessDependencyDeployer();
-        final Set<String> entityClassNames = new HashSet<String>();
+        final Set<String> entityClassNames = new HashSet<>();
         entityClassNames.add("com.bonitasoft.Employee");
         entityClassNames.add("com.bonitasoft.LeaveRequest");
 

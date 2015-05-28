@@ -187,7 +187,7 @@ public class SchedulerServiceImplTest {
     @Test(expected = SSchedulerException.class)
     public void cannot_execute_a_job_with_a_null_trigger() throws Exception {
         final SJobDescriptor jobDescriptor = mock(SJobDescriptor.class);
-        final List<SJobParameter> parameters = new ArrayList<SJobParameter>();
+        final List<SJobParameter> parameters = new ArrayList<>();
 
         schedulerService.schedule(jobDescriptor, parameters, null);
     }
@@ -230,7 +230,7 @@ public class SchedulerServiceImplTest {
     public void should_injectService_inject_setter_hacing_the_annotation() throws Exception {
         final BeanThatNeedMyService beanThatNeedMyService = new BeanThatNeedMyService();
 
-        final Long myService = new Long(1);
+        final Long myService = (long) 1;
         when(servicesResolver.lookup("myService")).thenReturn(myService);
 
         schedulerService.injectServices(beanThatNeedMyService);

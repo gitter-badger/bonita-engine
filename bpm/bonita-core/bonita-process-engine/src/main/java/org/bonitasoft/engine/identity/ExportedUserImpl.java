@@ -101,7 +101,7 @@ public class ExportedUserImpl implements ExportedUser {
 
     private long id;
 
-    private List<ExportedCustomUserInfoValue> customUserInfoValues = new ArrayList<ExportedCustomUserInfoValue>();
+    private List<ExportedCustomUserInfoValue> customUserInfoValues = new ArrayList<>();
 
     public ExportedUserImpl() {
     }

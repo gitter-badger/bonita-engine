@@ -123,7 +123,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
 
 
         final String queryName = "getDataInstancesWithNames";
-        final Map<String, Object> inputParameters = new HashMap<String, Object>();
+        final Map<String, Object> inputParameters = new HashMap<>();
         inputParameters.put("dataNames", Collections.singletonList(dataName));
         final List<SDataInstance> dataInstances = getSDatainstanceOfContainers(containerId, containerType, parentContainerResolver, queryName, inputParameters);
         if (dataInstances.size() == 0) {
@@ -143,7 +143,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         NullCheckingUtil.checkArgsNotNull(containerType);
 
         final String queryName = "getDataInstances";
-        final Map<String, Object> inputParameters = new HashMap<String, Object>();
+        final Map<String, Object> inputParameters = new HashMap<>();
         final List<SDataInstance> dataInstances = getSDatainstanceOfContainers(containerId, containerType, parentContainerResolver, queryName, inputParameters);
 
         //apply pagination
@@ -154,7 +154,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         }
 
     private Map<String, List<Long>> buildContainersMap(final List<Pair<Long, String>> containerHierarchy, final Map<String, Object> inputParameters) {
-        final Map<String, List<Long>> containers = new HashMap<String, List<Long>>();
+        final Map<String, List<Long>> containers = new HashMap<>();
         for (Pair<Long, String> container : containerHierarchy) {
             final String containerTypeKey = container.getRight();
             if (!containers.containsKey(containerTypeKey)) {
@@ -171,12 +171,10 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         //getAllContainers from me to root
         final List<Pair<Long, String>> containerHierarchy;
         try {
-            containerHierarchy = parentContainerResolver.getContainerHierarchy(new Pair<Long, String>(containerId, containerType));
-        } catch (SObjectNotFoundException e) {
+            containerHierarchy = parentContainerResolver.getContainerHierarchy(new Pair<>(containerId, containerType));
+        } catch (SObjectNotFoundException | SObjectReadException e) {
             throw new SDataInstanceNotFoundException(e);
-        } catch (SObjectReadException e) {
-            throw new SDataInstanceNotFoundException(e);
-    }
+        }
 
         final Map<String, List<Long>> containers = buildContainersMap(containerHierarchy, inputParameters);
 
@@ -192,14 +190,14 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         Collections.sort(dataInstances, new Comparator<SDataInstance>() {
     @Override
             public int compare(SDataInstance o1, SDataInstance o2) {
-                final Pair<Long, String> o1Container = new Pair<Long, String>(o1.getContainerId(), o1.getContainerType());
-                final Pair<Long, String> o2Container = new Pair<Long, String>(o2.getContainerId(), o2.getContainerType());
+                final Pair<Long, String> o1Container = new Pair<>(o1.getContainerId(), o1.getContainerType());
+                final Pair<Long, String> o2Container = new Pair<>(o2.getContainerId(), o2.getContainerType());
                 return containerHierarchy.indexOf(o1Container) - containerHierarchy.indexOf(o2Container);
             }
         });
 
         //remove duplicates
-        Set<String> alreadyUsedNames = new HashSet<String>();
+        Set<String> alreadyUsedNames = new HashSet<>();
         final Iterator<SDataInstance> it = dataInstances.iterator();
         while (it.hasNext()) {
             SDataInstance current = it.next();
@@ -230,7 +228,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         paraMap.put(fact.getContainerTypeKey(), containerType);
 
         try {
-            return persistenceService.selectOne(new SelectOneDescriptor<SDataInstance>("getDataInstancesByNameAndContainer",
+            return persistenceService.selectOne(new SelectOneDescriptor<>("getDataInstancesByNameAndContainer",
                     paraMap,
                     SDataInstance.class, SDataInstance.class));
         } catch (final SBonitaReadException e) {
@@ -248,7 +246,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         paraMap.put(fact.getContainerTypeKey(), containerType);
 
         try {
-            return persistenceService.selectList(new SelectListDescriptor<SDataInstance>("getDataInstancesByContainer", paraMap, SDataInstance.class,
+            return persistenceService.selectList(new SelectListDescriptor<>("getDataInstancesByContainer", paraMap, SDataInstance.class,
                     SDataInstance.class, new QueryOptions(fromIndex, numberOfResults, Arrays.asList(orderByOption))));
         } catch (final SBonitaReadException e) {
             throw new SDataInstanceReadException("Unable to check if a data instance already exists for the data container of type " + containerType
@@ -261,12 +259,10 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         //getAllContainers from me to root
         final List<Pair<Long, String>> containerHierarchy;
         try {
-            containerHierarchy = parentContainerResolver.getArchivedContainerHierarchy(new Pair<Long, String>(containerId, containerType));
-        } catch (SObjectNotFoundException e) {
+            containerHierarchy = parentContainerResolver.getArchivedContainerHierarchy(new Pair<>(containerId, containerType));
+        } catch (SObjectNotFoundException | SObjectReadException e) {
             throw new SDataInstanceReadException(e);
-        } catch (SObjectReadException e) {
-            throw new SDataInstanceReadException(e);
-            }
+        }
         final Map<String, List<Long>> containers = buildContainersMap(containerHierarchy, inputParameters);
 
         //get all data of any of th possible containers
@@ -281,8 +277,8 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         Collections.sort(dataInstances, new Comparator<SADataInstance>() {
     @Override
             public int compare(SADataInstance o1, SADataInstance o2) {
-                final Pair<Long, String> o1Container = new Pair<Long, String>(o1.getContainerId(), o1.getContainerType());
-                final Pair<Long, String> o2Container = new Pair<Long, String>(o2.getContainerId(), o2.getContainerType());
+                final Pair<Long, String> o1Container = new Pair<>(o1.getContainerId(), o1.getContainerType());
+                final Pair<Long, String> o2Container = new Pair<>(o2.getContainerId(), o2.getContainerType());
                 if (containerHierarchy.indexOf(o1Container) - containerHierarchy.indexOf(o2Container) == 0) {
                     //those 2 data are in the same container, let's compare archived dates
                     return (int) (o2.getArchiveDate() - o1.getArchiveDate());
@@ -292,7 +288,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         });
 
         //remove duplicates
-        Set<String> alreadyUsedNames = new HashSet<String>();
+        Set<String> alreadyUsedNames = new HashSet<>();
         final Iterator<SADataInstance> it = dataInstances.iterator();
         while (it.hasNext()) {
             SADataInstance current = it.next();
@@ -315,7 +311,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
             throws SDataInstanceReadException {
         logBeforeMethod("getSADataInstance");
         final String queryName = "getArchivedDataInstancesWithNames";
-        final Map<String, Object> inputParameters = new HashMap<String, Object>();
+        final Map<String, Object> inputParameters = new HashMap<>();
         inputParameters.put("dataNames", Collections.singletonList(dataName));
         inputParameters.put("time", time);
         final List<SADataInstance> dataInstances = getSADatainstanceOfContainers(containerId, containerType, parentContainerResolver, queryName, inputParameters);
@@ -335,7 +331,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         logBeforeMethod("getSADataInstance");
         try {
             final ReadPersistenceService readPersistenceService = archiveService.getDefinitiveArchiveReadPersistenceService();
-            final Map<String, Object> parameters = new HashMap<String, Object>(2);
+            final Map<String, Object> parameters = new HashMap<>(2);
             parameters.put("dataInstanceId", sourceObjectId);
             parameters.put("time", time);
             final SADataInstance saDataInstance = readPersistenceService.selectOne(new SelectOneDescriptor<SADataInstance>(
@@ -370,7 +366,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
             return Collections.emptyList();
         }
         final String queryName = "getArchivedDataInstancesWithNames";
-        final Map<String, Object> inputParameters = new HashMap<String, Object>();
+        final Map<String, Object> inputParameters = new HashMap<>();
         inputParameters.put("time", time);
         inputParameters.put("dataNames", dataNames);
         return getSADatainstanceOfContainers(containerId, containerType, parentContainerResolver, queryName, inputParameters);
@@ -382,7 +378,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         logBeforeMethod("getLastLocalSADataInstances");
         try {
             final ReadPersistenceService readPersistenceService = archiveService.getDefinitiveArchiveReadPersistenceService();
-            final Map<String, Object> parameters = new HashMap<String, Object>(2);
+            final Map<String, Object> parameters = new HashMap<>(2);
             parameters.put("containerId", containerId);
             parameters.put("containerType", containerType);
             final List<SADataInstance> saDataInstances = readPersistenceService.selectList(new SelectListDescriptor<SADataInstance>(
@@ -420,7 +416,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         }
 
         final String queryName = "getDataInstancesWithNames";
-        final Map<String, Object> inputParameters = new HashMap<String, Object>();
+        final Map<String, Object> inputParameters = new HashMap<>();
         inputParameters.put("dataNames", dataNames);
         return getSDatainstanceOfContainers(containerId, containerType, parentContainerResolver, queryName, inputParameters);
         }
@@ -431,7 +427,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
         logBeforeMethod("getLocalSADataInstances");
         try {
             final ReadPersistenceService readPersistenceService = archiveService.getDefinitiveArchiveReadPersistenceService();
-            final Map<String, Object> parameters = new HashMap<String, Object>(2);
+            final Map<String, Object> parameters = new HashMap<>(2);
             parameters.put("containerId", containerId);
             parameters.put("containerType", containerType);
             final List<SADataInstance> saDataInstances = readPersistenceService.selectList(new SelectListDescriptor<SADataInstance>("getLocalSADataInstances",
@@ -553,7 +549,7 @@ public class DataInstanceServiceImpl implements DataInstanceService {
     public SDataInstance getDataInstance(final long dataInstanceId) throws SDataInstanceException {
         NullCheckingUtil.checkArgsNotNull(dataInstanceId);
         try {
-            final SelectByIdDescriptor<SDataInstance> selectDescriptor = new SelectByIdDescriptor<SDataInstance>("getDataInstanceById", SDataInstance.class,
+            final SelectByIdDescriptor<SDataInstance> selectDescriptor = new SelectByIdDescriptor<>("getDataInstanceById", SDataInstance.class,
                     dataInstanceId);
             final SDataInstance dataInstance = persistenceService.selectById(selectDescriptor);
             if (dataInstance == null) {

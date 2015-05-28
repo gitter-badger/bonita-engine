@@ -30,7 +30,7 @@ public final class PlatformSessionProviderImpl implements PlatformSessionProvide
     private static Map<Long, SPlatformSession> platformSessions;
 
     static {
-        platformSessions = new HashMap<Long, SPlatformSession>();
+        platformSessions = new HashMap<>();
     }
 
     public PlatformSessionProviderImpl() {

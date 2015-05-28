@@ -29,7 +29,7 @@ public class DocumentQueryBuilder implements Serializable {
     private boolean searchAllVersions = false;
 
     public DocumentQueryBuilder() {
-        query = new ArrayList<Object>();
+        query = new ArrayList<>();
     }
 
     public DocumentCriterion criterion(final DocumentField index) {

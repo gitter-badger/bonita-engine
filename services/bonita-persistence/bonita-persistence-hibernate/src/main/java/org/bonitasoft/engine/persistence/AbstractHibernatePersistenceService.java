@@ -134,6 +134,29 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
         super(name, likeEscapeCharacter, sequenceManager, datasource, enableWordSearch,
                 wordSearchExclusionMappings, logger);
         orderByCheckingMode = getOrderByCheckingMode();
+        Configuration configuration = createConfiguration(hbmConfigurationProvider, extraHibernateProperties);
+        configureInterceptors(configuration);
+
+
+        sessionFactory = configuration.buildSessionFactory();
+        statistics = sessionFactory.getStatistics();
+
+        final Iterator<PersistentClass> classMappingsIterator = configuration.getClassMappings();
+        classMapping = new ArrayList<>();
+        while (classMappingsIterator.hasNext()) {
+            classMapping.add(classMappingsIterator.next().getMappedClass());
+        }
+
+        classAliasMappings = hbmConfigurationProvider.getClassAliasMappings();
+
+        interfaceToClassMapping = hbmConfigurationProvider.getInterfaceToClassMapping();
+
+        mappingExclusions = hbmConfigurationProvider.getMappingExclusions();
+
+        cacheQueries = hbmConfigurationProvider.getCacheQueries();
+    }
+
+    Configuration createConfiguration(HibernateConfigurationProvider hbmConfigurationProvider, Properties extraHibernateProperties) throws SPersistenceException {
         Configuration configuration;
         try {
             configuration = hbmConfigurationProvider.getConfiguration();
@@ -143,6 +166,10 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
         } catch (final ConfigurationException e) {
             throw new SPersistenceException(e);
         }
+        return configuration;
+    }
+
+    void configureInterceptors(Configuration configuration) throws SPersistenceException {
         final String dialect = configuration.getProperty("hibernate.dialect");
         if (dialect != null) {
             if (dialect.contains("PostgreSQL")) {
@@ -156,32 +183,11 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
             try {
                 final Interceptor interceptor = (Interceptor) Class.forName(className).newInstance();
                 configuration.setInterceptor(interceptor);
-            } catch (final ClassNotFoundException cnfe) {
+            } catch (final ClassNotFoundException | IllegalAccessException | InstantiationException cnfe) {
                 throw new SPersistenceException(cnfe);
-            } catch (final InstantiationException e) {
-                throw new SPersistenceException(e);
-            } catch (final IllegalAccessException e) {
-                throw new SPersistenceException(e);
             }
 
         }
-
-        sessionFactory = configuration.buildSessionFactory();
-        statistics = sessionFactory.getStatistics();
-
-        final Iterator<PersistentClass> classMappingsIterator = configuration.getClassMappings();
-        classMapping = new ArrayList<Class<? extends PersistentObject>>();
-        while (classMappingsIterator.hasNext()) {
-            classMapping.add(classMappingsIterator.next().getMappedClass());
-        }
-
-        classAliasMappings = hbmConfigurationProvider.getClassAliasMappings();
-
-        interfaceToClassMapping = hbmConfigurationProvider.getInterfaceToClassMapping();
-
-        mappingExclusions = hbmConfigurationProvider.getMappingExclusions();
-
-        cacheQueries = hbmConfigurationProvider.getCacheQueries();
     }
 
     private OrderByCheckingMode getOrderByCheckingMode() {
@@ -258,12 +264,8 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
                 final Object pe = session.get(mappedClass, new PersistentObjectId(entity.getId(), 0));
                 session.delete(pe);
             }
-        } catch (final AssertionFailure af) {
+        } catch (final AssertionFailure | StaleStateException | LockAcquisitionException af) {
             throw new SRetryableException(af);
-        } catch (final LockAcquisitionException lae) {
-            throw new SRetryableException(lae);
-        } catch (final StaleStateException sse) {
-            throw new SRetryableException(sse);
         } catch (final HibernateException he) {
             throw new SPersistenceException(he);
         }
@@ -293,12 +295,8 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
         final Query query = getSession(true).getNamedQuery("deleteAll" + mappedClass.getSimpleName());
         try {
             query.executeUpdate();
-        } catch (final AssertionFailure af) {
+        } catch (final AssertionFailure | StaleStateException | LockAcquisitionException af) {
             throw new SRetryableException(af);
-        } catch (final LockAcquisitionException lae) {
-            throw new SRetryableException(lae);
-        } catch (final StaleStateException sse) {
-            throw new SRetryableException(sse);
         } catch (final HibernateException he) {
             throw new SPersistenceException(he);
         }
@@ -312,12 +310,8 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
         setId(entity);
         try {
             session.save(entity);
-        } catch (final AssertionFailure af) {
+        } catch (final AssertionFailure | StaleStateException | LockAcquisitionException af) {
             throw new SRetryableException(af);
-        } catch (final LockAcquisitionException lae) {
-            throw new SRetryableException(lae);
-        } catch (final StaleStateException sse) {
-            throw new SRetryableException(sse);
         } catch (final HibernateException he) {
             throw new SPersistenceException(he);
         }
@@ -412,12 +406,8 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
         }
         try {
             return (T) session.get(mappedClass, selectDescriptor.getId());
-        } catch (final AssertionFailure af) {
+        } catch (final AssertionFailure | StaleStateException | LockAcquisitionException af) {
             throw new SRetryableException(af);
-        } catch (final LockAcquisitionException lae) {
-            throw new SRetryableException(lae);
-        } catch (final StaleStateException sse) {
-            throw new SRetryableException(sse);
         } catch (final HibernateException he) {
             throw new SBonitaReadException(he);
         }
@@ -439,12 +429,8 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
         query.setMaxResults(1);
         try {
             return (T) query.uniqueResult();
-        } catch (final AssertionFailure af) {
+        } catch (final AssertionFailure | StaleStateException | LockAcquisitionException af) {
             throw new SRetryableException(af);
-        } catch (final LockAcquisitionException lae) {
-            throw new SRetryableException(lae);
-        } catch (final StaleStateException sse) {
-            throw new SRetryableException(sse);
         } catch (final HibernateException he) {
             throw new SBonitaReadException(he);
         }
@@ -452,37 +438,41 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
 
     protected String getQueryWithFilters(final String query, final List<FilterOption> filters, final SearchFields multipleFilter, final boolean enableWordSearch) {
         final StringBuilder builder = new StringBuilder(query);
-        final Set<String> specificFilters = new HashSet<String>(filters.size());
+        final Set<String> specificFilters = new HashSet<>(filters.size());
         if (!filters.isEmpty()) {
-            FilterOption previousFilter = null;
-            if (!query.contains("WHERE")) {
-                builder.append(" WHERE (");
-            } else {
-                builder.append(" AND (");
-            }
-            for (final FilterOption filterOption : filters) {
-                if (previousFilter != null) {
-                    final FilterOperationType prevOp = previousFilter.getFilterOperationType();
-                    final FilterOperationType currOp = filterOption.getFilterOperationType();
-                    // Auto add AND if previous operator was normal op or ')' and that current op is normal op or '(' :
-                    if ((isNormalOperator(prevOp) || prevOp == R_PARENTHESIS) && (isNormalOperator(currOp) || currOp == L_PARENTHESIS)) {
-                        builder.append(" AND ");
-                    }
-                }
-                final StringBuilder aliasBuilder = appendFilterClause(builder, filterOption);
-                // FIXME: is it really filterOption.getFieldName() or is it its formatted value: classAliasMappings.get(.......) ?:
-                // specificFilters.add(filterOption.getFieldName());
-                if (aliasBuilder != null) {
-                    specificFilters.add(aliasBuilder.toString());
-                }
-                previousFilter = filterOption;
-            }
-            builder.append(")");
+            handleFilters(query, filters, builder, specificFilters);
         }
         if (multipleFilter != null && multipleFilter.getTerms() != null && !multipleFilter.getTerms().isEmpty()) {
             handleMultipleFilters(builder, multipleFilter, specificFilters, enableWordSearch);
         }
         return builder.toString();
+    }
+
+    private void handleFilters(String query, List<FilterOption> filters, StringBuilder builder, Set<String> specificFilters) {
+        FilterOption previousFilter = null;
+        if (!query.contains("WHERE")) {
+            builder.append(" WHERE (");
+        } else {
+            builder.append(" AND (");
+        }
+        for (final FilterOption filterOption : filters) {
+            if (previousFilter != null) {
+                final FilterOperationType prevOp = previousFilter.getFilterOperationType();
+                final FilterOperationType currOp = filterOption.getFilterOperationType();
+                // Auto add AND if previous operator was normal op or ')' and that current op is normal op or '(' :
+                if ((isNormalOperator(prevOp) || prevOp == R_PARENTHESIS) && (isNormalOperator(currOp) || currOp == L_PARENTHESIS)) {
+                    builder.append(" AND ");
+                }
+            }
+            final StringBuilder aliasBuilder = appendFilterClause(builder, filterOption);
+            // FIXME: is it really filterOption.getFieldName() or is it its formatted value: classAliasMappings.get(.......) ?:
+            // specificFilters.add(filterOption.getFieldName());
+            if (aliasBuilder != null) {
+                specificFilters.add(aliasBuilder.toString());
+            }
+            previousFilter = filterOption;
+        }
+        builder.append(")");
     }
 
     /**
@@ -494,7 +484,7 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
     protected void handleMultipleFilters(final StringBuilder builder, final SearchFields multipleFilter, final Set<String> specificFilters,
             final boolean enableWordSearch) {
         final Map<Class<? extends PersistentObject>, Set<String>> allTextFields = multipleFilter.getFields();
-        final Set<String> fields = new HashSet<String>();
+        final Set<String> fields = new HashSet<>();
         for (final Entry<Class<? extends PersistentObject>, Set<String>> entry : allTextFields.entrySet()) {
             final String alias = getClassAliasMappings().get(entry.getKey().getName());
             for (final String field : entry.getValue()) {
@@ -643,17 +633,13 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
     }
 
     private String getInClause(final StringBuilder completeField, final FilterOption filterOption) {
-        final StringBuilder stb = new StringBuilder(completeField);
-        stb.append(" in (");
-        stb.append(getInValues(filterOption));
-        stb.append(")");
-        return stb.toString();
+        return completeField + " in (" + getInValues(filterOption) + ")";
     }
 
     private String getInValues(final FilterOption filterOption) {
         final StringBuilder stb = new StringBuilder();
         for (final Object element : filterOption.getIn()) {
-            stb.append(element + ",");
+            stb.append(element).append(",");
         }
         final String inValues = stb.toString();
         return inValues.substring(0, inValues.length() - 1);
@@ -743,15 +729,9 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
                 return list;
             }
             return Collections.emptyList();
-        } catch (final AssertionFailure af) {
+        } catch (final AssertionFailure | StaleStateException | LockAcquisitionException af) {
             throw new SRetryableException(af);
-        } catch (final LockAcquisitionException lae) {
-            throw new SRetryableException(lae);
-        } catch (final StaleStateException sse) {
-            throw new SRetryableException(sse);
-        } catch (final HibernateException e) {
-            throw new SBonitaReadException(e, selectDescriptor);
-        } catch (final SPersistenceException e) {
+        } catch (final HibernateException | SPersistenceException e) {
             throw new SBonitaReadException(e, selectDescriptor);
         }
     }
@@ -795,12 +775,8 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
                 session.createSQLQuery(command).executeUpdate();// FIXME autocommit
                 // session.flush();
                 // session.clear(); // lvaills : Why clearing the session ? the tx is not committed.
-            } catch (final AssertionFailure af) {
+            } catch (final AssertionFailure | StaleStateException | LockAcquisitionException af) {
                 throw new SRetryableException("Unable to execute command of file " + sqlResource + " content:\n " + command, af);
-            } catch (final LockAcquisitionException lae) {
-                throw new SRetryableException("Unable to execute command of file " + sqlResource + " content:\n " + command, lae);
-            } catch (final StaleStateException sse) {
-                throw new SRetryableException("Unable to execute command of file " + sqlResource + " content:\n " + command, sse);
             } catch (final HibernateException e) {
                 throw new SPersistenceException("Unable to execute command of file " + sqlResource + " content:\n " + command, e);
             }
@@ -813,14 +789,11 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
             connection.setAutoCommit(false);
             try {
                 for (final String command : commands) {
-                    final Statement stmt = connection.createStatement();
-                    try {
+                    try (Statement stmt = connection.createStatement()) {
                         stmt.execute(command);
                     } catch (final SQLException e) {
                         logger.log(this.getClass(), TechnicalLogSeverity.ERROR, "Following SQL command failed: " + command);
                         throw e;
-                    } finally {
-                        stmt.close();
                     }
                 }
                 connection.commit();
@@ -860,12 +833,8 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
         query.setLong("id", id);
         try {
             query.executeUpdate();
-        } catch (final AssertionFailure af) {
+        } catch (final AssertionFailure | StaleStateException | LockAcquisitionException af) {
             throw new SRetryableException(af);
-        } catch (final LockAcquisitionException lae) {
-            throw new SRetryableException(lae);
-        } catch (final StaleStateException sse) {
-            throw new SRetryableException(sse);
         } catch (final HibernateException he) {
             throw new SPersistenceException(he);
         }
@@ -878,12 +847,8 @@ public abstract class AbstractHibernatePersistenceService extends AbstractDBPers
         query.setParameterList("ids", ids);
         try {
             query.executeUpdate();
-        } catch (final AssertionFailure af) {
+        } catch (final AssertionFailure | StaleStateException | LockAcquisitionException af) {
             throw new SRetryableException(af);
-        } catch (final LockAcquisitionException lae) {
-            throw new SRetryableException(lae);
-        } catch (final StaleStateException sse) {
-            throw new SRetryableException(sse);
         } catch (final HibernateException he) {
             throw new SPersistenceException(he);
         }

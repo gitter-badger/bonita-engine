@@ -64,7 +64,7 @@ public class ValidationRuleTest {
     public void should_throw_exception_when_trying_to_check_rule_on_object_that_rule_cannot_apply_on() {
         ExceptionRule objectRule = new ExceptionRule();
 
-        objectRule.checkRule(new String());
+        objectRule.checkRule("");
     }
 
     @Test

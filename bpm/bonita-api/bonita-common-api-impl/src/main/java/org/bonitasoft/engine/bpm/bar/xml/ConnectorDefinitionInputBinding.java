@@ -28,7 +28,7 @@ public class ConnectorDefinitionInputBinding extends NamedElementBinding {
 
     @Override
     public Object getObject() {
-        return new BEntry<String, Expression>(name, expression);
+        return new BEntry<>(name, expression);
     }
 
     @Override

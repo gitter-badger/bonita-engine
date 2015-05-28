@@ -48,7 +48,7 @@ public class UserUpdater implements Serializable {
      * Default Constructor.
      */
     public UserUpdater() {
-        fields = new HashMap<UserField, Serializable>(5);
+        fields = new HashMap<>(5);
     }
 
     /**

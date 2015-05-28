@@ -40,11 +40,11 @@ public class AdvancedStartProcessValidator implements Validator<List<String>> {
 
     @Override
     public List<String> validate(List<String> flowNodeNames) throws SBonitaException {
-        List<String> problems = new ArrayList<String>();
+        List<String> problems = new ArrayList<>();
         if(flowNodeNames.isEmpty()) {
             problems.add("The list of activity names to start cannot be empty!");
         }
-        List<String> foundFlowNodes = new ArrayList<String>(flowNodeNames.size());
+        List<String> foundFlowNodes = new ArrayList<>(flowNodeNames.size());
         SProcessDefinition processDefinition = processDefinitionService.getProcessDefinition(processDefinitionId);
         for (SFlowNodeDefinition flowNode : processDefinition.getProcessContainer().getFlowNodes()) {
             boolean invalidType = SFlowNodeType.BOUNDARY_EVENT.equals(flowNode.getType()) || SFlowNodeType.SUB_PROCESS.equals(flowNode.getType())
@@ -61,7 +61,7 @@ public class AdvancedStartProcessValidator implements Validator<List<String>> {
     }
 
     private List<String> checkForNotFoundFlowNodes(List<String> flowNodeNames, List<String> foundFlowNodes, SProcessDefinition processDefinition) {
-        List<String> problems = new ArrayList<String>();
+        List<String> problems = new ArrayList<>();
         for (String flowNodeName : flowNodeNames) {
             if(!foundFlowNodes.contains(flowNodeName)) {
                 problems.add(buildFlowNodeNotFoundErroMessage(processDefinition, flowNodeName));

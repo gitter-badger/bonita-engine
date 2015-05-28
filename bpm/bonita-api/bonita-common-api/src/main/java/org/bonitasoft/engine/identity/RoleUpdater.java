@@ -44,7 +44,7 @@ public class RoleUpdater implements Serializable {
      * Default Constructor.
      */
     public RoleUpdater() {
-        fields = new HashMap<RoleField, Serializable>(5);
+        fields = new HashMap<>(5);
     }
 
     /**

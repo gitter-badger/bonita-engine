@@ -102,7 +102,7 @@ public class AdvancedStartProcessValidatorTest {
     }
 
     private Set<SFlowNodeDefinition> getFlowNodes() {
-        Set<SFlowNodeDefinition> flowNodes = new HashSet<SFlowNodeDefinition>(4);
+        Set<SFlowNodeDefinition> flowNodes = new HashSet<>(4);
         flowNodes.add(gateway);
         flowNodes.add(subProcess);
         flowNodes.add(boundary);

@@ -165,9 +165,7 @@ public class DependencyResolver {
         Map<String, byte[]> resources = null;
         try {
             resources = BonitaHomeServer.getInstance().getProcessClasspath(tenantId, processDefinitionId);
-        } catch (final IOException e) {
-            throw new SDependencyCreationException(e);
-        } catch (BonitaHomeNotSetException e) {
+        } catch (final IOException | BonitaHomeNotSetException e) {
             throw new SDependencyCreationException(e);
         }
         addDependencies(resources, dependencyService, processDefinitionId);
@@ -183,9 +181,7 @@ public class DependencyResolver {
         final List<Long> dependencyIds = getDependencyMappingsOfProcess(dependencyService, processDefinitionId);
         final List<String> dependencies = getDependenciesOfProcess(dependencyService, dependencyIds);
 
-        final Iterator<Entry<String, byte[]>> iterator = resources.entrySet().iterator();
-        while (iterator.hasNext()) {
-            final Map.Entry<java.lang.String, byte[]> entry = iterator.next();
+        for (Entry<String, byte[]> entry : resources.entrySet()) {
             if (!dependencies.contains(getDependencyName(processDefinitionId, entry.getKey()))) {
                 addDependency(entry.getKey(), entry.getValue(), dependencyService, processDefinitionId);
             }
@@ -198,7 +194,7 @@ public class DependencyResolver {
             return Collections.emptyList();
         }
         final List<SDependency> dependencies = dependencyService.getDependencies(dependencyIds);
-        final ArrayList<String> dependencyNames = new ArrayList<String>(dependencies.size());
+        final ArrayList<String> dependencyNames = new ArrayList<>(dependencies.size());
         for (final SDependency sDependency : dependencies) {
             dependencyNames.add(sDependency.getName());
         }
@@ -206,7 +202,7 @@ public class DependencyResolver {
     }
 
     private List<Long> getDependencyMappingsOfProcess(final DependencyService dependencyService, final long processDefinitionId) throws SDependencyException {
-        final List<Long> dependencyIds = new ArrayList<Long>();
+        final List<Long> dependencyIds = new ArrayList<>();
         int fromIndex = 0;
         List<Long> currentPage;
         do {
@@ -233,7 +229,7 @@ public class DependencyResolver {
             final Map<String, byte[]> resources = businessArchive.getResources("^classpath/.*$");
 
             // remove the classpath/ on path of dependencies
-            final Map<String, byte[]> resourcesWithRealName = new HashMap<String, byte[]>(resources.size());
+            final Map<String, byte[]> resourcesWithRealName = new HashMap<>(resources.size());
             for (final Entry<String, byte[]> resource : resources.entrySet()) {
                 final String name = resource.getKey().substring(10);
                 final byte[] jarContent = resource.getValue();

@@ -169,12 +169,9 @@ public class BusinessArchiveTest {
         BusinessArchiveFactory.businessArchiveFolderToFile(barFile, tempFolder.getAbsolutePath());
         assertTrue(barFile.exists());
 
-        final InputStream inputStream = new FileInputStream(barFile);
         final BusinessArchive businessArchive2;
-        try {
+        try (InputStream inputStream = new FileInputStream(barFile)) {
             businessArchive2 = BusinessArchiveFactory.readBusinessArchive(inputStream);
-        } finally {
-            inputStream.close();
         }
         final ProcessDefinition result = businessArchive2.getProcessDefinition();
 
@@ -259,12 +256,9 @@ public class BusinessArchiveTest {
         final BusinessArchive businessArchive = new BusinessArchiveBuilder().createNewBusinessArchive().setProcessDefinition(process).done();
         BusinessArchiveFactory.writeBusinessArchiveToFile(businessArchive, barFile);
 
-        final InputStream inputStream = new FileInputStream(barFile);
         final BusinessArchive businessArchive2;
-        try {
+        try (InputStream inputStream = new FileInputStream(barFile)) {
             businessArchive2 = BusinessArchiveFactory.readBusinessArchive(inputStream);
-        } finally {
-            inputStream.close();
         }
 
         final ProcessDefinition result = businessArchive2.getProcessDefinition();
@@ -273,27 +267,19 @@ public class BusinessArchiveTest {
 
     @Test(expected = InvalidBusinessArchiveFormatException.class)
     public void importOldBusinessArchiveFail() throws Exception {
-        final InputStream resourceAsStream = this.getClass().getResourceAsStream("MyProcess--1.0.bar");
-        try {
+        try (InputStream resourceAsStream = this.getClass().getResourceAsStream("MyProcess--1.0.bar")) {
             BusinessArchiveFactory.readBusinessArchive(resourceAsStream);
-        } finally {
-            resourceAsStream.close();
         }
     }
 
     @Test(expected = InvalidBusinessArchiveFormatException.class)
     public void importOldBusinessArchiveFileFail() throws Exception {
-        final InputStream inputStream = this.getClass().getResourceAsStream("MyProcess--1.0.bar");
-        final OutputStream out = new FileOutputStream(barFile);
-        try {
+        try (InputStream inputStream = this.getClass().getResourceAsStream("MyProcess--1.0.bar"); OutputStream out = new FileOutputStream(barFile)) {
             final byte buf[] = new byte[1024];
             int len;
             while ((len = inputStream.read(buf)) > 0) {
                 out.write(buf, 0, len);
             }
-        } finally {
-            out.close();
-            inputStream.close();
         }
 
         BusinessArchiveFactory.readBusinessArchive(barFile);
@@ -991,12 +977,9 @@ public class BusinessArchiveTest {
         final BusinessArchive businessArchive = new BusinessArchiveBuilder().createNewBusinessArchive().setProcessDefinition(process).done();
         BusinessArchiveFactory.writeBusinessArchiveToFile(businessArchive, barFile);
 
-        final InputStream inputStream = new FileInputStream(barFile);
-        try {
+        try (InputStream inputStream = new FileInputStream(barFile)) {
             final BusinessArchive businessArchive2 = BusinessArchiveFactory.readBusinessArchive(inputStream);
             return businessArchive2.getProcessDefinition();
-        } finally {
-            inputStream.close();
         }
     }
 
@@ -1019,12 +1002,9 @@ public class BusinessArchiveTest {
         final BusinessArchive businessArchive = new BusinessArchiveBuilder().createNewBusinessArchive().setProcessDefinition(process).done();
         BusinessArchiveFactory.writeBusinessArchiveToFile(businessArchive, barFile);
 
-        final InputStream inputStream = new FileInputStream(barFile);
         final BusinessArchive businessArchive2;
-        try {
+        try (InputStream inputStream = new FileInputStream(barFile)) {
             businessArchive2 = BusinessArchiveFactory.readBusinessArchive(inputStream);
-        } finally {
-            inputStream.close();
         }
 
         final DesignProcessDefinition result = businessArchive2.getProcessDefinition();
@@ -1200,11 +1180,8 @@ public class BusinessArchiveTest {
 
     @Test(expected = InvalidBusinessArchiveFormatException.class)
     public void readBarWithConnectorFailActionsFails() throws Exception {
-        final InputStream resourceAsStream = BusinessArchiveTest.class.getResourceAsStream("testBuy_a_mini_extended--6.1.bar");
-        try {
+        try (InputStream resourceAsStream = BusinessArchiveTest.class.getResourceAsStream("testBuy_a_mini_extended--6.1.bar")) {
             BusinessArchiveFactory.readBusinessArchive(resourceAsStream);
-        } finally {
-            resourceAsStream.close();
         }
     }
 

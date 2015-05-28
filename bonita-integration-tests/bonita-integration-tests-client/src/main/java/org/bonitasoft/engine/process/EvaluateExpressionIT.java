@@ -88,12 +88,12 @@ public class EvaluateExpressionIT extends TestWithUser {
         processDefinition = deployAndEnableProcessWithActor(processDefinitionBuilder.done(), ACTOR_NAME, user);
         processInstance = getProcessAPI().startProcess(processDefinition.getId());
 
-        final List<Expression> stringDependencies = new ArrayList<Expression>();
+        final List<Expression> stringDependencies = new ArrayList<>();
         stringDependencies.add(new ExpressionBuilder().createDataExpression("stringData", String.class.getName()));
         stringDependencies.add(new ExpressionBuilder().createInputExpression("field_string", String.class.getName()));
         final Expression stringExpression = new ExpressionBuilder().createGroovyScriptExpression("StringScript", "stringData + \"-\" + field_string",
                 String.class.getName(), stringDependencies);
-        final Map<String, Serializable> fieldValues = new HashMap<String, Serializable>();
+        final Map<String, Serializable> fieldValues = new HashMap<>();
         fieldValues.put("field_string", "Excel");
 
         final List<Expression> dateDependencies = Collections.singletonList(new ExpressionBuilder().createDataExpression("dateData", Date.class.getName()));
@@ -126,7 +126,7 @@ public class EvaluateExpressionIT extends TestWithUser {
         final Expression constantStringExpression = new ExpressionBuilder().createNewInstance("Word").setContent("")
                 .setExpressionType(ExpressionType.TYPE_CONSTANT.name()).setReturnType(String.class.getName()).done();
 
-        expressions = new HashMap<Expression, Map<String, Serializable>>();
+        expressions = new HashMap<>();
         expressions.put(stringExpression, fieldValues);
         expressions.put(dateExpression, new HashMap<String, Serializable>());
         expressions.put(longExpression, new HashMap<String, Serializable>());
@@ -182,7 +182,7 @@ public class EvaluateExpressionIT extends TestWithUser {
     }
 
     private Map<Expression, Map<String, Serializable>> createExpression(final Expression expression) {
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>();
         expressions.put(expression, null);
         return expressions;
     }
@@ -349,7 +349,7 @@ public class EvaluateExpressionIT extends TestWithUser {
 
         final Expression taskAssigneeExpr = new ExpressionBuilder().createEngineConstant(ExpressionConstants.TASK_ASSIGNEE_ID);
         final Expression engineExecContextExpr = new ExpressionBuilder().createEngineConstant(ExpressionConstants.ENGINE_EXECUTION_CONTEXT);
-        final Map<Expression, Map<String, Serializable>> engineExpresssions = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<Expression, Map<String, Serializable>> engineExpresssions = new HashMap<>();
         engineExpresssions.put(taskAssigneeExpr, Collections.<String, Serializable> emptyMap());
         engineExpresssions.put(engineExecContextExpr, Collections.<String, Serializable> emptyMap());
 
@@ -443,7 +443,7 @@ public class EvaluateExpressionIT extends TestWithUser {
         final Expression expPattern = new ExpressionBuilder().createPatternExpression("TestEvaluatePatternExpression", messagePattern, expData,
                 expConstantExpression);
 
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>();
         expressions.put(expPattern, null);
         final Map<String, Serializable> result = getProcessAPI().evaluateExpressionsOnProcessInstance(processInstance.getId(), expressions);
         assertEquals("My birth year is 1977", result.get(messagePattern));

@@ -53,7 +53,7 @@ public class MultiTenancyTest extends CommonBPMServicesTest {
         getTransactionService().begin();
 
         try {
-            PersistenceTestUtil.checkHuman(human1, persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human1.getId())));
+            PersistenceTestUtil.checkHuman(human1, persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human1.getId())));
             fail("human1 must not be found in tenant2");
         } catch (final AssertionError e) {
             // OK
@@ -66,7 +66,7 @@ public class MultiTenancyTest extends CommonBPMServicesTest {
                                 new QueryOptions(0, 20, Human.class, "id", OrderByType.ASC))).size());
 
         recorder.recordInsert(new InsertRecord(human1), null);
-        PersistenceTestUtil.checkHuman(human1, persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human1.getId())));
+        PersistenceTestUtil.checkHuman(human1, persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human1.getId())));
 
         assertEquals(
                 1,
@@ -205,7 +205,7 @@ public class MultiTenancyTest extends CommonBPMServicesTest {
             changeTenant(tenant2Id);
 
             getTransactionService().begin();
-            final Long nbOfHuman = persistenceService.selectOne(new SelectOneDescriptor<Long>("getNumberOfHumans", null, Human.class, Long.class));
+            final Long nbOfHuman = persistenceService.selectOne(new SelectOneDescriptor<>("getNumberOfHumans", null, Human.class, Long.class));
             getTransactionService().complete();
             getTransactionService().begin();
             final Human human2 = PersistenceTestUtil.buildHuman(firstName, lastName, age);
@@ -221,7 +221,7 @@ public class MultiTenancyTest extends CommonBPMServicesTest {
             }
             getTransactionService().begin();
             assertEquals(Long.valueOf(151 + nbOfHuman),
-                    persistenceService.selectOne(new SelectOneDescriptor<Long>("getNumberOfHumans", null, Human.class, Long.class)));
+                    persistenceService.selectOne(new SelectOneDescriptor<>("getNumberOfHumans", null, Human.class, Long.class)));
             getTransactionService().complete();
         } finally {
             TestUtil.closeTransactionIfOpen(getTransactionService());

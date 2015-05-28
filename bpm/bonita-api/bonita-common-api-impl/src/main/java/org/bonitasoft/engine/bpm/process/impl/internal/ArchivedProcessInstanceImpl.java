@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.bpm.process.impl.internal;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.bonitasoft.engine.bpm.internal.NamedElementImpl;
 import org.bonitasoft.engine.bpm.process.ArchivedProcessInstance;
@@ -288,93 +289,38 @@ public class ArchivedProcessInstanceImpl extends NamedElementImpl implements Arc
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (archiveDate == null ? 0 : archiveDate.hashCode());
-        result = prime * result + (int) (callerId ^ callerId >>> 32);
-        result = prime * result + (endDate == null ? 0 : endDate.hashCode());
-        result = prime * result + (lastUpdate == null ? 0 : lastUpdate.hashCode());
-        result = prime * result + (int) (processDefinitionId ^ processDefinitionId >>> 32);
-        result = prime * result + (int) (rootProcessInstanceId ^ rootProcessInstanceId >>> 32);
-        result = prime * result + (int) (sourceObjectId ^ sourceObjectId >>> 32);
-        result = prime * result + (startDate == null ? 0 : startDate.hashCode());
-        result = prime * result + (int) (startedBy ^ startedBy >>> 32);
-        result = prime * result + (int) (startedBySubstitute ^ startedBySubstitute >>> 32);
-        result = prime * result + (state == null ? 0 : state.hashCode());
-        result = prime * result + stateId;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ArchivedProcessInstanceImpl that = (ArchivedProcessInstanceImpl) o;
+        return Objects.equals(startedBy, that.startedBy) &&
+                Objects.equals(startedBySubstitute, that.startedBySubstitute) &&
+                Objects.equals(sourceObjectId, that.sourceObjectId) &&
+                Objects.equals(stateId, that.stateId) &&
+                Objects.equals(processDefinitionId, that.processDefinitionId) &&
+                Objects.equals(rootProcessInstanceId, that.rootProcessInstanceId) &&
+                Objects.equals(callerId, that.callerId) &&
+                Objects.equals(state, that.state) &&
+                Objects.equals(startDate, that.startDate) &&
+                Objects.equals(endDate, that.endDate) &&
+                Objects.equals(archiveDate, that.archiveDate) &&
+                Objects.equals(lastUpdate, that.lastUpdate) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(stringIndexValue1, that.stringIndexValue1) &&
+                Objects.equals(stringIndexValue2, that.stringIndexValue2) &&
+                Objects.equals(stringIndexValue3, that.stringIndexValue3) &&
+                Objects.equals(stringIndexValue4, that.stringIndexValue4) &&
+                Objects.equals(stringIndexValue5, that.stringIndexValue5) &&
+                Objects.equals(stringIndexLabel1, that.stringIndexLabel1) &&
+                Objects.equals(stringIndexLabel2, that.stringIndexLabel2) &&
+                Objects.equals(stringIndexLabel3, that.stringIndexLabel3) &&
+                Objects.equals(stringIndexLabel4, that.stringIndexLabel4) &&
+                Objects.equals(stringIndexLabel5, that.stringIndexLabel5);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ArchivedProcessInstanceImpl other = (ArchivedProcessInstanceImpl) obj;
-        if (archiveDate == null) {
-            if (other.archiveDate != null) {
-                return false;
-            }
-        } else if (!archiveDate.equals(other.archiveDate)) {
-            return false;
-        }
-        if (callerId != other.callerId) {
-            return false;
-        }
-        if (endDate == null) {
-            if (other.endDate != null) {
-                return false;
-            }
-        } else if (!endDate.equals(other.endDate)) {
-            return false;
-        }
-        if (lastUpdate == null) {
-            if (other.lastUpdate != null) {
-                return false;
-            }
-        } else if (!lastUpdate.equals(other.lastUpdate)) {
-            return false;
-        }
-        if (processDefinitionId != other.processDefinitionId) {
-            return false;
-        }
-        if (rootProcessInstanceId != other.rootProcessInstanceId) {
-            return false;
-        }
-        if (sourceObjectId != other.sourceObjectId) {
-            return false;
-        }
-        if (startDate == null) {
-            if (other.startDate != null) {
-                return false;
-            }
-        } else if (!startDate.equals(other.startDate)) {
-            return false;
-        }
-        if (startedBy != other.startedBy) {
-            return false;
-        }
-        if (startedBySubstitute != other.startedBySubstitute) {
-            return false;
-        }
-        if (state == null) {
-            if (other.state != null) {
-                return false;
-            }
-        } else if (!state.equals(other.state)) {
-            return false;
-        }
-        if (stateId != other.stateId) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), state, startDate, startedBy, startedBySubstitute, endDate, archiveDate, lastUpdate, sourceObjectId, stateId, processDefinitionId, description, rootProcessInstanceId, callerId, stringIndexValue1, stringIndexValue2, stringIndexValue3, stringIndexValue4, stringIndexValue5, stringIndexLabel1, stringIndexLabel2, stringIndexLabel3, stringIndexLabel4, stringIndexLabel5);
     }
-
 }

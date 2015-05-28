@@ -40,7 +40,7 @@ public class ApplicationMenuImporter {
 
     public List<ImportError> importApplicationMenu(ApplicationMenuNode applicationMenuNode, SApplication application, SApplicationMenu parentMenu)
             throws ImportException {
-        List<ImportError> errors = new ArrayList<ImportError>();
+        List<ImportError> errors = new ArrayList<>();
         try {
             ApplicationMenuImportResult importResult = converter.toSApplicationMenu(applicationMenuNode, application, parentMenu);
             if (importResult.getError() == null) {

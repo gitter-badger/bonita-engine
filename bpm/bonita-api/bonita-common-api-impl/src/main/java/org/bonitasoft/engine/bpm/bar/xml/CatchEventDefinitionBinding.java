@@ -39,9 +39,9 @@ public abstract class CatchEventDefinitionBinding extends FlowNodeDefinitionBind
 
     public CatchEventDefinitionBinding() {
         super();
-        timerEventTriggers = new ArrayList<TimerEventTriggerDefinition>();
-        messageEventTriggers = new ArrayList<CatchMessageEventTriggerDefinition>();
-        signalEventTriggers = new ArrayList<CatchSignalEventTriggerDefinition>();
+        timerEventTriggers = new ArrayList<>();
+        messageEventTriggers = new ArrayList<>();
+        signalEventTriggers = new ArrayList<>();
     }
 
     @Override

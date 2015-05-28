@@ -42,7 +42,7 @@ public class CanStartProcessDefinitionTest {
     public final void should_throw_exception_when_Execute_with_wrong_parameter() throws SCommandParameterizationException, SCommandExecutionException {
         // Given
         final CanStartProcessDefinition canStartProcessDefinition = new CanStartProcessDefinition();
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_PARAMETER", "aa");
 
         // When
@@ -53,7 +53,7 @@ public class CanStartProcessDefinitionTest {
     public final void should_throw_exception_when_Execute_with_non_existent_user() throws SCommandParameterizationException, SCommandExecutionException {
         // Given
         final CanStartProcessDefinition canStartProcessDefinition = new CanStartProcessDefinition();
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("USER_ID_KEY", -1l);
 
         // When

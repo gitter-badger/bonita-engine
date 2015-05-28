@@ -57,21 +57,21 @@ public class ActorPermissionCommandIT extends TestWithUser {
     private static final String IS_ALLOWED_TO_SEE_OVERVIEW_FROM_CMD = "isAllowedToSeeOverviewForm";
 
     private Map<String, Serializable> prepareParametersWithUserId(final long userId, final List<Long> processDefinitionIds) {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("USER_ID_KEY", userId);
         parameters.put("PROCESSDEFINITION_IDS_KEY", (Serializable) processDefinitionIds);
         return parameters;
     }
 
     private Map<String, Serializable> prepareParameters(final long processDefId, final Set<Long> actorIds) {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("PROCESS_DEFINITION_ID_KEY", processDefId);
         parameters.put("ACTOR_IDS_KEY", (Serializable) actorIds);
         return parameters;
     }
 
     private Map<String, Serializable> prepareParametersWithArchivedDescriptor(final long userId, final long processInstanceId) {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("USER_ID_KEY", userId);
         parameters.put("PROCESSINSTANCE_ID_KEY", processInstanceId);
         return parameters;
@@ -102,7 +102,7 @@ public class ActorPermissionCommandIT extends TestWithUser {
         final String ACTOR_NAME2 = "ActorElias";
         final String ACTOR_NAME3 = "ActorBap";
 
-        final List<Long> processDefinitionIds = new ArrayList<Long>();
+        final List<Long> processDefinitionIds = new ArrayList<>();
         final int num = 5;
         for (int i = 0; i < num; i++) {
             ProcessDefinitionBuilder processDefinitionBuilder = new ProcessDefinitionBuilder().createNewInstance("My_Process", String.valueOf(i));
@@ -172,7 +172,7 @@ public class ActorPermissionCommandIT extends TestWithUser {
         actors.add(actorInitiator);
 
         // generate ids
-        final Set<Long> actorInstanceIds = new HashSet<Long>();
+        final Set<Long> actorInstanceIds = new HashSet<>();
         for (final ActorInstance actor : actors) {
             actorInstanceIds.add(actor.getId());
         }
@@ -187,8 +187,8 @@ public class ActorPermissionCommandIT extends TestWithUser {
     @Cover(classes = CommandAPI.class, concept = BPMNConcept.ACTOR, keywords = { "Command", "Actor permission", "Initiator actor", "Overview form" }, story = "Test if initiator actor is allowed to see overview form.", jira = "")
     @Test
     public void isAllowedToSeeOverviewFormForInitiatorActor() throws Exception {
-        final List<Long> processDefinitionIds = new ArrayList<Long>(2);
-        final List<Long> processInstanceIds = new ArrayList<Long>(2);
+        final List<Long> processDefinitionIds = new ArrayList<>(2);
+        final List<Long> processInstanceIds = new ArrayList<>(2);
         for (int i = 0; i < 2; i++) {
             final ProcessDefinitionBuilder designProcessDefinition = new ProcessDefinitionBuilder().createNewInstance(
                     "SearchOpenProcessInstancesInvolvingUser", "14." + i);
@@ -282,7 +282,7 @@ public class ActorPermissionCommandIT extends TestWithUser {
     @Cover(classes = CommandAPI.class, concept = BPMNConcept.PROFILE, keywords = { "Command", "Actor permission", "Wrong parameter" }, story = "Execute actor permission command with wrong parameter", jira = "ENGINE-586")
     @Test(expected = CommandParameterizationException.class)
     public void isAllowedToStartProcessCommandWithWrongParameter() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_KEY", "bad_value");
 
         getCommandAPI().execute(IS_ALLOWED_TO_START_PROCESS_CMD, parameters);
@@ -291,7 +291,7 @@ public class ActorPermissionCommandIT extends TestWithUser {
     @Cover(classes = CommandAPI.class, concept = BPMNConcept.PROFILE, keywords = { "Command", "Actor permission", "Wrong parameter" }, story = "Execute actor permission command with wrong parameter", jira = "ENGINE-586")
     @Test(expected = CommandParameterizationException.class)
     public void isAllowedToStartProcessesCommandWithWrongParameter() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_KEY", "bad_value");
 
         getCommandAPI().execute(IS_ALLOWED_TO_START_PROCESSES_CMD, parameters);
@@ -300,7 +300,7 @@ public class ActorPermissionCommandIT extends TestWithUser {
     @Cover(classes = CommandAPI.class, concept = BPMNConcept.PROFILE, keywords = { "Command", "Actor permission", "Wrong parameter" }, story = "Execute actor permission command with wrong parameter", jira = "ENGINE-586")
     @Test(expected = CommandParameterizationException.class)
     public void isAllowedToSeeOverviewFormCommandWithWrongParameter() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_KEY", "bad_value");
 
         getCommandAPI().execute(IS_ALLOWED_TO_SEE_OVERVIEW_FROM_CMD, parameters);

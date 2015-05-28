@@ -137,7 +137,7 @@ public class PlatformDependencyServiceImpl implements DependencyService {
 
     @Override
     public SDependency getDependency(final long id) throws SDependencyNotFoundException {
-        final SelectByIdDescriptor<SPlatformDependency> selectByIdDescriptor = new SelectByIdDescriptor<SPlatformDependency>("getPlatformDependencyById",
+        final SelectByIdDescriptor<SPlatformDependency> selectByIdDescriptor = new SelectByIdDescriptor<>("getPlatformDependencyById",
                 SPlatformDependency.class, id);
         try {
             final SPlatformDependency sDependency = platformPersistenceService.selectById(selectByIdDescriptor);
@@ -242,7 +242,7 @@ public class PlatformDependencyServiceImpl implements DependencyService {
 
     @Override
     public SDependencyMapping getDependencyMapping(final long id) throws SDependencyMappingNotFoundException {
-        final SelectByIdDescriptor<SPlatformDependencyMapping> selectByIdDescriptor = new SelectByIdDescriptor<SPlatformDependencyMapping>(
+        final SelectByIdDescriptor<SPlatformDependencyMapping> selectByIdDescriptor = new SelectByIdDescriptor<>(
                 "getPlatformDependencyMappingById", SPlatformDependencyMapping.class, id);
         try {
             final SDependencyMapping sDependency = platformPersistenceService.selectById(selectByIdDescriptor);
@@ -268,9 +268,9 @@ public class PlatformDependencyServiceImpl implements DependencyService {
     @Override
     public List<SDependencyMapping> getDependencyMappings(final long dependencyId, final QueryOptions queryOptions) throws SDependencyException {
         try {
-            final Map<String, Object> parameters = new HashMap<String, Object>();
+            final Map<String, Object> parameters = new HashMap<>();
             parameters.put("dependencyId", dependencyId);
-            final SelectListDescriptor<SDependencyMapping> desc = new SelectListDescriptor<SDependencyMapping>("getPlatformDependencyMappingsByDependency",
+            final SelectListDescriptor<SDependencyMapping> desc = new SelectListDescriptor<>("getPlatformDependencyMappingsByDependency",
                     parameters, SPlatformDependencyMapping.class, queryOptions);
             return platformPersistenceService.selectList(desc);
         } catch (final SBonitaReadException e) {
@@ -284,10 +284,10 @@ public class PlatformDependencyServiceImpl implements DependencyService {
         try {
             NullCheckingUtil.checkArgsNotNull(artifactId, artifactType, startIndex, maxResult);
             final QueryOptions queryOptions = new QueryOptions(startIndex, maxResult);
-            final Map<String, Object> parameters = new HashMap<String, Object>();
+            final Map<String, Object> parameters = new HashMap<>();
             parameters.put("artifactId", artifactId);
             parameters.put("artifactType", artifactType);
-            final SelectListDescriptor<Long> desc = new SelectListDescriptor<Long>("getPlatformDependencyIds", parameters, SPlatformDependency.class,
+            final SelectListDescriptor<Long> desc = new SelectListDescriptor<>("getPlatformDependencyIds", parameters, SPlatformDependency.class,
                     Long.class, queryOptions);
             return platformPersistenceService.selectList(desc);
         } catch (final SBonitaReadException e) {
@@ -308,7 +308,7 @@ public class PlatformDependencyServiceImpl implements DependencyService {
     public List<SDependencyMapping> removeDisconnectedDependencyMappings(final ArtifactAccessor artifactAccessor) throws SDependencyException {
         QueryOptions loopQueryOptions = new QueryOptions(0, 100, SPlatformDependencyMapping.class, "id", OrderByType.ASC);
         List<SDependencyMapping> dependencyMappings = null;
-        final List<SDependencyMapping> result = new ArrayList<SDependencyMapping>();
+        final List<SDependencyMapping> result = new ArrayList<>();
         do {
             dependencyMappings = getDependencyMappings(loopQueryOptions);
             for (final SDependencyMapping dependencyMapping : dependencyMappings) {
@@ -327,7 +327,7 @@ public class PlatformDependencyServiceImpl implements DependencyService {
             throws SDependencyException {
         QueryOptions loopQueryOptions = new QueryOptions(queryOptions.getFromIndex(), queryOptions.getNumberOfResults(), queryOptions.getOrderByOptions());
         List<SDependencyMapping> dependencyMappings = null;
-        final List<SDependencyMapping> result = new ArrayList<SDependencyMapping>();
+        final List<SDependencyMapping> result = new ArrayList<>();
         int numberOfResultsFound = 0;
         final int startIndex = queryOptions.getFromIndex();
         do {
@@ -351,10 +351,7 @@ public class PlatformDependencyServiceImpl implements DependencyService {
     }
 
     private String getKey(final ScopeType scopeType, final long artifactId) {
-        final StringBuffer sb = new StringBuffer(scopeType.name());
-        sb.append("________");
-        sb.append(artifactId);
-        return sb.toString();
+        return scopeType.name() + "________" + artifactId;
     }
 
     @Override
@@ -393,7 +390,7 @@ public class PlatformDependencyServiceImpl implements DependencyService {
     }
 
     private Map<String, byte[]> getDependenciesResources() throws SDependencyException {
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>();
+        final Map<String, byte[]> resources = new HashMap<>();
         int fromIndex = 0;
         List<Long> dependencyIds = null;
         do {

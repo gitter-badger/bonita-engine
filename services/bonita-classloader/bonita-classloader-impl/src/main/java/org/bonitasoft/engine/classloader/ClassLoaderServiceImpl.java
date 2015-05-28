@@ -47,7 +47,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
 
     private VirtualClassLoader virtualGlobalClassLoader = new VirtualClassLoader(GLOBAL_TYPE, GLOBAL_ID, VirtualClassLoader.class.getClassLoader());
 
-    private final Map<String, VirtualClassLoader> localClassLoaders = new HashMap<String, VirtualClassLoader>();
+    private final Map<String, VirtualClassLoader> localClassLoaders = new HashMap<>();
 
     private final Object mutex = new ClassLoaderServiceMutex();
 
@@ -67,11 +67,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
     }
 
     private String getKey(final String type, final long id) {
-        final StringBuffer stb = new StringBuffer();
-        stb.append(type);
-        stb.append(SEPARATOR);
-        stb.append(id);
-        return stb.toString();
+        return type + SEPARATOR + id;
     }
 
     @Override
@@ -156,7 +152,7 @@ public class ClassLoaderServiceImpl implements ClassLoaderService {
             logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "removeAllLocalClassLoaders"));
         }
         NullCheckingUtil.checkArgsNotNull(application);
-        final Set<String> keySet = new HashSet<String>(localClassLoaders.keySet());
+        final Set<String> keySet = new HashSet<>(localClassLoaders.keySet());
         for (final String key : keySet) {
             if (key.startsWith(application + SEPARATOR)) {
                 destroyLocalClassLoader(key);

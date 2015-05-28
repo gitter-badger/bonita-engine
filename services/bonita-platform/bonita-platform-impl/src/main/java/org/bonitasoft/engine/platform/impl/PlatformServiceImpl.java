@@ -173,9 +173,7 @@ public class PlatformServiceImpl implements PlatformService {
     public void createTables() throws SPlatformCreationException {
         try {
             executeSQLResources(asList("createTables.sql", "createQuartzTables.sql", "postCreateStructure.sql"));
-        } catch (final IOException e) {
-            throw new SPlatformCreationException(e);
-        } catch (final SQLException e) {
+        } catch (final IOException | SQLException e) {
             throw new SPlatformCreationException(e);
         }
     }
@@ -243,7 +241,7 @@ public class PlatformServiceImpl implements PlatformService {
                     logger.log(getClass(), TechnicalLogSeverity.DEBUG, "Processing SQL resource : " + path);
                 }
                 final String regex = statementDelimiter.concat("\r?\n");
-                final List<String> commands = new ArrayList<String>(asList(fileContent.split(regex)));
+                final List<String> commands = new ArrayList<>(asList(fileContent.split(regex)));
                 final int lastIndex = commands.size() - 1;
 
                 // TODO : Review the algo and see if we can avoid the array.
@@ -269,9 +267,8 @@ public class PlatformServiceImpl implements PlatformService {
         try {
             for (final String command : commands) {
                 if (command.trim().length() > 0) {
-                    final Statement stmt = connection.createStatement();
                     String filledCommand = null;
-                    try {
+                    try (Statement stmt = connection.createStatement()) {
                         if (logger.isLoggable(getClass(), TechnicalLogSeverity.TRACE)) {
                             logger.log(getClass(), TechnicalLogSeverity.TRACE, command);
                         }
@@ -285,8 +282,6 @@ public class PlatformServiceImpl implements PlatformService {
                         // Just log the Failing command in case of ERROR:
                         logger.log(getClass(), TechnicalLogSeverity.ERROR, "Following SQL command failed: " + filledCommand);
                         throw e;
-                    } finally {
-                        stmt.close();
                     }
                 }
             }
@@ -380,9 +375,7 @@ public class PlatformServiceImpl implements PlatformService {
     private void initializeTenant(final STenant tenant) throws STenantCreationException {
         try {
             executeSQLResources(asList("initTenantTables.sql"), buildReplacements(tenant));
-        } catch (final IOException e) {
-            throw new STenantCreationException(e);
-        } catch (final SQLException e) {
+        } catch (final IOException | SQLException e) {
             throw new STenantCreationException(e);
         }
 
@@ -404,9 +397,7 @@ public class PlatformServiceImpl implements PlatformService {
         // Read the files initTables.sql from ${bonita.home}/server/sql/${db.vendor}
         try {
             executeSQLResources(asList("initTables.sql"));
-        } catch (final IOException e) {
-            throw new SPlatformCreationException(e);
-        } catch (final SQLException e) {
+        } catch (final IOException | SQLException e) {
             throw new SPlatformCreationException(e);
         }
     }
@@ -452,9 +443,7 @@ public class PlatformServiceImpl implements PlatformService {
     public void deleteTables() throws SPlatformDeletionException {
         try {
             executeSQLResources(asList("preDropStructure.sql", "dropQuartzTables.sql", "dropTables.sql"));
-        } catch (final IOException e) {
-            throw new SPlatformDeletionException(e);
-        } catch (final SQLException e) {
+        } catch (final IOException | SQLException e) {
             throw new SPlatformDeletionException(e);
         }
     }
@@ -493,9 +482,7 @@ public class PlatformServiceImpl implements PlatformService {
 
         try {
             executeSQLResources(asList("deleteTenantObjects.sql"), replacements);
-        } catch (final IOException e) {
-            throw new STenantDeletionException(e);
-        } catch (final SQLException e) {
+        } catch (final IOException | SQLException e) {
             throw new STenantDeletionException(e);
         }
     }
@@ -559,7 +546,7 @@ public class PlatformServiceImpl implements PlatformService {
         }
         STenant tenant;
         try {
-            tenant = platformPersistenceService.selectById(new SelectByIdDescriptor<STenant>(QUERY_GET_TENANT_BY_ID, STenant.class, id));
+            tenant = platformPersistenceService.selectById(new SelectByIdDescriptor<>(QUERY_GET_TENANT_BY_ID, STenant.class, id));
             if (tenant == null) {
                 throw new STenantNotFoundException("No tenant found with id: " + id);
             }
@@ -784,7 +771,7 @@ public class PlatformServiceImpl implements PlatformService {
         }
         final Map<String, Object> emptyMap = Collections.emptyMap();
         try {
-            final Long read = platformPersistenceService.selectOne(new SelectOneDescriptor<Long>(QUERY_GET_NUMBER_OF_TENANTS, emptyMap, STenant.class,
+            final Long read = platformPersistenceService.selectOne(new SelectOneDescriptor<>(QUERY_GET_NUMBER_OF_TENANTS, emptyMap, STenant.class,
                     Long.class));
             if (isTraced) {
                 logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogAfterMethod(this.getClass(), QUERY_GET_NUMBER_OF_TENANTS));
@@ -834,9 +821,7 @@ public class PlatformServiceImpl implements PlatformService {
         try {
             // TODO Rename the file to cleanTenantTables
             executeSQLResources(asList("cleanTables.sql"));
-        } catch (final IOException e) {
-            throw new STenantUpdateException(e);
-        } catch (final SQLException e) {
+        } catch (final IOException | SQLException e) {
             throw new STenantUpdateException(e);
         }
 

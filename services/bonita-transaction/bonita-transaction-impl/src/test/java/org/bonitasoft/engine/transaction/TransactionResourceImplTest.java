@@ -49,7 +49,7 @@ public class TransactionResourceImplTest extends TransactionResourceTest {
 
     private TransactionManager getTransactionManager() {
         try {
-            final Hashtable<String, String> env = new Hashtable<String, String>();
+            final Hashtable<String, String> env = new Hashtable<>();
             env.put(Context.INITIAL_CONTEXT_FACTORY, "bitronix.tm.jndi.BitronixInitialContextFactory");
 
             final Context ctx = new InitialContext(env);

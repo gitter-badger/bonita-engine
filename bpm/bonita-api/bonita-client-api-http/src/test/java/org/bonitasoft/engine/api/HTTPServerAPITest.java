@@ -71,7 +71,7 @@ public class HTTPServerAPITest {
     public void initialize() {
         xstream = new XStream();
         xstream.registerConverter(new BonitaStackTraceElementConverter(), XStream.PRIORITY_VERY_HIGH);
-        HashMap<String, String> map = new HashMap<String, String>();
+        HashMap<String, String> map = new HashMap<>();
         map.put(HTTPServerAPI.SERVER_URL, "localhost:8080");
         map.put(HTTPServerAPI.APPLICATION_NAME, "bonita");
         httpServerAPI = new HTTPServerAPI(map);
@@ -90,10 +90,10 @@ public class HTTPServerAPITest {
         logger.addHandler(ch);
 
         try {
-            final Map<String, Serializable> options = new HashMap<String, Serializable>();
+            final Map<String, Serializable> options = new HashMap<>();
             final String apiInterfaceName = "apiInterfaceName";
             final String methodName = "methodName";
-            final List<String> classNameParameters = new ArrayList<String>();
+            final List<String> classNameParameters = new ArrayList<>();
             final Object[] parametersValues = null;
 
             final HTTPServerAPI httpServerAPI = mock(HTTPServerAPI.class);

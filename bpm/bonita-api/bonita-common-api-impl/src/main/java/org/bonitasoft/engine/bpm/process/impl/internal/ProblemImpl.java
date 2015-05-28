@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.bpm.process.impl.internal;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.bpm.process.Problem;
 
 /**
@@ -68,53 +70,19 @@ public class ProblemImpl implements Problem {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (description == null ? 0 : description.hashCode());
-        result = prime * result + (level == null ? 0 : level.hashCode());
-        result = prime * result + (resource == null ? 0 : resource.hashCode());
-        result = prime * result + (resourceId == null ? 0 : resourceId.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ProblemImpl problem = (ProblemImpl) o;
+        return Objects.equals(level, problem.level) &&
+                Objects.equals(resourceId, problem.resourceId) &&
+                Objects.equals(resource, problem.resource) &&
+                Objects.equals(description, problem.description);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ProblemImpl other = (ProblemImpl) obj;
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (level != other.level) {
-            return false;
-        }
-        if (resource == null) {
-            if (other.resource != null) {
-                return false;
-            }
-        } else if (!resource.equals(other.resource)) {
-            return false;
-        }
-        if (resourceId == null) {
-            if (other.resourceId != null) {
-                return false;
-            }
-        } else if (!resourceId.equals(other.resourceId)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(level, resourceId, resource, description);
     }
 
     @Override

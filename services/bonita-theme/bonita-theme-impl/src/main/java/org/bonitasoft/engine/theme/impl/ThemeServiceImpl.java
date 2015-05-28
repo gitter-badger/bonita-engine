@@ -152,7 +152,7 @@ public class ThemeServiceImpl implements ThemeService {
         try {
             final FilterOption defaultFilter = new FilterOption(STheme.class, SThemeBuilderFactory.IS_DEFAULT, false);
             final FilterOption typeFilter = new FilterOption(STheme.class, SThemeBuilderFactory.TYPE, type.name());
-            final List<FilterOption> filterOptions = new ArrayList<FilterOption>();
+            final List<FilterOption> filterOptions = new ArrayList<>();
             filterOptions.add(defaultFilter);
             filterOptions.add(typeFilter);
             final DeleteAllRecord record = new DeleteAllRecord(STheme.class, filterOptions);

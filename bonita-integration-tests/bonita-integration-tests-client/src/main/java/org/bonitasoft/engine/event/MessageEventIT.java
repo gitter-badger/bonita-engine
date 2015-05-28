@@ -187,14 +187,14 @@ public class MessageEventIT extends AbstractEventIT {
             "Intermediate catch event", "Send", "Receive", "Several messages", "Correlation" }, story = "Check correlation, to determine the target process when sending a message, works well.", jira = "")
     @Test
     public void messageIntermediateCatchEventWithCorrelations() throws Exception {
-        final Map<String, String> data = new HashMap<String, String>();
+        final Map<String, String> data = new HashMap<>();
         data.put("docNumber", Integer.class.getName());
         data.put("lastName", String.class.getName());
 
-        final ArrayList<BEntry<Expression, Expression>> correlations = new ArrayList<BEntry<Expression, Expression>>(1);
+        final ArrayList<BEntry<Expression, Expression>> correlations = new ArrayList<>(1);
         final Expression docCorrelationKey = new ExpressionBuilder().createConstantStringExpression("docKey");
         final Expression docCorrelationValue = new ExpressionBuilder().createDataExpression("docNumber", Integer.class.getName());
-        correlations.add(new BEntry<Expression, Expression>(docCorrelationKey, docCorrelationValue));
+        correlations.add(new BEntry<>(docCorrelationKey, docCorrelationValue));
 
         final ProcessDefinition sendMessageProcess = deployAndEnableProcessWithEndMessageEvent(CATCH_MESSAGE_PROCESS_NAME, CATCH_EVENT_NAME, correlations,
                 data, null, null);
@@ -278,19 +278,19 @@ public class MessageEventIT extends AbstractEventIT {
             "Send", "Receive", "Correlation" }, story = "Verify that even if matching correlations keys are not in the same order in the receiveProcess and sendProcess, the message is transmitted.", jira = "")
     @Test
     public void correlationKeyInWrongOrderShouldWork() throws Exception {
-        final ArrayList<BEntry<Expression, Expression>> correlations = new ArrayList<BEntry<Expression, Expression>>(2);
-        correlations.add(new BEntry<Expression, Expression>(new ExpressionBuilder().createConstantStringExpression("aKey"), new ExpressionBuilder()
+        final ArrayList<BEntry<Expression, Expression>> correlations = new ArrayList<>(2);
+        correlations.add(new BEntry<>(new ExpressionBuilder().createConstantStringExpression("aKey"), new ExpressionBuilder()
                 .createConstantStringExpression("value1")));
-        correlations.add(new BEntry<Expression, Expression>(new ExpressionBuilder().createConstantStringExpression("bKey"), new ExpressionBuilder()
+        correlations.add(new BEntry<>(new ExpressionBuilder().createConstantStringExpression("bKey"), new ExpressionBuilder()
                 .createConstantStringExpression("value2")));
 
         final ProcessDefinition sendMessageProcess = deployAndEnableProcessWithEndMessageEvent(CATCH_MESSAGE_PROCESS_NAME, CATCH_EVENT_NAME,
                 correlations, null, null, null);
 
-        final ArrayList<BEntry<Expression, Expression>> correlationsReceive = new ArrayList<BEntry<Expression, Expression>>(2);
-        correlationsReceive.add(new BEntry<Expression, Expression>(new ExpressionBuilder().createConstantStringExpression("bKey"), new ExpressionBuilder()
+        final ArrayList<BEntry<Expression, Expression>> correlationsReceive = new ArrayList<>(2);
+        correlationsReceive.add(new BEntry<>(new ExpressionBuilder().createConstantStringExpression("bKey"), new ExpressionBuilder()
                 .createConstantStringExpression("value2")));
-        correlationsReceive.add(new BEntry<Expression, Expression>(new ExpressionBuilder().createConstantStringExpression("aKey"), new ExpressionBuilder()
+        correlationsReceive.add(new BEntry<>(new ExpressionBuilder().createConstantStringExpression("aKey"), new ExpressionBuilder()
                 .createConstantStringExpression("value1")));
 
         final ProcessDefinition receiveMessageProcess = deployAndEnableProcessWithIntermediateCatchMessageEvent(correlationsReceive, null, null);
@@ -397,13 +397,13 @@ public class MessageEventIT extends AbstractEventIT {
             "Intermediate throw event", "Start event", "Send", "Receive" }, story = "Send a message from an intermediate throw event of a process and receive it in a start event of an other process.", jira = "")
     @Test
     public void messageIntermediateThrow2EventMessages() throws Exception {
-        final List<String> messages = new ArrayList<String>();
+        final List<String> messages = new ArrayList<>();
         messages.add("catchMessage");
         messages.add("startMessage");
-        final List<String> targetProcesses = new ArrayList<String>();
+        final List<String> targetProcesses = new ArrayList<>();
         targetProcesses.add(CATCH_MESSAGE_PROCESS_NAME);
         targetProcesses.add(START_WITH_MESSAGE_PROCESS_NAME);
-        final List<String> targetFlowNodes = new ArrayList<String>();
+        final List<String> targetFlowNodes = new ArrayList<>();
         targetFlowNodes.add(CATCH_EVENT_NAME);
         targetFlowNodes.add("startEvent");
         final ProcessDefinition sendMessageProcess = deployAndEnableProcessWithIntermediateThrowMessageEvent(messages, targetProcesses, targetFlowNodes);
@@ -704,11 +704,11 @@ public class MessageEventIT extends AbstractEventIT {
         final Expression nameCorrelationValue1 = new ExpressionBuilder().createConstantStringExpression("Doe 2");
         final Expression nameCorrelationValue2 = new ExpressionBuilder().createConstantStringExpression("Doe Doe");
 
-        final Map<Expression, Expression> correlations1 = new HashMap<Expression, Expression>(2);
+        final Map<Expression, Expression> correlations1 = new HashMap<>(2);
         correlations1.put(docCorrelationKey, docCorrelationValue);
         correlations1.put(nameCorrelationKey, nameCorrelationValue1); // don't match
 
-        final Map<Expression, Expression> correlations2 = new HashMap<Expression, Expression>(2);
+        final Map<Expression, Expression> correlations2 = new HashMap<>(2);
         correlations2.put(docCorrelationKey, docCorrelationValue);
         correlations2.put(nameCorrelationKey, nameCorrelationValue2);
 
@@ -769,7 +769,7 @@ public class MessageEventIT extends AbstractEventIT {
     @Cover(classes = { ProcessRuntimeAPI.class }, concept = BPMNConcept.EVENTS, keywords = { "message", "too many correlation" }, jira = "ENGINE-447")
     @Test(expected = SendEventException.class)
     public void sendMessageWithTooManyCorrelations() throws Exception {
-        final Map<Expression, Expression> correlations = new HashMap<Expression, Expression>(6);
+        final Map<Expression, Expression> correlations = new HashMap<>(6);
         correlations.put(new ExpressionBuilder().createConstantStringExpression("key1"), new ExpressionBuilder().createConstantIntegerExpression(1));
         correlations.put(new ExpressionBuilder().createConstantStringExpression("key2"), new ExpressionBuilder().createConstantStringExpression("label"));
         correlations.put(new ExpressionBuilder().createConstantStringExpression("key3"), new ExpressionBuilder().createConstantStringExpression("2"));
@@ -803,11 +803,11 @@ public class MessageEventIT extends AbstractEventIT {
             // Catch Message Event
             final CatchMessageEventTriggerDefinitionBuilder catchMessageEventTriggerDefinitionBuilder = processToKillDefinitionBuilder
                     .addIntermediateCatchEvent(CATCH_EVENT_NAME).addMessageEventTrigger("msgKiller");
-            final ArrayList<BEntry<Expression, Expression>> correlations = new ArrayList<BEntry<Expression, Expression>>(1);
+            final ArrayList<BEntry<Expression, Expression>> correlations = new ArrayList<>(1);
             final Expression correlationKey = new ExpressionBuilder().createConstantStringExpression("key");
             final Expression correlationValue = new ExpressionBuilder().createGroovyScriptExpression("getId", "processInstanceId", Long.class.getName(),
                     new ExpressionBuilder().createEngineConstant(ExpressionConstants.PROCESS_INSTANCE_ID));
-            correlations.add(new BEntry<Expression, Expression>(correlationKey, correlationValue));
+            correlations.add(new BEntry<>(correlationKey, correlationValue));
             addCorrelations(catchMessageEventTriggerDefinitionBuilder, correlations);
             // Transitions
             processToKillDefinitionBuilder.addTransition("ToKillStart", "Gateway");
@@ -830,10 +830,10 @@ public class MessageEventIT extends AbstractEventIT {
             final Expression targetFlowNode = new ExpressionBuilder().createConstantStringExpression(CATCH_EVENT_NAME);
             final ThrowMessageEventTriggerBuilder throwMessageEventTriggerBuilder = killerProcessDefinitionBuilder.addEndEvent("KillerEnd")
                     .addMessageEventTrigger("msgKiller", targetProcess, targetFlowNode);
-            final ArrayList<BEntry<Expression, Expression>> endCorrelations = new ArrayList<BEntry<Expression, Expression>>(1);
+            final ArrayList<BEntry<Expression, Expression>> endCorrelations = new ArrayList<>(1);
             final Expression endCorrelationKey = new ExpressionBuilder().createConstantStringExpression("key");
             final Expression endCorrelationValue = new ExpressionBuilder().createConstantLongExpression(processToKillInstance.getId());
-            endCorrelations.add(new BEntry<Expression, Expression>(endCorrelationKey, endCorrelationValue));
+            endCorrelations.add(new BEntry<>(endCorrelationKey, endCorrelationValue));
             addCorrelations(throwMessageEventTriggerBuilder, endCorrelations);
             // Transitions
             killerProcessDefinitionBuilder.addTransition("KillerStart", "Step3");

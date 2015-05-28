@@ -34,7 +34,7 @@ public class ServerLazyLoader {
     
     public Object load(final Method method, final long persistenceId) {
         EntityGetter getter = new EntityGetter(method);
-        final Map<String, Serializable> queryParameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> queryParameters = new HashMap<>();
         queryParameters.put(Field.PERSISTENCE_ID, persistenceId);
         if (getter.returnsList()) {
             return businessDataRepository.findListByNamedQuery(getter.getAssociatedNamedQuery(), (Class<? extends Serializable>) getter.getTargetEntityClass(), queryParameters, 0, Integer.MAX_VALUE);

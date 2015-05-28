@@ -26,9 +26,9 @@ import java.util.Set;
  */
 public class HibernateResourcesConfigurationProviderImpl implements HibernateResourcesConfigurationProvider {
 
-    private final Set<String> resources = new HashSet<String>();
+    private final Set<String> resources = new HashSet<>();
 
-    private final Map<String, String> classAliasMappings = new HashMap<String, String>();
+    private final Map<String, String> classAliasMappings = new HashMap<>();
 
     public HibernateResourcesConfigurationProviderImpl() {
         super();

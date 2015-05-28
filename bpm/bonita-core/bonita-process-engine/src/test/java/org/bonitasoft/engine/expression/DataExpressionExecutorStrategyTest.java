@@ -73,7 +73,7 @@ public class DataExpressionExecutorStrategyTest {
         // when(expressionList.get(anyInt())).thenReturn(expression);
         // when(expression.getContent()).thenReturn("nonExistingData");
         when(dataService.getDataInstances(anyListOf(String.class), anyLong(), anyString(), any(ParentContainerResolver.class))).thenThrow(new SDataInstanceReadException("test"));
-        final HashMap<String, Object> dependencyValues = new HashMap<String, Object>(2);
+        final HashMap<String, Object> dependencyValues = new HashMap<>(2);
         dependencyValues.put("containerId", 17L);
         dependencyValues.put("containerType", "process");
         dataExpressionExecutorStrategy.evaluate(expressionList, dependencyValues, new HashMap<Integer, Object>(0), ContainerState.ACTIVE);

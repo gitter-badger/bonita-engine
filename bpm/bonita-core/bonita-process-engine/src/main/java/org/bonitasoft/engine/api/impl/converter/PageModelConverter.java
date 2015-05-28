@@ -73,7 +73,7 @@ public class PageModelConverter {
     }
 
     public List<Page> toPages(final List<SPage> sPages) {
-        final List<Page> pages = new ArrayList<Page>(sPages.size());
+        final List<Page> pages = new ArrayList<>(sPages.size());
         for (final SPage sPage : sPages) {
             pages.add(toPage(sPage));
         }

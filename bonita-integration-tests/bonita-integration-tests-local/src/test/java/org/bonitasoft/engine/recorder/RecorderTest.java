@@ -115,7 +115,7 @@ public class RecorderTest extends CommonBPMServicesTest {
     }
 
     private List<SQueriableLog> getLogs(final long indexValue, final String actionType) throws SBonitaReadException {
-        final List<FilterOption> filters = new ArrayList<FilterOption>(2);
+        final List<FilterOption> filters = new ArrayList<>(2);
         filters.add(getActionTypeFilterOption(actionType));
         filters.add(new FilterOption(SQueriableLog.class, getLogModelBuilderFactory().getObjectIdKey(), indexValue));
         final List<OrderByOption> orders = Arrays.asList(new OrderByOption(SQueriableLog.class, "id", OrderByType.ASC));
@@ -146,7 +146,7 @@ public class RecorderTest extends CommonBPMServicesTest {
     public void testNotLogOnInsertRecordWhenBTXRolledBack() throws Exception {
         System.out.println(getTransactionService());
         getTransactionService().begin();
-        final SelectOneDescriptor<Human> selectDescriptor = new SelectOneDescriptor<Human>("getHumanByFirstName", getMap("firstName", "firstName"), Human.class);
+        final SelectOneDescriptor<Human> selectDescriptor = new SelectOneDescriptor<>("getHumanByFirstName", getMap("firstName", "firstName"), Human.class);
         Human retrievedHuman = getPersistenceService().selectOne(selectDescriptor);
         assertNull("Should not have any Human in DB before test", retrievedHuman);
 

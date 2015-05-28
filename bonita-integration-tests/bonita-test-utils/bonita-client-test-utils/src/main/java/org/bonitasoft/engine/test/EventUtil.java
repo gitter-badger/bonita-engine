@@ -56,7 +56,7 @@ public class EventUtil {
     private static final String STATE = "state";
 
     public static Map<String, Serializable> getReadyTaskEvent(final long processInstanceId, final String taskName) {
-        final Map<String, Serializable> map = new HashMap<String, Serializable>(5);
+        final Map<String, Serializable> map = new HashMap<>(5);
         map.put(TYPE, FLOW_NODE);
         map.put(ROOT_CONTAINER_ID, processInstanceId);
         map.put(NAME, taskName);
@@ -65,7 +65,7 @@ public class EventUtil {
     }
 
     public static Map<String, Serializable> getProcessInstanceFinishedEvent(final long processInstanceId) {
-        final Map<String, Serializable> map = new HashMap<String, Serializable>(4);
+        final Map<String, Serializable> map = new HashMap<>(4);
         map.put(TYPE, PROCESS);
         map.put(ID, processInstanceId);
         map.put(STATE_ID, 6);
@@ -98,7 +98,7 @@ public class EventUtil {
 
     static Long executeWaitServerCommand(final CommandAPI commandAPI, final Map<String, Serializable> event, final int defaultTimeout)
             throws CommandNotFoundException, CommandParameterizationException, CommandExecutionException, TimeoutException {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>(2);
+        final Map<String, Serializable> parameters = new HashMap<>(2);
         parameters.put("event", (Serializable) event);
         parameters.put("timeout", defaultTimeout);
         try {
@@ -112,13 +112,13 @@ public class EventUtil {
     }
 
     public static void clearRepo(final CommandAPI commandAPI) throws BonitaException {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("clear", true);
         commandAPI.execute("waitServerCommand", parameters);
     }
 
     public static Map<String, Serializable> getTaskInState(final long processInstanceId, final String stateName) {
-        final Map<String, Serializable> map = new HashMap<String, Serializable>(3);
+        final Map<String, Serializable> map = new HashMap<>(3);
         map.put(TYPE, FLOW_NODE);
         map.put(ROOT_CONTAINER_ID, processInstanceId);
         map.put(STATE, stateName);
@@ -126,7 +126,7 @@ public class EventUtil {
     }
 
     public static Map<String, Serializable> getTaskInState(final long processInstanceId, final String state, final String flowNodeName) {
-        final Map<String, Serializable> map = new HashMap<String, Serializable>(3);
+        final Map<String, Serializable> map = new HashMap<>(3);
         map.put(TYPE, FLOW_NODE);
         map.put(ROOT_CONTAINER_ID, processInstanceId);
         map.put(STATE, state);
@@ -135,7 +135,7 @@ public class EventUtil {
     }
 
     public static Map<String, Serializable> getTaskInStateWithParentId(final long processInstanceId, final String state, final String flowNodeName) {
-        final Map<String, Serializable> map = new HashMap<String, Serializable>(3);
+        final Map<String, Serializable> map = new HashMap<>(3);
         map.put(TYPE, FLOW_NODE);
         map.put(PARENT_CONTAINER_ID, processInstanceId);
         map.put(STATE, state);

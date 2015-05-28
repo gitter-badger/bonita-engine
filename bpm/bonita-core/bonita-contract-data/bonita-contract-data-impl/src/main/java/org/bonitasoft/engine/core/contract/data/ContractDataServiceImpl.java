@@ -101,10 +101,10 @@ public class ContractDataServiceImpl implements ContractDataService {
 
     @Override
     public Serializable getUserTaskDataValue(final long userTaskId, final String dataName) throws SContractDataNotFoundException, SBonitaReadException {
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("name", dataName);
         parameters.put("scopeId", userTaskId);
-        final SelectOneDescriptor<STaskContractData> descriptor = new SelectOneDescriptor<STaskContractData>("getContractDataByUserTaskIdAndDataName",
+        final SelectOneDescriptor<STaskContractData> descriptor = new SelectOneDescriptor<>("getContractDataByUserTaskIdAndDataName",
                 parameters, STaskContractData.class);
         final STaskContractData contractData = persistenceService.selectOne(descriptor);
         if (contractData == null) {
@@ -168,10 +168,10 @@ public class ContractDataServiceImpl implements ContractDataService {
     }
 
     private List<STaskContractData> getContractDataOfUserTask(final long userTaskId) throws SBonitaReadException {
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("scopeId", userTaskId);
         final QueryOptions queryOptions = new QueryOptions(0, 10000);
-        final SelectListDescriptor<STaskContractData> descriptor = new SelectListDescriptor<STaskContractData>("getContractDataByUserTaskId", parameters,
+        final SelectListDescriptor<STaskContractData> descriptor = new SelectListDescriptor<>("getContractDataByUserTaskId", parameters,
                 STaskContractData.class, queryOptions);
         return persistenceService.selectList(descriptor);
     }
@@ -204,10 +204,10 @@ public class ContractDataServiceImpl implements ContractDataService {
     @Override
     public Serializable getArchivedUserTaskDataValue(final long userTaskId, final String dataName) throws SContractDataNotFoundException, SBonitaReadException {
         final ReadPersistenceService readPersistenceService = archiveService.getDefinitiveArchiveReadPersistenceService();
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("scopeId", userTaskId);
         parameters.put("name", dataName);
-        final SelectOneDescriptor<SATaskContractData> descriptor = new SelectOneDescriptor<SATaskContractData>(
+        final SelectOneDescriptor<SATaskContractData> descriptor = new SelectOneDescriptor<>(
                 "getArchivedContractDataByUserTaskIdAndDataName", parameters, SATaskContractData.class);
         final SATaskContractData contractData = readPersistenceService.selectOne(descriptor);
         if (contractData == null) {
@@ -245,7 +245,7 @@ public class ContractDataServiceImpl implements ContractDataService {
 
     @Override
     public Serializable getProcessDataValue(final long processInstanceId, final String dataName) throws SContractDataNotFoundException, SBonitaReadException {
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("name", dataName);
         parameters.put("scopeId", processInstanceId);
         final SelectOneDescriptor<SProcessContractData> descriptor = new SelectOneDescriptor<>("getContractDataByProcessInstanceIdAndDataName", parameters,
@@ -313,7 +313,7 @@ public class ContractDataServiceImpl implements ContractDataService {
     }
 
     private List<SProcessContractData> getContractDataOfProcess(final long processInstanceId) throws SBonitaReadException {
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("scopeId", processInstanceId);
         final QueryOptions queryOptions = new QueryOptions(0, 10000);
         final SelectListDescriptor<SProcessContractData> descriptor = new SelectListDescriptor<>("getContractDataByProcessInstanceId",
@@ -325,7 +325,7 @@ public class ContractDataServiceImpl implements ContractDataService {
     public Serializable getArchivedProcessDataValue(final long processInstanceId, final String dataName) throws SContractDataNotFoundException,
             SBonitaReadException {
         final ReadPersistenceService readPersistenceService = archiveService.getDefinitiveArchiveReadPersistenceService();
-        final Map<String, Object> parameters = new HashMap<String, Object>();
+        final Map<String, Object> parameters = new HashMap<>();
         parameters.put("scopeId", processInstanceId);
         parameters.put("name", dataName);
         final SelectOneDescriptor<SAProcessContractData> descriptor = new SelectOneDescriptor<>(

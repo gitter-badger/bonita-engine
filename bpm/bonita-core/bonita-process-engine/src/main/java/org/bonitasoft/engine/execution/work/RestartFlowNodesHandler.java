@@ -37,7 +37,7 @@ import org.bonitasoft.engine.transaction.TransactionService;
  */
 public class RestartFlowNodesHandler implements TenantRestartHandler {
 
-    final Map<Long, List<Long>> flownodesToRestartByTenant = new HashMap<Long, List<Long>>();
+    final Map<Long, List<Long>> flownodesToRestartByTenant = new HashMap<>();
 
     @Override
     public void beforeServicesStart(final PlatformServiceAccessor platformServiceAccessor, final TenantServiceAccessor tenantServiceAccessor)
@@ -45,7 +45,7 @@ public class RestartFlowNodesHandler implements TenantRestartHandler {
         try {
             final long tenantId = tenantServiceAccessor.getTenantId();
             final TechnicalLoggerService logger = tenantServiceAccessor.getTechnicalLoggerService();
-            final ArrayList<Long> flownodesToRestart = new ArrayList<Long>();
+            final ArrayList<Long> flownodesToRestart = new ArrayList<>();
             flownodesToRestartByTenant.put(tenantId, flownodesToRestart);
             final FlowNodeInstanceService flowNodeInstanceService = tenantServiceAccessor.getActivityInstanceService();
 

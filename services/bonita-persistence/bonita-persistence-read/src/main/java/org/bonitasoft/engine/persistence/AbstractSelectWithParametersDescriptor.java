@@ -50,7 +50,7 @@ public abstract class AbstractSelectWithParametersDescriptor<T> extends Abstract
 
     public void addInputParameter(final String key, final Object value) {
         if (inputParameters == null) {
-            this.inputParameters = new HashMap<String, Object>();
+            this.inputParameters = new HashMap<>();
         }
         this.inputParameters.put(key, value);
     }

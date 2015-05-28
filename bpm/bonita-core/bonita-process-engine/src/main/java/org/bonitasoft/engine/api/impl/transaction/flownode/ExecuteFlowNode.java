@@ -100,9 +100,9 @@ public class ExecuteFlowNode implements TransactionContent {
             try {
                 final SUser executerUser = identityService.getUser(executerUserId);
                 final StringBuilder stb = new StringBuilder();
-                stb.append("The user " + session.getUserName() + " ");
-                stb.append("acting as delegate of the user " + executerUser.getUserName() + " ");
-                stb.append("has done the task \"" + flowNodeInstance.getDisplayName() + "\".");
+                stb.append("The user ").append(session.getUserName()).append(" ");
+                stb.append("acting as delegate of the user ").append(executerUser.getUserName()).append(" ");
+                stb.append("has done the task \"").append(flowNodeInstance.getDisplayName()).append("\".");
                 commentService.addSystemComment(flowNodeInstance.getParentProcessInstanceId(), stb.toString());
             } catch (final SBonitaException e) {
                 logger.log(this.getClass(), TechnicalLogSeverity.ERROR, "Error when adding a comment on the process instance.", e);

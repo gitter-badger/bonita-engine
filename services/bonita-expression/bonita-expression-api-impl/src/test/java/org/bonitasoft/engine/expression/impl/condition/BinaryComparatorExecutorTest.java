@@ -50,7 +50,7 @@ public class BinaryComparatorExecutorTest {
         //given
         SExpression left = buildIntegerExpression(5);
         SExpression right = buildIntegerExpression(4);
-        Map<Integer, Object> resolvedExpressions = new HashMap<Integer, Object>();
+        Map<Integer, Object> resolvedExpressions = new HashMap<>();
         resolvedExpressions.put(left.getDiscriminant(), 5);
         resolvedExpressions.put(right.getDiscriminant(), 4);
 
@@ -136,7 +136,7 @@ public class BinaryComparatorExecutorTest {
         SExpression left = buildIntegerExpression(5);
         SExpression right = buildIntegerExpression(5);
 
-        Map<Integer, Object> resolvedExpressions = new HashMap<Integer, Object>();
+        Map<Integer, Object> resolvedExpressions = new HashMap<>();
         resolvedExpressions.put(left.getDiscriminant(), 5);
         resolvedExpressions.put(right.getDiscriminant(), 5);
         SExpression comparisonExpression = buildComparisonExpression(left, right, operator);

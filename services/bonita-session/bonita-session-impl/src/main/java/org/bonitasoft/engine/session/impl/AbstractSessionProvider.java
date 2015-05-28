@@ -72,7 +72,7 @@ public abstract class AbstractSessionProvider implements SessionProvider {
 
     @Override
     public synchronized void cleanInvalidSessions() {
-        final List<Long> invalidSessionIds = new ArrayList<Long>();
+        final List<Long> invalidSessionIds = new ArrayList<>();
         for (final SSession session : getSessions().values()) {
             if (!session.isValid()) {
                 invalidSessionIds.add(session.getId());

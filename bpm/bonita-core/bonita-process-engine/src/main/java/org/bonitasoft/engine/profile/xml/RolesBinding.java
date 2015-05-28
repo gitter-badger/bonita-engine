@@ -29,7 +29,7 @@ public class RolesBinding extends ElementBinding {
 
     @Override
     public void setAttributes(final Map<String, String> attributes) {
-        roles = new ArrayList<String>(5);
+        roles = new ArrayList<>(5);
     }
 
     @Override

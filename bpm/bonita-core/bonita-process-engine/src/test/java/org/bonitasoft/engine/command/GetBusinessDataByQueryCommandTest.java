@@ -59,10 +59,10 @@ public class GetBusinessDataByQueryCommandTest {
     public void setUp() throws Exception {
         command = new GetBusinessDataByQueryCommand();
 
-        queryParameters = new HashMap<String, Serializable>();
+        queryParameters = new HashMap<>();
         queryParameters.put("param", "value");
 
-        commandParameters = new HashMap<String, Serializable>();
+        commandParameters = new HashMap<>();
         commandParameters.put(GetBusinessDataByQueryCommand.QUERY_NAME, PARAMETER_QUERY_NAME);
         commandParameters.put(GetBusinessDataByQueryCommand.ENTITY_CLASS_NAME, PARAMETER_RETURN_TYPE);
         commandParameters.put(GetBusinessDataByQueryCommand.MAX_RESULTS, PARAMETER_MAX_RESULTS);

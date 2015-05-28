@@ -58,20 +58,20 @@ public abstract class SCatchEventDefinitionImpl extends SEventDefinitionImpl imp
             final Map<String, STransitionDefinition> transitionsMap) {
         super(eventDefinition, transitionsMap);
         isInterrupting = eventDefinition.isInterrupting();
-        timerEventTriggers = new ArrayList<STimerEventTriggerDefinition>(eventDefinition.getTimerEventTriggerDefinitions().size());
+        timerEventTriggers = new ArrayList<>(eventDefinition.getTimerEventTriggerDefinitions().size());
         for (final TimerEventTriggerDefinition timerTrigger : eventDefinition.getTimerEventTriggerDefinitions()) {
             addTimerEventTrigger(new STimerEventTriggerDefinitionImpl(timerTrigger));
         }
-        messageEventTriggers = new ArrayList<SCatchMessageEventTriggerDefinition>(eventDefinition.getMessageEventTriggerDefinitions().size());
+        messageEventTriggers = new ArrayList<>(eventDefinition.getMessageEventTriggerDefinitions().size());
         for (final CatchMessageEventTriggerDefinition catchMessageTrigger : eventDefinition.getMessageEventTriggerDefinitions()) {
             addMessageEventTrigger(new SCatchMessageEventTriggerDefinitionImpl(catchMessageTrigger));
         }
-        signalEventTriggers = new ArrayList<SCatchSignalEventTriggerDefinition>(eventDefinition.getSignalEventTriggerDefinitions().size());
+        signalEventTriggers = new ArrayList<>(eventDefinition.getSignalEventTriggerDefinitions().size());
         for (final SignalEventTriggerDefinition signalTrigger : eventDefinition.getSignalEventTriggerDefinitions()) {
             addSignalEventTrigger(new SCatchSignalEventTriggerDefinitionImpl(signalTrigger.getSignalName()));
         }
 
-        errorEventTriggers = new ArrayList<SCatchErrorEventTriggerDefinition>(eventDefinition.getErrorEventTriggerDefinitions().size());
+        errorEventTriggers = new ArrayList<>(eventDefinition.getErrorEventTriggerDefinitions().size());
         for (final ErrorEventTriggerDefinition errorTrigger : eventDefinition.getErrorEventTriggerDefinitions()) {
             addErrorEventTrigger(new SCatchErrorEventTriggerDefinitionImpl(errorTrigger.getErrorCode()));
         }
@@ -79,10 +79,10 @@ public abstract class SCatchEventDefinitionImpl extends SEventDefinitionImpl imp
 
     public SCatchEventDefinitionImpl(final long id, final String name) {
         super(id, name);
-        timerEventTriggers = new ArrayList<STimerEventTriggerDefinition>(1);
-        messageEventTriggers = new ArrayList<SCatchMessageEventTriggerDefinition>(5);
-        signalEventTriggers = new ArrayList<SCatchSignalEventTriggerDefinition>(1);
-        errorEventTriggers = new ArrayList<SCatchErrorEventTriggerDefinition>(1);
+        timerEventTriggers = new ArrayList<>(1);
+        messageEventTriggers = new ArrayList<>(5);
+        signalEventTriggers = new ArrayList<>(1);
+        errorEventTriggers = new ArrayList<>(1);
     }
 
     @Override

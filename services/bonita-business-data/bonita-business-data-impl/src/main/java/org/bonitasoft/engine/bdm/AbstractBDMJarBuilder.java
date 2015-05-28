@@ -77,7 +77,7 @@ public abstract class AbstractBDMJarBuilder {
 
     private byte[] generateJar(final File directory, final IOFileFilter fileFilter) throws IOException {
         final Collection<File> files = FileUtils.listFiles(directory, fileFilter, TrueFileFilter.TRUE);
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>();
+        final Map<String, byte[]> resources = new HashMap<>();
         for (final File file : files) {
             final String relativeName = directory.toURI().relativize(file.toURI()).getPath();
             final byte[] content = FileUtils.readFileToByteArray(file);

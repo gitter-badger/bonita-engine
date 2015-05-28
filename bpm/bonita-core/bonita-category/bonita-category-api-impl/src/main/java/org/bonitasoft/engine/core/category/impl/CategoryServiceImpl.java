@@ -389,7 +389,7 @@ public class CategoryServiceImpl implements CategoryService {
     @Override
     public long getNumberOfProcessDeploymentInfosOfCategory(final long categoryId) throws SBonitaReadException {
         final Map<String, Object> parameters = Collections.singletonMap("categoryId", (Object) categoryId);
-        final SelectOneDescriptor<Long> descriptor = new SelectOneDescriptor<Long>("getNumberOfProcessDefinitionsOfCategory", parameters,
+        final SelectOneDescriptor<Long> descriptor = new SelectOneDescriptor<>("getNumberOfProcessDefinitionsOfCategory", parameters,
                 SProcessCategoryMapping.class, Long.class);
 
         return persistenceService.selectOne(descriptor);

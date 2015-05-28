@@ -32,7 +32,7 @@ public class STypeDecimalValidationTest {
     @Test
     public void Float_are_valid() throws Exception {
 
-        boolean validation = SType.DECIMAL.validate(Float.valueOf(47.65f));
+        boolean validation = SType.DECIMAL.validate(47.65f);
 
         assertThat(validation).isTrue();
     }
@@ -48,7 +48,7 @@ public class STypeDecimalValidationTest {
     @Test
     public void Double_are_valid() throws Exception {
 
-        boolean validation = SType.DECIMAL.validate(Double.valueOf(6548.236d));
+        boolean validation = SType.DECIMAL.validate(6548.236d);
 
         assertThat(validation).isTrue();
     }

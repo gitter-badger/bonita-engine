@@ -328,7 +328,7 @@ public class ProcessDefinitionBuilder implements DescriptionBuilder, ContainerBu
     }
 
     private void validateProcessAttributes() {
-        if (process.getName() != null && process.getName().indexOf(DOUBLE_HYPHEN) != -1) {
+        if (process.getName() != null && process.getName().contains(DOUBLE_HYPHEN)) {
             addError("'" + DOUBLE_HYPHEN + "' is fordidden in the process name");
         }
     }

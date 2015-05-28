@@ -52,7 +52,7 @@ public class EhCacheCacheService extends CommonEhCacheCacheService implements Ca
             return Collections.emptyList();
         }
         final String[] cacheNames = cacheManager.getCacheNames();
-        final List<String> cacheNamesList = new ArrayList<String>(cacheNames.length);
+        final List<String> cacheNamesList = new ArrayList<>(cacheNames.length);
         String prefix;
         try {
             prefix = String.valueOf(sessionAccessor.getTenantId()) + '_';

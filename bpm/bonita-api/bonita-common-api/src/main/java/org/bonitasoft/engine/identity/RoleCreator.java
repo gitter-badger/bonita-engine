@@ -47,7 +47,7 @@ public class RoleCreator implements Serializable {
      *        The name of the role to create
      */
     public RoleCreator(final String name) {
-        fields = new HashMap<RoleField, Serializable>(5);
+        fields = new HashMap<>(5);
         fields.put(RoleField.NAME, name);
     }
 

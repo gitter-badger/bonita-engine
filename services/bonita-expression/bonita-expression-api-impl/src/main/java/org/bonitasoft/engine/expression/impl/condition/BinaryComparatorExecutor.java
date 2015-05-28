@@ -35,7 +35,7 @@ public class BinaryComparatorExecutor {
     public BinaryComparatorExecutor(BinaryComparatorMapper mapper) {
         this.mapper = mapper;
 
-        numericTypes = new HashSet<String>();
+        numericTypes = new HashSet<>();
         numericTypes.add(Integer.class.getName());
         numericTypes.add(Long.class.getName());
         numericTypes.add(Double.class.getName());

@@ -43,7 +43,7 @@ import org.bonitasoft.engine.bdm.validator.rule.composition.UniquenessCompositio
  */
 public class BusinessObjectModelValidator {
 
-    private final List<ValidationRule<?>> rules = new ArrayList<ValidationRule<?>>();
+    private final List<ValidationRule<?>> rules = new ArrayList<>();
 
     public BusinessObjectModelValidator() {
         rules.add(new BusinessObjectModelValidationRule());
@@ -72,7 +72,7 @@ public class BusinessObjectModelValidator {
     }
 
     private Set<Object> buildModelTree(final BusinessObjectModel bom) {
-        final Set<Object> objectsToValidate = new HashSet<Object>();
+        final Set<Object> objectsToValidate = new HashSet<>();
         objectsToValidate.add(bom);
         for (final BusinessObject bo : bom.getBusinessObjects()) {
             objectsToValidate.add(bo);

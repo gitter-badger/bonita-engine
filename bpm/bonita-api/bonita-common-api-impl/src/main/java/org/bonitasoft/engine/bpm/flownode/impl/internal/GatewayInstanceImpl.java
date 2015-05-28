@@ -35,10 +35,7 @@ public class GatewayInstanceImpl extends FlowNodeInstanceImpl implements Gateway
 
     @Override
     public String toString() {
-        final StringBuilder stb = new StringBuilder("Gateway instance [");
-        stb.append(super.toString());
-        stb.append("]");
-        return super.toString();
+        return "Gateway instance [" + super.toString() + "]";
     }
 
 }

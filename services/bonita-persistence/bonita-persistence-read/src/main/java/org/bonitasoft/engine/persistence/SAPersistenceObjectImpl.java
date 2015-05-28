@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.persistence;
 
+import java.util.Objects;
+
 /**
  * @author Elias Ricken de Medeiros
  * @author Matthieu Chaffotte
@@ -74,56 +76,24 @@ public abstract class SAPersistenceObjectImpl implements ArchivedPersistentObjec
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (archiveDate ^ archiveDate >>> 32);
-        result = prime * result + (int) (id ^ id >>> 32);
-        result = prime * result + (int) (sourceObjectId ^ sourceObjectId >>> 32);
-        result = prime * result + (int) (tenantId ^ tenantId >>> 32);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SAPersistenceObjectImpl that = (SAPersistenceObjectImpl) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(tenantId, that.tenantId) &&
+                Objects.equals(archiveDate, that.archiveDate) &&
+                Objects.equals(sourceObjectId, that.sourceObjectId);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SAPersistenceObjectImpl other = (SAPersistenceObjectImpl) obj;
-        if (archiveDate != other.archiveDate) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (sourceObjectId != other.sourceObjectId) {
-            return false;
-        }
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, tenantId, archiveDate, sourceObjectId);
     }
 
     @Override
     public String toString() {
-        final StringBuilder builder = new StringBuilder();
-        builder.append(this.getClass().getSimpleName() + "[id=");
-        builder.append(id);
-        builder.append(", tenantId=");
-        builder.append(tenantId);
-        builder.append(", archiveDate=");
-        builder.append(archiveDate);
-        builder.append(", sourceObjectId=");
-        builder.append(sourceObjectId);
-        builder.append("]");
-        return builder.toString();
+        return (this.getClass().getSimpleName() + "[id=") + id + ", tenantId=" + tenantId + ", archiveDate=" + archiveDate + ", sourceObjectId=" + sourceObjectId + "]";
     }
 
 }

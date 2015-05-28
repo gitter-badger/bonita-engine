@@ -44,11 +44,8 @@ public class DocumentManager {
 
     public static Document generateDocument(final String s) throws ParserConfigurationException, SAXException, IOException {
         final DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-        final InputStream is = new ByteArrayInputStream(s.getBytes());
-        try {
+        try (InputStream is = new ByteArrayInputStream(s.getBytes())) {
             return builder.parse(is, null);
-        } finally {
-            is.close();
         }
     }
 
@@ -56,14 +53,11 @@ public class DocumentManager {
         final Transformer transformer = TransformerFactory.newInstance().newTransformer();
         transformer.setOutputProperty(OutputKeys.INDENT, "yes");
         transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
-        final StringWriter writer = new StringWriter();
-        try {
+        try (StringWriter writer = new StringWriter()) {
             final StreamResult result = new StreamResult(writer);
             final DOMSource source = new DOMSource(document);
             transformer.transform(source, result);
             return result.getWriter().toString();
-        } finally {
-            writer.close();
         }
     }
 

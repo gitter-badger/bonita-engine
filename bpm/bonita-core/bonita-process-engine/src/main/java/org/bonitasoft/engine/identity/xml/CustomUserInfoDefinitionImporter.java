@@ -45,7 +45,7 @@ public class CustomUserInfoDefinitionImporter {
     }
     
     public Map<String, SCustomUserInfoDefinition> importCustomUserInfoDefinitions(List<CustomUserInfoDefinitionCreator> userInfoDefinitionCreators) throws SIdentityException, ImportDuplicateInOrganizationException {
-        Map<String, SCustomUserInfoDefinition> nameToDefinition = new HashMap<String, SCustomUserInfoDefinition>(userInfoDefinitionCreators.size());
+        Map<String, SCustomUserInfoDefinition> nameToDefinition = new HashMap<>(userInfoDefinitionCreators.size());
         for (CustomUserInfoDefinitionCreator creator : userInfoDefinitionCreators) {
             String name = creator.getName();
             SCustomUserInfoDefinition userInfoDef = null;

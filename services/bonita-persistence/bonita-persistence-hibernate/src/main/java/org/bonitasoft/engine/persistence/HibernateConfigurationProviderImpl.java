@@ -58,7 +58,7 @@ public class HibernateConfigurationProviderImpl implements HibernateConfiguratio
         }
         sb.append("\n");
 
-        this.interfaceToClassMapping = new HashMap<String, Class<? extends PersistentObject>>();
+        this.interfaceToClassMapping = new HashMap<>();
         for (final Map.Entry<String, String> entry : interfaceToClassMapping.entrySet()) {
             final String interfaceClassName = entry.getKey();
             final String mappedClassName = entry.getValue();

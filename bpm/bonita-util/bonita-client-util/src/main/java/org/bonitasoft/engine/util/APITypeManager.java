@@ -60,7 +60,7 @@ public class APITypeManager {
         apiAccessType = type;
 
         if (!ApiAccessType.LOCAL.equals(type)) {
-            apiTypeParameters = new HashMap<String, String>();
+            apiTypeParameters = new HashMap<>();
             apiTypeParameters.putAll(parameters);
         }
     }
@@ -73,7 +73,7 @@ public class APITypeManager {
     public static Map<String, String> getAPITypeParameters() throws BonitaHomeNotSetException, ServerAPIException, IOException {
         if (apiTypeParameters == null) {
             final Properties properties = BonitaHomeClient.getInstance().getProperties();
-            apiTypeParameters = new HashMap<String, String>((Map) properties);
+            apiTypeParameters = new HashMap<>((Map) properties);
             apiTypeParameters.remove(API_TYPE);
         }
         return apiTypeParameters;

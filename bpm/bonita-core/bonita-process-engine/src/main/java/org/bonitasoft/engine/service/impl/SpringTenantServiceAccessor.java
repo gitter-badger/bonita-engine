@@ -549,7 +549,7 @@ public class SpringTenantServiceAccessor implements TenantServiceAccessor {
 
     @Override
     public Parser getActorMappingParser() {
-        final List<Class<? extends ElementBinding>> bindings = new ArrayList<Class<? extends ElementBinding>>();
+        final List<Class<? extends ElementBinding>> bindings = new ArrayList<>();
         bindings.add(ActorMappingBinding.class);
         bindings.add(ActorBinding.class);
         bindings.add(UserNamesBinding.class);
@@ -643,7 +643,7 @@ public class SpringTenantServiceAccessor implements TenantServiceAccessor {
 
     @Override
     public Parser getProfileParser() {
-        final List<Class<? extends ElementBinding>> bindings = new ArrayList<Class<? extends ElementBinding>>();
+        final List<Class<? extends ElementBinding>> bindings = new ArrayList<>();
         bindings.add(ProfileBinding.class);
         bindings.add(ProfilesBinding.class);
         bindings.add(ProfileEntryBinding.class);

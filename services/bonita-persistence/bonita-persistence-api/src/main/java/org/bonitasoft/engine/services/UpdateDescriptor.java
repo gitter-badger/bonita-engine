@@ -50,7 +50,7 @@ public class UpdateDescriptor {
 
     public void addField(final String fieldName, final Object fieldValue) {
         if (fields == null) {
-            fields = new HashMap<String, Object>();
+            fields = new HashMap<>();
         }
         if (ID.equalsIgnoreCase(fieldName)) {
             throw new RuntimeException("Updating an object's " + ID + " field is forbidden");
@@ -60,7 +60,7 @@ public class UpdateDescriptor {
 
     public void addFields(final Map<String, Object> fields) {
         if (this.fields == null) {
-            this.fields = new HashMap<String, Object>();
+            this.fields = new HashMap<>();
         }
         if (fields.containsKey(ID)) {
             throw new RuntimeException("Updating an object's " + ID + " field is forbidden");

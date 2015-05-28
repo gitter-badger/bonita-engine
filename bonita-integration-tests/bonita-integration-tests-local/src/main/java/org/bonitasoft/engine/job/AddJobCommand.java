@@ -48,7 +48,7 @@ public class AddJobCommand extends TenantCommand {
             throwException = (Boolean) exception;
         }
         final SJobParameter parameter = BuilderFactory.get(SJobParameterBuilderFactory.class).createNewInstance("throwException", throwException).done();
-        final List<SJobParameter> params = new ArrayList<SJobParameter>(2);
+        final List<SJobParameter> params = new ArrayList<>(2);
         params.add(parameter);
         try {
             schedulerService.schedule(jobDescriptor, trigger);

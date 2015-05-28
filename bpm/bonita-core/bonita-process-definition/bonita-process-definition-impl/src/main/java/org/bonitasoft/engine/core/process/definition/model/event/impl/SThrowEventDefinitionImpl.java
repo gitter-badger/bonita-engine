@@ -47,13 +47,13 @@ public abstract class SThrowEventDefinitionImpl extends SEventDefinitionImpl imp
         super(eventDefinition, transitionsMap);
 
         final List<ThrowMessageEventTriggerDefinition> messageEventTriggerDefinitions = eventDefinition.getMessageEventTriggerDefinitions();
-        sMessageEventTriggerDefinitions = new ArrayList<SThrowMessageEventTriggerDefinition>(messageEventTriggerDefinitions.size());
+        sMessageEventTriggerDefinitions = new ArrayList<>(messageEventTriggerDefinitions.size());
         for (final ThrowMessageEventTriggerDefinition throwMessageEventTriggerDefinition : messageEventTriggerDefinitions) {
             addMessageEventTriggerDefinition(new SThrowMessageEventTriggerDefinitionImpl(throwMessageEventTriggerDefinition));
         }
 
         final List<ThrowSignalEventTriggerDefinition> signalEventTriggerDefinitions = eventDefinition.getSignalEventTriggerDefinitions();
-        sSignalEventTriggerDefinitions = new ArrayList<SThrowSignalEventTriggerDefinition>(signalEventTriggerDefinitions.size());
+        sSignalEventTriggerDefinitions = new ArrayList<>(signalEventTriggerDefinitions.size());
         for (final ThrowSignalEventTriggerDefinition throwSignalEventTriggerDefinition : signalEventTriggerDefinitions) {
             addSignalEventTriggerDefinition(new SThrowSignalEventTriggerDefinitionImpl(throwSignalEventTriggerDefinition.getSignalName()));
         }
@@ -61,8 +61,8 @@ public abstract class SThrowEventDefinitionImpl extends SEventDefinitionImpl imp
 
     public SThrowEventDefinitionImpl(final long id, final String name) {
         super(id, name);
-        sMessageEventTriggerDefinitions = new ArrayList<SThrowMessageEventTriggerDefinition>(5);
-        sSignalEventTriggerDefinitions = new ArrayList<SThrowSignalEventTriggerDefinition>(1);
+        sMessageEventTriggerDefinitions = new ArrayList<>(5);
+        sSignalEventTriggerDefinitions = new ArrayList<>(1);
     }
 
     @Override

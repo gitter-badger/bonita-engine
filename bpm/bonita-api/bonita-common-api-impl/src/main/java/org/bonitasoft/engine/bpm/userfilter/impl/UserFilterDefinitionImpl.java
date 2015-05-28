@@ -17,6 +17,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
+import java.util.Objects;
 
 import org.bonitasoft.engine.bpm.internal.NamedElementImpl;
 import org.bonitasoft.engine.bpm.process.ModelFinderVisitor;
@@ -62,49 +63,19 @@ public class UserFilterDefinitionImpl extends NamedElementImpl implements UserFi
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (filterId == null ? 0 : filterId.hashCode());
-        result = prime * result + (inputs == null ? 0 : inputs.hashCode());
-        result = prime * result + (version == null ? 0 : version.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        UserFilterDefinitionImpl that = (UserFilterDefinitionImpl) o;
+        return Objects.equals(filterId, that.filterId) &&
+                Objects.equals(version, that.version) &&
+                Objects.equals(inputs, that.inputs);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final UserFilterDefinitionImpl other = (UserFilterDefinitionImpl) obj;
-        if (filterId == null) {
-            if (other.filterId != null) {
-                return false;
-            }
-        } else if (!filterId.equals(other.filterId)) {
-            return false;
-        }
-        if (inputs == null) {
-            if (other.inputs != null) {
-                return false;
-            }
-        } else if (!inputs.equals(other.inputs)) {
-            return false;
-        }
-        if (version == null) {
-            if (other.version != null) {
-                return false;
-            }
-        } else if (!version.equals(other.version)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), filterId, version, inputs);
     }
 
     @Override

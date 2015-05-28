@@ -53,7 +53,7 @@ public class ConnectorServiceDecoratorTest {
         final Map<String, Map<String, Serializable>> inputValues = null;
         final ClassLoader classLoader = null;
         final SExpressionContext sexpContext = null;
-        final Map<String, SExpression> parameters = new HashMap<String, SExpression>(connectorInputParameters);
+        final Map<String, SExpression> parameters = new HashMap<>(connectorInputParameters);
         parameters.put("connectorApiAccessor", EngineConstantExpressionBuilder.getConnectorAPIAccessorExpression());
         parameters.put("engineExecutionContext", EngineConstantExpressionBuilder.getEngineExecutionContext());
 
@@ -74,7 +74,7 @@ public class ConnectorServiceDecoratorTest {
         final Map<String, SExpression> parameters = Collections.emptyMap();
         final SExpressionContext sExpressionContext = null;
         final Map<String, Map<String, Serializable>> inputValues = Collections.emptyMap();
-        final Map<String, SExpression> newParameters = new HashMap<String, SExpression>(parameters);
+        final Map<String, SExpression> newParameters = new HashMap<>(parameters);
         newParameters.put("connectorApiAccessor", EngineConstantExpressionBuilder.getConnectorAPIAccessorExpression());
         newParameters.put("engineExecutionContext", EngineConstantExpressionBuilder.getEngineExecutionContext());
 

@@ -47,7 +47,7 @@ public class EvaluateExpressionsDefinitionLevel extends AbstractEvaluateExpressi
 
     private final ProcessDefinitionService processDefinitionService;
 
-    private final Map<String, Serializable> results = new HashMap<String, Serializable>(0);
+    private final Map<String, Serializable> results = new HashMap<>(0);
 
     public EvaluateExpressionsDefinitionLevel(final Map<Expression, Map<String, Serializable>> expressions, final long processDefinitionId,
             final ExpressionResolverService expressionResolverService, final ProcessDefinitionService processDefinitionService,
@@ -71,7 +71,7 @@ public class EvaluateExpressionsDefinitionLevel extends AbstractEvaluateExpressi
                 for (final Expression exp : exps) {
                     Map<String, Serializable> inputValues = getPartialContext(expressionsAndTheirPartialContext, exp);
                     if (inputValues == null) {
-                        inputValues = new HashMap<String, Serializable>();
+                        inputValues = new HashMap<>();
                     }
                     inputValues.put(SExpressionContext.PROCESS_DEFINITION_KEY, processDefinition);
                     context.setProcessDefinitionId(processDefinitionId);

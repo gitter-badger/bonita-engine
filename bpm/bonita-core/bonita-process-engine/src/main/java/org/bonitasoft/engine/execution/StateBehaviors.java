@@ -251,7 +251,7 @@ public class StateBehaviors {
         final SMultiRefBusinessDataInstance multiRefBusinessDataInstance = (SMultiRefBusinessDataInstance) outputMILoopRef;
         List<Long> dataIds = multiRefBusinessDataInstance.getDataIds();
         if (dataIds == null) {
-            dataIds = new ArrayList<Long>();
+            dataIds = new ArrayList<>();
         }
         final Long dataId = ((SFlowNodeSimpleRefBusinessDataInstance) outputMIRef).getDataId();
         dataIds.add(dataId);
@@ -326,7 +326,7 @@ public class StateBehaviors {
             throw new SActivityStateExecutionException("no user id returned by the user filter " + sUserFilterDefinition + " on activity "
                     + humanTaskDefinition.getName());
         }
-        for (final Long userId : new TreeSet<Long>(userIds)) {
+        for (final Long userId : new TreeSet<>(userIds)) {
             final SPendingActivityMapping mapping = BuilderFactory.get(SPendingActivityMappingBuilderFactory.class)
                     .createNewInstanceForUser(flowNodeInstance.getId(), userId).done();
             activityInstanceService.addPendingActivityMappings(mapping);
@@ -487,7 +487,7 @@ public class StateBehaviors {
 
     private BEntry<Integer, BEntry<SConnectorInstance, SConnectorDefinition>> getConnectorWithFlag(final SConnectorInstance nextConnectorInstance,
             final SConnectorDefinition connectorDefinition, final int flag) {
-        return new BEntry<Integer, BEntry<SConnectorInstance, SConnectorDefinition>>(flag, new BEntry<SConnectorInstance, SConnectorDefinition>(
+        return new BEntry<>(flag, new BEntry<>(
                 nextConnectorInstance, connectorDefinition));
     }
 
@@ -851,7 +851,7 @@ public class StateBehaviors {
         final long parentProcessInstanceId = flowNodeInstance.getLogicalGroup(keyProvider.getParentProcessInstanceIndex());
         int nbOfcreatedInstances = 0;
         final int nbOfInstances = flowNodeInstance.getNumberOfInstances();
-        final List<SFlowNodeInstance> createdInstances = new ArrayList<SFlowNodeInstance>();
+        final List<SFlowNodeInstance> createdInstances = new ArrayList<>();
         for (int i = nbOfInstances; i < nbOfInstances + numberOfInstanceToCreate; i++) {
             createdInstances.add(bpmInstancesCreator.createFlowNodeInstance(processDefinitionId, flowNodeInstance.getRootContainerId(),
                     flowNodeInstance.getId(), SFlowElementsContainerType.FLOWNODE, activity, rootProcessInstanceId, parentProcessInstanceId, true, i,
@@ -944,7 +944,7 @@ public class StateBehaviors {
     }
 
     private void updateLoopDataOutputWithNull(final SDataInstance loopDataOutput, final int numberOfInstanceMax) throws SDataInstanceException {
-        final ArrayList<Object> newOutputList = new ArrayList<Object>(numberOfInstanceMax);
+        final ArrayList<Object> newOutputList = new ArrayList<>(numberOfInstanceMax);
         for (int i = 0; i < numberOfInstanceMax; i++) {
             newOutputList.add(null);
         }
@@ -955,7 +955,7 @@ public class StateBehaviors {
             throws SDataInstanceException {
         if (outValue.size() < numberOfInstanceMax) {
             // output data is too small
-            final ArrayList<Object> newOutputList = new ArrayList<Object>(numberOfInstanceMax);
+            final ArrayList<Object> newOutputList = new ArrayList<>(numberOfInstanceMax);
             newOutputList.addAll(outValue);
             for (int i = outValue.size(); i < numberOfInstanceMax; i++) {
                 newOutputList.add(null);

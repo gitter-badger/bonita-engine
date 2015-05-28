@@ -28,7 +28,7 @@ public class UsersBinding extends ElementBinding {
 
     @Override
     public void setAttributes(final Map<String, String> attributes) {
-        userNames = new ArrayList<String>(5);
+        userNames = new ArrayList<>(5);
     }
 
     @Override

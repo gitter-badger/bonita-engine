@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.business.application.impl;
 
 import java.util.List;
+import java.util.Objects;
 
 import org.bonitasoft.engine.commons.exceptions.SObjectModificationException;
 import org.bonitasoft.engine.persistence.SBonitaReadException;
@@ -37,7 +38,7 @@ public class IndexManager {
 
     public void organizeIndexesOnUpdate(MenuIndex oldIndex, MenuIndex newIndex) throws SBonitaReadException, SObjectModificationException {
         validateNewIndex(oldIndex, newIndex);
-        if(oldIndex.getParentId() == newIndex.getParentId()) {
+        if(Objects.equals(oldIndex.getParentId(), newIndex.getParentId())) {
             if (newIndex.getValue() < oldIndex.getValue()) {
                 updater.incrementIndexes(oldIndex.getParentId(), newIndex.getValue(), oldIndex.getValue() - 1);
             } else {

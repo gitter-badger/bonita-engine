@@ -261,7 +261,7 @@ public class TenantManagementTest extends CommonBPMServicesTest {
         getTransactionService().complete();
 
         try {
-            final List<OrderByOption> orderByOptions = new ArrayList<OrderByOption>();
+            final List<OrderByOption> orderByOptions = new ArrayList<>();
             orderByOptions.add(new OrderByOption(STenant.class, BuilderFactory.get(STenantBuilderFactory.class).getIdKey(), OrderByType.DESC));
             final QueryOptions queryOptions = new QueryOptions(0, 20, orderByOptions, Collections.singletonList(new FilterOption(STenant.class, "name").like("tTenantsShouldFilter")),null);
 
@@ -275,7 +275,7 @@ public class TenantManagementTest extends CommonBPMServicesTest {
             assertThat(readTenants.get(0).getId()).isEqualTo(tenant2.getId());
             assertThat(readTenants.get(1).getId()).isEqualTo(tenant1.getId());
 
-            final Collection<Long> ids = new ArrayList<Long>();
+            final Collection<Long> ids = new ArrayList<>();
             ids.add(tenant1.getId());
             ids.add(tenant2.getId());
 
@@ -335,7 +335,7 @@ public class TenantManagementTest extends CommonBPMServicesTest {
         platformService.createTenant(tenant2);
 
         // sort
-        final List<OrderByOption> orderbyOptions = new ArrayList<OrderByOption>();
+        final List<OrderByOption> orderbyOptions = new ArrayList<>();
         orderbyOptions.add(new OrderByOption(STenant.class, BuilderFactory.get(STenantBuilderFactory.class).getIdKey(), OrderByType.DESC));
         final QueryOptions queryOptions = new QueryOptions(0, 10, orderbyOptions, Collections.singletonList(new FilterOption(STenant.class,"name").like("searchTenants")),null);
 

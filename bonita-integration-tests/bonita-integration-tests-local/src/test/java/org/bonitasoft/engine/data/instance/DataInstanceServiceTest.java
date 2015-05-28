@@ -377,7 +377,7 @@ public class DataInstanceServiceTest extends CommonBPMServicesTest {
         getTransactionService().begin();
         getTransactionService().complete();
 
-        final List<String> dataNames = new ArrayList<String>(2);
+        final List<String> dataNames = new ArrayList<>(2);
         dataNames.add(instance1Name);
         dataNames.add(instance2Name);
         getTransactionService().begin();

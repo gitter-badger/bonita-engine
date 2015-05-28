@@ -28,7 +28,7 @@ public class XMLProcessDefinitionsMapping {
     }
 
     public XMLProcessDefinitionsMapping() {
-        this.ids = new ArrayList<String>();
+        this.ids = new ArrayList<>();
     }
 
     public List<String> getIds() {
@@ -37,7 +37,7 @@ public class XMLProcessDefinitionsMapping {
 
     public void addId(final String id) {
         if (this.ids == null) {
-            this.ids = new ArrayList<String>();
+            this.ids = new ArrayList<>();
         }
         this.ids.add(id);
     }

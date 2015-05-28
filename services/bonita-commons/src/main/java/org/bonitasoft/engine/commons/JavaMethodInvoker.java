@@ -32,7 +32,7 @@ public class JavaMethodInvoker {
 
     private static Map<String, Class<?>> autoboxableTypes;
     static {
-        primitiveTypes = new HashMap<String, Class<?>>(8);
+        primitiveTypes = new HashMap<>(8);
         primitiveTypes.put("char", char.class);
         primitiveTypes.put("byte", byte.class);
         primitiveTypes.put("long", long.class);
@@ -42,7 +42,7 @@ public class JavaMethodInvoker {
         primitiveTypes.put("short", short.class);
         primitiveTypes.put("boolean", boolean.class);
 
-        autoboxableTypes = new HashMap<String, Class<?>>(8);
+        autoboxableTypes = new HashMap<>(8);
         autoboxableTypes.put(Character.class.getName(), char.class);
         autoboxableTypes.put(Byte.class.getName(), byte.class);
         autoboxableTypes.put(Long.class.getName(), long.class);

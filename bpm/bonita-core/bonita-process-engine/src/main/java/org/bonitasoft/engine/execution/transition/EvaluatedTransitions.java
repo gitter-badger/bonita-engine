@@ -23,9 +23,9 @@ import org.bonitasoft.engine.core.process.definition.model.STransitionDefinition
  */
 public class EvaluatedTransitions {
 
-    private List<STransitionDefinition> unconditionalTransitions = new ArrayList<STransitionDefinition>();
-    private List<STransitionDefinition> trueTransitions = new ArrayList<STransitionDefinition>();
-    private List<STransitionDefinition> falseTransitions = new ArrayList<STransitionDefinition>();
+    private List<STransitionDefinition> unconditionalTransitions = new ArrayList<>();
+    private List<STransitionDefinition> trueTransitions = new ArrayList<>();
+    private List<STransitionDefinition> falseTransitions = new ArrayList<>();
 
     /**
      * Add a transition to unconditional transitions

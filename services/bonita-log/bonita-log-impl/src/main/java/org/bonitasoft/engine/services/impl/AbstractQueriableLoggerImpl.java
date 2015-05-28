@@ -66,7 +66,7 @@ public abstract class AbstractQueriableLoggerImpl implements QueriableLoggerServ
     public int getNumberOfLogs() throws SQueriableLogException {
         final Map<String, Object> emptyMap = Collections.emptyMap();
         try {
-            final Long read = persistenceService.selectOne(new SelectOneDescriptor<Long>("getNumberOfLogs", emptyMap, SQueriableLog.class, Long.class));
+            final Long read = persistenceService.selectOne(new SelectOneDescriptor<>("getNumberOfLogs", emptyMap, SQueriableLog.class, Long.class));
             return read.intValue();
         } catch (final SBonitaReadException e) {
             throw handleError("can't get the number of log", e);
@@ -99,7 +99,7 @@ public abstract class AbstractQueriableLoggerImpl implements QueriableLoggerServ
     @Override
     public void log(final String callerClassName, final String callerMethodName, final SQueriableLog... queriableLogs) {
         NullCheckingUtil.checkArgsNotNull((Object[]) queriableLogs);
-        final List<SQueriableLog> loggableLogs = new ArrayList<SQueriableLog>();
+        final List<SQueriableLog> loggableLogs = new ArrayList<>();
         for (SQueriableLog log : queriableLogs) {
             if (isLoggable(log.getActionType(), log.getSeverity())) {
                 log = logUpdater.buildFinalLog(callerClassName, callerMethodName, log);
@@ -131,7 +131,7 @@ public abstract class AbstractQueriableLoggerImpl implements QueriableLoggerServ
     @Override
     public SQueriableLog getLog(final long logId) throws SQueriableLogNotFoundException, SQueriableLogException {
         try {
-            final SQueriableLog selectOne = persistenceService.selectById(new SelectByIdDescriptor<SQueriableLog>("getQueriableLogById", SQueriableLog.class,
+            final SQueriableLog selectOne = persistenceService.selectById(new SelectByIdDescriptor<>("getQueriableLogById", SQueriableLog.class,
                     logId));
             if (selectOne == null) {
                 throw new SQueriableLogNotFoundException(logId);

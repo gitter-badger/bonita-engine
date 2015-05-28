@@ -75,7 +75,7 @@ public class TenantTest extends CommonBPMServicesTest {
 
         final Human human = PersistenceTestUtil.buildHuman("parent1FN", "parent1LN", 45);
         recorder.recordInsert(new InsertRecord(human), null);
-        PersistenceTestUtil.checkHuman(human, persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human.getId())));
+        PersistenceTestUtil.checkHuman(human, persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human.getId())));
         recorder.recordDelete(new DeleteRecord(human), null);
 
         getTransactionService().complete();
@@ -89,7 +89,7 @@ public class TenantTest extends CommonBPMServicesTest {
         recorder.recordInsert(new InsertRecord(human), null);
         assertNotNull(human.getId());
         assertTrue(human.getId() > 0);
-        PersistenceTestUtil.checkHuman(human, persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human.getId())));
+        PersistenceTestUtil.checkHuman(human, persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human.getId())));
         recorder.recordDelete(new DeleteRecord(human), null);
 
         getTransactionService().complete();
@@ -147,7 +147,7 @@ public class TenantTest extends CommonBPMServicesTest {
         getTransactionService().complete();
         getTransactionService().begin();
         assertEquals(Long.valueOf(numberOfInserts),
-                persistenceService.selectOne(new SelectOneDescriptor<Long>("getNumberOfHumans", null, Human.class, Long.class)));
+                persistenceService.selectOne(new SelectOneDescriptor<>("getNumberOfHumans", null, Human.class, Long.class)));
         getTransactionService().complete();
     }
 
@@ -158,9 +158,9 @@ public class TenantTest extends CommonBPMServicesTest {
         final Human human = PersistenceTestUtil.buildHuman("parent1FN", "parent1LN", 45);
         recorder.recordInsert(new InsertRecord(human), null);
 
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human.getId())));
         recorder.recordDelete(new DeleteRecord(human), null);
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human.getId())));
 
         getTransactionService().complete();
     }
@@ -172,9 +172,9 @@ public class TenantTest extends CommonBPMServicesTest {
         final Human human = PersistenceTestUtil.buildHuman("parent1FN", "parent1LN", 45);
         recorder.recordInsert(new InsertRecord(human), null);
 
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human.getId())));
         recorder.recordDelete(new DeleteRecord(human), null);
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human.getId())));
 
         getTransactionService().complete();
     }
@@ -193,9 +193,9 @@ public class TenantTest extends CommonBPMServicesTest {
 
         // Ensure in a separate transaction that they are correctly inserted
         getTransactionService().begin();
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human1.getId())));
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human2.getId())));
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human3.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human1.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human2.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human3.getId())));
         getTransactionService().complete();
 
         // Delete them all.
@@ -205,9 +205,9 @@ public class TenantTest extends CommonBPMServicesTest {
 
         // Ensure in a separate transaction that they are correctly deleted
         getTransactionService().begin();
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human1.getId())));
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human2.getId())));
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human3.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human1.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human2.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human3.getId())));
         getTransactionService().complete();
     }
 
@@ -220,16 +220,16 @@ public class TenantTest extends CommonBPMServicesTest {
         recorder.recordInsert(new InsertRecord(human1), null);
         recorder.recordInsert(new InsertRecord(human2), null);
 
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human1.getId())));
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human2.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human1.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human2.getId())));
 
         // persistenceService.deleteAll(Human.class);
 
         recorder.recordDelete(new DeleteRecord(human1), null);
         recorder.recordDelete(new DeleteRecord(human2), null);
 
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human1.getId())));
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human2.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human1.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human2.getId())));
         getTransactionService().complete();
     }
 
@@ -245,8 +245,8 @@ public class TenantTest extends CommonBPMServicesTest {
 
         // Ensure in a separate transaction that they are correctly inserted
         getTransactionService().begin();
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human1.getId())));
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human2.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human1.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human2.getId())));
         getTransactionService().complete();
 
         // Delete them all.
@@ -256,8 +256,8 @@ public class TenantTest extends CommonBPMServicesTest {
 
         // Ensure in a separate transaction that they are correctly deleted
         getTransactionService().begin();
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human1.getId())));
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human2.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human1.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human2.getId())));
         getTransactionService().complete();
     }
 
@@ -271,14 +271,14 @@ public class TenantTest extends CommonBPMServicesTest {
         final Human human2 = PersistenceTestUtil.buildHuman("parent2FN", "parent2LN", 54);
         recorder.recordInsert(new InsertRecord(human2), null);
 
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human1.getId())));
-        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human2.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human1.getId())));
+        assertNotNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human2.getId())));
 
         recorder.recordDelete(new DeleteRecord(human1), null);
         recorder.recordDelete(new DeleteRecord(human2), null);
 
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human1.getId())));
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human2.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human1.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human2.getId())));
 
         getTransactionService().complete();
     }
@@ -290,7 +290,7 @@ public class TenantTest extends CommonBPMServicesTest {
         final Human human = PersistenceTestUtil.buildHuman("parent1FN", "parent1LN", 45);
         recorder.recordInsert(new InsertRecord(human), null);
 
-        PersistenceTestUtil.checkHuman(human, persistenceService.selectById(new SelectByIdDescriptor<Human>("getHumanById", Human.class, human.getId())));
+        PersistenceTestUtil.checkHuman(human, persistenceService.selectById(new SelectByIdDescriptor<>("getHumanById", Human.class, human.getId())));
         recorder.recordDelete(new DeleteRecord(human), null);
 
         getTransactionService().complete();
@@ -348,7 +348,7 @@ public class TenantTest extends CommonBPMServicesTest {
         recorder.recordInsert(new InsertRecord(human1), null);
         recorder.recordInsert(new InsertRecord(human3), null);
         recorder.recordInsert(new InsertRecord(human2), null);
-        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<Human>("getAllHumans", null, Human.class, new QueryOptions(Human.class,
+        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<>("getAllHumans", null, Human.class, new QueryOptions(Human.class,
                 "firstName", OrderByType.ASC));
         final List<Human> allHumans = persistenceService.selectList(selectDescriptor);
         // 4 because of the default parent inserted when creating the schema
@@ -376,7 +376,7 @@ public class TenantTest extends CommonBPMServicesTest {
         getTransactionService().complete();
 
         getTransactionService().begin();
-        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<Human>("getAllHumans", null, Human.class, new QueryOptions(Human.class,
+        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<>("getAllHumans", null, Human.class, new QueryOptions(Human.class,
                 "firstName", OrderByType.DESC));
 
         final List<Human> allHumans = persistenceService.selectList(selectDescriptor);
@@ -406,7 +406,7 @@ public class TenantTest extends CommonBPMServicesTest {
         recorder.recordInsert(new InsertRecord(human3), null);
         recorder.recordInsert(new InsertRecord(human2), null);
 
-        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<Human>("getAllHumans", null, Human.class, new QueryOptions(Human.class,
+        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<>("getAllHumans", null, Human.class, new QueryOptions(Human.class,
                 "firstName", OrderByType.DESC));
 
         final List<Human> allHumans = persistenceService.selectList(selectDescriptor);
@@ -431,11 +431,11 @@ public class TenantTest extends CommonBPMServicesTest {
 
         recorder.recordInsert(new InsertRecord(human1), null);
 
-        final List<OrderByOption> orderByOptions = new ArrayList<OrderByOption>();
+        final List<OrderByOption> orderByOptions = new ArrayList<>();
         orderByOptions.add(new OrderByOption(Human.class, "firstName", OrderByType.ASC));
         orderByOptions.add(new OrderByOption(Human.class, "lastName", OrderByType.DESC));
 
-        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<Human>("getAllHumans", null, Human.class,
+        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<>("getAllHumans", null, Human.class,
                 new QueryOptions(orderByOptions));
         List<Human> allHumans;
         allHumans = persistenceService.selectList(selectDescriptor);
@@ -465,11 +465,11 @@ public class TenantTest extends CommonBPMServicesTest {
         recorder.recordInsert(new InsertRecord(human3), null);
         recorder.recordInsert(new InsertRecord(human2), null);
 
-        final List<OrderByOption> orderByOptions = new ArrayList<OrderByOption>();
+        final List<OrderByOption> orderByOptions = new ArrayList<>();
         orderByOptions.add(new OrderByOption(Human.class, "firstName", OrderByType.ASC));
         orderByOptions.add(new OrderByOption(Human.class, "lastName", OrderByType.DESC));
 
-        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<Human>("getAllHumans", null, Human.class,
+        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<>("getAllHumans", null, Human.class,
                 new QueryOptions(orderByOptions));
         final List<Human> allHumans = persistenceService.selectList(selectDescriptor);
         assertEquals(3, allHumans.size());
@@ -505,11 +505,11 @@ public class TenantTest extends CommonBPMServicesTest {
         recorder.recordInsert(new InsertRecord(child11), null);
         recorder.recordInsert(new InsertRecord(child12), null);
 
-        final Map<String, Object> inputParameters = new HashMap<String, Object>();
+        final Map<String, Object> inputParameters = new HashMap<>();
         inputParameters.put("firstName", "cFN");
-        final List<OrderByOption> orderByOptions = new ArrayList<OrderByOption>();
+        final List<OrderByOption> orderByOptions = new ArrayList<>();
         orderByOptions.add(new OrderByOption(Parent.class, "firstName", OrderByType.ASC));
-        final SelectListDescriptor<Parent> selectDescriptor = new SelectListDescriptor<Parent>("getParentsHavingAChildWithFirstName", inputParameters,
+        final SelectListDescriptor<Parent> selectDescriptor = new SelectListDescriptor<>("getParentsHavingAChildWithFirstName", inputParameters,
                 Parent.class, new QueryOptions(orderByOptions));
         final List<Parent> allParents = persistenceService.selectList(selectDescriptor);
 
@@ -537,8 +537,8 @@ public class TenantTest extends CommonBPMServicesTest {
         human.setCarId(car.getId());
         recorder.recordInsert(new InsertRecord(human), null);
 
-        final SelectOneDescriptor<Car> carDescriptor = new SelectOneDescriptor<Car>("getCarsByBrand", CollectionUtil.buildSimpleMap("brand", "bmw"), Car.class);
-        final SelectOneDescriptor<Human> humanDescriptor = new SelectOneDescriptor<Human>("getHumanByFirstName", CollectionUtil.buildSimpleMap("firstName",
+        final SelectOneDescriptor<Car> carDescriptor = new SelectOneDescriptor<>("getCarsByBrand", CollectionUtil.buildSimpleMap("brand", "bmw"), Car.class);
+        final SelectOneDescriptor<Human> humanDescriptor = new SelectOneDescriptor<>("getHumanByFirstName", CollectionUtil.buildSimpleMap("firstName",
                 "JackJackJack"), Human.class);
 
         assertNotNull(persistenceService.selectOne(humanDescriptor));
@@ -563,7 +563,7 @@ public class TenantTest extends CommonBPMServicesTest {
 
         final Human human = PersistenceTestUtil.buildHuman("parent1FN", "parent1LN", 45);
         recorder.recordInsert(new InsertRecord(human), null);
-        final String firstName = persistenceService.selectOne(new SelectOneDescriptor<String>("getHumanFirstName", PersistenceTestUtil.getMap("id",
+        final String firstName = persistenceService.selectOne(new SelectOneDescriptor<>("getHumanFirstName", PersistenceTestUtil.getMap("id",
                 human.getId()), Human.class, String.class));
         assertEquals("parent1FN", firstName);
         recorder.recordDelete(new DeleteRecord(human), null);
@@ -582,9 +582,9 @@ public class TenantTest extends CommonBPMServicesTest {
         final Child child = buildChild("child1FN", "child11LN", 45, parent);
         recorder.recordInsert(new InsertRecord(child), null);
 
-        assertEquals(Long.valueOf(1), persistenceService.selectOne(new SelectOneDescriptor<Long>("getNumberOfParents", null, Parent.class, Long.class)));
-        assertEquals(Long.valueOf(1), persistenceService.selectOne(new SelectOneDescriptor<Long>("getNumberOfChildren", null, Child.class, Long.class)));
-        assertEquals(Long.valueOf(3), persistenceService.selectOne(new SelectOneDescriptor<Long>("getNumberOfHumans", null, Human.class, Long.class)));
+        assertEquals(Long.valueOf(1), persistenceService.selectOne(new SelectOneDescriptor<>("getNumberOfParents", null, Parent.class, Long.class)));
+        assertEquals(Long.valueOf(1), persistenceService.selectOne(new SelectOneDescriptor<>("getNumberOfChildren", null, Child.class, Long.class)));
+        assertEquals(Long.valueOf(3), persistenceService.selectOne(new SelectOneDescriptor<>("getNumberOfHumans", null, Human.class, Long.class)));
 
         recorder.recordDelete(new DeleteRecord(child), null);
         recorder.recordDelete(new DeleteRecord(parent), null);
@@ -599,11 +599,11 @@ public class TenantTest extends CommonBPMServicesTest {
 
         final Human human = PersistenceTestUtil.buildHuman("parent1FN", "parent1LN", 45);
         recorder.recordInsert(new InsertRecord(human), null);
-        assertEquals("parent1FN", persistenceService.selectOne(new SelectOneDescriptor<String>("getHumanFirstName", PersistenceTestUtil.getMap("id",
+        assertEquals("parent1FN", persistenceService.selectOne(new SelectOneDescriptor<>("getHumanFirstName", PersistenceTestUtil.getMap("id",
                 human.getId()), Human.class, String.class)));
         recorder.recordUpdate(UpdateRecord.buildSetFields(human, Collections.<String, Object>singletonMap("firstName", "new")), null);
         assertEquals("new", human.getFirstName());
-        assertEquals("new", persistenceService.selectOne(new SelectOneDescriptor<String>("getHumanFirstName", PersistenceTestUtil.getMap("id", human.getId()),
+        assertEquals("new", persistenceService.selectOne(new SelectOneDescriptor<>("getHumanFirstName", PersistenceTestUtil.getMap("id", human.getId()),
                 Human.class, String.class)));
         recorder.recordDelete(new DeleteRecord(human), null);
 
@@ -616,12 +616,12 @@ public class TenantTest extends CommonBPMServicesTest {
 
         final Human human = PersistenceTestUtil.buildHuman("parent1FN", "parent1LN", 45);
         recorder.recordInsert(new InsertRecord(human), null);
-        assertEquals("parent1FN", persistenceService.selectOne(new SelectOneDescriptor<String>("getHumanFirstName", PersistenceTestUtil.getMap("id",
+        assertEquals("parent1FN", persistenceService.selectOne(new SelectOneDescriptor<>("getHumanFirstName", PersistenceTestUtil.getMap("id",
                 human.getId()), Human.class, String.class)));
         recorder.recordUpdate(UpdateRecord.buildSetFields(human, Collections.<String, Object>singletonMap("firstName", "")), null);
         assertEquals("", human.getFirstName());
 
-        final String firstName = persistenceService.selectOne(new SelectOneDescriptor<String>("getHumanFirstName", PersistenceTestUtil.getMap("id",
+        final String firstName = persistenceService.selectOne(new SelectOneDescriptor<>("getHumanFirstName", PersistenceTestUtil.getMap("id",
                 human.getId()), Human.class, String.class));
         // Oracle returns null instead of an empty string
         assertTrue(firstName == null || "".equals(firstName));
@@ -635,11 +635,11 @@ public class TenantTest extends CommonBPMServicesTest {
         getTransactionService().begin();
         final Human human = PersistenceTestUtil.buildHuman("parent1FN", "parent1LN", 45);
         recorder.recordInsert(new InsertRecord(human), null);
-        assertEquals("parent1FN", persistenceService.selectOne(new SelectOneDescriptor<String>("getHumanFirstName", PersistenceTestUtil.getMap("id",
+        assertEquals("parent1FN", persistenceService.selectOne(new SelectOneDescriptor<>("getHumanFirstName", PersistenceTestUtil.getMap("id",
                 human.getId()), Human.class, String.class)));
         recorder.recordUpdate(UpdateRecord.buildSetFields(human, Collections.<String, Object>singletonMap("firstName", null)), null);
         assertNull(human.getFirstName());
-        assertNull(persistenceService.selectOne(new SelectOneDescriptor<String>("getHumanFirstName", PersistenceTestUtil.getMap("id", human.getId()),
+        assertNull(persistenceService.selectOne(new SelectOneDescriptor<>("getHumanFirstName", PersistenceTestUtil.getMap("id", human.getId()),
                 Human.class, String.class)));
         recorder.recordDelete(new DeleteRecord(human), null);
 
@@ -653,10 +653,10 @@ public class TenantTest extends CommonBPMServicesTest {
         final Human human = PersistenceTestUtil.buildHuman("parent1FN", "parent1LN", 45);
         recorder.recordInsert(new InsertRecord(human), null);
 
-        assertEquals("parent1FN", persistenceService.selectOne(new SelectOneDescriptor<String>("getHumanFirstName", PersistenceTestUtil.getMap("id",
+        assertEquals("parent1FN", persistenceService.selectOne(new SelectOneDescriptor<>("getHumanFirstName", PersistenceTestUtil.getMap("id",
                 human.getId()), Human.class, String.class)));
 
-        final Map<String, Object> fields = new HashMap<String, Object>();
+        final Map<String, Object> fields = new HashMap<>();
         fields.put("firstName", "newFN");
         fields.put("age", 12);
 
@@ -687,8 +687,8 @@ public class TenantTest extends CommonBPMServicesTest {
         recorder.recordInsert(new InsertRecord(child1), null);
         recorder.recordInsert(new InsertRecord(child2), null);
 
-        checkParent(parent, persistenceService.selectById(new SelectByIdDescriptor<Parent>("getParentById", Parent.class, parent.getId())));
-        checkChild(child1, persistenceService.selectById(new SelectByIdDescriptor<Child>("getChildById", Child.class, child1.getId())));
+        checkParent(parent, persistenceService.selectById(new SelectByIdDescriptor<>("getParentById", Parent.class, parent.getId())));
+        checkChild(child1, persistenceService.selectById(new SelectByIdDescriptor<>("getChildById", Child.class, child1.getId())));
         final Map<String, Object> inputParameters = Collections.singletonMap("id", (Object) child1.getId());
         checkParent(parent, persistenceService.selectOne(new SelectOneDescriptor<Human>("getChildParent", inputParameters, Human.class)));
 
@@ -739,7 +739,7 @@ public class TenantTest extends CommonBPMServicesTest {
         getTransactionService().complete();
 
         getTransactionService().begin();
-        final ArrayList<Long> list = new ArrayList<Long>();
+        final ArrayList<Long> list = new ArrayList<>();
         list.add(PersistenceTestUtil.buildHuman(child1).getId());
         list.add(PersistenceTestUtil.buildHuman(child2).getId());
         list.add(PersistenceTestUtil.buildHuman(parent).getId());
@@ -749,9 +749,9 @@ public class TenantTest extends CommonBPMServicesTest {
                 Human.class, new QueryOptions(0, 20, Human.class, "id", OrderByType.ASC)));
         assertEquals(3, list2.size());
 
-        final Child readChild1 = persistenceService.selectById(new SelectByIdDescriptor<Child>("getChildById", Child.class, child1.getId()));
-        final Child readChild2 = persistenceService.selectById(new SelectByIdDescriptor<Child>("getChildById", Child.class, child2.getId()));
-        final Child readParent = persistenceService.selectById(new SelectByIdDescriptor<Parent>("getParentById", Parent.class, parent.getId()));
+        final Child readChild1 = persistenceService.selectById(new SelectByIdDescriptor<>("getChildById", Child.class, child1.getId()));
+        final Child readChild2 = persistenceService.selectById(new SelectByIdDescriptor<>("getChildById", Child.class, child2.getId()));
+        final Child readParent = persistenceService.selectById(new SelectByIdDescriptor<>("getParentById", Parent.class, parent.getId()));
 
         assertTrue(list2.contains(readChild1));
         assertTrue(list2.contains(readChild2));
@@ -761,9 +761,9 @@ public class TenantTest extends CommonBPMServicesTest {
         recorder.recordDelete(new DeleteRecord(child2), null);
         recorder.recordDelete(new DeleteRecord(parent), null);
 
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Child>("getChildById", Child.class, child1.getId())));
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Child>("getChildById", Child.class, child2.getId())));
-        assertNull(persistenceService.selectById(new SelectByIdDescriptor<Parent>("getParentById", Parent.class, parent.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getChildById", Child.class, child1.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getChildById", Child.class, child2.getId())));
+        assertNull(persistenceService.selectById(new SelectByIdDescriptor<>("getParentById", Parent.class, parent.getId())));
 
         getTransactionService().complete();
     }
@@ -808,15 +808,15 @@ public class TenantTest extends CommonBPMServicesTest {
         recorder.recordInsert(new InsertRecord(human3), null);
         recorder.recordInsert(new InsertRecord(human2), null);
 
-        final List<OrderByOption> orderByOptions = new ArrayList<OrderByOption>();
+        final List<OrderByOption> orderByOptions = new ArrayList<>();
         orderByOptions.add(new OrderByOption(Human.class, "firstName", OrderByType.ASC));
         orderByOptions.add(new OrderByOption(Human.class, "lastName", OrderByType.DESC));
 
-        final List<FilterOption> filters = new ArrayList<FilterOption>();
+        final List<FilterOption> filters = new ArrayList<>();
         filters.add(new FilterOption(Human.class, "age", "27"));
 
         final QueryOptions queryOptions = new QueryOptions(0, 2, orderByOptions, filters, null);
-        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<Human>("getAllHumans", null, Human.class, queryOptions);
+        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<>("getAllHumans", null, Human.class, queryOptions);
         final List<Human> humans = persistenceService.selectList(selectDescriptor);
         assertEquals(2, humans.size());
         assertEquals(human1, humans.get(0));
@@ -842,21 +842,21 @@ public class TenantTest extends CommonBPMServicesTest {
         recorder.recordInsert(new InsertRecord(human3), null);
         recorder.recordInsert(new InsertRecord(human2), null);
 
-        final List<OrderByOption> orderByOptions = new ArrayList<OrderByOption>();
+        final List<OrderByOption> orderByOptions = new ArrayList<>();
         orderByOptions.add(new OrderByOption(Human.class, "firstName", OrderByType.ASC));
         orderByOptions.add(new OrderByOption(Human.class, "lastName", OrderByType.DESC));
 
-        final List<FilterOption> filters = new ArrayList<FilterOption>(1);
+        final List<FilterOption> filters = new ArrayList<>(1);
         filters.add(new FilterOption(Human.class, "age", "27"));
-        final Map<Class<? extends PersistentObject>, Set<String>> fields = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
-        final Set<String> set = new HashSet<String>(2);
+        final Map<Class<? extends PersistentObject>, Set<String>> fields = new HashMap<>(1);
+        final Set<String> set = new HashSet<>(2);
         set.add("firstName");
         set.add("lastName");
         fields.put(Human.class, set);
         final SearchFields searchFields = new SearchFields(Arrays.asList("Mak"), fields);
 
         final QueryOptions queryOptions = new QueryOptions(0, 2, orderByOptions, filters, searchFields);
-        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<Human>("getAllHumans", null, Human.class, queryOptions);
+        final SelectListDescriptor<Human> selectDescriptor = new SelectListDescriptor<>("getAllHumans", null, Human.class, queryOptions);
         final List<Human> humans = persistenceService.selectList(selectDescriptor);
         assertEquals(1, humans.size());
         assertEquals(human1, humans.get(0));
@@ -892,8 +892,8 @@ public class TenantTest extends CommonBPMServicesTest {
     }
 
     protected QueryOptions buildQueryOptionsOrderByFirstnameASC(final String searchTerm) {
-        final Map<Class<? extends PersistentObject>, Set<String>> allFields = new HashMap<Class<? extends PersistentObject>, Set<String>>();
-        final Set<String> fields = new HashSet<String>(2);
+        final Map<Class<? extends PersistentObject>, Set<String>> allFields = new HashMap<>();
+        final Set<String> fields = new HashSet<>(2);
         fields.add("firstName");
         fields.add("lastName");
         allFields.put(Human.class, fields);

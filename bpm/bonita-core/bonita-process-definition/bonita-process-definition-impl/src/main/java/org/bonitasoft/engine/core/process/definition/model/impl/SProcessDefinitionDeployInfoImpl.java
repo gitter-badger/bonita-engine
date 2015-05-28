@@ -217,10 +217,8 @@ public class SProcessDefinitionDeployInfoImpl implements SProcessDefinitionDeplo
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
         SProcessDefinitionDeployInfoImpl that = (SProcessDefinitionDeployInfoImpl) o;
         return Objects.equals(deploymentDate, that.deploymentDate) &&
                 Objects.equals(deployedBy, that.deployedBy) &&
@@ -236,13 +234,13 @@ public class SProcessDefinitionDeployInfoImpl implements SProcessDefinitionDeplo
                 Objects.equals(activationState, that.activationState) &&
                 Objects.equals(displayName, that.displayName) &&
                 Objects.equals(iconPath, that.iconPath) &&
-                Objects.equals(displayDescription, that.displayDescription);
+                Objects.equals(displayDescription, that.displayDescription) &&
+                Objects.equals(designContent, that.designContent);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(name, id, deploymentDate, deployedBy, version, description, configurationState, activationState, tenantId, processId,
-                supervisorId, displayName, lastUpdateDate, iconPath, displayDescription);
+        return Objects.hash(name, id, deploymentDate, deployedBy, version, description, configurationState, activationState, tenantId, processId, supervisorId, displayName, lastUpdateDate, iconPath, displayDescription, designContent);
     }
 
     @Override

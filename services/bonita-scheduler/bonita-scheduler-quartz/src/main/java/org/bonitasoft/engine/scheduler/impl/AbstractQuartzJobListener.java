@@ -57,7 +57,7 @@ public abstract class AbstractQuartzJobListener implements JobListener {
 
     protected List<SJobData> getJobDataValueAndType(final JobDetail jobDetail) {
         final Set<Entry<String, Object>> entries = jobDetail.getJobDataMap().getWrappedMap().entrySet();
-        final List<SJobData> jobDatas = new ArrayList<SJobData>(entries.size());
+        final List<SJobData> jobDatas = new ArrayList<>(entries.size());
         for (final Entry<String, Object> entry : entries) {
             jobDatas.add(new SJobDataImpl(entry));
         }
@@ -90,7 +90,7 @@ public abstract class AbstractQuartzJobListener implements JobListener {
         final TriggerKey triggerKey = trigger.getKey();
         final JobKey jobKey = jobDetail.getKey();
 
-        final Map<String, Serializable> mapContext = new HashMap<String, Serializable>();
+        final Map<String, Serializable> mapContext = new HashMap<>();
         mapContext.put(AbstractBonitaJobListener.BOS_JOB, getBosJob(context));
         mapContext.put(AbstractBonitaJobListener.JOB_DESCRIPTOR_ID, getJobDescriptorId(jobDetail));
         mapContext.put(AbstractBonitaJobListener.TENANT_ID, getTenantId(jobDetail));
@@ -101,7 +101,7 @@ public abstract class AbstractQuartzJobListener implements JobListener {
         mapContext.put(AbstractBonitaJobListener.TRIGGER_GROUP, triggerKey.getGroup());
         mapContext.put(AbstractBonitaJobListener.TRIGGER_PREVIOUS_FIRE_TIME, trigger.getPreviousFireTime());
         mapContext.put(AbstractBonitaJobListener.TRIGGER_NEXT_FIRE_TIME, trigger.getNextFireTime());
-        mapContext.put(AbstractBonitaJobListener.REFIRE_COUNT, Integer.valueOf(context.getRefireCount()));
+        mapContext.put(AbstractBonitaJobListener.REFIRE_COUNT, context.getRefireCount());
         mapContext.put(AbstractBonitaJobListener.JOB_DATAS, (Serializable) getJobDataValueAndType(jobDetail));
         mapContext.put(AbstractBonitaJobListener.JOB_RESULT, String.valueOf(context.getResult()));
         return mapContext;

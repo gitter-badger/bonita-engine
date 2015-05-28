@@ -329,7 +329,7 @@ public class HumanTasksIT extends TestWithUser {
         final ProcessInstance processInstance = getProcessAPI().startProcess(processDeploymentInfo.getProcessId());
         waitForUserTask(processInstance, "step1");
 
-        final List<ActivityInstance> activityInstances = new ArrayList<ActivityInstance>(getProcessAPI().getActivities(processInstance.getId(), 0, 20));
+        final List<ActivityInstance> activityInstances = new ArrayList<>(getProcessAPI().getActivities(processInstance.getId(), 0, 20));
         final ActivityInstance activityInstance = activityInstances.get(activityInstances.size() - 1);
 
         assertEquals("ready", activityInstance.getState());

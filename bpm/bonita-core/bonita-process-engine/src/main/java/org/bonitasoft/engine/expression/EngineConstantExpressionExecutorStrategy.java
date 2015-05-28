@@ -113,20 +113,12 @@ public class EngineConstantExpressionExecutorStrategy implements ExpressionExecu
                     }
                     return (Serializable) object;
             }
-        } catch (final STenantIdNotSetException e) {
+        } catch (final STenantIdNotSetException | SSessionNotFoundException e) {
             throw new SExpressionEvaluationException(e, expressionName);
-        } catch (final SSessionNotFoundException e) {
-            throw new SExpressionEvaluationException(e, expressionName);
-        } catch (final SProcessInstanceNotFoundException e) {
+        } catch (final SProcessInstanceNotFoundException | SProcessInstanceReadException e) {
             throw new SExpressionEvaluationException("Error retrieving process instance while building EngineExecutionContext as EngineConstantExpression", e,
                     expressionName);
-        } catch (final SProcessInstanceReadException e) {
-            throw new SExpressionEvaluationException("Error retrieving process instance while building EngineExecutionContext as EngineConstantExpression", e,
-                    expressionName);
-        } catch (final SFlowNodeReadException e) {
-            throw new SExpressionEvaluationException("Error retrieving flow node instance while building EngineExecutionContext as EngineConstantExpression",
-                    e, expressionName);
-        } catch (final SFlowNodeNotFoundException e) {
+        } catch (final SFlowNodeReadException | SFlowNodeNotFoundException e) {
             throw new SExpressionEvaluationException("Error retrieving flow node instance while building EngineExecutionContext as EngineConstantExpression",
                     e, expressionName);
         } catch (final SActivityInstanceNotFoundException e) {
@@ -346,7 +338,7 @@ public class EngineConstantExpressionExecutorStrategy implements ExpressionExecu
     @Override
     public List<Object> evaluate(final List<SExpression> expressions, final Map<String, Object> context, final Map<Integer, Object> resolvedExpressions,
             final ContainerState containerState) throws SExpressionEvaluationException {
-        final List<Object> results = new ArrayList<Object>();
+        final List<Object> results = new ArrayList<>();
         for (final SExpression sExpression : expressions) {
             results.add(evaluate(sExpression, context, resolvedExpressions, containerState));
         }

@@ -64,7 +64,7 @@ public class IntegerEnumUserType implements UserType, ParameterizedType, Seriali
         }
         final String identifierMethodName = parameters.getProperty("identifierMethod", DEFAULT_IDENTIFIER_METHOD_NAME);
         try {
-            identifierMethod = enumClass.getMethod(identifierMethodName, new Class[0]);
+            identifierMethod = enumClass.getMethod(identifierMethodName);
             identifierType = identifierMethod.getReturnType();
         } catch (final Exception e) {
             final String message = "Failed to obtain identifier method";
@@ -73,7 +73,7 @@ public class IntegerEnumUserType implements UserType, ParameterizedType, Seriali
         sqlTypes = new int[] { type.sqlType() };
         final String valueOfMethodName = parameters.getProperty("valueOfMethod", DEFAULT_VALUE_OF_METHOD_NAME);
         try {
-            valueOfMethod = enumClass.getMethod(valueOfMethodName, new Class[] { identifierType });
+            valueOfMethod = enumClass.getMethod(valueOfMethodName, identifierType);
         } catch (final Exception e) {
             final String message = "Failed to obtain valueOf method";
             throw new HibernateException(message, e);
@@ -93,14 +93,9 @@ public class IntegerEnumUserType implements UserType, ParameterizedType, Seriali
             return null;
         }
         try {
-            return valueOfMethod.invoke(null, new Object[] { identifier });
+            return valueOfMethod.invoke(null, identifier);
         } catch (final Exception e) {
-            final StringBuilder stb = new StringBuilder("Exception while invoking valueOf method '");
-            stb.append(valueOfMethod.getName());
-            stb.append("' of enumeration class '");
-            stb.append(enumClass);
-            stb.append('\'');
-            throw new HibernateException(stb.toString(), e);
+            throw new HibernateException("Exception while invoking valueOf method '" + valueOfMethod.getName() + "' of enumeration class '" + enumClass + '\'', e);
         }
     }
 

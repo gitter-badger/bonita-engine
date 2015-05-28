@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.queriablelogger.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.persistence.model.BlobValue;
 import org.bonitasoft.engine.queriablelogger.model.SQueriableLogParameter;
 
@@ -124,69 +126,21 @@ public class SQueriableLogParameterImpl implements SQueriableLogParameter {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((blobValue == null) ? 0 : blobValue.hashCode());
-        result = prime * result + (int) (queriableLogId ^ (queriableLogId >>> 32));
-        result = prime * result + (int) (id ^ (id >>> 32));
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((stringValue == null) ? 0 : stringValue.hashCode());
-        result = prime * result + (int) (tenantId ^ (tenantId >>> 32));
-        result = prime * result + ((valueType == null) ? 0 : valueType.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SQueriableLogParameterImpl that = (SQueriableLogParameterImpl) o;
+        return Objects.equals(tenantId, that.tenantId) &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(queriableLogId, that.queriableLogId) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(stringValue, that.stringValue) &&
+                Objects.equals(blobValue, that.blobValue) &&
+                Objects.equals(valueType, that.valueType);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SQueriableLogParameterImpl other = (SQueriableLogParameterImpl) obj;
-        if (blobValue == null) {
-            if (other.blobValue != null) {
-                return false;
-            }
-        } else if (!blobValue.equals(other.blobValue)) {
-            return false;
-        }
-        if (queriableLogId != other.queriableLogId) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (stringValue == null) {
-            if (other.stringValue != null) {
-                return false;
-            }
-        } else if (!stringValue.equals(other.stringValue)) {
-            return false;
-        }
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        if (valueType == null) {
-            if (other.valueType != null) {
-                return false;
-            }
-        } else if (!valueType.equals(other.valueType)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(tenantId, id, queriableLogId, name, stringValue, blobValue, valueType);
     }
-
 }

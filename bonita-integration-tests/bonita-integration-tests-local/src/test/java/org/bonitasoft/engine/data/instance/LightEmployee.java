@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.data.instance;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class LightEmployee implements Serializable {
 
@@ -45,45 +46,17 @@ public class LightEmployee implements Serializable {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + age;
-        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LightEmployee that = (LightEmployee) o;
+        return Objects.equals(age, that.age) &&
+                Objects.equals(firstName, that.firstName) &&
+                Objects.equals(lastName, that.lastName);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final LightEmployee other = (LightEmployee) obj;
-        if (age != other.age) {
-            return false;
-        }
-        if (firstName == null) {
-            if (other.firstName != null) {
-                return false;
-            }
-        } else if (!firstName.equals(other.firstName)) {
-            return false;
-        }
-        if (lastName == null) {
-            if (other.lastName != null) {
-                return false;
-            }
-        } else if (!lastName.equals(other.lastName)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(firstName, lastName, age);
     }
-
 }

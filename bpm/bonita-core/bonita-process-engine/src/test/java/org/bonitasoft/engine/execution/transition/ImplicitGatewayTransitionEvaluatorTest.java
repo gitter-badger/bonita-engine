@@ -37,7 +37,7 @@ public class ImplicitGatewayTransitionEvaluatorTest extends AbstractTransitionEv
     public void evaluateTransitions_should_return_all_unconditional_transitions_and_transitions_evaluated_to_true() throws Exception {
         //given
         FlowNodeTransitionsWrapper transitions = new FlowNodeTransitionsWrapper();
-        transitions.setAllOutgoingTransitionDefinitions(new ArrayList<STransitionDefinition>(Arrays.asList(unConditionalTransition, trueTransition1,
+        transitions.setAllOutgoingTransitionDefinitions(new ArrayList<>(Arrays.asList(unConditionalTransition, trueTransition1,
                 trueTransition2, falseTransition, nullTransition)));
 
         //when
@@ -51,7 +51,7 @@ public class ImplicitGatewayTransitionEvaluatorTest extends AbstractTransitionEv
     public void evaluateTransitions_should_return_unconditional_transitions_and_default_transition_when_all_conditional_transitions_are_evaluated_to_false() throws Exception {
         //given
         FlowNodeTransitionsWrapper transitions = new FlowNodeTransitionsWrapper();
-        transitions.setAllOutgoingTransitionDefinitions(new ArrayList<STransitionDefinition>(Arrays.asList(unConditionalTransition, falseTransition, nullTransition)));
+        transitions.setAllOutgoingTransitionDefinitions(new ArrayList<>(Arrays.asList(unConditionalTransition, falseTransition, nullTransition)));
         given(defaultTransitionGetter.getDefaultTransition(transitions, processDefinition, flowNodeInstance)).willReturn(defaultTransition);
 
         //when
@@ -65,7 +65,7 @@ public class ImplicitGatewayTransitionEvaluatorTest extends AbstractTransitionEv
     public void evaluateTransitions_should_not_return_default_transition_when_there_are_no_conditional_transitions() throws Exception {
         //given
         FlowNodeTransitionsWrapper transitions = new FlowNodeTransitionsWrapper();
-        transitions.setAllOutgoingTransitionDefinitions(new ArrayList<STransitionDefinition>(Arrays.asList(unConditionalTransition)));
+        transitions.setAllOutgoingTransitionDefinitions(new ArrayList<>(Arrays.asList(unConditionalTransition)));
         given(defaultTransitionGetter.getDefaultTransition(transitions, processDefinition, flowNodeInstance)).willReturn(defaultTransition);
 
         //when

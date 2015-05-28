@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.core.document.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.core.document.model.SDocumentMapping;
 import org.bonitasoft.engine.core.document.model.SLightDocument;
 import org.bonitasoft.engine.core.document.model.SMappedDocument;
@@ -170,34 +172,20 @@ public class SMappedDocumentImpl implements SMappedDocument {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         SMappedDocumentImpl that = (SMappedDocumentImpl) o;
-
-        if (documentId != that.documentId) return false;
-        if (id != that.id) return false;
-        if (index != that.index) return false;
-        if (processInstanceId != that.processInstanceId) return false;
-        if (tenantId != that.tenantId) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        if (document != null ? !document.equals(that.document) : that.document != null) return false;
-        if (name != null ? !name.equals(that.name) : that.name != null) return false;
-        if (version != null ? !version.equals(that.version) : that.version != null) return false;
-
-        return true;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(tenantId, that.tenantId) &&
+                Objects.equals(documentId, that.documentId) &&
+                Objects.equals(processInstanceId, that.processInstanceId) &&
+                Objects.equals(index, that.index) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(version, that.version) &&
+                Objects.equals(document, that.document);
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (int) (tenantId ^ (tenantId >>> 32));
-        result = 31 * result + (int) (documentId ^ (documentId >>> 32));
-        result = 31 * result + (int) (processInstanceId ^ (processInstanceId >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (version != null ? version.hashCode() : 0);
-        result = 31 * result + index;
-        result = 31 * result + (document != null ? document.hashCode() : 0);
-        return result;
+        return Objects.hash(id, tenantId, documentId, processInstanceId, name, description, version, index, document);
     }
-
 }

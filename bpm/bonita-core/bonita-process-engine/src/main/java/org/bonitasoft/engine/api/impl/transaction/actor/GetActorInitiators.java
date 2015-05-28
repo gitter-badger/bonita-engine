@@ -32,7 +32,7 @@ public class GetActorInitiators implements TransactionContentWithResult<List<SAc
 
     private final Set<Long> actorIds;
 
-    private final List<SActor> sActors = new ArrayList<SActor>();
+    private final List<SActor> sActors = new ArrayList<>();
 
     public GetActorInitiators(final ActorMappingService actorMappingService, final Set<Long> actorIds) {
         this.actorMappingService = actorMappingService;
@@ -41,8 +41,8 @@ public class GetActorInitiators implements TransactionContentWithResult<List<SAc
 
     @Override
     public void execute() throws SBonitaException {
-        for (final Iterator<Long> iterator = actorIds.iterator(); iterator.hasNext();) {
-            final SActor sActor = actorMappingService.getActor(iterator.next());
+        for (Long actorId : actorIds) {
+            final SActor sActor = actorMappingService.getActor(actorId);
             if (sActor.isInitiator()) {
                 sActors.add(sActor);
             }

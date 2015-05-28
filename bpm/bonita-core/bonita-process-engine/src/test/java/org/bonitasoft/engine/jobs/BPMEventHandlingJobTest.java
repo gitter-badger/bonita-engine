@@ -87,7 +87,7 @@ public class BPMEventHandlingJobTest {
         when(couple3.getMessageInstanceId()).thenReturn(1L);
         when(couple3.getWaitingMessageId()).thenReturn(30L);
 
-        final List<SMessageEventCouple> messageCouples = new ArrayList<SMessageEventCouple>(3);
+        final List<SMessageEventCouple> messageCouples = new ArrayList<>(3);
         messageCouples.addAll(Arrays.asList(couple1, couple2, couple3));
 
         // When
@@ -118,7 +118,7 @@ public class BPMEventHandlingJobTest {
         when(couple3.getMessageInstanceId()).thenReturn(3L);
         when(couple3.getWaitingMessageId()).thenReturn(30L);
 
-        final List<SMessageEventCouple> messageCouples = new ArrayList<SMessageEventCouple>(3);
+        final List<SMessageEventCouple> messageCouples = new ArrayList<>(3);
         messageCouples.addAll(Arrays.asList(couple1, couple2, couple3));
 
         // When
@@ -147,7 +147,7 @@ public class BPMEventHandlingJobTest {
         when(couple2.getWaitingMessageId()).thenReturn(10L);
         when(couple2.getWaitingMessageEventType()).thenReturn(SBPMEventType.START_EVENT);
 
-        final List<SMessageEventCouple> messageCouples = new ArrayList<SMessageEventCouple>(3);
+        final List<SMessageEventCouple> messageCouples = new ArrayList<>(3);
         messageCouples.addAll(Arrays.asList(couple1, couple2));
 
         // When
@@ -176,7 +176,7 @@ public class BPMEventHandlingJobTest {
         when(couple2.getWaitingMessageId()).thenReturn(10L);
         when(couple2.getWaitingMessageEventType()).thenReturn(SBPMEventType.EVENT_SUB_PROCESS);
 
-        final List<SMessageEventCouple> messageCouples = new ArrayList<SMessageEventCouple>(3);
+        final List<SMessageEventCouple> messageCouples = new ArrayList<>(3);
         messageCouples.addAll(Arrays.asList(couple1, couple2));
 
         // When
@@ -208,7 +208,7 @@ public class BPMEventHandlingJobTest {
         when(couple4.getMessageInstanceId()).thenReturn(2L);
         when(couple4.getWaitingMessageId()).thenReturn(20L);
 
-        final List<SMessageEventCouple> messageCouples = new ArrayList<SMessageEventCouple>(4);
+        final List<SMessageEventCouple> messageCouples = new ArrayList<>(4);
         messageCouples.addAll(Arrays.asList(couple1, couple2, couple3, couple4));
 
         // When
@@ -231,7 +231,7 @@ public class BPMEventHandlingJobTest {
         when(couple1.getMessageInstanceId()).thenReturn(1L);
         when(couple1.getWaitingMessageId()).thenReturn(10L);
 
-        final List<SMessageEventCouple> messageCouples = new ArrayList<SMessageEventCouple>(4);
+        final List<SMessageEventCouple> messageCouples = new ArrayList<>(4);
         messageCouples.addAll(Arrays.asList(couple1));
         doReturn(messageCouples).when(eventInstanceService).getMessageEventCouples(0, 1000);
 

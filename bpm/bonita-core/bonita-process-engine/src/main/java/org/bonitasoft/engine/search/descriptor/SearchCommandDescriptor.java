@@ -36,15 +36,15 @@ public class SearchCommandDescriptor extends SearchEntityDescriptor {
 
     SearchCommandDescriptor() {
         final SCommandBuilderFactory fact = BuilderFactory.get(SCommandBuilderFactory.class);
-        commandKeys = new HashMap<String, FieldDescriptor>(5);
+        commandKeys = new HashMap<>(5);
         commandKeys.put(CommandSearchDescriptor.ID, new FieldDescriptor(SCommand.class, fact.getIdKey()));
         commandKeys.put(CommandSearchDescriptor.NAME, new FieldDescriptor(SCommand.class, fact.getNameKey()));
         commandKeys.put(CommandSearchDescriptor.DESCRIPTION, new FieldDescriptor(SCommand.class, fact.getDescriptionKey()));
         commandKeys.put(CommandSearchDescriptor.IMPLEMENTATION, new FieldDescriptor(SCommand.class, fact.getImplementationClassKey()));
         commandKeys.put(CommandSearchDescriptor.SYSTEM, new FieldDescriptor(SCommand.class, fact.getSystemKey()));
 
-        commandAllFields = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
-        final Set<String> commandFields = new HashSet<String>(5);
+        commandAllFields = new HashMap<>(1);
+        final Set<String> commandFields = new HashSet<>(5);
         commandFields.add(fact.getNameKey());
         commandFields.add(fact.getDescriptionKey());
         commandFields.add(fact.getImplementationClassKey());

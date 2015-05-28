@@ -67,7 +67,7 @@ public class SExpressionContext implements Serializable {
     private Map<SExpression, String> invertedDataMap;
 
     public SExpressionContext() {
-        inputValues = new HashMap<String, Object>();
+        inputValues = new HashMap<>();
     }
 
     public SExpressionContext(final Long containerId, final String containerType, final Long processDefinitionId) {
@@ -79,9 +79,9 @@ public class SExpressionContext implements Serializable {
         this.containerId = containerId;
         this.containerType = containerType;
         if (inputValues == null) {
-            this.inputValues = new HashMap<String, Object>();
+            this.inputValues = new HashMap<>();
         } else {
-            this.inputValues = new HashMap<String, Object>(inputValues);
+            this.inputValues = new HashMap<>(inputValues);
         }
     }
 
@@ -137,8 +137,8 @@ public class SExpressionContext implements Serializable {
         this.processDefinition = processDefinition;
         final SFlowElementContainerDefinition processContainer = processDefinition.getProcessContainer();
         final List<SDataDefinition> dataDefinitions = processContainer.getDataDefinitions();
-        dataMap = new HashMap<String, SExpression>(dataDefinitions.size());
-        invertedDataMap = new HashMap<SExpression, String>(dataDefinitions.size());
+        dataMap = new HashMap<>(dataDefinitions.size());
+        invertedDataMap = new HashMap<>(dataDefinitions.size());
         for (final SDataDefinition dataDef : dataDefinitions) {
             dataMap.put(dataDef.getName(), dataDef.getDefaultValueExpression());
             invertedDataMap.put(dataDef.getDefaultValueExpression(), dataDef.getName());
@@ -161,9 +161,9 @@ public class SExpressionContext implements Serializable {
 
     public void setInputValues(final Map<String, Object> inputValues) {
         if (inputValues == null) {
-            this.inputValues = new HashMap<String, Object>();
+            this.inputValues = new HashMap<>();
         } else {
-            this.inputValues = new HashMap<String, Object>(inputValues);
+            this.inputValues = new HashMap<>(inputValues);
         }
     }
 

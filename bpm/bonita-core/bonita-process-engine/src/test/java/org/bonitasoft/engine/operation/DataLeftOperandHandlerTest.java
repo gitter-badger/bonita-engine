@@ -69,7 +69,7 @@ public class DataLeftOperandHandlerTest {
     public void loadLeftOperandInContext_should_do_one_request() throws Exception {
         //given
         SExpressionContext sExpressionContext = createContext();
-        HashMap<String, Object> context = new HashMap<String, Object>();
+        HashMap<String, Object> context = new HashMap<>();
         SDataInstance data1 = data("data1", "value1");
         SDataInstance data2 = data("data2", "value2");
         doReturn(Arrays.asList(data1, data2)).when(dataInstanceService).getDataInstances(Arrays.asList("data2", "data1"), CONTAINER_ID, CONTAINER_TYPE, parentContainerResolver);
@@ -84,7 +84,7 @@ public class DataLeftOperandHandlerTest {
     public void loadLeftOperandInContext_on_single_left_operand() throws Exception {
         //given
         SExpressionContext sExpressionContext = createContext();
-        HashMap<String, Object> context = new HashMap<String, Object>();
+        HashMap<String, Object> context = new HashMap<>();
         SDataInstance data1 = data("data1", "value1");
         doReturn(data1).when(dataInstanceService).getDataInstance("data1", CONTAINER_ID, CONTAINER_TYPE, parentContainerResolver);
         //when
@@ -99,7 +99,7 @@ public class DataLeftOperandHandlerTest {
     @Test
     public void update_should_get_from_context_data_instances() throws Exception {
         //given
-        HashMap<String, Object> context = new HashMap<String, Object>();
+        HashMap<String, Object> context = new HashMap<>();
         SDataInstance data2 = data("data2", "value2");
         context.put("%DATA_INSTANCE%_data2", data2);
         //when
@@ -115,7 +115,7 @@ public class DataLeftOperandHandlerTest {
     @Test
     public void update_should_get_from_service_data_instances_when_not_in_context() throws Exception {
         //given
-        HashMap<String, Object> context = new HashMap<String, Object>();
+        HashMap<String, Object> context = new HashMap<>();
         SDataInstance data2 = data("data2", "value2");
         doReturn(data2).when(dataInstanceService).getDataInstance("data2", CONTAINER_ID, CONTAINER_TYPE, parentContainerResolver);
         //when

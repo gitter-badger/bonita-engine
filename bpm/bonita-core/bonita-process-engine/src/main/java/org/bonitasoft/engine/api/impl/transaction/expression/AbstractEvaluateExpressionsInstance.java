@@ -45,7 +45,7 @@ public abstract class AbstractEvaluateExpressionsInstance {
             return partialContext;
         }
 
-        final Map<String, Serializable> result = new HashMap<String, Serializable>();
+        final Map<String, Serializable> result = new HashMap<>();
         for (final Map.Entry<String, Serializable> entry : partialContext.entrySet()) {
             result.put(entry.getKey(), entityMerger.merge(entry.getValue()));
         }

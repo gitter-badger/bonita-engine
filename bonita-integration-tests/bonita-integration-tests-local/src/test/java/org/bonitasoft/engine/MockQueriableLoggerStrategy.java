@@ -27,7 +27,7 @@ public class MockQueriableLoggerStrategy implements QueriableLoggerStrategy {
     private final List<String> loggable;
 
     public MockQueriableLoggerStrategy() {
-        this.loggable = new ArrayList<String>();
+        this.loggable = new ArrayList<>();
         this.loggable.add("execute_connector_:" + SQueriableLogSeverity.BUSINESS);
         this.loggable.add("variable_update_:" + SQueriableLogSeverity.BUSINESS);
         this.loggable.add("execute_connector_:" + SQueriableLogSeverity.INTERNAL);

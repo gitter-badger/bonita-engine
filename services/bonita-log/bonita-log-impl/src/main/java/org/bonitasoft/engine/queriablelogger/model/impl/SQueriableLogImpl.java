@@ -15,6 +15,7 @@ package org.bonitasoft.engine.queriablelogger.model.impl;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 import org.bonitasoft.engine.queriablelogger.model.SQueriableLog;
 import org.bonitasoft.engine.queriablelogger.model.SQueriableLogSeverity;
@@ -304,149 +305,37 @@ public class SQueriableLogImpl implements SQueriableLog {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (actionScope == null ? 0 : actionScope.hashCode());
-        result = prime * result + actionStatus;
-        result = prime * result + (actionType == null ? 0 : actionType.hashCode());
-        result = prime * result + (callerClassName == null ? 0 : callerClassName.hashCode());
-        result = prime * result + (callerMethodName == null ? 0 : callerMethodName.hashCode());
-        result = prime * result + (clusterNode == null ? 0 : clusterNode.hashCode());
-        result = prime * result + dayOfYear;
-        result = prime * result + (int) (id ^ id >>> 32);
-        result = prime * result + month;
-        result = prime * result + (int) (numericIndex1 ^ numericIndex1 >>> 32);
-        result = prime * result + (int) (numericIndex2 ^ numericIndex2 >>> 32);
-        result = prime * result + (int) (numericIndex3 ^ numericIndex3 >>> 32);
-        result = prime * result + (int) (numericIndex4 ^ numericIndex4 >>> 32);
-        result = prime * result + (int) (numericIndex5 ^ numericIndex5 >>> 32);
-        result = prime * result + (productVersion == null ? 0 : productVersion.hashCode());
-        result = prime * result + (rawMessage == null ? 0 : rawMessage.hashCode());
-        result = prime * result + (severity == null ? 0 : severity.hashCode());
-        result = prime * result + (int) (tenantId ^ tenantId >>> 32);
-        result = prime * result + (int) (threadNumber ^ threadNumber >>> 32);
-        result = prime * result + (int) (timeStamp ^ timeStamp >>> 32);
-        result = prime * result + (userId == null ? 0 : userId.hashCode());
-        result = prime * result + weekOfYear;
-        result = prime * result + year;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SQueriableLogImpl that = (SQueriableLogImpl) o;
+        return Objects.equals(tenantId, that.tenantId) &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(timeStamp, that.timeStamp) &&
+                Objects.equals(year, that.year) &&
+                Objects.equals(month, that.month) &&
+                Objects.equals(dayOfYear, that.dayOfYear) &&
+                Objects.equals(weekOfYear, that.weekOfYear) &&
+                Objects.equals(threadNumber, that.threadNumber) &&
+                Objects.equals(actionStatus, that.actionStatus) &&
+                Objects.equals(numericIndex1, that.numericIndex1) &&
+                Objects.equals(numericIndex2, that.numericIndex2) &&
+                Objects.equals(numericIndex3, that.numericIndex3) &&
+                Objects.equals(numericIndex4, that.numericIndex4) &&
+                Objects.equals(numericIndex5, that.numericIndex5) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(clusterNode, that.clusterNode) &&
+                Objects.equals(productVersion, that.productVersion) &&
+                Objects.equals(severity, that.severity) &&
+                Objects.equals(actionType, that.actionType) &&
+                Objects.equals(actionScope, that.actionScope) &&
+                Objects.equals(rawMessage, that.rawMessage) &&
+                Objects.equals(callerClassName, that.callerClassName) &&
+                Objects.equals(callerMethodName, that.callerMethodName);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SQueriableLogImpl other = (SQueriableLogImpl) obj;
-        if (actionScope == null) {
-            if (other.actionScope != null) {
-                return false;
-            }
-        } else if (!actionScope.equals(other.actionScope)) {
-            return false;
-        }
-        if (actionStatus != other.actionStatus) {
-            return false;
-        }
-        if (actionType == null) {
-            if (other.actionType != null) {
-                return false;
-            }
-        } else if (!actionType.equals(other.actionType)) {
-            return false;
-        }
-        if (callerClassName == null) {
-            if (other.callerClassName != null) {
-                return false;
-            }
-        } else if (!callerClassName.equals(other.callerClassName)) {
-            return false;
-        }
-        if (callerMethodName == null) {
-            if (other.callerMethodName != null) {
-                return false;
-            }
-        } else if (!callerMethodName.equals(other.callerMethodName)) {
-            return false;
-        }
-        if (clusterNode == null) {
-            if (other.clusterNode != null) {
-                return false;
-            }
-        } else if (!clusterNode.equals(other.clusterNode)) {
-            return false;
-        }
-        if (dayOfYear != other.dayOfYear) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (month != other.month) {
-            return false;
-        }
-        if (numericIndex1 != other.numericIndex1) {
-            return false;
-        }
-        if (numericIndex2 != other.numericIndex2) {
-            return false;
-        }
-        if (numericIndex3 != other.numericIndex3) {
-            return false;
-        }
-        if (numericIndex4 != other.numericIndex4) {
-            return false;
-        }
-        if (numericIndex5 != other.numericIndex5) {
-            return false;
-        }
-        if (productVersion == null) {
-            if (other.productVersion != null) {
-                return false;
-            }
-        } else if (!productVersion.equals(other.productVersion)) {
-            return false;
-        }
-        if (rawMessage == null) {
-            if (other.rawMessage != null) {
-                return false;
-            }
-        } else if (!rawMessage.equals(other.rawMessage)) {
-            return false;
-        }
-        if (severity != other.severity) {
-            return false;
-        }
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        if (threadNumber != other.threadNumber) {
-            return false;
-        }
-        if (timeStamp != other.timeStamp) {
-            return false;
-        }
-        if (userId == null) {
-            if (other.userId != null) {
-                return false;
-            }
-        } else if (!userId.equals(other.userId)) {
-            return false;
-        }
-        if (weekOfYear != other.weekOfYear) {
-            return false;
-        }
-        if (year != other.year) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(tenantId, id, timeStamp, year, month, dayOfYear, weekOfYear, userId, threadNumber, clusterNode, productVersion, severity, actionType, actionScope, actionStatus, rawMessage, callerClassName, callerMethodName, numericIndex1, numericIndex2, numericIndex3, numericIndex4, numericIndex5);
     }
-
 }

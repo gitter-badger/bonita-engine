@@ -31,7 +31,7 @@ public abstract class SBonitaException extends Exception {
 
     private final Object[] arguments;
 
-    private final Map<SExceptionContext, Serializable> context = new TreeMap<SExceptionContext, Serializable>();
+    private final Map<SExceptionContext, Serializable> context = new TreeMap<>();
 
     /**
      * Default constructor

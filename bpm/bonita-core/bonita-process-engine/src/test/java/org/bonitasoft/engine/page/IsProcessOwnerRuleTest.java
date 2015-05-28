@@ -60,7 +60,7 @@ public class IsProcessOwnerRuleTest {
 
     @Test
     public void isAllowed_should_return_true_if_process_supervisor() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
+        Map<String, Serializable> context = new HashMap<>();
         when(supervisorMappingService.isProcessSupervisor(processDefinitionId, userId)).thenReturn(true);
 
         assertThat(isProcessOwnerRule.isAllowed(pageMappingKey, context)).isTrue();
@@ -68,7 +68,7 @@ public class IsProcessOwnerRuleTest {
 
     @Test
     public void isAllowed_should_return_false_if_not_process_supervisor() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
+        Map<String, Serializable> context = new HashMap<>();
         when(supervisorMappingService.isProcessSupervisor(processDefinitionId, userId)).thenReturn(false);
 
         assertThat(isProcessOwnerRule.isAllowed(pageMappingKey, context)).isFalse();

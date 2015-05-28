@@ -45,7 +45,7 @@ public class TestHandler implements SHandler<SEvent> {
     public void execute(final SEvent event) {
         setCalled(true);
         if (receivedEvent == null) {
-            receivedEvent = new ArrayList<SEvent>();
+            receivedEvent = new ArrayList<>();
         }
         receivedEvent.add(event);
     }

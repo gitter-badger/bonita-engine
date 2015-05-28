@@ -37,8 +37,8 @@ import org.junit.Test;
 public class HibernatePersistenceIT {
 
     protected QueryOptions buildQueryOptions(final String... searchTerms) {
-        final Map<Class<? extends PersistentObject>, Set<String>> allFields = new HashMap<Class<? extends PersistentObject>, Set<String>>();
-        final Set<String> fields = new HashSet<String>(2);
+        final Map<Class<? extends PersistentObject>, Set<String>> allFields = new HashMap<>();
+        final Set<String> fields = new HashSet<>(2);
         fields.add("title");
         fields.add("author");
         allFields.put(Book.class, fields);

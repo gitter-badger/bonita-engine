@@ -94,7 +94,7 @@ public class SearchApplicationsTest {
     public void executeSearch_should_return_the_result_of_applicationService_searchApplications() throws Exception {
         //given
         final QueryOptions queryOptions = new QueryOptions(START_INDEX, MAX_RESULTS);
-        final List<SApplication> applications = new ArrayList<SApplication>(1);
+        final List<SApplication> applications = new ArrayList<>(1);
         applications.add(mock(SApplication.class));
         given(applicationService.searchApplications(queryOptions)).willReturn(applications);
 

@@ -340,7 +340,7 @@ public class TransientDataInstanceServiceIT extends CommonBPMServicesTest {
                 true);
         insertDataInstance(data2Instance);
 
-        final List<String> dataNames = new ArrayList<String>(2);
+        final List<String> dataNames = new ArrayList<>(2);
         dataNames.add(instance1Name);
         dataNames.add(instance2Name);
         getTransactionService().begin();

@@ -26,10 +26,7 @@ public class SDocumentDownloadURLProviderImpl implements SDocumentDownloadURLPro
 
     @Override
     public String generateURL(String documentName, String contentStorageId) {
-        final StringBuffer buffer = new StringBuffer(servletUrl);
-        buffer.append("?fileName=").append(documentName);
-        buffer.append("&contentStorageId=").append(contentStorageId);
-        return buffer.toString();
+        return servletUrl + "?fileName=" + documentName + "&contentStorageId=" + contentStorageId;
     }
 
 }

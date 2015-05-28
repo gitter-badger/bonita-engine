@@ -48,7 +48,7 @@ public class AuthenticationServiceTest extends CommonBPMServicesTest {
         final SUser user = createUser(username, password);
 
         getTransactionService().begin();
-        Map<String, Serializable> credentials = new HashMap<String, Serializable>();
+        Map<String, Serializable> credentials = new HashMap<>();
         credentials.put(AuthenticationConstants.BASIC_PASSWORD, password);
         credentials.put(AuthenticationConstants.BASIC_USERNAME, username);
         authService.checkUserCredentials(credentials);
@@ -79,7 +79,7 @@ public class AuthenticationServiceTest extends CommonBPMServicesTest {
         final SUser user = createUser(username, password);
 
         getTransactionService().begin();
-        Map<String, Serializable> credentials = new HashMap<String, Serializable>();
+        Map<String, Serializable> credentials = new HashMap<>();
         credentials.put(AuthenticationConstants.BASIC_PASSWORD, "wrong");
         credentials.put(AuthenticationConstants.BASIC_USERNAME, username);
         final String userNameResult = authService.checkUserCredentials(credentials);
@@ -94,7 +94,7 @@ public class AuthenticationServiceTest extends CommonBPMServicesTest {
         final String username = "anonyme";
         final String password = "bpm";
         getTransactionService().begin();
-        Map<String, Serializable> credentials = new HashMap<String, Serializable>();
+        Map<String, Serializable> credentials = new HashMap<>();
         credentials.put(AuthenticationConstants.BASIC_PASSWORD, password);
         credentials.put(AuthenticationConstants.BASIC_USERNAME, username);
         final String userNameResult = authService.checkUserCredentials(credentials);

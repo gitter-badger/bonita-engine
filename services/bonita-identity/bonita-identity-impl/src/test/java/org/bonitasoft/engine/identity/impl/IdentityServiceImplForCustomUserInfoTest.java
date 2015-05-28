@@ -374,10 +374,10 @@ public class IdentityServiceImplForCustomUserInfoTest {
     @Test
     public void getUserIdsWithCustomUserInfo_should_use_query_getUserIdsWithCustomUserInfo_when_no_partial_match() throws Exception {
         //given
-        final Map<String, Object> parameters = new HashMap<String, Object>(2);
+        final Map<String, Object> parameters = new HashMap<>(2);
         parameters.put("userInfoName", DEFAULT_NAME);
         parameters.put("userInfoValue", "Java");
-        final SelectListDescriptor<Long> descriptor = new SelectListDescriptor<Long>("getUserIdsWithCustomUserInfo", parameters, SUser.class, Long.class,
+        final SelectListDescriptor<Long> descriptor = new SelectListDescriptor<>("getUserIdsWithCustomUserInfo", parameters, SUser.class, Long.class,
                 new QueryOptions(0, 10));
         given(persistenceService.selectList(descriptor)).willReturn(Arrays.asList(10L, 20L));
 
@@ -391,10 +391,10 @@ public class IdentityServiceImplForCustomUserInfoTest {
     @Test
     public void getUserIdsWithCustomUserInfo_should_use_query_getUserIdsWithCustomUserInfoContains_when_partial_match() throws Exception {
         //given
-        final Map<String, Object> parameters = new HashMap<String, Object>(2);
+        final Map<String, Object> parameters = new HashMap<>(2);
         parameters.put("userInfoName", DEFAULT_NAME);
         parameters.put("userInfoValue", "Java");
-        final SelectListDescriptor<Long> descriptor = new SelectListDescriptor<Long>("getUserIdsWithCustomUserInfoContains", parameters, SUser.class,
+        final SelectListDescriptor<Long> descriptor = new SelectListDescriptor<>("getUserIdsWithCustomUserInfoContains", parameters, SUser.class,
                 Long.class,
                 new QueryOptions(0, 10));
         given(persistenceService.selectList(descriptor)).willReturn(Arrays.asList(10L, 20L));

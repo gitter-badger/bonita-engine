@@ -251,12 +251,9 @@ public class ImportActorMappingIT extends TestWithTechnicalUser {
      * @since 6.0
      */
     private byte[] xmlToByteArray(final String xmlFileName) throws IOException {
-        final InputStream xmlStream = ImportActorMappingIT.class.getResourceAsStream(xmlFileName);
         byte[] actormapping = null;
-        try {
+        try (InputStream xmlStream = ImportActorMappingIT.class.getResourceAsStream(xmlFileName)) {
             actormapping = IOUtils.toByteArray(xmlStream);
-        } finally {
-            xmlStream.close();
         }
         return actormapping;
     }

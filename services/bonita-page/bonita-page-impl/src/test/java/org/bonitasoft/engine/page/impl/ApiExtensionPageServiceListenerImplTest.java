@@ -337,7 +337,7 @@ public class ApiExtensionPageServiceListenerImplTest {
         when(helper.loadPageProperties(content)).thenReturn(properties);
         final SPageMapping pageMapping1 = buildPageMapping("apiExtension|POST|employees");
         final SPageMapping pageMapping2 = buildPageMapping("apiExtension|GET|employees");
-        final List<SPageMapping> mappings = new ArrayList<SPageMapping>();
+        final List<SPageMapping> mappings = new ArrayList<>();
         mappings.add(pageMapping1);
         mappings.add(pageMapping2);
         when(pageMappingService.get(pageId, 0, 100)).thenReturn(mappings);

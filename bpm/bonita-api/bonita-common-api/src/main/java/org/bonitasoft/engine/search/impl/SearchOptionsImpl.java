@@ -16,6 +16,7 @@ package org.bonitasoft.engine.search.impl;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import org.bonitasoft.engine.exception.IncorrectParameterException;
 import org.bonitasoft.engine.search.Order;
@@ -43,8 +44,8 @@ public class SearchOptionsImpl implements SearchOptions {
     private List<Sort> sorts;
 
     public SearchOptionsImpl(final int startIndex, final int numberOfResults) {
-        filters = new ArrayList<SearchFilter>(5);
-        sorts = new ArrayList<Sort>(2);
+        filters = new ArrayList<>(5);
+        sorts = new ArrayList<>(2);
         this.startIndex = startIndex;
         this.numberOfResults = numberOfResults;
     }
@@ -151,57 +152,19 @@ public class SearchOptionsImpl implements SearchOptions {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (filters == null ? 0 : filters.hashCode());
-        result = prime * result + numberOfResults;
-        result = prime * result + (searchTerm == null ? 0 : searchTerm.hashCode());
-        result = prime * result + (sorts == null ? 0 : sorts.hashCode());
-        result = prime * result + startIndex;
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SearchOptionsImpl that = (SearchOptionsImpl) o;
+        return Objects.equals(startIndex, that.startIndex) &&
+                Objects.equals(numberOfResults, that.numberOfResults) &&
+                Objects.equals(filters, that.filters) &&
+                Objects.equals(searchTerm, that.searchTerm) &&
+                Objects.equals(sorts, that.sorts);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SearchOptionsImpl other = (SearchOptionsImpl) obj;
-        if (filters == null) {
-            if (other.filters != null) {
-                return false;
-            }
-        } else if (!filters.equals(other.filters)) {
-            return false;
-        }
-        if (numberOfResults != other.numberOfResults) {
-            return false;
-        }
-        if (searchTerm == null) {
-            if (other.searchTerm != null) {
-                return false;
-            }
-        } else if (!searchTerm.equals(other.searchTerm)) {
-            return false;
-        }
-        if (sorts == null) {
-            if (other.sorts != null) {
-                return false;
-            }
-        } else if (!sorts.equals(other.sorts)) {
-            return false;
-        }
-        if (startIndex != other.startIndex) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(filters, searchTerm, startIndex, numberOfResults, sorts);
     }
-
 }

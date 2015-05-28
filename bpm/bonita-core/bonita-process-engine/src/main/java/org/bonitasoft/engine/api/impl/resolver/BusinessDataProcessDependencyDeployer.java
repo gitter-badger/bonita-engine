@@ -43,7 +43,7 @@ public class BusinessDataProcessDependencyDeployer implements ProcessDependencyD
         if (businessDataDefinitions.isEmpty()) {
             return Collections.emptyList();
         }
-        final List<Problem> problems = new ArrayList<Problem>();
+        final List<Problem> problems = new ArrayList<>();
         final BusinessDataRepository businessDataRepository =  tenantAccessor.getBusinessDataRepository();
         final Set<String> entityClassNames = businessDataRepository.getEntityClassNames();
         for (final SBusinessDataDefinition sBusinessDataDefinition : businessDataDefinitions) {

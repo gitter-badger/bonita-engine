@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.core.process.comment.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.core.process.comment.model.SComment;
 
 /**
@@ -119,65 +121,22 @@ public abstract class SCommentImpl implements SComment {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (content == null ? 0 : content.hashCode());
-        result = prime * result + (int) (id ^ id >>> 32);
-        result = prime * result + (kind == null ? 0 : kind.hashCode());
-        result = prime * result + (int) (postDate ^ postDate >>> 32);
-        result = prime * result + (int) (processInstanceId ^ processInstanceId >>> 32);
-        result = prime * result + (int) (tenantId ^ tenantId >>> 32);
-        result = prime * result + (userId == null ? 0 : userId.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SCommentImpl sComment = (SCommentImpl) o;
+        return Objects.equals(id, sComment.id) &&
+                Objects.equals(tenantId, sComment.tenantId) &&
+                Objects.equals(processInstanceId, sComment.processInstanceId) &&
+                Objects.equals(postDate, sComment.postDate) &&
+                Objects.equals(userId, sComment.userId) &&
+                Objects.equals(content, sComment.content) &&
+                Objects.equals(kind, sComment.kind);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SCommentImpl other = (SCommentImpl) obj;
-        if (content == null) {
-            if (other.content != null) {
-                return false;
-            }
-        } else if (!content.equals(other.content)) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (kind == null) {
-            if (other.kind != null) {
-                return false;
-            }
-        } else if (!kind.equals(other.kind)) {
-            return false;
-        }
-        if (postDate != other.postDate) {
-            return false;
-        }
-        if (processInstanceId != other.processInstanceId) {
-            return false;
-        }
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        if (userId == null) {
-            if (other.userId != null) {
-                return false;
-            }
-        } else if (!userId.equals(other.userId)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, tenantId, userId, processInstanceId, postDate, content, kind);
     }
 
     @Override

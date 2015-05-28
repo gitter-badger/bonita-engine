@@ -50,7 +50,7 @@ public class QueryBusinessDataExpressionExecutorStrategyTest {
     private Entity entity;
 
     private Map<String, Object> buildContext() {
-        final Map<String, Object> context = new HashMap<String, Object>();
+        final Map<String, Object> context = new HashMap<>();
         context.put("containerId", 784654l);
         context.put("containerType", "activity");
         return context;
@@ -64,7 +64,7 @@ public class QueryBusinessDataExpressionExecutorStrategyTest {
     @Test
     public void evaluate_should_return_a_long_result_after_querying() throws Exception {
         final SExpressionImpl expression = new SExpressionImpl("employees", "countEmployees", null, Long.class.getName(), null, null);
-        final Long result = Long.valueOf(45);
+        final Long result = (long) 45;
         when(businessDataRepository.findByNamedQuery("countEmployees", Long.class, Collections.<String, Serializable> emptyMap())).thenReturn(result);
 
         final Long count = (Long) strategy.evaluate(expression, buildContext(), null, ContainerState.ACTIVE);
@@ -75,7 +75,7 @@ public class QueryBusinessDataExpressionExecutorStrategyTest {
     @Test
     public void evaluate_should_return_a_double_result_after_querying() throws Exception {
         final SExpressionImpl expression = new SExpressionImpl("employees", "avgEmployees", null, Double.class.getName(), null, null);
-        final Double result = Double.valueOf(2.5);
+        final Double result = 2.5;
         when(businessDataRepository.findByNamedQuery("avgEmployees", Double.class, Collections.<String, Serializable> emptyMap())).thenReturn(result);
 
         final Double avg = (Double) strategy.evaluate(expression, buildContext(), null, ContainerState.ACTIVE);
@@ -86,7 +86,7 @@ public class QueryBusinessDataExpressionExecutorStrategyTest {
     @Test
     public void evaluate_should_return_a_integer_result_after_querying() throws Exception {
         final SExpressionImpl expression = new SExpressionImpl("employees", "maxEmployees", null, Integer.class.getName(), null, null);
-        final Integer result = Integer.valueOf(25);
+        final Integer result = 25;
         when(businessDataRepository.findByNamedQuery("maxEmployees", Integer.class, Collections.<String, Serializable> emptyMap())).thenReturn(result);
 
         final Integer max = (Integer) strategy.evaluate(expression, buildContext(), null, ContainerState.ACTIVE);
@@ -97,7 +97,7 @@ public class QueryBusinessDataExpressionExecutorStrategyTest {
     @Test
     public void evaluate_should_return_a_float_result_after_querying() throws Exception {
         final SExpressionImpl expression = new SExpressionImpl("employees", "minEmployees", null, Float.class.getName(), null, null);
-        final Float result = Float.valueOf(1.5F);
+        final Float result = 1.5F;
         when(businessDataRepository.findByNamedQuery("minEmployees", Float.class, Collections.<String, Serializable> emptyMap())).thenReturn(result);
 
         final Float min = (Float) strategy.evaluate(expression, buildContext(), null, ContainerState.ACTIVE);
@@ -112,7 +112,7 @@ public class QueryBusinessDataExpressionExecutorStrategyTest {
         final SExpressionImpl expression = new SExpressionImpl("employees", "getEmployees", null, List.class.getName(), null, Arrays.asList(
                 dependencyStartIndex, dependencyMaxResults));
 
-        final Map<Integer, Object> resolvedExpressions = new HashMap<Integer, Object>(2);
+        final Map<Integer, Object> resolvedExpressions = new HashMap<>(2);
         resolvedExpressions.put(dependencyStartIndex.getDiscriminant(), 0);
         resolvedExpressions.put(dependencyMaxResults.getDiscriminant(), 10);
         strategy.evaluate(expression, buildContext(), resolvedExpressions, ContainerState.ACTIVE);
@@ -125,15 +125,15 @@ public class QueryBusinessDataExpressionExecutorStrategyTest {
 
         final SExpressionImpl dependencyFirstNameExpression = new SExpressionImpl("firstName", "John", null, String.class.getName(), null, null);
         final SExpressionImpl dependencyLastNameExpression = new SExpressionImpl("lastName", "Doe", null, String.class.getName(), null, null);
-        final List<SExpression> dependencies = new ArrayList<SExpression>();
+        final List<SExpression> dependencies = new ArrayList<>();
         dependencies.add(dependencyFirstNameExpression);
         dependencies.add(dependencyLastNameExpression);
         final SExpressionImpl expression = new SExpressionImpl("employees", "getEmployeeByFirstNameAndLastName", "", "com.bonitasoft.Employee", "",
                 dependencies);
-        final Map<Integer, Object> resolvedExpressions = new HashMap<Integer, Object>();
+        final Map<Integer, Object> resolvedExpressions = new HashMap<>();
         resolvedExpressions.put(dependencyFirstNameExpression.getDiscriminant(), "John");
         resolvedExpressions.put(dependencyLastNameExpression.getDiscriminant(), "Doe");
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("firstName", "John");
         parameters.put("lastName", "Doe");
         when(businessDataRepository.findByNamedQuery("getEmployeeByFirstNameAndLastName", Entity.class, parameters)).thenReturn(entity);

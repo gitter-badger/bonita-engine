@@ -113,7 +113,7 @@ public class TimeTrackerTest extends AbstractTimeTrackerTest {
     }
 
     private Map<String, List<Record>> mapRecords(final List<Record> records) {
-        final Map<String, List<Record>> result = new HashMap<String, List<Record>>();
+        final Map<String, List<Record>> result = new HashMap<>();
         if (records != null) {
             for (final Record record : records) {
                 final String name = record.getName();
@@ -179,7 +179,7 @@ public class TimeTrackerTest extends AbstractTimeTrackerTest {
 
         Mockito.when(listener2.flush(Mockito.any(FlushEvent.class))).thenThrow(new Exception());
 
-        final List<FlushEventListener> listeners = new ArrayList<FlushEventListener>();
+        final List<FlushEventListener> listeners = new ArrayList<>();
         listeners.add(listener1);
         listeners.add(listener2);
         listeners.add(listener3);
@@ -203,7 +203,7 @@ public class TimeTrackerTest extends AbstractTimeTrackerTest {
         final FlushEventListener listener1 = mock(FlushEventListener.class);
         final FlushEventListener listener2 = mock(FlushEventListener.class);
 
-        final List<FlushEventListener> listeners = new ArrayList<FlushEventListener>();
+        final List<FlushEventListener> listeners = new ArrayList<>();
         listeners.add(listener1);
         listeners.add(listener2);
 

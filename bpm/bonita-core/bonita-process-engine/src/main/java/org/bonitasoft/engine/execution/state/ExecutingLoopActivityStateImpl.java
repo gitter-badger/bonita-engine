@@ -114,7 +114,7 @@ public class ExecutingLoopActivityStateImpl implements FlowNodeState {
             }
 
             final SStandardLoopCharacteristics standardLoop = loopCharacteristics;
-            final Map<String, Object> input = new HashMap<String, Object>(1);
+            final Map<String, Object> input = new HashMap<>(1);
             input.put(ExpressionConstants.LOOP_COUNTER.getEngineConstantName(), loopActivity.getLoopCounter());
             final SExpressionContext sExpressionContext = new SExpressionContext(loopActivity.getId(), DataInstanceContainer.ACTIVITY_INSTANCE.name(), input);
             sExpressionContext.setProcessDefinitionId(loopActivity.getProcessDefinitionId());

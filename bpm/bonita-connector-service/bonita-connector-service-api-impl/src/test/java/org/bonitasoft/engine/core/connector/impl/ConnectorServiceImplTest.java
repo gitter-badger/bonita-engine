@@ -165,7 +165,7 @@ public class ConnectorServiceImplTest {
         final SConnectorImplementationDescriptor oldConnectorDescriptor = new SConnectorImplementationDescriptor(implementationClassName, connectorImplId,
                 connectorImplVersion, connectorDefId, connectorDefVersion, new JarDependencies(Arrays.asList("file.jar")));
 
-        Map<String, byte[]> zipFileMap = new HashMap<String, byte[]>(3);
+        Map<String, byte[]> zipFileMap = new HashMap<>(3);
         final byte[] implBytes = "tototo".getBytes();
         zipFileMap.put("HoogardenBeerConnector.impl", implBytes);
         final byte[] dep1Bytes = {12, 94, 14, 12};
@@ -173,7 +173,7 @@ public class ConnectorServiceImplTest {
         final byte[] hoogardenConnectorBytes = {12, 94, 14, 9, 54, 65, 98, 54, 21, 32, 65};
         zipFileMap.put("HoogardenConnector.jar", hoogardenConnectorBytes);
         final byte[] zip1 = IOUtil.zip(zipFileMap);
-        final Map<String, byte[]> returnedMap = new HashMap<String, byte[]>();
+        final Map<String, byte[]> returnedMap = new HashMap<>();
         returnedMap.put("file.jar", new byte[]{1});
         returnedMap.put("file.impl", new byte[]{2});
         when(parser.getObjectFromXML(eq(new byte[]{2}))).thenReturn(oldConnectorDescriptor);
@@ -189,7 +189,7 @@ public class ConnectorServiceImplTest {
     }
 
     private List<String> names(final List<File> files) {
-        final ArrayList<String> names = new ArrayList<String>();
+        final ArrayList<String> names = new ArrayList<>();
         for (final File file : files) {
             names.add(file.getName());
         }
@@ -239,7 +239,7 @@ public class ConnectorServiceImplTest {
                 connectorImplVersion, connectorDefId, connectorDefVersion, new JarDependencies(Arrays.asList("some1.jar", "HoogardenConnector.jar")));
         when(parser.getObjectFromXML(eq("tototo".getBytes()))).thenReturn(connectorImplDescriptor);
 
-        final Map<String, byte[]> zipFileMap = new HashMap<String, byte[]>(3);
+        final Map<String, byte[]> zipFileMap = new HashMap<>(3);
         zipFileMap.put("HoogardenBeerConnector.impl", "tototo".getBytes());
         zipFileMap.put("some1.jar", new byte[] { 12, 94, 14, 12 });
         zipFileMap.put("HoogardenConnector.jar", new byte[] { 12, 94, 14, 9, 54, 65, 98, 54, 21, 32, 65 });

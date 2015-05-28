@@ -69,7 +69,7 @@ public abstract class CoupleEventHandlerStrategy extends EventHandlerStrategy {
     private List<FilterOption> getFilterForWaitingEventsToUnregister(final Class<? extends SWaitingEvent> waitingEventClass, final long subProcessId,
             final SProcessInstance parentProcessInstance) {
         final SWaitingEventKeyProviderBuilderFactory waitingEventKeyProvider = BuilderFactory.get(SWaitingEventKeyProviderBuilderFactory.class);
-        final List<FilterOption> filters = new ArrayList<FilterOption>(3);
+        final List<FilterOption> filters = new ArrayList<>(3);
         filters.add(new FilterOption(waitingEventClass, waitingEventKeyProvider.getSubProcessIdKey(), subProcessId));
         filters.add(new FilterOption(waitingEventClass, waitingEventKeyProvider.getParentProcessInstanceIdKey(), parentProcessInstance.getId()));
         filters.add(new FilterOption(waitingEventClass, waitingEventKeyProvider.getActiveKey(), true));

@@ -66,11 +66,8 @@ public class SAXValidator implements XMLSchemaValidator {
         // BS-9304 : If you create a new StreamSource with a file, the streamSource keeps a lock on the file when there is an exception.
         // If the file is temporary, the temporary file is never deleted at the end of the jvm, even if you call all methods to delete it.
         // So you need to use the InputStream to close it, even if there is an exception, to unlock the file.
-        final InputStream openStream = file.toURI().toURL().openStream();
-        try {
+        try (InputStream openStream = file.toURI().toURL().openStream()) {
             validate(new StreamSource(openStream));
-        } finally {
-            openStream.close();
         }
     }
 

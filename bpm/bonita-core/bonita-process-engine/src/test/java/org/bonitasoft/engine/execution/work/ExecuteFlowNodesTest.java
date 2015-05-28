@@ -111,7 +111,7 @@ public class ExecuteFlowNodesTest {
     }
 
     private ExecuteFlowNodes createExecutorWith(final SFlowNodeInstance... flowNodes) throws Exception {
-        ArrayList<Long> nodes = new ArrayList<Long>();
+        ArrayList<Long> nodes = new ArrayList<>();
         for (SFlowNodeInstance node : flowNodes) {
             nodes.add(node.getId());
             when(activityInstanceService.getFlowNodeInstance(node.getId())).thenReturn(node);
@@ -160,11 +160,11 @@ public class ExecuteFlowNodesTest {
 
     @Test
     public final void execute_21_flow_node_only_execute_20() throws Exception {
-        ArrayList<SFlowNodeInstance> list = new ArrayList<SFlowNodeInstance>();
+        ArrayList<SFlowNodeInstance> list = new ArrayList<>();
         for (int i = 1; i <= 21; i++) {
             list.add(createTask(123 + i, false));
         }
-        ExecuteFlowNodes executeFlowNodes = createExecutorWith(list.toArray(new SFlowNodeInstance[] {}));
+        ExecuteFlowNodes executeFlowNodes = createExecutorWith(list.toArray(new SFlowNodeInstance[list.size()]));
 
         executeFlowNodes.call();
 

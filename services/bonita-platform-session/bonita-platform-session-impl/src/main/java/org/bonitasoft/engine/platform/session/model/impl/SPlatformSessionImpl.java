@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.platform.session.model.impl;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.bonitasoft.engine.platform.session.model.SPlatformSession;
 
@@ -99,61 +100,20 @@ public class SPlatformSessionImpl implements SPlatformSession {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (creationDate == null ? 0 : creationDate.hashCode());
-        result = prime * result + (int) (duration ^ duration >>> 32);
-        result = prime * result + (int) (id ^ id >>> 32);
-        result = prime * result + (lastRenewDate == null ? 0 : lastRenewDate.hashCode());
-        result = prime * result + (int) (userId ^ userId >>> 32);
-        result = prime * result + (userName == null ? 0 : userName.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SPlatformSessionImpl that = (SPlatformSessionImpl) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(duration, that.duration) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(creationDate, that.creationDate) &&
+                Objects.equals(lastRenewDate, that.lastRenewDate) &&
+                Objects.equals(userName, that.userName);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SPlatformSessionImpl other = (SPlatformSessionImpl) obj;
-        if (creationDate == null) {
-            if (other.creationDate != null) {
-                return false;
-            }
-        } else if (!creationDate.equals(other.creationDate)) {
-            return false;
-        }
-        if (duration != other.duration) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (lastRenewDate == null) {
-            if (other.lastRenewDate != null) {
-                return false;
-            }
-        } else if (!lastRenewDate.equals(other.lastRenewDate)) {
-            return false;
-        }
-        if (userId != other.userId) {
-            return false;
-        }
-        if (userName == null) {
-            if (other.userName != null) {
-                return false;
-            }
-        } else if (!userName.equals(other.userName)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, creationDate, duration, lastRenewDate, userName, userId);
     }
-
 }

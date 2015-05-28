@@ -29,18 +29,16 @@ import java.util.Scanner;
 public class CSVUtil {
 
     public static List<List<String>> readCSV(final boolean excludeHeader, final File csvFile, final String csvSeparator) throws FileNotFoundException {
-        final List<List<String>> array = new ArrayList<List<String>>();
+        final List<List<String>> array = new ArrayList<>();
         final InputStream inputStream = new FileInputStream(csvFile);
-        final Scanner scanner = new Scanner(inputStream);
-        try {
+        try (Scanner scanner = new Scanner(inputStream)) {
             while (scanner.hasNextLine()) {
                 final String line = scanner.nextLine();
-                final List<String> lineElements = new ArrayList<String>();
+                final List<String> lineElements = new ArrayList<>();
                 lineElements.addAll(Arrays.asList(line.split(csvSeparator)));
                 array.add(lineElements);
             }
         } finally {
-            scanner.close();
             try {
                 inputStream.close();
             } catch (IOException e) {

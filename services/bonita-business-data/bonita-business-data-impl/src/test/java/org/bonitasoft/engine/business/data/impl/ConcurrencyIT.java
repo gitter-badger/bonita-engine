@@ -102,7 +102,7 @@ public class ConcurrencyIT {
         ut = TransactionManagerServices.getTransactionManager();
         ut.begin();
 
-        final Set<String> classNames = new HashSet<String>();
+        final Set<String> classNames = new HashSet<>();
         classNames.add(Employee.class.getName());
 
         businessDataModelRepositoryImpl.update(classNames);

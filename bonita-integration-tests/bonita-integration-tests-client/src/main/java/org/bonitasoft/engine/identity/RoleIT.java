@@ -141,7 +141,7 @@ public class RoleIT extends TestWithTechnicalUser {
         final String teamManager = "teamManager";
         final Role roleCreated2 = getIdentityAPI().createRole(teamManager);
 
-        final List<Long> roleIds = new ArrayList<Long>();
+        final List<Long> roleIds = new ArrayList<>();
         roleIds.add(roleCreated1.getId());
         roleIds.add(roleCreated2.getId());
 
@@ -161,7 +161,7 @@ public class RoleIT extends TestWithTechnicalUser {
         final String teamManager = "teamManager";
         final Role roleCreated2 = getIdentityAPI().createRole(teamManager);
 
-        final List<Long> roleIds = new ArrayList<Long>();
+        final List<Long> roleIds = new ArrayList<>();
         roleIds.add(roleCreated1.getId());
         roleIds.add(roleCreated2.getId() + 100);
 
@@ -214,7 +214,7 @@ public class RoleIT extends TestWithTechnicalUser {
         final String developer = "developer";
         final Role role1 = getIdentityAPI().createRole(manager);
         final Role role2 = getIdentityAPI().createRole(developer);
-        final List<Long> roleIds = new ArrayList<Long>();
+        final List<Long> roleIds = new ArrayList<>();
         roleIds.add(role2.getId());
         roleIds.add(role1.getId());
         getIdentityAPI().deleteRoles(roleIds);
@@ -233,7 +233,7 @@ public class RoleIT extends TestWithTechnicalUser {
 
     @Test
     public void canDeleteNoRole() throws BonitaException {
-        final List<Long> roleIds = new ArrayList<Long>();
+        final List<Long> roleIds = new ArrayList<>();
         getIdentityAPI().deleteRoles(roleIds);
     }
 
@@ -285,7 +285,7 @@ public class RoleIT extends TestWithTechnicalUser {
         final User user1 = getIdentityAPI().createUser("user1", "bpm");
         final User user2 = getIdentityAPI().createUser("user2", "bpm");
         final User user3 = getIdentityAPI().createUser("user3", "bpm");
-        final List<Long> userIds = new ArrayList<Long>();
+        final List<Long> userIds = new ArrayList<>();
         userIds.add(user1.getId());
         userIds.add(user2.getId());
 
@@ -313,7 +313,7 @@ public class RoleIT extends TestWithTechnicalUser {
 
         final User user1 = getIdentityAPI().createUser("user1", "bpm");
         final User user2 = getIdentityAPI().createUser("user2", "bpm");
-        final List<Long> userIds = new ArrayList<Long>();
+        final List<Long> userIds = new ArrayList<>();
         userIds.add(user1.getId());
         userIds.add(user2.getId());
 
@@ -487,7 +487,7 @@ public class RoleIT extends TestWithTechnicalUser {
         final long roleCId = RoleC.getId();
         final long roleDId = RoleD.getId();
 
-        final List<Long> roleIds = new ArrayList<Long>();
+        final List<Long> roleIds = new ArrayList<>();
         roleIds.add(roleAId);
         roleIds.add(roleBId);
         roleIds.add(roleCId);

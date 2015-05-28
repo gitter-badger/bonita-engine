@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.dependency.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.dependency.model.SDependencyMapping;
 import org.bonitasoft.engine.dependency.model.ScopeType;
 
@@ -99,49 +101,19 @@ public class SDependencyMappingImpl implements SDependencyMapping {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (artifactId ^ artifactId >>> 32);
-        result = prime * result + (artifactType == null ? 0 : artifactType.hashCode());
-        result = prime * result + (int) (dependencyId ^ dependencyId >>> 32);
-        result = prime * result + (int) (id ^ id >>> 32);
-        result = prime * result + (int) (tenantId ^ tenantId >>> 32);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SDependencyMappingImpl that = (SDependencyMappingImpl) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(artifactId, that.artifactId) &&
+                Objects.equals(dependencyId, that.dependencyId) &&
+                Objects.equals(tenantId, that.tenantId) &&
+                Objects.equals(artifactType, that.artifactType);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SDependencyMappingImpl other = (SDependencyMappingImpl) obj;
-        if (artifactId != other.artifactId) {
-            return false;
-        }
-        if (artifactType == null) {
-            if (other.artifactType != null) {
-                return false;
-            }
-        } else if (!artifactType.equals(other.artifactType)) {
-            return false;
-        }
-        if (dependencyId != other.dependencyId) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, artifactId, artifactType, dependencyId, tenantId);
     }
-
 }

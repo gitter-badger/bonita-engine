@@ -29,8 +29,8 @@ public abstract class AbstractSConnector implements SConnector {
     private final Map<String, Object> outputParameters;
 
     public AbstractSConnector() {
-        inputParameters = new HashMap<String, Object>();
-        outputParameters = new HashMap<String, Object>();
+        inputParameters = new HashMap<>();
+        outputParameters = new HashMap<>();
     }
 
     @Override

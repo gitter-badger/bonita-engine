@@ -27,7 +27,7 @@ public class CategoriesMappingBinding extends ElementBinding {
     private final List<XMLCategoryMapping> categoryMappingList;
 
     public CategoriesMappingBinding() {
-        categoryMappingList = new ArrayList<XMLCategoryMapping>();
+        categoryMappingList = new ArrayList<>();
     }
 
     @Override

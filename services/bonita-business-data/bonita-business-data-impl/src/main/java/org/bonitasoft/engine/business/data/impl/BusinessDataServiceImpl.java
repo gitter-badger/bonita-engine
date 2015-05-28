@@ -172,7 +172,7 @@ public class BusinessDataServiceImpl implements BusinessDataService {
 
     private List<Long> getPrimaryKeys(final List<Entity> entities) throws SBusinessDataNotFoundException {
         List<Long> primaryKeys;
-        primaryKeys = new ArrayList<Long>();
+        primaryKeys = new ArrayList<>();
         for (final Entity entity : entities) {
             if (entity.getPersistenceId() == null) {
                 throw new SBusinessDataNotFoundException("persistenceId of business data is null");
@@ -241,7 +241,7 @@ public class BusinessDataServiceImpl implements BusinessDataService {
 
     private Set<Class<? extends Annotation>> getAnnotationKeySet() {
         // FIXME use custom annotation on methods
-        final Set<Class<? extends Annotation>> annotationKeySet = new HashSet<Class<? extends Annotation>>();
+        final Set<Class<? extends Annotation>> annotationKeySet = new HashSet<>();
         annotationKeySet.add(OneToOne.class);
         annotationKeySet.add(OneToMany.class);
         annotationKeySet.add(ManyToMany.class);
@@ -348,8 +348,8 @@ public class BusinessDataServiceImpl implements BusinessDataService {
 
     private Map<String, Serializable> getQueryParameters(final Query queryDefinition, final Map<String, Serializable> parameters)
             throws SBusinessDataRepositoryException {
-        final Set<String> errors = new HashSet<String>();
-        final Map<String, Serializable> queryParameters = new HashMap<String, Serializable>();
+        final Set<String> errors = new HashSet<>();
+        final Map<String, Serializable> queryParameters = new HashMap<>();
         for (final QueryParameter queryParameter : queryDefinition.getQueryParameters()) {
             if (parameters != null && parameters.containsKey(queryParameter.getName())) {
                 queryParameters.put(queryParameter.getName(),
@@ -376,7 +376,7 @@ public class BusinessDataServiceImpl implements BusinessDataService {
         if (businessObjectModel != null) {
             for (final BusinessObject businessObject : businessObjectModel.getBusinessObjects()) {
                 if (businessObject.getQualifiedName().equals(className)) {
-                    final List<Query> allQueries = new ArrayList<Query>();
+                    final List<Query> allQueries = new ArrayList<>();
                     allQueries.addAll(businessObject.getQueries());
                     allQueries.addAll(BDMQueryUtil.createProvidedQueriesForBusinessObject(businessObject));
                     for (final Query query : allQueries) {

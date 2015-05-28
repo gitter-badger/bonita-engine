@@ -33,7 +33,7 @@ public class EndEventDefinitionBinding extends ThrowEventDefinitionBinding {
 
     public EndEventDefinitionBinding() {
         super();
-        errorEventTriggers = new ArrayList<ThrowErrorEventTriggerDefinition>(1);
+        errorEventTriggers = new ArrayList<>(1);
     }
 
     @Override

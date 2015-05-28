@@ -35,9 +35,7 @@ public class StackTraceTransformer {
         try {
             field = Throwable.class.getDeclaredField("cause");
             field.setAccessible(true);
-        } catch (final NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (final SecurityException e) {
+        } catch (final NoSuchFieldException | SecurityException e) {
             e.printStackTrace();
         }
     }
@@ -98,9 +96,9 @@ public class StackTraceTransformer {
             return;
         }
         final StackTraceElement[] currentStack = cause.getStackTrace();
-        final List<StackTraceElement[]> causesStacks = new ArrayList<StackTraceElement[]>();
-        final List<Integer> framesInCommons = new ArrayList<Integer>();
-        final List<Throwable> exceptions = new ArrayList<Throwable>();
+        final List<StackTraceElement[]> causesStacks = new ArrayList<>();
+        final List<Integer> framesInCommons = new ArrayList<>();
+        final List<Throwable> exceptions = new ArrayList<>();
         int causeslength = 0;
         StackTraceElement[] lastStack = currentStack;
         do {

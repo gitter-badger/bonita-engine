@@ -48,7 +48,7 @@ public class PatternExpressionExecutorStrategyTest {
         final SExpressionImpl expression = new SExpressionImpl("pattern", expressionContent, SExpressionType.TYPE_PATTERN.name(), String.class.getName(), null,
                 getIntegerExpressions(dependencyNames, dependencyContent));
         final Map<Integer, Object> resolvedExpressions = getResolvedExpressionMap(expression);
-        final HashMap<String, Object> dependencyValues = new HashMap<String, Object>(1);
+        final HashMap<String, Object> dependencyValues = new HashMap<>(1);
         assertEquals(result, strategy.evaluate(expression, dependencyValues, resolvedExpressions, ContainerState.ACTIVE));
     }
 
@@ -59,7 +59,7 @@ public class PatternExpressionExecutorStrategyTest {
         final SExpression expression2 = new SExpressionImpl("pattern1", "${bla} ${bli} test", SExpressionType.TYPE_PATTERN.name(), String.class.getName(),
                 null, getIntegerExpressions(Arrays.asList("bla", "bli"), Arrays.asList(12, 13)));
         final Map<Integer, Object> resolvedExpressions = getResolvedExpressionMap(expression1, expression2);
-        final HashMap<String, Object> dependencyValues = new HashMap<String, Object>(1);
+        final HashMap<String, Object> dependencyValues = new HashMap<>(1);
         final List<Object> evaluate = strategy.evaluate(Arrays.asList(expression1, expression2), dependencyValues, resolvedExpressions, ContainerState.ACTIVE);
         assertArrayEquals(new Object[] { "12 12 test", "12 13 test" }, evaluate.toArray());
     }
@@ -68,8 +68,8 @@ public class PatternExpressionExecutorStrategyTest {
     public void patternTestWithMissingValue() throws SExpressionDependencyMissingException {
         final SExpression expression1 = new SExpressionImpl("pattern1", "${bla} ${bla} test", SExpressionType.TYPE_PATTERN.name(), String.class.getName(),
                 null, getIntegerExpressions(Arrays.asList("bla"), Arrays.asList(12)));
-        final Map<Integer, Object> resolvedExpressions = new HashMap<Integer, Object>(1);
-        final HashMap<String, Object> dependencyValues = new HashMap<String, Object>(1);
+        final Map<Integer, Object> resolvedExpressions = new HashMap<>(1);
+        final HashMap<String, Object> dependencyValues = new HashMap<>(1);
         strategy.evaluate(Arrays.asList(expression1), dependencyValues, resolvedExpressions, ContainerState.ACTIVE);
     }
 
@@ -78,7 +78,7 @@ public class PatternExpressionExecutorStrategyTest {
      * @return
      */
     private Map<Integer, Object> getResolvedExpressionMap(final SExpression... expressions) {
-        final HashMap<Integer, Object> hashMap = new HashMap<Integer, Object>();
+        final HashMap<Integer, Object> hashMap = new HashMap<>();
         for (final SExpression expression : expressions) {
             final List<SExpression> dependencies = expression.getDependencies();
             for (final SExpression sExpression : dependencies) {
@@ -94,10 +94,10 @@ public class PatternExpressionExecutorStrategyTest {
      * @return
      */
     private List<SExpression> getIntegerExpressions(final List<String> dependencyNames, final List<Integer> dependencyContent) {
-        final ArrayList<SExpression> arrayList = new ArrayList<SExpression>(dependencyNames.size());
+        final ArrayList<SExpression> arrayList = new ArrayList<>(dependencyNames.size());
         final Iterator<Integer> contentIterator = dependencyContent.iterator();
-        for (final Iterator<String> nameIterator = dependencyNames.iterator(); nameIterator.hasNext();) {
-            arrayList.add(getIntegerExpression(nameIterator.next(), contentIterator.next()));
+        for (String dependencyName : dependencyNames) {
+            arrayList.add(getIntegerExpression(dependencyName, contentIterator.next()));
         }
         return arrayList;
     }

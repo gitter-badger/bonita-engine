@@ -61,7 +61,7 @@ public abstract class AbstractCommandProfileIT extends TestWithTechnicalUser {
         final InputStream xmlStream = ProfileImportCommandIT.class.getResourceAsStream("RestoreDefaultProfiles.xml");
         final byte[] xmlContent = IOUtils.toByteArray(xmlStream);
         xmlStream.close();
-        final Map<String, Serializable> importParameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> importParameters = new HashMap<>();
         importParameters.put("xmlContent", xmlContent);
         getCommandAPI().execute(IMPORT_PROFILES_CMD, importParameters);
 
@@ -86,7 +86,7 @@ public abstract class AbstractCommandProfileIT extends TestWithTechnicalUser {
         final InputStream xmlStream = AbstractProfileIT.class.getResourceAsStream("CleanProfiles.xml");
         final byte[] xmlContent = IOUtils.toByteArray(xmlStream);
         xmlStream.close();
-        final Map<String, Serializable> importParameters = new HashMap<String, Serializable>(1);
+        final Map<String, Serializable> importParameters = new HashMap<>(1);
         importParameters.put("xmlContent", xmlContent);
         getCommandAPI().execute(IMPORT_PROFILES_CMD, importParameters);
         super.after();
@@ -97,7 +97,7 @@ public abstract class AbstractCommandProfileIT extends TestWithTechnicalUser {
         final APITestUtil testUtil = new APITestUtil();
         testUtil.loginOnDefaultTenantWithDefaultTechnicalUser();
         final byte[] xmlContent = (byte[]) testUtil.getCommandAPI().execute(EXPORT_DEFAULT_PROFILES_CMD, Collections.<String, Serializable>emptyMap());
-        final Map<String, Serializable> importParameters = new HashMap<String, Serializable>(1);
+        final Map<String, Serializable> importParameters = new HashMap<>(1);
         importParameters.put("xmlContent", xmlContent);
         testUtil.getCommandAPI().execute(IMPORT_PROFILES_CMD, importParameters);
         testUtil.logoutOnTenant();

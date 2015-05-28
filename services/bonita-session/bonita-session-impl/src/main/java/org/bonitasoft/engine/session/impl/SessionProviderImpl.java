@@ -24,7 +24,7 @@ import org.bonitasoft.engine.session.model.SSession;
  */
 public final class SessionProviderImpl extends AbstractSessionProvider {
 
-    static Map<Long, SSession> sessions = new HashMap<Long, SSession>();
+    static Map<Long, SSession> sessions = new HashMap<>();
 
     @Override
     protected Map<Long, SSession> getSessions() {

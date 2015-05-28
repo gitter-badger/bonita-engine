@@ -198,7 +198,7 @@ public class HTTPServerAPI implements ServerAPI {
          * if we have a business archive we use multipart to have the business archive attached as a binary content (it can be big)
          */
         if (classNameParameters.contains(BusinessArchive.class.getName()) || classNameParameters.contains(byte[].class.getName())) {
-            final List<Object> bytearrayParameters = new ArrayList<Object>();
+            final List<Object> bytearrayParameters = new ArrayList<>();
             final MultipartEntity entity = new MultipartEntity(null, null, UTF8);
             entity.addPart(OPTIONS, new StringBody(toXML(options, xstream), UTF8));
             entity.addPart(CLASS_NAME_PARAMETERS, new StringBody(toXML(classNameParameters, xstream), UTF8));
@@ -217,7 +217,7 @@ public class HTTPServerAPI implements ServerAPI {
             }
             httpEntity = entity;
         } else {
-            final List<NameValuePair> nvps = new ArrayList<NameValuePair>();
+            final List<NameValuePair> nvps = new ArrayList<>();
             nvps.add(new BasicNameValuePair(OPTIONS, toXML(options, xstream)));
             nvps.add(new BasicNameValuePair(CLASS_NAME_PARAMETERS, toXML(classNameParameters, xstream)));
             nvps.add(new BasicNameValuePair(PARAMETERS_VALUES, toXML(parametersValues, xstream)));
@@ -255,11 +255,7 @@ public class HTTPServerAPI implements ServerAPI {
             in = xstream.createObjectInputStream(xmlReader);
             try {
                 return (T) in.readObject();
-            } catch (final IOException e) {
-                throw new BonitaRuntimeException("unable to deserialize object " + object, e);
-            } catch (final ClassNotFoundException e) {
-                throw new BonitaRuntimeException("unable to deserialize object " + object, e);
-            } catch (final CannotResolveClassException e) {
+            } catch (final IOException | CannotResolveClassException | ClassNotFoundException e) {
                 throw new BonitaRuntimeException("unable to deserialize object " + object, e);
             } finally {
                 in.close();

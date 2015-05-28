@@ -35,7 +35,7 @@ public class ApplicationPageModelConverter {
     }
 
     public List<ApplicationPage> toApplicationPage(final List<SApplicationPage> sApplicationPages) {
-        final List<ApplicationPage> appPages = new ArrayList<ApplicationPage>(sApplicationPages.size());
+        final List<ApplicationPage> appPages = new ArrayList<>(sApplicationPages.size());
         for (final SApplicationPage sApplicationPage : sApplicationPages) {
             appPages.add(toApplicationPage(sApplicationPage));
         }

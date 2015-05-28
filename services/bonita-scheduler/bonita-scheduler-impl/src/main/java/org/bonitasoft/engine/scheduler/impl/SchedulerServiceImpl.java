@@ -349,7 +349,7 @@ public class SchedulerServiceImpl implements SchedulerService {
             final QueryOptions queryOptions = new QueryOptions(0, QueryOptions.UNLIMITED_NUMBER_OF_RESULTS, orderByoptions,
                     Collections.singletonList(filterOption), null);
             final List<SJobParameter> parameters = jobService.searchJobParameters(queryOptions);
-            final HashMap<String, Serializable> parameterMap = new HashMap<String, Serializable>();
+            final HashMap<String, Serializable> parameterMap = new HashMap<>();
             for (final SJobParameter sJobParameterImpl : parameters) {
                 parameterMap.put(sJobParameterImpl.getKey(), sJobParameterImpl.getValue());
             }

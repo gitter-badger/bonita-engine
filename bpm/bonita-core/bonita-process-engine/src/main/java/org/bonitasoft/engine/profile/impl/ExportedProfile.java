@@ -35,7 +35,7 @@ public class ExportedProfile {
     public ExportedProfile(final String name, final boolean isDefault) {
         this.name = name;
         this.isDefault = isDefault;
-        parentProfileEntries = new ArrayList<ExportedParentProfileEntry>();
+        parentProfileEntries = new ArrayList<>();
         profileMapping = new ExportedProfileMapping();
     }
 

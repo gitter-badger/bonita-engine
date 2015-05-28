@@ -214,8 +214,8 @@ public class BDRepositoryLocalIT extends CommonAPIIT {
 
     private void verifyLazyAddressesCount(final HumanTaskInstance humanTaskInstance, final int expectedCount) throws Exception {
 
-        final Map<String, Serializable> map = new HashMap<String, Serializable>();
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<String, Serializable> map = new HashMap<>();
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>();
 
         final Expression createQueryBusinessDataExpression = new ExpressionBuilder().createQueryBusinessDataExpression("expression Name",
                 "Employee." + FIND_BY_FIRST_NAME_AND_LAST_NAME_NEW_ORDER, EMPLOYEE_QUALIFIED_NAME,
@@ -232,7 +232,7 @@ public class BDRepositoryLocalIT extends CommonAPIIT {
 
         final Serializable businessData = evaluateExpressionsAtProcessInstanciation.get(createQueryBusinessDataExpression.getName());
 
-        final Map<Expression, Map<String, Serializable>> expressions2 = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<Expression, Map<String, Serializable>> expressions2 = new HashMap<>();
         expressions2.put(countExpression, Collections.singletonMap("myEmployee", businessData));
 
         final Map<String, Serializable> evaluateExpressionsOnActivityInstance = getProcessAPI().evaluateExpressionsOnActivityInstance(
@@ -245,8 +245,8 @@ public class BDRepositoryLocalIT extends CommonAPIIT {
 
     private void verifyEagerCountryFieldInAddresses(final HumanTaskInstance humanTaskInstance, final String expectedCountry) throws Exception {
 
-        final Map<String, Serializable> map = new HashMap<String, Serializable>();
-        final Map<Expression, Map<String, Serializable>> mapGetEmployee = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<String, Serializable> map = new HashMap<>();
+        final Map<Expression, Map<String, Serializable>> mapGetEmployee = new HashMap<>();
 
         final Expression getEmployeeExpression = new ExpressionBuilder().createQueryBusinessDataExpression("expression Name",
                 "Employee." + FIND_BY_FIRST_NAME_AND_LAST_NAME_NEW_ORDER, EMPLOYEE_QUALIFIED_NAME,
@@ -267,7 +267,7 @@ public class BDRepositoryLocalIT extends CommonAPIIT {
 
         final Serializable returnedEmployee = getEmployeeResultMap.get(queryName);
 
-        final Map<Expression, Map<String, Serializable>> mapGetCountry = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<Expression, Map<String, Serializable>> mapGetCountry = new HashMap<>();
         mapGetCountry.put(getCountryExpression, Collections.singletonMap("myEmployee", returnedEmployee));
 
         final Map<String, Serializable> getCountryResultMap = getProcessAPI().evaluateExpressionsOnActivityInstance(
@@ -280,8 +280,8 @@ public class BDRepositoryLocalIT extends CommonAPIIT {
 
     private void verifySimpleFieldInAddresses(final HumanTaskInstance humanTaskInstance, final String expectedCity) throws Exception {
 
-        final Map<String, Serializable> map = new HashMap<String, Serializable>();
-        final Map<Expression, Map<String, Serializable>> mapGetEmployee = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<String, Serializable> map = new HashMap<>();
+        final Map<Expression, Map<String, Serializable>> mapGetEmployee = new HashMap<>();
 
         final Expression getEmployeeExpression = new ExpressionBuilder().createQueryBusinessDataExpression("expression Name",
                 "Employee." + FIND_BY_FIRST_NAME_AND_LAST_NAME_NEW_ORDER, EMPLOYEE_QUALIFIED_NAME,
@@ -301,7 +301,7 @@ public class BDRepositoryLocalIT extends CommonAPIIT {
 
         final Serializable returnedEmployee = getEmployeeResultMap.get(queryName);
 
-        final Map<Expression, Map<String, Serializable>> mapGetCountry = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<Expression, Map<String, Serializable>> mapGetCountry = new HashMap<>();
         mapGetCountry.put(getCountryExpression, Collections.singletonMap("myEmployee", returnedEmployee));
 
         final Map<String, Serializable> cityResultMap = getProcessAPI().evaluateExpressionsOnActivityInstance(
@@ -403,7 +403,7 @@ public class BDRepositoryLocalIT extends CommonAPIIT {
         final SimpleField firstName = new SimpleField();
         firstName.setName("firstName");
         firstName.setType(FieldType.STRING);
-        firstName.setLength(Integer.valueOf(10));
+        firstName.setLength(10);
 
         final SimpleField lastName = new SimpleField();
         lastName.setName("lastName");
@@ -413,7 +413,7 @@ public class BDRepositoryLocalIT extends CommonAPIIT {
         final SimpleField phoneNumbers = new SimpleField();
         phoneNumbers.setName("phoneNumbers");
         phoneNumbers.setType(FieldType.STRING);
-        phoneNumbers.setLength(Integer.valueOf(10));
+        phoneNumbers.setLength(10);
         phoneNumbers.setCollection(Boolean.TRUE);
 
         final BusinessObject employee = new BusinessObject();

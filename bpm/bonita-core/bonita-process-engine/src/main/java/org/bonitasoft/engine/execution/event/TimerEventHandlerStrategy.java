@@ -170,7 +170,7 @@ public class TimerEventHandlerStrategy extends EventHandlerStrategy {
 
     private List<SJobParameter> getJobParameters(final SProcessDefinition processDefinition, final SEventDefinition eventDefinition,
             final SCatchEventInstance eventInstance) {
-        final List<SJobParameter> jobParameters = new ArrayList<SJobParameter>();
+        final List<SJobParameter> jobParameters = new ArrayList<>();
         jobParameters.add(BuilderFactory.get(SJobParameterBuilderFactory.class).createNewInstance("processDefinitionId", processDefinition.getId()).done());
         jobParameters.add(BuilderFactory.get(SJobParameterBuilderFactory.class).createNewInstance("containerType", SFlowElementsContainerType.PROCESS.name())
                 .done());
@@ -189,7 +189,7 @@ public class TimerEventHandlerStrategy extends EventHandlerStrategy {
 
     private List<SJobParameter> getJobParameters(final SProcessDefinition processDefinition, final SEventDefinition eventDefinition,
             final SCatchEventInstance eventInstance, final long subProcessId, final SProcessInstance parentProcessInstance) {
-        final List<SJobParameter> jobParameters = new ArrayList<SJobParameter>();
+        final List<SJobParameter> jobParameters = new ArrayList<>();
         jobParameters.addAll(getJobParameters(processDefinition, eventDefinition, eventInstance));
         jobParameters.add(BuilderFactory.get(SJobParameterBuilderFactory.class).createNewInstance("subProcessId", subProcessId).done());
         jobParameters.add(BuilderFactory.get(SJobParameterBuilderFactory.class).createNewInstance("processInstanceId", parentProcessInstance.getId()).done());

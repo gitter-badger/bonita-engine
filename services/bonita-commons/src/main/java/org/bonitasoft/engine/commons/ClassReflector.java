@@ -45,13 +45,13 @@ public class ClassReflector {
     private static final Map<String, Method> methods;
 
     static {
-        methods = new HashMap<String, Method>();
+        methods = new HashMap<>();
     }
 
     private static final Object MUTEX = new Object();
 
     public static Collection<Method> getAccessibleGetters(final Class<?> clazz) {
-        final Collection<Method> methods = new HashSet<Method>();
+        final Collection<Method> methods = new HashSet<>();
         for (final Method method : clazz.getMethods()) {
             if (isAGetterMethod(method)) {
                 methods.add(method);
@@ -113,8 +113,8 @@ public class ClassReflector {
     public static void invokeSetter(final Object entity, final String setterName, final Class<?> parameterType, final Object parameterValue)
             throws SReflectException {
         try {
-            final Method setter = getMethod(entity.getClass(), setterName, new Class[] { parameterType });
-            setter.invoke(entity, new Object[] { parameterValue });
+            final Method setter = getMethod(entity.getClass(), setterName, parameterType);
+            setter.invoke(entity, parameterValue);
         } catch (final Exception e) {
             throw new SReflectException(e);
         }
@@ -258,10 +258,9 @@ public class ClassReflector {
     }
 
     public static Method[] getDeclaredSetters(final Class<?> clazz) {
-        final List<Method> setters = new ArrayList<Method>();
+        final List<Method> setters = new ArrayList<>();
         final Method[] methods = clazz.getDeclaredMethods();
-        for (int i = 0; i < methods.length; i++) {
-            final Method method = methods[i];
+        for (final Method method : methods) {
             if (isASetterMethod(method)) {
                 setters.add(method);
             }
@@ -270,10 +269,9 @@ public class ClassReflector {
     }
 
     public static Method[] getDeclaredGetters(final Class<?> clazz) {
-        final List<Method> getters = new ArrayList<Method>();
+        final List<Method> getters = new ArrayList<>();
         final Method[] methods = clazz.getDeclaredMethods();
-        for (int i = 0; i < methods.length; i++) {
-            final Method method = methods[i];
+        for (final Method method : methods) {
             if (isAGetterMethod(method)) {
                 getters.add(method);
             }

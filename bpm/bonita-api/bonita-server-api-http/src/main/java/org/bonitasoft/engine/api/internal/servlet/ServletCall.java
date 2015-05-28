@@ -84,8 +84,8 @@ public abstract class ServletCall {
         super();
         this.request = request;
         this.response = response;
-        parameters = new HashMap<String, String>();
-        binaryParameters = new ArrayList<byte[]>();
+        parameters = new HashMap<>();
+        binaryParameters = new ArrayList<>();
         if (ServletFileUpload.isMultipartContent(request)) {
             final ServletFileUpload upload = new ServletFileUpload();
             // Parse the request
@@ -209,7 +209,7 @@ public abstract class ServletCall {
      * @return This method returns the values of a parameter as a list of String or null if the parameter isn't defined
      */
     public final List<String> getParameterAsList(final String name) {
-        return getParameterAsList(name, (String) null);
+        return getParameterAsList(name, null);
     }
 
     /**
@@ -226,7 +226,7 @@ public abstract class ServletCall {
             return Arrays.asList(parameters.get(name));
         }
         if (defaultValue != null) {
-            final List<String> results = new ArrayList<String>();
+            final List<String> results = new ArrayList<>();
             results.add(defaultValue);
             return results;
         }
@@ -241,7 +241,7 @@ public abstract class ServletCall {
      * @return This method returns the first value of a parameter as a String or null if the parameter isn't define
      */
     public final String getParameter(final String name) {
-        return getParameter(name, (String) null);
+        return getParameter(name, null);
     }
 
     /**

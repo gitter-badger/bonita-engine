@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.data.instance.model.impl;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import org.bonitasoft.engine.data.definition.model.SDataDefinition;
 import org.bonitasoft.engine.data.instance.model.SDataInstance;
@@ -135,69 +136,23 @@ public abstract class SDataInstanceImpl implements SDataInstance {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (int) (id ^ id >>> 32);
-        result = prime * result + (name == null ? 0 : name.hashCode());
-        result = prime * result + (int) (containerId ^ containerId >>> 32);
-        result = prime * result + (description == null ? 0 : description.hashCode());
-        result = prime * result + (className == null ? 0 : className.hashCode());
-        result = prime * result + (containerType == null ? 0 : containerType.hashCode());
-        result = prime * result + (transientData ? 1231 : 1237);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SDataInstanceImpl that = (SDataInstanceImpl) o;
+        return Objects.equals(tenantId, that.tenantId) &&
+                Objects.equals(id, that.id) &&
+                Objects.equals(transientData, that.transientData) &&
+                Objects.equals(containerId, that.containerId) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(className, that.className) &&
+                Objects.equals(containerType, that.containerType);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SDataInstanceImpl other = (SDataInstanceImpl) obj;
-        if (id != other.id) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (containerId != other.containerId) {
-            return false;
-        }
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (className == null) {
-            if (other.className != null) {
-                return false;
-            }
-        } else if (!className.equals(other.className)) {
-            return false;
-        }
-        if (containerType == null) {
-            if (other.containerType != null) {
-                return false;
-            }
-        } else if (!containerType.equals(other.containerType)) {
-            return false;
-        }
-        if (transientData != other.transientData) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(tenantId, id, name, description, transientData, className, containerId, containerType);
     }
 
     /**

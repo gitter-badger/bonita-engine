@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.bpm.businessdata.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.bpm.businessdata.BusinessDataDefinition;
 import org.bonitasoft.engine.bpm.internal.NamedElementImpl;
 import org.bonitasoft.engine.bpm.process.ModelFinderVisitor;
@@ -84,61 +86,21 @@ public class BusinessDataDefinitionImpl extends NamedElementImpl implements Busi
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (className == null ? 0 : className.hashCode());
-        result = prime * result + (defaultValueExpression == null ? 0 : defaultValueExpression.hashCode());
-        result = prime * result + (description == null ? 0 : description.hashCode());
-        result = prime * result + (multiple ? 1231 : 1237);
-        result = prime * result + (type == null ? 0 : type.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        BusinessDataDefinitionImpl that = (BusinessDataDefinitionImpl) o;
+        return Objects.equals(multiple, that.multiple) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(type, that.type) &&
+                Objects.equals(className, that.className) &&
+                Objects.equals(defaultValueExpression, that.defaultValueExpression);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final BusinessDataDefinitionImpl other = (BusinessDataDefinitionImpl) obj;
-        if (className == null) {
-            if (other.className != null) {
-                return false;
-            }
-        } else if (!className.equals(other.className)) {
-            return false;
-        }
-        if (defaultValueExpression == null) {
-            if (other.defaultValueExpression != null) {
-                return false;
-            }
-        } else if (!defaultValueExpression.equals(other.defaultValueExpression)) {
-            return false;
-        }
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (multiple != other.multiple) {
-            return false;
-        }
-        if (type == null) {
-            if (other.type != null) {
-                return false;
-            }
-        } else if (!type.equals(other.type)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), description, type, className, multiple, defaultValueExpression);
     }
 
     @Override

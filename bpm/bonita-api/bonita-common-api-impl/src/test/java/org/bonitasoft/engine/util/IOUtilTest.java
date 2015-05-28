@@ -139,7 +139,7 @@ public class IOUtilTest {
 
     @Test
     public void testZip() throws Exception {
-        final HashMap<String, byte[]> hashMap = new HashMap<String, byte[]>(2);
+        final HashMap<String, byte[]> hashMap = new HashMap<>(2);
         hashMap.put("file1.txt", "content1".getBytes());
         hashMap.put("file2.txt", "content2\ncontent2".getBytes());
         final byte[] zip = IOUtil.zip(hashMap);
@@ -180,7 +180,7 @@ public class IOUtilTest {
 
     @Test
     public void unzipToFolder() throws Exception {
-        final HashMap<String, byte[]> hashMap = new HashMap<String, byte[]>(2);
+        final HashMap<String, byte[]> hashMap = new HashMap<>(2);
         hashMap.put("file1.txt", "content1".getBytes());
         hashMap.put("file2.txt", "content2\ncontent2".getBytes());
         final byte[] zip = IOUtil.zip(hashMap);

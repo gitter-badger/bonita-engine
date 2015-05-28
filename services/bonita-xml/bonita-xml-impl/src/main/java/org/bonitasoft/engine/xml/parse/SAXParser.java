@@ -75,11 +75,8 @@ public class SAXParser implements Parser {
 
     @Override
     public Object getObjectFromXML(final File xmlFile) throws SXMLParseException, IOException {
-        final FileInputStream fileInputStream = new FileInputStream(xmlFile);
-        try {
+        try (FileInputStream fileInputStream = new FileInputStream(xmlFile)) {
             return this.getObjectFromXML(fileInputStream);
-        } finally {
-            fileInputStream.close();
         }
     }
 
@@ -89,11 +86,8 @@ public class SAXParser implements Parser {
     }
     @Override
     public Object getObjectFromXML(final InputStream xmlStream) throws SXMLParseException, IOException {
-        final InputStreamReader xmlInputStreamReader = new InputStreamReader(xmlStream, Charset.forName(UTF_8));
-        try {
+        try (InputStreamReader xmlInputStreamReader = new InputStreamReader(xmlStream, Charset.forName(UTF_8))) {
             return this.getObjectFromXML(xmlInputStreamReader);
-        } finally {
-            xmlInputStreamReader.close();
         }
     }
 
@@ -152,21 +146,15 @@ public class SAXParser implements Parser {
 
     @Override
     public void validate(final File xmlFile) throws SValidationException, IOException {
-        final FileReader xmlReader = new FileReader(xmlFile);
-        try {
+        try (FileReader xmlReader = new FileReader(xmlFile)) {
             this.validate(xmlReader);
-        } finally {
-            xmlReader.close();
         }
     }
 
     @Override
     public void validate(final InputStream xmlStream) throws SValidationException, IOException {
-        final InputStreamReader xmlInputStreamReader = new InputStreamReader(xmlStream, Charset.forName("utf-8"));
-        try {
+        try (InputStreamReader xmlInputStreamReader = new InputStreamReader(xmlStream, Charset.forName("utf-8"))) {
             this.validate(xmlInputStreamReader);
-        } finally {
-            xmlInputStreamReader.close();
         }
     }
 

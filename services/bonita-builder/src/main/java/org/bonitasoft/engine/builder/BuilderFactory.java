@@ -37,7 +37,7 @@ public class BuilderFactory {
 
     private BuilderFactory(final Properties properties) {
         this.properties = properties;
-        factoryCache = new HashMap<String, Object>();
+        factoryCache = new HashMap<>();
     }
 
     private static final class BuilderFactoryMutex {

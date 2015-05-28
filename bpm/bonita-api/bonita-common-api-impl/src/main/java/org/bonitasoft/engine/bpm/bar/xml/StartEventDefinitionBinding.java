@@ -30,7 +30,7 @@ public class StartEventDefinitionBinding extends CatchEventDefinitionBinding {
     private final List<CatchErrorEventTriggerDefinition> errorEventTriggers;
 
     public StartEventDefinitionBinding() {
-        errorEventTriggers = new ArrayList<CatchErrorEventTriggerDefinition>(1);
+        errorEventTriggers = new ArrayList<>(1);
     }
 
     @Override

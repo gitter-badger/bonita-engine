@@ -50,7 +50,7 @@ public class EntitySerializer extends JsonSerializer<Entity> {
         final Class<? extends Entity> valueClass = value.getClass();
         jgen.writeStartObject();
 
-        final List<Link> links = new ArrayList<Link>();
+        final List<Link> links = new ArrayList<>();
         for (final Field field : valueClass.getDeclaredFields()) {
             final Class<?> fieldType = field.getType();
             if (fieldType.equals(MethodHandler.class)) {

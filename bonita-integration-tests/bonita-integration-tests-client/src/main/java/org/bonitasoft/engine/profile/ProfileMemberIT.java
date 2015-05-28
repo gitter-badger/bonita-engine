@@ -306,7 +306,7 @@ public class ProfileMemberIT extends AbstractProfileIT {
     @Cover(classes = ProfileAPI.class, concept = BPMNConcept.PROFILE, keywords = { "Profile member" }, story = "Get number of profile members.", jira = "")
     @Test
     public void getNumberOfProfileMembers() {
-        final List<Long> profileIds = new ArrayList<Long>();
+        final List<Long> profileIds = new ArrayList<>();
         profileIds.add(adminProfileId);
         profileIds.add(userProfileId);
         final Map<Long, Long> numberOfProfileMembers = getProfileAPI().getNumberOfProfileMembers(profileIds);

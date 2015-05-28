@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.process;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 public class Employee implements Comparable<Object>, Serializable {
 

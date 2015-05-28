@@ -29,7 +29,7 @@ public class BonitaClassLoaderTest {
 
     @Test
     public void releaseShouldRemoveAllScopeFolderAndItsContent() throws IOException {
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>(1);
+        final Map<String, byte[]> resources = new HashMap<>(1);
         resources.put("myJar.jar", "Salut le monde".getBytes());
         final File tempDir = new File(IOUtil.TMP_DIRECTORY, "BonitaClassLoaderTest_JVM_" + ManagementFactory.getRuntimeMXBean().getName());
         if (tempDir.exists()) {

@@ -41,7 +41,7 @@ public class JarDependencies implements Serializable {
 
     public void addDependency(final String dependency) {
         if (dependencies == null) {
-            dependencies = new ArrayList<String>();
+            dependencies = new ArrayList<>();
         }
         dependencies.add(dependency);
     }

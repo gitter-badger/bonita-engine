@@ -31,7 +31,7 @@ public class BoundaryEventDefinitionBinding extends CatchEventDefinitionBinding 
 
     public BoundaryEventDefinitionBinding() {
         super();
-        errorEventTriggers = new ArrayList<CatchErrorEventTriggerDefinition>(1);
+        errorEventTriggers = new ArrayList<>(1);
     }
 
     @Override

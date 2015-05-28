@@ -224,15 +224,15 @@ public class AdvancedStartProcessCommandIT extends TestWithUser {
 
     private TestUtils.Process startProcess(final long startedBy, final long processDefinitionId, final String activityName, final List<Operation> operations,
             final Map<String, Serializable> context) throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("started_by", startedBy);
         parameters.put("process_definition_id", processDefinitionId);
         parameters.put("activity_name", activityName);
         if (operations != null) {
-            parameters.put("operations", new ArrayList<Operation>(operations));
+            parameters.put("operations", new ArrayList<>(operations));
         }
         if (context != null) {
-            parameters.put("context", new HashMap<String, Serializable>(context));
+            parameters.put("context", new HashMap<>(context));
         }
 
         return wrapper.wrap((ProcessInstance) getCommandAPI().execute("advancedStartProcessCommand", parameters));
@@ -271,7 +271,7 @@ public class AdvancedStartProcessCommandIT extends TestWithUser {
                 "TestConnectorWithOutput.impl", TestConnectorWithOutput.class, "TestConnectorWithOutput.jar");
 
         // Start the process with the command on the step2
-        final Map<String, Serializable> parametersCommand = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parametersCommand = new HashMap<>();
         parametersCommand.put("started_by", user.getId());
         parametersCommand.put("process_definition_id", processDefinition.getId());
         parametersCommand.put("activity_name", "step2");

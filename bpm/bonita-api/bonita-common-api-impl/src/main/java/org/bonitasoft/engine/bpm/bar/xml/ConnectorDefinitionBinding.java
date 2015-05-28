@@ -36,9 +36,9 @@ public class ConnectorDefinitionBinding extends NamedElementBinding {
 
     private String version;
 
-    private final Map<String, Expression> inputs = new HashMap<String, Expression>();
+    private final Map<String, Expression> inputs = new HashMap<>();
 
-    private final List<Operation> outputs = new ArrayList<Operation>();
+    private final List<Operation> outputs = new ArrayList<>();
 
     private String failAction;
 

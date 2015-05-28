@@ -132,12 +132,9 @@ public class ServerAPIImpl implements ServerAPI {
             } catch (final ServerAPIRuntimeException sapire) {
                 throw sapire.getCause();
             }
-        } catch (final BonitaRuntimeException bre) {
+        } catch (final BonitaRuntimeException | BonitaException bre) {
             fillGlobalContextForException(session, bre);
             throw createServerWrappedException(bre);
-        } catch (final BonitaException be) {
-            fillGlobalContextForException(session, be);
-            throw createServerWrappedException(be);
         } catch (final UndeclaredThrowableException ute) {
             technicalDebugLog(ute);
             throw createServerWrappedException(ute);
@@ -414,7 +411,7 @@ public class ServerAPIImpl implements ServerAPI {
     private boolean isNodeStarted() {
         try {
             final Object apiImpl = accessResolver.getAPIImplementation(PlatformAPI.class.getName());
-            final Method method = ClassReflector.getMethod(apiImpl.getClass(), IS_NODE_STARTED_METHOD_NAME, new Class[0]);
+            final Method method = ClassReflector.getMethod(apiImpl.getClass(), IS_NODE_STARTED_METHOD_NAME);
             return (Boolean) invokeAPI(new Object[0], apiImpl, method);
         } catch (final Throwable e) {
             return false;

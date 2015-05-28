@@ -68,7 +68,7 @@ public class TimeTracker implements TenantLifecycleService {
         if (activatedRecords == null || activatedRecords.length == 0) {
             this.activatedRecords = Collections.emptySet();
         } else {
-            this.activatedRecords = new HashSet<String>(Arrays.asList(activatedRecords));
+            this.activatedRecords = new HashSet<>(Arrays.asList(activatedRecords));
         }
         if (activatedRecords != null && activatedRecords.length > 0 && logger.isLoggable(getClass(), TechnicalLogSeverity.INFO)) {
             this.logger.log(getClass(), TechnicalLogSeverity.INFO,
@@ -77,7 +77,7 @@ public class TimeTracker implements TenantLifecycleService {
         }
         flushThread = new FlushThread(clock, flushIntervalInSeconds, this, logger);
 
-        records = new CircularFifoQueue<Record>(maxSize);
+        records = new CircularFifoQueue<>(maxSize);
     }
 
     public boolean isTrackable(final String recordName) {
@@ -114,7 +114,7 @@ public class TimeTracker implements TenantLifecycleService {
 
         final FlushEvent flushEvent = new FlushEvent(records);
 
-        final List<FlushResult> flushResults = new ArrayList<FlushResult>();
+        final List<FlushResult> flushResults = new ArrayList<>();
         if (flushEventListeners != null) {
             for (final FlushEventListener listener : flushEventListeners) {
                 try {
@@ -133,7 +133,7 @@ public class TimeTracker implements TenantLifecycleService {
     }
 
     public List<Record> getRecords() {
-        return Arrays.asList(records.toArray(new Record[] {}));
+        return Arrays.asList(records.toArray(new Record[records.size()]));
     }
 
     @Override

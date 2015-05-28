@@ -125,9 +125,9 @@ public class BPMEventHandlingJob extends InternalJob {
      * @return the reduced list of couple, where we insure that a unique message instance is associated with a unique waiting message.
      */
     protected List<SMessageEventCouple> getMessageUniqueCouples(List<SMessageEventCouple> potentialMessageCouples) throws SEventTriggerInstanceReadException {
-        final List<Long> takenMessages = new ArrayList<Long>();
-        final List<Long> takenWaitings = new ArrayList<Long>();
-        final List<SMessageEventCouple> uniqueMessageCouples = new ArrayList<SMessageEventCouple>();
+        final List<Long> takenMessages = new ArrayList<>();
+        final List<Long> takenWaitings = new ArrayList<>();
+        final List<SMessageEventCouple> uniqueMessageCouples = new ArrayList<>();
 
         for (final SMessageEventCouple couple : potentialMessageCouples) {
             final long messageInstanceId = couple.getMessageInstanceId();

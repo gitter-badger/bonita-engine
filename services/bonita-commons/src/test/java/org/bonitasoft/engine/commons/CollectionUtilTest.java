@@ -25,7 +25,7 @@ public class CollectionUtilTest {
 
     @Test(expected = UnsupportedOperationException.class)
     public void should_emptyOrUnmodifiable_return_unmodiafiable_list() {
-        ArrayList<String> list = new ArrayList<String>();
+        ArrayList<String> list = new ArrayList<>();
         list.add("plop");
         List<String> result = CollectionUtil.emptyOrUnmodifiable(list);
 

@@ -201,7 +201,7 @@ public class BusinessDataModelRepositoryImpl implements BusinessDataModelReposit
         final JDTCompiler compiler = new JDTCompiler();
         AbstractBDMJarBuilder builder = new ClientBDMJarBuilder(compiler, new ResourcesLoader());
 
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>();
+        final Map<String, byte[]> resources = new HashMap<>();
         // Build jar with Model
         final byte[] modelJarContent = builder.build(model, new WithoutDAOImplementationFileFilter());
         resources.put(MODEL_JAR_NAME, modelJarContent);
@@ -214,9 +214,7 @@ public class BusinessDataModelRepositoryImpl implements BusinessDataModelReposit
         //Add bom.xml
         try {
             resources.put(BOM_NAME, new BusinessObjectModelConverter().zip(model));
-        } catch (final JAXBException e) {
-            throw new SBusinessDataRepositoryDeploymentException(e);
-        } catch (final SAXException e) {
+        } catch (final JAXBException | SAXException e) {
             throw new SBusinessDataRepositoryDeploymentException(e);
         }
 
@@ -272,12 +270,8 @@ public class BusinessDataModelRepositoryImpl implements BusinessDataModelReposit
                     throw new SBusinessDataRepositoryDeploymentException("Upating schema fails due to: " + exceptions);
                 }
                 uninstall(tenantId);
-            } catch (final IOException ioe) {
+            } catch (final IOException | SAXException | JAXBException ioe) {
                 throw new SBusinessDataRepositoryException(ioe);
-            } catch (final JAXBException jaxbe) {
-                throw new SBusinessDataRepositoryException(jaxbe);
-            } catch (final SAXException saxe) {
-                throw new SBusinessDataRepositoryException(saxe);
             }
         }
     }

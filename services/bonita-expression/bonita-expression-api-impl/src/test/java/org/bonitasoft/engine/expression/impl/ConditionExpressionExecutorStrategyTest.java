@@ -70,19 +70,19 @@ public class ConditionExpressionExecutorStrategyTest {
         final SExpression constExpr2 = buildExpression("7", SExpression.TYPE_CONSTANT, Integer.class.getName(), null, null);
         final SExpression constExpr3 = buildExpression("2", SExpression.TYPE_CONSTANT, Integer.class.getName(), null, null);
 
-        dependFirstLtSecond = new ArrayList<SExpression>(2);
+        dependFirstLtSecond = new ArrayList<>(2);
         dependFirstLtSecond.add(constExpr1);
         dependFirstLtSecond.add(constExpr2);
 
-        dependFirstGtSecond = new ArrayList<SExpression>(2);
+        dependFirstGtSecond = new ArrayList<>(2);
         dependFirstGtSecond.add(constExpr2);
         dependFirstGtSecond.add(constExpr1);
 
-        dependEquals = new ArrayList<SExpression>(2);
+        dependEquals = new ArrayList<>(2);
         dependEquals.add(constExpr1);
         dependEquals.add(constExpr1);
 
-        resolvedDependencies = new HashMap<Integer, Object>(2);
+        resolvedDependencies = new HashMap<>(2);
         resolvedDependencies.put(constExpr1.getDiscriminant(), 5);
         resolvedDependencies.put(constExpr2.getDiscriminant(), 7);
         resolvedDependencies.put(constExpr3.getDiscriminant(), 2);

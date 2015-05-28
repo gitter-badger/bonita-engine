@@ -25,7 +25,7 @@ import org.bonitasoft.engine.xml.ElementBinding;
  */
 public class JarDependenciesBinding extends ElementBinding {
 
-    private final List<String> dependencies = new ArrayList<String>();
+    private final List<String> dependencies = new ArrayList<>();
 
     @Override
     public void setAttributes(final Map<String, String> attributes) {

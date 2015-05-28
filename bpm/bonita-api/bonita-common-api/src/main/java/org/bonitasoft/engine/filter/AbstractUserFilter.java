@@ -34,7 +34,7 @@ public abstract class AbstractUserFilter implements UserFilter {
     private EngineExecutionContext executionContext;
 
     public AbstractUserFilter() {
-        inputParameters = new HashMap<String, Object>();
+        inputParameters = new HashMap<>();
     }
 
     @Override

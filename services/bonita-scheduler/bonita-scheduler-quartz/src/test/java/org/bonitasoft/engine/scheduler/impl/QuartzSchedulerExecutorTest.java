@@ -132,7 +132,7 @@ public class QuartzSchedulerExecutorTest {
     }
 
     private Set<JobKey> newSet(final JobKey... jobKeys) {
-        final HashSet<JobKey> set = new HashSet<JobKey>();
+        final HashSet<JobKey> set = new HashSet<>();
         set.addAll(asList(jobKeys));
         return set;
     }
@@ -563,7 +563,7 @@ public class QuartzSchedulerExecutorTest {
     private void check_is_still_scheduled_response(final Date nextFireTime, final boolean expectedResponse) throws SchedulerException, SSchedulerException {
         // given
         doReturn(nextFireTime).when(trigger).getNextFireTime();
-        final ArrayList<org.quartz.Trigger> triggerList = new ArrayList<org.quartz.Trigger>();
+        final ArrayList<org.quartz.Trigger> triggerList = new ArrayList<>();
         triggerList.add(trigger);
         doReturn(triggerList).when(scheduler).getTriggersOfJob(any(JobKey.class));
 
@@ -611,8 +611,8 @@ public class QuartzSchedulerExecutorTest {
     }
 
     private void check_reschedule(final TriggerState triggerState, final int expectedNumberOfInvocations) throws SchedulerException, SSchedulerException {
-        final List<String> groupNames = new ArrayList<String>();
-        final Set<TriggerKey> triggerKeys = new HashSet<TriggerKey>();
+        final List<String> groupNames = new ArrayList<>();
+        final Set<TriggerKey> triggerKeys = new HashSet<>();
         groupNames.add(GROUP_NAME);
         final TriggerKey triggerKey = new TriggerKey("name");
         triggerKeys.add(triggerKey);

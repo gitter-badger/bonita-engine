@@ -30,7 +30,7 @@ public class TestUserPasswordUpdateEventHandler extends UserUpdateEventHandler {
     private static final String USER_UPDATED = "USER_UPDATED";
 
     // Set username as key, and new password as value.
-    private final Map<String, String> userMap = new HashMap<String, String>();
+    private final Map<String, String> userMap = new HashMap<>();
 
     private final String identifier;
 

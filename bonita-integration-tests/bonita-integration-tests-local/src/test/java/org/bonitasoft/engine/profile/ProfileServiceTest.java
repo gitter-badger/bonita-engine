@@ -116,7 +116,7 @@ public class ProfileServiceTest extends CommonBPMServicesTest {
     }
 
     private List<OrderByOption> getOrderByOptions() {
-        final List<OrderByOption> orderByOptions = new ArrayList<OrderByOption>(1);
+        final List<OrderByOption> orderByOptions = new ArrayList<>(1);
         orderByOptions.add(new OrderByOption(SUser.class, BuilderFactory.get(SUserBuilderFactory.class).getFirstNameKey(), OrderByType.ASC));
         return orderByOptions;
     }

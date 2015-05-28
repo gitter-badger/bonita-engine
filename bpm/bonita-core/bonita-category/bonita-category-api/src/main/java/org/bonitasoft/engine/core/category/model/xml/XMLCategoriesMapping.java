@@ -27,7 +27,7 @@ public class XMLCategoriesMapping {
 
     public XMLCategoriesMapping() {
         super();
-        this.categoryMappingList = new ArrayList<XMLCategoryMapping>();
+        this.categoryMappingList = new ArrayList<>();
     }
 
     public XMLCategoriesMapping(final List<XMLCategoryMapping> categoryMappings) {
@@ -41,7 +41,7 @@ public class XMLCategoriesMapping {
 
     public void addCategory(final XMLCategoryMapping categoryMapping) {
         if (this.categoryMappingList == null) {
-            this.categoryMappingList = new ArrayList<XMLCategoryMapping>();
+            this.categoryMappingList = new ArrayList<>();
         }
         this.categoryMappingList.add(categoryMapping);
     }
@@ -73,7 +73,7 @@ public class XMLCategoriesMapping {
         for (final XMLCategoryMapping categoryMapping : this.categoryMappingList) {
             if (categoryMapping.getProcessDefinitions().contains(processDefinitionId)) {
                 if (categoryMappings == null) {
-                    categoryMappings = new ArrayList<XMLCategoryMapping>();
+                    categoryMappings = new ArrayList<>();
                 }
                 categoryMappings.add(categoryMapping);
             }

@@ -95,10 +95,7 @@ public class JobWrapper implements StatelessJob {
             if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.DEBUG)) {
                 logger.log(this.getClass(), TechnicalLogSeverity.DEBUG, "Finished execution of " + statelessJob.getName());
             }
-        } catch (final SFireEventException e) {
-            logFailedJob(e);
-            throw e;
-        } catch (final SJobExecutionException e) {
+        } catch (final SFireEventException | SJobExecutionException e) {
             logFailedJob(e);
             throw e;
         } finally {

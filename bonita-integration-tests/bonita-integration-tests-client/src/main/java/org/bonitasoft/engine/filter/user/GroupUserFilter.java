@@ -31,7 +31,7 @@ public class GroupUserFilter extends AbstractUserFilter {
     public List<Long> filter(final String actorName) {
         final Long groupId = (Long) getInputParameter("groupId");
         final List<User> users = getAPIAccessor().getIdentityAPI().getUsersInGroup(groupId, 0, 10, UserCriterion.USER_NAME_DESC);
-        final List<Long> userIds = new ArrayList<Long>();
+        final List<Long> userIds = new ArrayList<>();
         for (final User user : users) {
             userIds.add(user.getId());
         }

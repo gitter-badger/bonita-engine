@@ -44,7 +44,7 @@ public class ServiceAccessorFactory {
 
     private PlatformServiceAccessor platformServiceAccessor;
 
-    private final Map<Long, TenantServiceAccessor> tenantServiceAccessor = new HashMap<Long, TenantServiceAccessor>();
+    private final Map<Long, TenantServiceAccessor> tenantServiceAccessor = new HashMap<>();
 
     private APIAccessResolver apiAccessResolver;
 

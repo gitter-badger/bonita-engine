@@ -60,7 +60,7 @@ public class IsActorInitiatorRuleTest {
 
     @Test
     public void isAllowed_should_return_true_if_actor_initiator() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
+        Map<String, Serializable> context = new HashMap<>();
         when(actorMappingService.canUserStartProcessDefinition(userId, processDefinitionId)).thenReturn(true);
 
         assertThat(isActorInitiatorRule.isAllowed(pageMappingKey, context)).isTrue();
@@ -68,7 +68,7 @@ public class IsActorInitiatorRuleTest {
 
     @Test
     public void isAllowed_should_return_false_if_not_actor_initiator() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
+        Map<String, Serializable> context = new HashMap<>();
         when(actorMappingService.canUserStartProcessDefinition(userId, processDefinitionId)).thenReturn(false);
 
         assertThat(isActorInitiatorRule.isAllowed(pageMappingKey, context)).isFalse();

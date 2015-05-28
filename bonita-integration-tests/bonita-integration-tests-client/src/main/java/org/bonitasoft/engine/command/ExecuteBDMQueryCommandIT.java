@@ -173,7 +173,7 @@ public class ExecuteBDMQueryCommandIT extends CommonAPIIT {
 
     @Test
     public void should_execute_returns_empty_list() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(QUERY_NAME, "BonitaEmployee.getNoEmployees");
         parameters.put(RETURNS_LIST, true);
         parameters.put(RETURN_TYPE, EMPLOYEE_QUALIF_CLASSNAME);
@@ -186,7 +186,7 @@ public class ExecuteBDMQueryCommandIT extends CommonAPIIT {
 
     @Test
     public void should_execute_returns_employee_list() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(QUERY_NAME, "BonitaEmployee.find");
         parameters.put(RETURNS_LIST, true);
         parameters.put(RETURN_TYPE, EMPLOYEE_QUALIF_CLASSNAME);
@@ -200,7 +200,7 @@ public class ExecuteBDMQueryCommandIT extends CommonAPIIT {
 
     @Test
     public void getListFromQueryShouldLimitToMaxResults() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(QUERY_NAME, "BonitaEmployee.find");
         parameters.put(RETURNS_LIST, true);
         parameters.put(RETURN_TYPE, EMPLOYEE_QUALIF_CLASSNAME);
@@ -214,10 +214,10 @@ public class ExecuteBDMQueryCommandIT extends CommonAPIIT {
 
     @Test
     public void should_execute_returns_a_single_employee() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(QUERY_NAME, "BonitaEmployee.getEmployeeByFirstNameAndLastName");
         parameters.put(RETURN_TYPE, EMPLOYEE_QUALIF_CLASSNAME);
-        final Map<String, Serializable> queryParameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> queryParameters = new HashMap<>();
         queryParameters.put("firstName", "Romain");
         queryParameters.put("lastName", "Bioteau");
         parameters.put(QUERY_PARAMETERS, (Serializable) queryParameters);
@@ -235,10 +235,10 @@ public class ExecuteBDMQueryCommandIT extends CommonAPIIT {
 
     @Test(expected = CommandExecutionException.class)
     public void should_execute_throw_a_CommandExecutionException_if_result_is_not_single() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(QUERY_NAME, "BonitaEmployee.findByLastName");
         parameters.put(RETURN_TYPE, EMPLOYEE_QUALIF_CLASSNAME);
-        final Map<String, Serializable> queryParameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> queryParameters = new HashMap<>();
         queryParameters.put("lastName", "Bioteau");
         parameters.put(QUERY_PARAMETERS, (Serializable) queryParameters);
         getCommandAPI().execute(EXECUTE_BDM_QUERY_COMMAND, parameters);
@@ -246,7 +246,7 @@ public class ExecuteBDMQueryCommandIT extends CommonAPIIT {
 
     @Test(expected = BonitaRuntimeException.class)
     public void should_execute_throw_BonitaRuntimeException_if_query_not_exists() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put(QUERY_NAME, "unknownQuery");
         parameters.put(RETURN_TYPE, EMPLOYEE_QUALIF_CLASSNAME);
         getCommandAPI().execute(EXECUTE_BDM_QUERY_COMMAND, parameters);

@@ -99,7 +99,7 @@ public class DocumentReferenceExpressionExecutorStrategyTest {
 
     @Test
     public void evaluate_result_should_contains_process_document_when_container_is_a_process_instance() throws Exception {
-        final Map<String, Object> dependencies = new HashMap<String, Object>();
+        final Map<String, Object> dependencies = new HashMap<>();
         dependencies.put("containerId", PROCESS_INSTANCE_ID);
         dependencies.put("containerType", "PROCESS_INSTANCE");
 
@@ -112,7 +112,7 @@ public class DocumentReferenceExpressionExecutorStrategyTest {
 
     @Test
     public void evaluate_result_should_contains_parent_process_document_when_container_is_not_a_process_instance() throws Exception {
-        final Map<String, Object> dependencies = new HashMap<String, Object>();
+        final Map<String, Object> dependencies = new HashMap<>();
         dependencies.put("containerId", PROCESS_INSTANCE_ID);
         dependencies.put("containerType", "OTHER");
 
@@ -124,7 +124,7 @@ public class DocumentReferenceExpressionExecutorStrategyTest {
     @Test
     public void evaluate_result_should_contains_null_when_document_can_not_be_found_for_a_process_instance() throws Exception {
         doThrow(SObjectNotFoundException.class).when(documentService).getMappedDocument(eq(PROCESS_INSTANCE_ID), anyString());
-        final Map<String, Object> dependencies = new HashMap<String, Object>();
+        final Map<String, Object> dependencies = new HashMap<>();
         dependencies.put("containerId", PROCESS_INSTANCE_ID);
         dependencies.put("containerType", "PROCESS_INSTANCE");
 
@@ -136,7 +136,7 @@ public class DocumentReferenceExpressionExecutorStrategyTest {
     @Test
     public void evaluate_result_should_contains_null_when_document_can_not_be_found_for_a_parent_process_instance() throws Exception {
         doThrow(SObjectNotFoundException.class).when(documentService).getMappedDocument(eq(PARENT_PROCESS_INSTANCE_ID), anyString());
-        final Map<String, Object> dependencies = new HashMap<String, Object>();
+        final Map<String, Object> dependencies = new HashMap<>();
         dependencies.put("containerId", PROCESS_INSTANCE_ID);
         dependencies.put("containerType", "OTHER");
 
@@ -147,7 +147,7 @@ public class DocumentReferenceExpressionExecutorStrategyTest {
 
     @Test
     public void evaluate_result_should_contains_archived_document_when_a_time_is_defined() throws Exception {
-        final Map<String, Object> dependencies = new HashMap<String, Object>();
+        final Map<String, Object> dependencies = new HashMap<>();
         dependencies.put("containerId", PROCESS_INSTANCE_ID);
         dependencies.put("containerType", "PROCESS_INSTANCE");
         dependencies.put("time", A_LONG_TIME_AGO);

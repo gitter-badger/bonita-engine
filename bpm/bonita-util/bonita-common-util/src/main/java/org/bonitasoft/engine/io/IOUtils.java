@@ -109,7 +109,7 @@ public class IOUtils {
 
     public static Map<String, byte[]> unzip(final byte[] zippedContent) throws IOException {
         final ZipInputStream zis = new ZipInputStream(new ByteArrayInputStream(zippedContent));
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>();
+        final Map<String, byte[]> resources = new HashMap<>();
         try {
             ZipEntry entry = zis.getNextEntry();
             while (entry != null) {
@@ -163,12 +163,9 @@ public class IOUtils {
         final Transformer tf = TransformerFactory.newInstance().newTransformer();
         tf.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
         tf.setOutputProperty(OutputKeys.INDENT, "yes");
-        final FileOutputStream fos = new FileOutputStream(destination);
-        try {
+        try (FileOutputStream fos = new FileOutputStream(destination)) {
             final StreamResult outputTarget = new StreamResult(fos);
             tf.transform(new DOMSource(document), outputTarget);
-        } finally {
-            fos.close();
         }
     }
 

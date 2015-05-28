@@ -50,7 +50,7 @@ public class SearchCustomUserInfoValues extends AbstractSearchEntity<CustomUserI
 
     @Override
     public List<CustomUserInfoValue> convertToClientObjects(List<SCustomUserInfoValue> sValues) {
-        List<CustomUserInfoValue> values = new ArrayList<CustomUserInfoValue>(sValues.size());
+        List<CustomUserInfoValue> values = new ArrayList<>(sValues.size());
         for (SCustomUserInfoValue value : sValues) {
             values.add(ModelConvertor.convert(value));
         }

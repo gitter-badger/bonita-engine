@@ -29,7 +29,7 @@ public class UserFilterDefinitionBinding extends NamedElementBinding {
 
     private String version;
 
-    private final Map<String, Expression> inputs = new HashMap<String, Expression>();
+    private final Map<String, Expression> inputs = new HashMap<>();
 
     @Override
     public void setAttributes(final Map<String, String> attributes) {

@@ -41,10 +41,8 @@ public class PlatformAuthenticationChecker implements PlatformAuthenticationServ
             if (passProperty == null || !passProperty.equals(password)) {
                 throw new SInvalidPasswordException("Invalid password");
             }
-        } catch (final BonitaHomeNotSetException bhnse) {
+        } catch (final BonitaHomeNotSetException | IOException bhnse) {
             throw new SInvalidUserException(bhnse);
-        } catch (final IOException ioe) {
-            throw new SInvalidUserException(ioe);
         }
     }
 }

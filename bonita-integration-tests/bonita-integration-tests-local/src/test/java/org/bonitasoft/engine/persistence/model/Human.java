@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.persistence.model;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.persistence.PersistentObject;
 
 public class Human implements PersistentObject {
@@ -88,46 +90,21 @@ public class Human implements PersistentObject {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + age;
-        result = prime * result + (int) (carId ^ (carId >>> 32));
-        result = prime * result + ((firstName == null) ? 0 : firstName.hashCode());
-        result = prime * result + (int) (id ^ (id >>> 32));
-        result = prime * result + ((lastName == null) ? 0 : lastName.hashCode());
-        result = prime * result + (int) (tenantId ^ (tenantId >>> 32));
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Human human = (Human) o;
+        return Objects.equals(tenantId, human.tenantId) &&
+                Objects.equals(id, human.id) &&
+                Objects.equals(age, human.age) &&
+                Objects.equals(carId, human.carId) &&
+                Objects.equals(firstName, human.firstName) &&
+                Objects.equals(lastName, human.lastName);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        final Human other = (Human) obj;
-        if (age != other.age)
-            return false;
-        if (carId != other.carId)
-            return false;
-        if (firstName == null) {
-            if (other.firstName != null)
-                return false;
-        } else if (!firstName.equals(other.firstName))
-            return false;
-        if (id != other.id)
-            return false;
-        if (lastName == null) {
-            if (other.lastName != null)
-                return false;
-        } else if (!lastName.equals(other.lastName))
-            return false;
-        if (tenantId != other.tenantId)
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(tenantId, id, firstName, lastName, age, carId);
     }
 
     @Override

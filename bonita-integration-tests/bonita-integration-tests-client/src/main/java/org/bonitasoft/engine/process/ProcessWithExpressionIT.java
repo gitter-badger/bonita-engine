@@ -203,7 +203,7 @@ public class ProcessWithExpressionIT extends TestWithUser {
     public void evaluateConstantExpressionFromApi() throws Exception {
         final ProcessDefinition processDefinition = deployEmptyProcess();
         Expression expression = new ExpressionBuilder().createConstantBooleanExpression(true);
-        final Map<String, Serializable> inputValues = new HashMap<String, Serializable>(0);
+        final Map<String, Serializable> inputValues = new HashMap<>(0);
         assertEquals(true, getProcessAPI().evaluateExpressionOnProcessDefinition(expression, inputValues, processDefinition.getId()));
 
         expression = new ExpressionBuilder().createConstantStringExpression("test");
@@ -224,7 +224,7 @@ public class ProcessWithExpressionIT extends TestWithUser {
     public void evaluateInputExpressionFromApi() throws Exception {
         final ProcessDefinition processDefinition = deployEmptyProcess();
         final Expression expression = new ExpressionBuilder().createInputExpression("test", Boolean.class.getName());
-        final Map<String, Serializable> inputValues = new HashMap<String, Serializable>();
+        final Map<String, Serializable> inputValues = new HashMap<>();
         inputValues.put("test", true);
         assertEquals(true, getProcessAPI().evaluateExpressionOnProcessDefinition(expression, inputValues, processDefinition.getId()));
         disableAndDeleteProcess(processDefinition);
@@ -235,7 +235,7 @@ public class ProcessWithExpressionIT extends TestWithUser {
         final ProcessDefinition processDefinition = deployEmptyProcess();
         final Expression expression = new ExpressionBuilder().createGroovyScriptExpression("evaluateGroovyExpressionFromApi", "input1 + 12",
                 Integer.class.getName(), new ExpressionBuilder().createInputExpression("input1", Integer.class.getName()));
-        final Map<String, Serializable> inputValues = new HashMap<String, Serializable>(1);
+        final Map<String, Serializable> inputValues = new HashMap<>(1);
         inputValues.put("input1", 8);
         assertEquals(20, getProcessAPI().evaluateExpressionOnProcessDefinition(expression, inputValues, processDefinition.getId()));
         disableAndDeleteProcess(processDefinition);
@@ -247,7 +247,7 @@ public class ProcessWithExpressionIT extends TestWithUser {
         final Expression expression = new ExpressionBuilder().createGroovyScriptExpression("evaluateGroovyWithDataProvidedExpressionFromApi",
                 "input1 + data1 + 12", Integer.class.getName(), new ExpressionBuilder().createInputExpression("input1", Integer.class.getName()),
                 new ExpressionBuilder().createDataExpression("data1", Integer.class.getName()));
-        final Map<String, Serializable> inputValues = new HashMap<String, Serializable>(2);
+        final Map<String, Serializable> inputValues = new HashMap<>(2);
         inputValues.put("input1", 6);
         inputValues.put("data1", 2);
         assertEquals(20, getProcessAPI().evaluateExpressionOnProcessDefinition(expression, inputValues, processDefinition.getId()));
@@ -265,7 +265,7 @@ public class ProcessWithExpressionIT extends TestWithUser {
         final Expression felixConstExp = new ExpressionBuilder().createConstantStringExpression("FELIX");
         final Expression listExpression2 = new ExpressionBuilder().createListExpression("manuList2", Arrays.asList(listExpression1, felixConstExp));
 
-        final Map<String, Serializable> inputValues = new HashMap<String, Serializable>(1);
+        final Map<String, Serializable> inputValues = new HashMap<>(1);
         inputValues.put(data1Content, "dataValue");
         final List<Serializable> result = (List<Serializable>) getProcessAPI().evaluateExpressionOnProcessDefinition(listExpression2, inputValues,
                 processDefinition.getId());
@@ -288,7 +288,7 @@ public class ProcessWithExpressionIT extends TestWithUser {
 
         final Expression listExpression = new ExpressionBuilder().createListExpression("ManuList1", Arrays.asList(groovyExpr, constantExpr, data1Expr));
 
-        final Map<String, Serializable> inputValues = new HashMap<String, Serializable>(1);
+        final Map<String, Serializable> inputValues = new HashMap<>(1);
         inputValues.put(data1Content, "EXPRESSION");
         @SuppressWarnings("unchecked")
         final List<Serializable> result = (List<Serializable>) getProcessAPI().evaluateExpressionOnProcessDefinition(listExpression, inputValues,
@@ -304,7 +304,7 @@ public class ProcessWithExpressionIT extends TestWithUser {
     public void evaluateDataExpressionFromApiOnUnknownData() throws Exception {
         final ProcessDefinition processDefinition = deployEmptyProcess();
         final Expression expression = new ExpressionBuilder().createDataExpression("data", Boolean.class.getName());
-        final Map<String, Serializable> inputValues = new HashMap<String, Serializable>(0);
+        final Map<String, Serializable> inputValues = new HashMap<>(0);
         try {
             getProcessAPI().evaluateExpressionOnProcessDefinition(expression, inputValues, processDefinition.getId());
         } finally {

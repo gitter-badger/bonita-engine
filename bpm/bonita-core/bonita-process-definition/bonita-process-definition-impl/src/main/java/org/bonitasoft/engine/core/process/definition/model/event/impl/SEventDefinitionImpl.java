@@ -38,12 +38,12 @@ public abstract class SEventDefinitionImpl extends SFlowNodeDefinitionImpl imple
             final Map<String, STransitionDefinition> transitionsMap) {
         super(eventDefinition, transitionsMap);
         // initialize the list have an initial capacity of 1: most of time there will be zero or one event trigger
-        eventTriggers = new ArrayList<SEventTriggerDefinition>(1);
+        eventTriggers = new ArrayList<>(1);
     }
 
     public SEventDefinitionImpl(final long id, final String name) {
         super(id, name);
-        eventTriggers = new ArrayList<SEventTriggerDefinition>(1);
+        eventTriggers = new ArrayList<>(1);
     }
 
     @Override

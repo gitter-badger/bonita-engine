@@ -26,7 +26,7 @@ public class ObjectSeekerTest {
 
     @Test
     public void seekANamedElementObject() {
-        final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>();
+        final List<DataDefinition> dataDefinitions = new ArrayList<>();
         final DataDefinitionImpl dataDefinitionImpl = new DataDefinitionImpl("var1", null);
         dataDefinitions.add(dataDefinitionImpl);
         dataDefinitions.add(new DataDefinitionImpl("var2", null));
@@ -38,7 +38,7 @@ public class ObjectSeekerTest {
 
     @Test
     public void seekANullObjectReturnsNull() {
-        final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>();
+        final List<DataDefinition> dataDefinitions = new ArrayList<>();
         dataDefinitions.add(new DataDefinitionImpl("var1", null));
         dataDefinitions.add(new DataDefinitionImpl("var2", null));
 
@@ -49,7 +49,7 @@ public class ObjectSeekerTest {
 
     @Test
     public void seekAnUnknownObjectReturnsNull() {
-        final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>();
+        final List<DataDefinition> dataDefinitions = new ArrayList<>();
         dataDefinitions.add(new DataDefinitionImpl("var1", null));
         dataDefinitions.add(new DataDefinitionImpl("var2", null));
 
@@ -67,7 +67,7 @@ public class ObjectSeekerTest {
 
     @Test
     public void seekAnObjectInAnEmptyListReturnNull() {
-        final List<DataDefinition> dataDefinitions = new ArrayList<DataDefinition>();
+        final List<DataDefinition> dataDefinitions = new ArrayList<>();
 
         final DataDefinition dataDefinition = ObjectSeeker.getNamedElement(dataDefinitions, "var3");
 

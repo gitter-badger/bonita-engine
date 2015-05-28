@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.business.application.impl;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.bonitasoft.engine.bpm.internal.BaseElementImpl;
 import org.bonitasoft.engine.business.application.Application;
@@ -160,49 +161,30 @@ public class ApplicationImpl extends BaseElementImpl implements Application {
     }
 
     @Override
-    public boolean equals(final Object o) {
+    public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof ApplicationImpl)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
-
-        final ApplicationImpl that = (ApplicationImpl) o;
-
-        if (createdBy != that.createdBy) return false;
-        if (updatedBy != that.updatedBy) return false;
-        if (version != null ? !version.equals(that.version) : that.version != null) return false;
-        if (layoutId != null ? !layoutId.equals(that.layoutId) : that.layoutId != null) return false;
-        if (iconPath != null ? !iconPath.equals(that.iconPath) : that.iconPath != null) return false;
-        if (creationDate != null ? !creationDate.equals(that.creationDate) : that.creationDate != null) return false;
-        if (lastUpdateDate != null ? !lastUpdateDate.equals(that.lastUpdateDate) : that.lastUpdateDate != null)
-            return false;
-        if (state != null ? !state.equals(that.state) : that.state != null) return false;
-        if (homePageId != null ? !homePageId.equals(that.homePageId) : that.homePageId != null) return false;
-        if (displayName != null ? !displayName.equals(that.displayName) : that.displayName != null) return false;
-        if (profileId != null ? !profileId.equals(that.profileId) : that.profileId != null) return false;
-        if (themeId != null ? !themeId.equals(that.themeId) : that.themeId != null) return false;
-        if (description != null ? !description.equals(that.description) : that.description != null) return false;
-        return !(token != null ? !token.equals(that.token) : that.token != null);
-
+        ApplicationImpl that = (ApplicationImpl) o;
+        return Objects.equals(createdBy, that.createdBy) &&
+                Objects.equals(updatedBy, that.updatedBy) &&
+                Objects.equals(version, that.version) &&
+                Objects.equals(layoutId, that.layoutId) &&
+                Objects.equals(iconPath, that.iconPath) &&
+                Objects.equals(creationDate, that.creationDate) &&
+                Objects.equals(lastUpdateDate, that.lastUpdateDate) &&
+                Objects.equals(state, that.state) &&
+                Objects.equals(homePageId, that.homePageId) &&
+                Objects.equals(displayName, that.displayName) &&
+                Objects.equals(profileId, that.profileId) &&
+                Objects.equals(themeId, that.themeId) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(token, that.token);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (version != null ? version.hashCode() : 0);
-        result = 31 * result + (layoutId != null ? layoutId.hashCode() : 0);
-        result = 31 * result + (iconPath != null ? iconPath.hashCode() : 0);
-        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
-        result = 31 * result + (int) (createdBy ^ (createdBy >>> 32));
-        result = 31 * result + (lastUpdateDate != null ? lastUpdateDate.hashCode() : 0);
-        result = 31 * result + (int) (updatedBy ^ (updatedBy >>> 32));
-        result = 31 * result + (state != null ? state.hashCode() : 0);
-        result = 31 * result + (homePageId != null ? homePageId.hashCode() : 0);
-        result = 31 * result + (displayName != null ? displayName.hashCode() : 0);
-        result = 31 * result + (profileId != null ? profileId.hashCode() : 0);
-        result = 31 * result + (themeId != null ? themeId.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (token != null ? token.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), version, layoutId, iconPath, creationDate, createdBy, lastUpdateDate, updatedBy, state, homePageId, displayName, profileId, themeId, description, token);
     }
 
     @Override

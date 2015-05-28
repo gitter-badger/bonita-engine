@@ -90,7 +90,7 @@ public class IOUtil {
     }
 
     public static List<String> getClassNameList(final byte[] jarContent) throws IOException {
-        final List<String> classes = new ArrayList<String>(10);
+        final List<String> classes = new ArrayList<>(10);
         JarInputStream stream = null;
         ByteArrayInputStream byteArrayInputStream = null;
         try {
@@ -181,12 +181,9 @@ public class IOUtil {
             file.getParentFile().mkdirs();
             file.createNewFile();
         }
-        final OutputStream os = new FileOutputStream(file);
-        try {
+        try (OutputStream os = new FileOutputStream(file)) {
             os.write(fileContent);
             os.flush();
-        } finally {
-            os.close();
         }
     }
 
@@ -199,7 +196,7 @@ public class IOUtil {
             final String message = "No classes available";
             throw new IOException(message);
         }
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>();
+        final Map<String, byte[]> resources = new HashMap<>();
         for (final Class<?> clazz : classes) {
             resources.put(clazz.getName().replace(".", "/") + ".class", ClassDataUtil.getClassData(clazz));
             for (final Class<?> internalClass : clazz.getDeclaredClasses()) {
@@ -321,9 +318,8 @@ public class IOUtil {
      * @return the content read from the inputStream, as a String
      */
     public static String read(final InputStream inputStream) {
-        final Scanner scanner = new Scanner(inputStream, FILE_ENCODING);
         final StringBuilder text = new StringBuilder();
-        try {
+        try (Scanner scanner = new Scanner(inputStream, FILE_ENCODING)) {
             boolean isFirst = true;
             while (scanner.hasNextLine()) {
                 if (isFirst) {
@@ -333,8 +329,6 @@ public class IOUtil {
                 }
                 isFirst = false;
             }
-        } finally {
-            scanner.close();
         }
         return text.toString();
     }
@@ -345,11 +339,8 @@ public class IOUtil {
      * @param file
      */
     public static String read(final File file) throws IOException {
-        final FileInputStream inputStream = new FileInputStream(file);
-        try {
+        try (FileInputStream inputStream = new FileInputStream(file)) {
             return read(inputStream);
-        } finally {
-            inputStream.close();
         }
     }
 
@@ -387,11 +378,8 @@ public class IOUtil {
      *         if an I/O exception occurs
      */
     public static byte[] getAllContentFrom(final URL url) throws IOException {
-        final InputStream in = url.openStream();
-        try {
+        try (InputStream in = url.openStream()) {
             return getAllContentFrom(in);
-        } finally {
-            in.close();
         }
     }
 
@@ -435,15 +423,12 @@ public class IOUtil {
     public static String getFileContent(final File file) {
         final StringBuilder sb = new StringBuilder();
         try {
-            final BufferedReader reader = new BufferedReader(new FileReader(file));
-            try {
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
                 String line = null;
                 while ((line = reader.readLine()) != null) {
                     sb.append(line);
                     sb.append(System.getProperty("line.separator"));
                 }
-            } finally {
-                reader.close();
             }
         } catch (final IOException ex) {
             ex.printStackTrace();
@@ -467,32 +452,25 @@ public class IOUtil {
         }
 
         // use buffering
-        final Writer output = new BufferedWriter(new FileWriter(file));
-        try {
+        try (Writer output = new BufferedWriter(new FileWriter(file))) {
             output.write(fileContent);
-        } finally {
-            output.close();
         }
     }
 
     public static void copyFile(final ZipInputStream inputStream, final File target) throws IOException {
-        final FileOutputStream fos = new FileOutputStream(target);
         int n;
         final int BUFF_SIZE = 1024;
         final byte[] buf = new byte[BUFF_SIZE];
-        try {
+        try (FileOutputStream fos = new FileOutputStream(target)) {
             while ((n = inputStream.read(buf)) > 0) {
                 fos.write(buf, 0, n);
             }
-        } finally {
-            fos.close();
         }
     }
 
     public static byte[] zip(final Map<String, byte[]> files) throws IOException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        final ZipOutputStream zos = new ZipOutputStream(baos);
-        try {
+        try (ZipOutputStream zos = new ZipOutputStream(baos)) {
             for (final Entry<String, byte[]> file : files.entrySet()) {
                 zos.putNextEntry(new ZipEntry(file.getKey()));
                 zos.write(file.getValue());
@@ -500,7 +478,6 @@ public class IOUtil {
                 zos.closeEntry();
             }
         } finally {
-            zos.close();
             baos.close();
         }
         return baos.toByteArray();
@@ -508,8 +485,7 @@ public class IOUtil {
 
     public static byte[] zip(final Pair<String, byte[]>... files) throws IOException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        final ZipOutputStream zos = new ZipOutputStream(baos);
-        try {
+        try (ZipOutputStream zos = new ZipOutputStream(baos)) {
             for (final Entry<String, byte[]> file : files) {
                 zos.putNextEntry(new ZipEntry(file.getKey()));
                 zos.write(file.getValue());
@@ -517,7 +493,6 @@ public class IOUtil {
                 zos.closeEntry();
             }
         } finally {
-            zos.close();
             baos.close();
         }
         return baos.toByteArray();
@@ -525,10 +500,9 @@ public class IOUtil {
 
     public static final Map<String, byte[]> unzip(final byte[] zipFile) throws IOException {
         final ByteArrayInputStream bais = new ByteArrayInputStream(zipFile);
-        final ZipInputStream zipInputstream = new ZipInputStream(bais);
         ZipEntry zipEntry = null;
-        final Map<String, byte[]> files = new HashMap<String, byte[]>();
-        try {
+        final Map<String, byte[]> files = new HashMap<>();
+        try (ZipInputStream zipInputstream = new ZipInputStream(bais)) {
             while ((zipEntry = zipInputstream.getNextEntry()) != null) {
                 final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
                 int bytesRead;
@@ -538,22 +512,17 @@ public class IOUtil {
                 }
                 files.put(zipEntry.getName(), byteArrayOutputStream.toByteArray());
             }
-        } finally {
-            zipInputstream.close();
         }
         return files;
     }
 
     public static void unzipToFolder(final InputStream inputStream, final File outputFolder) throws IOException {
-        final ZipInputStream zipInputstream = new ZipInputStream(inputStream);
         ZipEntry zipEntry = null;
 
-        try {
+        try (ZipInputStream zipInputstream = new ZipInputStream(inputStream)) {
             while ((zipEntry = zipInputstream.getNextEntry()) != null) {
                 extractZipEntry(zipInputstream, zipEntry, outputFolder);
             }
-        } finally {
-            zipInputstream.close();
         }
     }
 
@@ -581,16 +550,13 @@ public class IOUtil {
         mkdirs(outputFile.getParentFile());
 
         try {
-            final FileOutputStream fileOutputStream = new FileOutputStream(outputFile);
-            try {
+            try (FileOutputStream fileOutputStream = new FileOutputStream(outputFile)) {
                 // The contents of the new file, that is read from the ZipInputStream using a buffer (byte []), is written.
                 int bytesRead;
                 final byte[] buffer = new byte[BUFFER_SIZE];
                 while ((bytesRead = zipInputstream.read(buffer)) > -1) {
                     fileOutputStream.write(buffer, 0, bytesRead);
                 }
-            } finally {
-                fileOutputStream.close();
             }
         } catch (final IOException ioe) {
             // In case of error, the file is deleted
@@ -641,32 +607,26 @@ public class IOUtil {
     }
 
     public static byte[] getZipEntryContent(final String entryName, final InputStream inputStream) throws IOException {
-        final ZipInputStream zipInputstream = new ZipInputStream(inputStream);
         ZipEntry zipEntry = null;
-        try {
+        try (ZipInputStream zipInputstream = new ZipInputStream(inputStream)) {
             while ((zipEntry = zipInputstream.getNextEntry()) != null) {
                 if (!entryName.equals(zipEntry.getName())) {
                     continue;
                 }
                 return getBytes(zipInputstream);
             }
-        } finally {
-            zipInputstream.close();
         }
         throw new IOException("Entry " + entryName + " does not exists in the zip file");
     }
 
     public static byte[] getBytes(ZipInputStream zipInputstream) throws IOException {
-        final ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        try {
+        try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream()) {
             int bytesRead;
             final byte[] buffer = new byte[BUFFER_SIZE];
             while ((bytesRead = zipInputstream.read(buffer)) > -1) {
                 byteArrayOutputStream.write(buffer, 0, bytesRead);
             }
             return byteArrayOutputStream.toByteArray();
-        } finally {
-            byteArrayOutputStream.close();
         }
     }
 

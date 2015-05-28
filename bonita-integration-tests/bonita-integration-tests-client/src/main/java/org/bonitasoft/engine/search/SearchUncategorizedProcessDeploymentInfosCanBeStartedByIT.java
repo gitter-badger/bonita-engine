@@ -61,9 +61,9 @@ public class SearchUncategorizedProcessDeploymentInfosCanBeStartedByIT extends T
     @Before
     public void before() throws Exception {
         super.before();
-        categories = new ArrayList<Category>();
+        categories = new ArrayList<>();
 
-        users = new ArrayList<User>(6);
+        users = new ArrayList<>(6);
         users.add(createUser("chicobento", "bpm"));
         users.add(createUser("cebolinha", "bpm"));
         users.add(createUser("cascao", "bpm"));
@@ -71,21 +71,21 @@ public class SearchUncategorizedProcessDeploymentInfosCanBeStartedByIT extends T
         users.add(createUser("monica", "bpm"));
         users.add(createUser("dorinha", "bpm"));
 
-        groups = new ArrayList<Group>(2);
+        groups = new ArrayList<>(2);
         groups.add(createGroup("group1"));
         groups.add(createGroup("group2"));
 
-        roles = new ArrayList<Role>(2);
+        roles = new ArrayList<>(2);
         roles.add(createRole("role1"));
         roles.add(createRole("role2"));
 
-        userMemberships = new ArrayList<UserMembership>(3);
+        userMemberships = new ArrayList<>(3);
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(3).getId(), groups.get(0).getId(), roles.get(0).getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(4).getId(), groups.get(0).getId(), roles.get(1).getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(5).getId(), groups.get(1).getId(), roles.get(0).getId()));
 
-        enabledProcessDefinitions = new ArrayList<ProcessDefinition>(4);
-        disabledProcessDefinitions = new ArrayList<ProcessDefinition>(1);
+        enabledProcessDefinitions = new ArrayList<>(4);
+        disabledProcessDefinitions = new ArrayList<>(1);
         createProcessesDefForSearchProcessUserCanStart();
     }
 
@@ -110,7 +110,7 @@ public class SearchUncategorizedProcessDeploymentInfosCanBeStartedByIT extends T
         categories.add(getProcessAPI().createCategory("category1", "categoryDescription1"));
         categories.add(getProcessAPI().createCategory("category2", "categoryDescription2"));
         categories.add(getProcessAPI().createCategory("category3", "categoryDescription3"));
-        final ArrayList<Long> categoryIds = new ArrayList<Long>();
+        final ArrayList<Long> categoryIds = new ArrayList<>();
         categoryIds.add(categories.get(0).getId());
         categoryIds.add(categories.get(1).getId());
         categoryIds.add(categories.get(2).getId());

@@ -472,7 +472,7 @@ public class IdentityServiceTest extends CommonBPMServicesTest {
     }
 
     private List<SRole> createRoles(final int i, final String baseName, final String baseLabel) throws SIdentityException {
-        final ArrayList<SRole> results = new ArrayList<SRole>();
+        final ArrayList<SRole> results = new ArrayList<>();
         for (int j = 0; j < i; j++) {
             final SRole role = BuilderFactory.get(SRoleBuilderFactory.class).createNewInstance().setName(baseName + j).setDisplayName(baseLabel + j).done();
             identityService.createRole(role);
@@ -567,7 +567,7 @@ public class IdentityServiceTest extends CommonBPMServicesTest {
     }
 
     private List<SGroup> createGroups(final int i, final String basename, final String baseLabel, final SGroup g) throws SIdentityException {
-        final List<SGroup> groups = new ArrayList<SGroup>();
+        final List<SGroup> groups = new ArrayList<>();
         for (int j = 0; j < i; j++) {
             final SGroupBuilder inst = BuilderFactory.get(SGroupBuilderFactory.class).createNewInstance().setName(basename + j).setDisplayName(baseLabel + j);
             if (g != null) {
@@ -950,7 +950,7 @@ public class IdentityServiceTest extends CommonBPMServicesTest {
     }
 
     private List<SUser> createUsers(final int i, final String baseUsername) throws SIdentityException {
-        final List<SUser> ids = new ArrayList<SUser>();
+        final List<SUser> ids = new ArrayList<>();
         for (int j = 0; j < i; j++) {
             final SUser user = BuilderFactory.get(SUserBuilderFactory.class).createNewInstance().setUserName(baseUsername + j).setFirstName("firstName" + j)
                     .setLastName("lastName" + j).setPassword("password" + j).done();
@@ -1297,8 +1297,8 @@ public class IdentityServiceTest extends CommonBPMServicesTest {
                 .setLastName("lastname2").setPassword("mlbxcvjmsdkljf").done());
         getTransactionService().complete();
 
-        final Map<Class<? extends PersistentObject>, Set<String>> userAllFields = new HashMap<Class<? extends PersistentObject>, Set<String>>();
-        final Set<String> fields = new HashSet<String>(4);
+        final Map<Class<? extends PersistentObject>, Set<String>> userAllFields = new HashMap<>();
+        final Set<String> fields = new HashSet<>(4);
         fields.add("userName");
         fields.add("firstName");
         fields.add("lastName");

@@ -24,7 +24,7 @@ import org.bonitasoft.engine.operation.Operation;
  */
 public class CatchMessageEventTriggerDefinitionBinding extends MessageEventTriggerDefinitionBinding {
 
-    private final List<Operation> operations = new ArrayList<Operation>();
+    private final List<Operation> operations = new ArrayList<>();
 
     @Override
     public Object getObject() {

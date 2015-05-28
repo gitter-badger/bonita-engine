@@ -37,7 +37,7 @@ public class ExecutorWorkService implements WorkService {
 
     private final WorkSynchronizationFactory workSynchronizationFactory;
 
-    private final ThreadLocal<AbstractWorkSynchronization> synchronizations = new ThreadLocal<AbstractWorkSynchronization>();
+    private final ThreadLocal<AbstractWorkSynchronization> synchronizations = new ThreadLocal<>();
 
     private final TechnicalLoggerService loggerService;
 

@@ -60,7 +60,7 @@ public class ExpressionBuilder {
     private static HashSet<String> numericTypes;
 
     static {
-        validOperators = new ArrayList<String>(7);
+        validOperators = new ArrayList<>(7);
         validOperators.add(LESS_THAN_COMPARATOR);
         validOperators.add(GREATER_THAN_COMPARATOR);
         validOperators.add(LESS_THAN_OR_EQUALS_COMPARATOR);
@@ -69,7 +69,7 @@ public class ExpressionBuilder {
         validOperators.add(NOT_EQUALS_COMPARATOR);
         validOperators.add(NOT_COMPARATOR);
 
-        numericTypes = new HashSet<String>();
+        numericTypes = new HashSet<>();
         numericTypes.add(Integer.class.getName());
         numericTypes.add(Long.class.getName());
         numericTypes.add(Double.class.getName());
@@ -360,7 +360,7 @@ public class ExpressionBuilder {
     }
 
     public Expression createListOfListExpression(final String name, final List<List<Expression>> expressions) throws InvalidExpressionException {
-        final List<Expression> deps = new ArrayList<Expression>(expressions.size());
+        final List<Expression> deps = new ArrayList<>(expressions.size());
         int i = 0;
         for (final List<Expression> list : expressions) {
             final String name2 = name + "_" + i++;
@@ -460,7 +460,7 @@ public class ExpressionBuilder {
     public Expression createComparisonExpression(final String name, final Expression leftOperand, final String operator, final Expression rightOperand)
             throws InvalidExpressionException {
         createNewInstance(name).setExpressionType(ExpressionType.TYPE_CONDITION).setReturnType(Boolean.class.getName()).setContent(operator);
-        final List<Expression> dependencies = new ArrayList<Expression>(2);
+        final List<Expression> dependencies = new ArrayList<>(2);
         dependencies.add(leftOperand);
         dependencies.add(rightOperand);
         setDependencies(dependencies);

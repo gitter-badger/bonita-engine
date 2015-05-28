@@ -37,7 +37,7 @@ public class SearchProcessSupervisorDescriptor extends SearchEntityDescriptor {
         // final SUserBuilder userBuilder = identityModelBuilder.getUserBuilder();
         // final GroupBuilder groupBuilder = identityModelBuilder.getGroupBuilder();
         // final RoleBuilder roleBuilder = identityModelBuilder.getRoleBuilder();
-        fieldDescriptorMap = new HashMap<String, FieldDescriptor>(5);
+        fieldDescriptorMap = new HashMap<>(5);
         fieldDescriptorMap.put(ProcessSupervisorSearchDescriptor.ID,
                 new FieldDescriptor(SProcessSupervisor.class, BuilderFactory.get(SProcessSupervisorBuilderFactory.class).getIdKey()));
         fieldDescriptorMap.put(ProcessSupervisorSearchDescriptor.PROCESS_DEFINITION_ID,
@@ -52,7 +52,7 @@ public class SearchProcessSupervisorDescriptor extends SearchEntityDescriptor {
         // fieldDescriptorMap.put(ProcessSupervisorSearchDescriptor.GROUP_PARENT_PATH, new FieldDescriptor(SGroup.class, groupBuilder.getParentPathKey()));
         // fieldDescriptorMap.put(ProcessSupervisorSearchDescriptor.ROLE_NAME, new FieldDescriptor(SRole.class, roleBuilder.getNameKey()));
         //
-        supervisorAllFields = new HashMap<Class<? extends PersistentObject>, Set<String>>(3);
+        supervisorAllFields = new HashMap<>(3);
         // final Set<String> userFields = new HashSet<String>(3);
         // userFields.add(userBuilder.getFirstNameKey());
         // userFields.add(userBuilder.getLastNameKey());

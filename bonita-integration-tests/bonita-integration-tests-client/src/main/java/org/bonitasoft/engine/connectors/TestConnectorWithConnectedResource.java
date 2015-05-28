@@ -26,7 +26,7 @@ public class TestConnectorWithConnectedResource extends AbstractConnector {
     private final List<String> output;
 
     public TestConnectorWithConnectedResource() {
-        output = new ArrayList<String>(2);
+        output = new ArrayList<>(2);
     }
 
     @Override

@@ -56,7 +56,7 @@ public class ConnectorServiceDecorator implements ConnectorService {
             final String connectorDefinitionVersion, final Map<String, SExpression> connectorInputParameters,
             final Map<String, Map<String, Serializable>> inputValues, final ClassLoader classLoader, final SExpressionContext sexpContext)
             throws SConnectorException {
-        final Map<String, SExpression> parameters = new HashMap<String, SExpression>(connectorInputParameters);
+        final Map<String, SExpression> parameters = new HashMap<>(connectorInputParameters);
         parameters.put("connectorApiAccessor", EngineConstantExpressionBuilder.getConnectorAPIAccessorExpression());
         parameters.put("engineExecutionContext", EngineConstantExpressionBuilder.getEngineExecutionContext());
         return connectorService.executeMutipleEvaluation(processDefinitionId, connectorDefinitionId, connectorDefinitionVersion, parameters, inputValues,
@@ -93,7 +93,7 @@ public class ConnectorServiceDecorator implements ConnectorService {
             SExpressionDependencyMissingException, SInvalidExpressionException {
         SExpression apiAccessorExpression = EngineConstantExpressionBuilder.getConnectorAPIAccessorExpression();
         SExpression engineExecutionContext = EngineConstantExpressionBuilder.getEngineExecutionContext();
-        final Map<String, SExpression> newParameters = new HashMap<String, SExpression>(parameters);
+        final Map<String, SExpression> newParameters = new HashMap<>(parameters);
         newParameters.put("connectorApiAccessor", apiAccessorExpression);
         newParameters.put("engineExecutionContext", engineExecutionContext);
         return connectorService.evaluateInputParameters(connectorId, newParameters, sExpressionContext, inputValues);

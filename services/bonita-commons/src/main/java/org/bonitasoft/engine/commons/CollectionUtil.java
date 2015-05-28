@@ -23,13 +23,13 @@ import java.util.Set;
 public class CollectionUtil {
 
     public static Map<String, Object> buildSimpleMap(final String key, final Object value) {
-        final Map<String, Object> result = new HashMap<String, Object>();
+        final Map<String, Object> result = new HashMap<>();
         result.put(key, value);
         return result;
     }
 
     public static <T> Set<T> buildHashSetFromList(final Class<T> clazz, final List<T> list) {
-        final Set<T> set = new HashSet<T>();
+        final Set<T> set = new HashSet<>();
         set.addAll(list);
         return set;
 

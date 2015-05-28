@@ -52,7 +52,7 @@ public class SMessageEventTriggerDefinitionImpl extends SEventTriggerDefinitionI
     }
 
     public SMessageEventTriggerDefinitionImpl() {
-        correlations = new ArrayList<SCorrelationDefinition>(1);
+        correlations = new ArrayList<>(1);
     }
 
     public SMessageEventTriggerDefinitionImpl(final SCatchMessageEventTriggerDefinition trigger) {
@@ -62,7 +62,7 @@ public class SMessageEventTriggerDefinitionImpl extends SEventTriggerDefinitionI
 
     public SMessageEventTriggerDefinitionImpl(final MessageEventTriggerDefinition messageEventTrigger) {
         messageName = messageEventTrigger.getMessageName();
-        correlations = new ArrayList<SCorrelationDefinition>(messageEventTrigger.getCorrelations().size());
+        correlations = new ArrayList<>(messageEventTrigger.getCorrelations().size());
         for (final CorrelationDefinition correlation : messageEventTrigger.getCorrelations()) {
             correlations.add(new SCorrelationDefinitionImpl(ServerModelConvertor.convertExpression(correlation.getKey()),
                     ServerModelConvertor.convertExpression(correlation.getValue())));

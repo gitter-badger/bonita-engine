@@ -52,7 +52,7 @@ public class ConnectorProcessDependencyDeployer implements ProcessDependencyDepl
     private List<Problem> checkAllConnectorsHaveImplementation(final ConnectorService connectorService, final SProcessDefinition processDefinition,
             final long tenantId) {
         final List<SConnectorDefinition> processConnectors = processDefinition.getProcessContainer().getConnectors();
-        final List<Problem> problems = new ArrayList<Problem>();
+        final List<Problem> problems = new ArrayList<>();
         if (processConnectors != null) {
             for (final SConnectorDefinition sConnectorDefinition : processConnectors) {
                 try {

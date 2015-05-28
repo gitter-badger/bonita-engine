@@ -35,7 +35,7 @@ public class TCPServerAPI implements ServerAPI {
 
     private static final long serialVersionUID = 1L;
 
-    private final List<TcpDestination> destinations = new ArrayList<TcpDestination>();
+    private final List<TcpDestination> destinations = new ArrayList<>();
 
     private final Random random;
 

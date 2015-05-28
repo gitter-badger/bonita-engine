@@ -45,7 +45,7 @@ public class GetTenantsCallable implements Callable<List<STenant>> {
         List<STenant> tenants;
         final int maxResults = 100;
         int i = 0;
-        final List<STenant> tenantIds = new ArrayList<STenant>();
+        final List<STenant> tenantIds = new ArrayList<>();
         do {
             tenants = platformService.getTenants(new QueryOptions(i, maxResults, STenant.class, "id", OrderByType.ASC));
             i += maxResults;

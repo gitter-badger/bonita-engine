@@ -67,7 +67,7 @@ public class SupervisorIT extends TestWithTechnicalUser {
         createGroups();
         createRoles();
         createProcessDefinitions();
-        supervisors = new ArrayList<ProcessSupervisor>();
+        supervisors = new ArrayList<>();
         createUserSupervisors();
         createGroupSupervisors();
         createRoleSupervisors();
@@ -86,7 +86,7 @@ public class SupervisorIT extends TestWithTechnicalUser {
     }
 
     private void createProcessDefinitions() throws BonitaException {
-        processDefinitions = new ArrayList<ProcessDefinition>();
+        processDefinitions = new ArrayList<>();
         processDefinitions.add(createProcessDefinition("myProcess1"));
         processDefinitions.add(createProcessDefinition("myProcess2"));
     }
@@ -98,7 +98,7 @@ public class SupervisorIT extends TestWithTechnicalUser {
     }
 
     private void createUsers() throws BonitaException {
-        users = new ArrayList<User>();
+        users = new ArrayList<>();
         users.add(getIdentityAPI().createUser(USERNAME, PASSWORD));
         users.add(createUser("user2", "bpm", "FirstName2", "LastName2"));
         users.add(createUser("user3", "bpm", "FirstName3", "LastName3"));
@@ -107,13 +107,13 @@ public class SupervisorIT extends TestWithTechnicalUser {
     }
 
     private void createGroups() throws BonitaException {
-        groups = new ArrayList<Group>();
+        groups = new ArrayList<>();
         groups.add(getIdentityAPI().createGroup("Engine", null));
         groups.add(createGroup("group2", "level2"));
     }
 
     private void createRoles() throws BonitaException {
-        roles = new ArrayList<Role>();
+        roles = new ArrayList<>();
         roles.add(getIdentityAPI().createRole("Developer"));
         roles.add(createRole("role2"));
     }

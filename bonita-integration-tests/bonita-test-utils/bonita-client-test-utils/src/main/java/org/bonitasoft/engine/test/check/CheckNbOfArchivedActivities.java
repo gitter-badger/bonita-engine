@@ -57,7 +57,7 @@ public final class CheckNbOfArchivedActivities extends WaitUntil {
     protected boolean check() {
         final List<ArchivedActivityInstance> activities = processAPI.getArchivedActivityInstances(processInstance.getId(), 0, 200,
                 ActivityInstanceCriterion.NAME_ASC);
-        result = new HashSet<ArchivedActivityInstance>(activities.size());
+        result = new HashSet<>(activities.size());
         // The number of activities is the one expected...
 
         if (activityState != null) {

@@ -113,7 +113,7 @@ public class LoopIT extends TestWithUser {
         try {
             final ProcessInstance processInstance = getProcessAPI().startProcess(processDefinition.getId());
             final long userTaskId = waitForUserTask(processInstance, activityName);
-            final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>();
+            final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>();
             expressions.put(new ExpressionBuilder().createConstantBooleanExpression(true), new HashMap<String, Serializable>(0));
             getProcessAPI().evaluateExpressionsOnActivityInstance(userTaskId, expressions);
         } finally {

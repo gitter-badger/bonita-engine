@@ -144,7 +144,7 @@ public class OperationIT extends TestWithUser {
             final List<Expression> expression, final List<Object> valueBefore, final List<Object> valueAfter) throws Exception {
         final String delivery = "Delivery men";
         final ProcessDefinitionBuilder designProcessDefinition = new ProcessDefinitionBuilder().createNewInstance(procName, "1.0");
-        final HashSet<String> dataSet = new HashSet<String>(dataName.size());
+        final HashSet<String> dataSet = new HashSet<>(dataName.size());
         for (int i = 0; i < dataName.size(); i++) {
             final String name = dataName.get(i);
             if (!dataSet.contains(name)) {
@@ -166,7 +166,7 @@ public class OperationIT extends TestWithUser {
         final ProcessDefinition processDefinition = deployAndEnableProcessWithActor(designProcessDefinition.done(), delivery, user);
 
         final ProcessInstance startProcess = getProcessAPI().startProcess(processDefinition.getId());
-        final HashMap<String, Integer> inverDataOrder = new HashMap<String, Integer>(dataName.size());
+        final HashMap<String, Integer> inverDataOrder = new HashMap<>(dataName.size());
         for (int i = dataName.size() - 1; i >= 0; i--) {
             final String name = dataName.get(i);
             if (!inverDataOrder.containsKey(name)) {
@@ -332,7 +332,7 @@ public class OperationIT extends TestWithUser {
     public void initializeAVariableUsingAPIAccessor() throws Exception {
         final ExpressionBuilder expressionBuilder = new ExpressionBuilder();
         final Expression apiAccessor = expressionBuilder.createAPIAccessorExpression();
-        final List<Expression> dependencies = new ArrayList<Expression>(1);
+        final List<Expression> dependencies = new ArrayList<>(1);
         dependencies.add(apiAccessor);
         final Expression defaultExpression = expressionBuilder.createGroovyScriptExpression("initializeAVariableUsingAPIAccessor",
                 "apiAccessor.getIdentityAPI().getNumberOfUsers()", Long.class.getName(), dependencies);
@@ -381,7 +381,7 @@ public class OperationIT extends TestWithUser {
 
         final ExpressionBuilder expressionBuilder = new ExpressionBuilder();
         final Expression apiAccessor = expressionBuilder.createAPIAccessorExpression();
-        final List<Expression> dependencies = new ArrayList<Expression>(1);
+        final List<Expression> dependencies = new ArrayList<>(1);
         dependencies.add(apiAccessor);
         final Expression defaultExpression = expressionBuilder.createGroovyScriptExpression("updateAVariableUsingAPIAccessor",
                 "apiAccessor.getIdentityAPI().getNumberOfUsers()", Long.class.getName(), dependencies);
@@ -407,7 +407,7 @@ public class OperationIT extends TestWithUser {
     public void takeTransitionUsingAPIAccessor() throws Exception {
         final ExpressionBuilder expressionBuilder = new ExpressionBuilder();
         final Expression apiAccessor = expressionBuilder.createAPIAccessorExpression();
-        final List<Expression> dependencies = new ArrayList<Expression>(1);
+        final List<Expression> dependencies = new ArrayList<>(1);
         dependencies.add(apiAccessor);
         final Expression defaultExpression = expressionBuilder.createGroovyScriptExpression("takeTransitionUsingAPIAccessor",
                 "apiAccessor.getIdentityAPI().getNumberOfUsers() < 100", Boolean.class.getName(), dependencies);

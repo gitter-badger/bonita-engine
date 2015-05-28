@@ -66,7 +66,7 @@ public class TimerEventTriggerJobListenerTest {
 
     private TimerEventTriggerJobListener timerEventTriggerJobListener;
 
-    private final Map<String, Serializable> context = new HashMap<String, Serializable>();
+    private final Map<String, Serializable> context = new HashMap<>();
 
     @Before
     public void setUp() {

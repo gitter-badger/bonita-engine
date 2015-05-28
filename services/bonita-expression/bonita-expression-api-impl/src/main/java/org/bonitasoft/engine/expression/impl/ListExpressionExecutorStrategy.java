@@ -45,7 +45,7 @@ public class ListExpressionExecutorStrategy implements ExpressionExecutorStrateg
     @Override
     public Serializable evaluate(final SExpression expression, final Map<String, Object> context, final Map<Integer, Object> resolvedExpressions,
             final ContainerState containerState) {
-        final List<Object> result = new ArrayList<Object>(expression.getDependencies().size());
+        final List<Object> result = new ArrayList<>(expression.getDependencies().size());
         for (final SExpression exp : expression.getDependencies()) {
             result.add(resolvedExpressions.get(exp.getDiscriminant()));
         }
@@ -57,7 +57,7 @@ public class ListExpressionExecutorStrategy implements ExpressionExecutorStrateg
     @Override
     public List<Object> evaluate(final List<SExpression> expressions, final Map<String, Object> context, final Map<Integer, Object> resolvedExpressions,
             final ContainerState containerState) {
-        final List<Object> list = new ArrayList<Object>(expressions.size());
+        final List<Object> list = new ArrayList<>(expressions.size());
         for (final SExpression expression : expressions) {
             list.add(evaluate(expression, context, resolvedExpressions, containerState));
         }

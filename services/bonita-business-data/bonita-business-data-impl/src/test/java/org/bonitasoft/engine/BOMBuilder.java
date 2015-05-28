@@ -96,7 +96,7 @@ public class BOMBuilder {
         final SimpleField nickNames = new SimpleField();
         nickNames.setName("nickNames");
         nickNames.setType(FieldType.STRING);
-        nickNames.setLength(Integer.valueOf(15));
+        nickNames.setLength(15);
         nickNames.setCollection(Boolean.TRUE);
 
         final BusinessObject employee = new BusinessObject();

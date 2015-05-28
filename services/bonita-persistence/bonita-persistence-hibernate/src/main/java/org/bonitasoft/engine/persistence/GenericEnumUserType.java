@@ -61,7 +61,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType, Seriali
         }
         final String identifierMethodName = parameters.getProperty("identifierMethod", DEFAULT_IDENTIFIER_METHOD_NAME);
         try {
-            identifierMethod = enumClass.getMethod(identifierMethodName, new Class[0]);
+            identifierMethod = enumClass.getMethod(identifierMethodName);
             identifierType = identifierMethod.getReturnType();
         } catch (final Exception e) {
             final String message = "Failed to obtain identifier method";
@@ -70,7 +70,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType, Seriali
         sqlTypes = new int[] { type.sqlType() };
         final String valueOfMethodName = parameters.getProperty("valueOfMethod", DEFAULT_VALUE_OF_METHOD_NAME);
         try {
-            valueOfMethod = enumClass.getMethod(valueOfMethodName, new Class[] { identifierType });
+            valueOfMethod = enumClass.getMethod(valueOfMethodName, identifierType);
         } catch (final Exception e) {
             final String message = "Failed to obtain valueOf method";
             throw new HibernateException(message, e);
@@ -90,7 +90,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType, Seriali
             return null;
         }
         try {
-            return valueOfMethod.invoke(enumClass, new Object[] { identifier });
+            return valueOfMethod.invoke(enumClass, identifier);
         } catch (final Exception e) {
             final StringBuilder stb = new StringBuilder("Exception while invoking valueOf method '");
             stb.append(valueOfMethod.getName());
@@ -107,7 +107,7 @@ public class GenericEnumUserType implements UserType, ParameterizedType, Seriali
             if (value == null) {
                 st.setNull(index, type.sqlType());
             } else {
-                final String identifier = (String) identifierMethod.invoke(value, new Object[0]);
+                final String identifier = (String) identifierMethod.invoke(value);
                 type.set(st, identifier, index, session);
             }
         } catch (final Exception e) {

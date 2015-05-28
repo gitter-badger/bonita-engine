@@ -33,7 +33,7 @@ public class SearchWaitingEventSerchDescriptor extends SearchEntityDescriptor {
 
     public SearchWaitingEventSerchDescriptor() {
         final SWaitingEventKeyProviderBuilderFactory keyProvider = BuilderFactory.get(SWaitingEventKeyProviderBuilderFactory.class);
-        activityInstanceDescriptorKeys = new HashMap<String, FieldDescriptor>(6);
+        activityInstanceDescriptorKeys = new HashMap<>(6);
         activityInstanceDescriptorKeys.put(WaitingEventSearchDescriptor.BPM_EVENT_TYPE,
                 new FieldDescriptor(SWaitingEvent.class, keyProvider.getEventTypeKey()));
         activityInstanceDescriptorKeys.put(WaitingEventSearchDescriptor.FLOW_NODE_NAME,

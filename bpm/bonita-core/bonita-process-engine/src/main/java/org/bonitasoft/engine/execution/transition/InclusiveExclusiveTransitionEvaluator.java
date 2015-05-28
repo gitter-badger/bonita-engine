@@ -55,7 +55,7 @@ public class InclusiveExclusiveTransitionEvaluator {
     }
 
     private List<STransitionDefinition> evaluateNonDefaultTransitions(final SExpressionContext sExpressionContext, final List<STransitionDefinition> outgoingTransitionDefinitions) throws SBonitaException {
-        final List<STransitionDefinition> chosenTransitions = new ArrayList<STransitionDefinition>(outgoingTransitionDefinitions.size());
+        final List<STransitionDefinition> chosenTransitions = new ArrayList<>(outgoingTransitionDefinitions.size());
         boolean found = false;
         Iterator<STransitionDefinition> iterator = outgoingTransitionDefinitions.iterator();
         while (iterator.hasNext() && strategy.shouldContinue(found)) {

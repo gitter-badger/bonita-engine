@@ -36,7 +36,7 @@ public class SearchConnectorInstanceDescriptor extends SearchEntityDescriptor {
     SearchConnectorInstanceDescriptor() {
         final SConnectorInstanceBuilderFactory keyprovider = BuilderFactory.get(SConnectorInstanceBuilderFactory.class);
 
-        searchEntityKeys = new HashMap<String, FieldDescriptor>(7);
+        searchEntityKeys = new HashMap<>(7);
         searchEntityKeys.put(ConnectorInstancesSearchDescriptor.NAME, new FieldDescriptor(SConnectorInstance.class, keyprovider.getNameKey()));
         searchEntityKeys.put(ConnectorInstancesSearchDescriptor.ACTIVATION_EVENT,
                 new FieldDescriptor(SConnectorInstance.class, keyprovider.getActivationEventKey()));
@@ -50,8 +50,8 @@ public class SearchConnectorInstanceDescriptor extends SearchEntityDescriptor {
                 new FieldDescriptor(SConnectorInstance.class, keyprovider.getContainerTypeKey()));
         searchEntityKeys.put(ConnectorInstancesSearchDescriptor.STATE, new FieldDescriptor(SConnectorInstance.class, keyprovider.getStateKey()));
 
-        connectorInstanceAllFields = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
-        final Set<String> connectorFields = new HashSet<String>(2);
+        connectorInstanceAllFields = new HashMap<>(1);
+        final Set<String> connectorFields = new HashSet<>(2);
         connectorFields.add(keyprovider.getNameKey());
         connectorFields.add(keyprovider.getConnectorIdKey());
 

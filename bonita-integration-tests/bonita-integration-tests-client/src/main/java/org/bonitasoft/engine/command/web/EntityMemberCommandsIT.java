@@ -114,7 +114,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     public void createNewEntityMemberAndDeleteIt() throws Exception {
         final User newUser = createUser("test1", "password");
         // execute command:
-        final HashMap<String, Serializable> createCommandParameters = new HashMap<String, Serializable>(4);
+        final HashMap<String, Serializable> createCommandParameters = new HashMap<>(4);
         createCommandParameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         createCommandParameters.put(EXTERNAL_ID_KEY, externalId1);
         createCommandParameters.put(USER_ID_KEY, newUser.getId());
@@ -128,7 +128,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         assertTrue("entityMemberId should be valuated", -1 != entityMember.getEntityMemberId());
 
         // delete it:
-        final HashMap<String, Serializable> deleteCommandParameters = new HashMap<String, Serializable>(1);
+        final HashMap<String, Serializable> deleteCommandParameters = new HashMap<>(1);
         deleteCommandParameters.put(ENTITY_MEMBER_ID_KEY, entityMember.getEntityMemberId());
         getCommandAPI().execute(DELETE_COMMAND_NAME, deleteCommandParameters);
         try {
@@ -147,7 +147,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     @SuppressWarnings("unchecked")
     public void testDeleteAllEntityMembersForExternalId() throws Exception {
         // execute command:
-        final HashMap<String, Serializable> createCommandParameters = new HashMap<String, Serializable>(4);
+        final HashMap<String, Serializable> createCommandParameters = new HashMap<>(4);
         createCommandParameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         createCommandParameters.put(EXTERNAL_ID_KEY, externalId1);
         final User user = createUser("Ducobu", "WhatIsAPassword?");
@@ -164,7 +164,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         createCommandParameters.put(DISCRIMINATOR_ID_KEY, SUPERVISOR_REPORT_DISCRIMINATOR);
         getCommandAPI().execute(CREATE_COMMAND_NAME, createCommandParameters);
 
-        final HashMap<String, Serializable> searchParameters1 = new HashMap<String, Serializable>(4);
+        final HashMap<String, Serializable> searchParameters1 = new HashMap<>(4);
         searchParameters1.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         searchParameters1.put(USER_ID_KEY, userId);
         searchParameters1.put(EXTERNAL_ID_KEY, externalId1);
@@ -172,7 +172,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         SearchResult<EntityMember> entityMembers = (SearchResult<EntityMember>) getCommandAPI().execute(SEARCH_FOR_USER_COMMAND, searchParameters1);
         assertEquals(2, entityMembers.getCount());
 
-        final HashMap<String, Serializable> searchParameters2 = new HashMap<String, Serializable>(4);
+        final HashMap<String, Serializable> searchParameters2 = new HashMap<>(4);
         searchParameters2.put(DISCRIMINATOR_ID_KEY, SUPERVISOR_REPORT_DISCRIMINATOR);
         searchParameters2.put(USER_ID_KEY, userId);
         searchParameters2.put(EXTERNAL_ID_KEY, externalId1);
@@ -181,7 +181,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         assertEquals(1, entityMembers2.getCount());
 
         // delete the one for discrim1:
-        final HashMap<String, Serializable> deleteCommandParameters = new HashMap<String, Serializable>(2);
+        final HashMap<String, Serializable> deleteCommandParameters = new HashMap<>(2);
         deleteCommandParameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         deleteCommandParameters.put(EXTERNAL_ID_KEY, externalId1);
         getCommandAPI().execute(DELETE_SEVERAL_COMMAND, deleteCommandParameters);
@@ -215,7 +215,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         final Role role = createRole("UnBeauRole");
         final Group group = createGroup("myGroup", "/HR/employee");
 
-        final HashMap<String, Serializable> createCommandParameters = new HashMap<String, Serializable>(4);
+        final HashMap<String, Serializable> createCommandParameters = new HashMap<>(4);
         createCommandParameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         createCommandParameters.put(EXTERNAL_ID_KEY, externalId1);
         createCommandParameters.put(USER_ID_KEY, newUser.getId());
@@ -235,7 +235,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         createCommandParameters.put(ROLE_ID_KEY, role.getId());
         final EntityMember entityMember4 = (EntityMember) getCommandAPI().execute(CREATE_COMMAND_NAME, createCommandParameters);
 
-        HashMap<String, Serializable> searchParameters = new HashMap<String, Serializable>(3);
+        HashMap<String, Serializable> searchParameters = new HashMap<>(3);
         searchParameters.put(DISCRIMINATOR_ID_KEY, "INNNNNEXISTENT");
         searchParameters.put(USER_ID_KEY, newUser.getId());
         searchParameters.put(EXTERNAL_ID_KEY, externalId1);
@@ -254,7 +254,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
 
         // test sort by userName
         // final Map<String, Serializable> searchParameters = getSearchParameters(builder, MemberType.USER);
-        searchParameters = new HashMap<String, Serializable>();
+        searchParameters = new HashMap<>();
         searchParameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         searchParameters.put(EXTERNAL_ID_KEY, externalId1);
         searchParameters.put(USER_ID_KEY, newUser.getId());
@@ -284,7 +284,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         final Group group = createGroup("myBand");
         final UserMembership userMembership = createUserMembership(newUser.getUserName(), role.getName(), group.getName());
 
-        final HashMap<String, Serializable> createCommandParameters = new HashMap<String, Serializable>(4);
+        final HashMap<String, Serializable> createCommandParameters = new HashMap<>(4);
         createCommandParameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         createCommandParameters.put(EXTERNAL_ID_KEY, externalId1);
         createCommandParameters.put(USER_ID_KEY, newUser.getId());
@@ -300,7 +300,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         // createCommandParameters.put(GROUP_ID_KEY, -1L);
         final EntityMember entityMember2 = (EntityMember) getCommandAPI().execute(CREATE_COMMAND_NAME, createCommandParameters);
 
-        final HashMap<String, Serializable> searchParameters = new HashMap<String, Serializable>(3);
+        final HashMap<String, Serializable> searchParameters = new HashMap<>(3);
         searchParameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         searchParameters.put(USER_ID_KEY, newUser.getId());
         searchParameters.put(EXTERNAL_ID_KEY, externalId1);
@@ -488,7 +488,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         final String report2 = "externalId2";
 
         // create a EntityMember1
-        final HashMap<String, Serializable> createCommandParameters1 = new HashMap<String, Serializable>(3);
+        final HashMap<String, Serializable> createCommandParameters1 = new HashMap<>(3);
         createCommandParameters1.put(DISCRIMINATOR_ID_KEY, SUPERVISOR_REPORT_DISCRIMINATOR);
         createCommandParameters1.put(EXTERNAL_ID_KEY, report1);
         createCommandParameters1.put(USER_ID_KEY, user1.getId());
@@ -496,7 +496,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
 
         SearchOptionsBuilder builder = buildSearchOptions(null, 0, 3, EntityMemberSearchDescriptor.DISPLAY_NAME_PART3, Order.ASC);
         builder.filter(EntityMemberSearchDescriptor.EXTERNAL_ID, report1);
-        final Map<String, Serializable> searchParameters1 = new HashMap<String, Serializable>(3);
+        final Map<String, Serializable> searchParameters1 = new HashMap<>(3);
         searchParameters1.put(DISCRIMINATOR_ID_KEY, SUPERVISOR_REPORT_DISCRIMINATOR);
         searchParameters1.put(SEARCH_OPTIONS_KEY, builder.done());
         searchParameters1.put(MEMBER_TYPE_KEY, MemberType.USER);
@@ -508,7 +508,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
 
         builder = buildSearchOptions(null, 0, 3, EntityMemberSearchDescriptor.DISPLAY_NAME_PART3, Order.ASC);
         builder.filter(EntityMemberSearchDescriptor.EXTERNAL_ID, report2);
-        final Map<String, Serializable> searchParameters2 = new HashMap<String, Serializable>(3);
+        final Map<String, Serializable> searchParameters2 = new HashMap<>(3);
         searchParameters2.put(DISCRIMINATOR_ID_KEY, SUPERVISOR_REPORT_DISCRIMINATOR);
         searchParameters2.put(SEARCH_OPTIONS_KEY, builder.done());
         searchParameters2.put(MEMBER_TYPE_KEY, MemberType.USER);
@@ -532,14 +532,14 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         final String report1 = "externalId1";
 
         // add a role to report's supervisor
-        final HashMap<String, Serializable> createCommandParameters1 = new HashMap<String, Serializable>(3);
+        final HashMap<String, Serializable> createCommandParameters1 = new HashMap<>(3);
         createCommandParameters1.put(DISCRIMINATOR_ID_KEY, SUPERVISOR_REPORT_DISCRIMINATOR);
         createCommandParameters1.put(EXTERNAL_ID_KEY, report1);
         createCommandParameters1.put(ROLE_ID_KEY, role1.getId());
         final EntityMember member1 = (EntityMember) getCommandAPI().execute(CREATE_COMMAND_NAME, createCommandParameters1);
 
         // add a group to report's user
-        final HashMap<String, Serializable> createCommandParameters2 = new HashMap<String, Serializable>(3);
+        final HashMap<String, Serializable> createCommandParameters2 = new HashMap<>(3);
         createCommandParameters2.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         createCommandParameters2.put(EXTERNAL_ID_KEY, report1);
         createCommandParameters2.put(GROUP_ID_KEY, group1.getId());
@@ -548,7 +548,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         // it can not use DISPLAY_NAME_PART3 to be ORDER BY, refer class SearchEntityMemberGroupDescriptor
         SearchOptionsBuilder builder = buildSearchOptions(null, 0, 3, EntityMemberSearchDescriptor.DISPLAY_NAME_PART2, Order.ASC);
         builder.filter(EntityMemberSearchDescriptor.EXTERNAL_ID, report1);
-        final Map<String, Serializable> searchParameters1 = new HashMap<String, Serializable>(3);
+        final Map<String, Serializable> searchParameters1 = new HashMap<>(3);
         searchParameters1.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         searchParameters1.put(SEARCH_OPTIONS_KEY, builder.done());
         searchParameters1.put(MEMBER_TYPE_KEY, MemberType.GROUP);
@@ -561,7 +561,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
         // it can not use DISPLAY_NAME_PART3 or DISPLAY_NAME_PART2 to be ORDER BY, refer class SearchEntityMemberRoleDescriptor
         builder = buildSearchOptions(null, 0, 3, EntityMemberSearchDescriptor.DISPLAY_NAME_PART1, Order.ASC);
         builder.filter(EntityMemberSearchDescriptor.EXTERNAL_ID, report1);
-        final Map<String, Serializable> searchParameters2 = new HashMap<String, Serializable>(3);
+        final Map<String, Serializable> searchParameters2 = new HashMap<>(3);
         searchParameters2.put(DISCRIMINATOR_ID_KEY, SUPERVISOR_REPORT_DISCRIMINATOR);
         searchParameters2.put(SEARCH_OPTIONS_KEY, builder.done());
         searchParameters2.put(MEMBER_TYPE_KEY, MemberType.ROLE);
@@ -578,7 +578,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     }
 
     private Map<String, Serializable> getSearchParameters(final SearchOptionsBuilder builder, final MemberType memberType) {
-        final Map<String, Serializable> searchParameters = new HashMap<String, Serializable>(3);
+        final Map<String, Serializable> searchParameters = new HashMap<>(3);
         searchParameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         searchParameters.put(SEARCH_OPTIONS_KEY, builder.done());
         searchParameters.put(MEMBER_TYPE_KEY, memberType);
@@ -606,14 +606,14 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     }
 
     private void deleteEntityMember(final Long id) throws CommandNotFoundException, CommandParameterizationException, CommandExecutionException {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>(2);
+        final Map<String, Serializable> parameters = new HashMap<>(2);
         parameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         parameters.put(ENTITY_MEMBER_ID_KEY, id);
         getCommandAPI().execute(DELETE_COMMAND_NAME, parameters);
     }
 
     private EntityMember createUserEntityMember(final String externalId, final long userId) throws BonitaException {
-        final HashMap<String, Serializable> parameters = new HashMap<String, Serializable>(3);
+        final HashMap<String, Serializable> parameters = new HashMap<>(3);
         parameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         parameters.put(EXTERNAL_ID_KEY, externalId);
         parameters.put(USER_ID_KEY, userId);
@@ -621,7 +621,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     }
 
     private EntityMember createGroupEntityMember(final String externalId, final long groupId) throws BonitaException {
-        final HashMap<String, Serializable> parameters = new HashMap<String, Serializable>(3);
+        final HashMap<String, Serializable> parameters = new HashMap<>(3);
         parameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         parameters.put(EXTERNAL_ID_KEY, externalId);
         parameters.put(GROUP_ID_KEY, groupId);
@@ -629,7 +629,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     }
 
     private EntityMember createRoleEntityMember(final String externalId, final long roleId) throws BonitaException {
-        final HashMap<String, Serializable> parameters = new HashMap<String, Serializable>(3);
+        final HashMap<String, Serializable> parameters = new HashMap<>(3);
         parameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         parameters.put(EXTERNAL_ID_KEY, externalId);
         parameters.put(ROLE_ID_KEY, roleId);
@@ -637,7 +637,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     }
 
     private EntityMember createMembershipEntityMember(final String externalId, final long roleId, final long groupId) throws BonitaException {
-        final HashMap<String, Serializable> parameters = new HashMap<String, Serializable>(4);
+        final HashMap<String, Serializable> parameters = new HashMap<>(4);
         parameters.put(DISCRIMINATOR_ID_KEY, USER_REPORT_DISCRIMINATOR);
         parameters.put(EXTERNAL_ID_KEY, externalId);
         parameters.put(ROLE_ID_KEY, roleId);
@@ -756,7 +756,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     @Test(expected = CommandParameterizationException.class)
     public void testAddEntityMemberCommandWithWrongParameter() throws Exception {
 
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_KEY", "bad_value");
 
         getCommandAPI().execute(CREATE_COMMAND_NAME, parameters);
@@ -766,7 +766,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     @Test(expected = CommandParameterizationException.class)
     public void testRemoveEntityMemberCommandWithWrongParameter() throws Exception {
 
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_KEY", "bad_value");
 
         getCommandAPI().execute(DELETE_COMMAND_NAME, parameters);
@@ -776,7 +776,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     @Test(expected = CommandParameterizationException.class)
     public void testSearchEntityMembersForUserCommandWithWrongParameter() throws Exception {
 
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_KEY", "bad_value");
 
         getCommandAPI().execute(SEARCH_FOR_USER_COMMAND, parameters);
@@ -786,7 +786,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     @Test(expected = CommandParameterizationException.class)
     public void testSearchEntityMembersCommandWithWrongParameter() throws Exception {
 
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_KEY", "bad_value");
 
         getCommandAPI().execute(SEARCH_COMMAND, parameters);
@@ -796,7 +796,7 @@ public class EntityMemberCommandsIT extends TestWithTechnicalUser {
     @Test(expected = CommandParameterizationException.class)
     public void testDeleteEntityMembersCommandWithWrongParameter() throws Exception {
 
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("BAD_KEY", "bad_value");
 
         getCommandAPI().execute(DELETE_SEVERAL_COMMAND, parameters);

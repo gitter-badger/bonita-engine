@@ -471,7 +471,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     private Map<String, SCommand> getAllAvailableSystemCommands() throws SBonitaReadException {
-        Map<String, SCommand> commands = new HashMap<String, SCommand>();
+        Map<String, SCommand> commands = new HashMap<>();
         List<SCommand> currentPage;
         int fromIndex = 0;
         do {
@@ -490,7 +490,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     private Map<String, SCommand> toCommandMap(List<SCommand> commands) {
-        Map<String, SCommand> map = new HashMap<String, SCommand>(commands.size());
+        Map<String, SCommand> map = new HashMap<>(commands.size());
         for (SCommand command : commands) {
             map.put(command.getName(), command);
         }
@@ -498,7 +498,7 @@ public class CommandServiceImpl implements CommandService {
     }
 
     private Map<String, CommandDeployment> toCommandDeploymentMap(List<CommandDeployment> commandDeployments) {
-        Map<String, CommandDeployment> map = new HashMap<String, CommandDeployment>(commandDeployments.size());
+        Map<String, CommandDeployment> map = new HashMap<>(commandDeployments.size());
         for (CommandDeployment deployment : commandDeployments) {
             map.put(deployment.getName(), deployment);
         }

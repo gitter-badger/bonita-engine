@@ -81,7 +81,7 @@ public class QuartzSchedulerExecutorITest extends CommonBPMServicesTest {
         final String variableName = "myVar";
         final SJobDescriptor jobDescriptor = BuilderFactory.get(SJobDescriptorBuilderFactory.class)
                 .createNewInstance("org.bonitasoft.engine.scheduler.job.IncrementVariableJob", "IncrementVariableJob").done();
-        final List<SJobParameter> parameters = new ArrayList<SJobParameter>();
+        final List<SJobParameter> parameters = new ArrayList<>();
         parameters.add(BuilderFactory.get(SJobParameterBuilderFactory.class).createNewInstance("jobName", "testDoNotExecuteAFutureJob").done());
         parameters.add(BuilderFactory.get(SJobParameterBuilderFactory.class).createNewInstance("variableName", variableName).done());
         parameters.add(BuilderFactory.get(SJobParameterBuilderFactory.class).createNewInstance("throwExceptionAfterNIncrements", -1).done());
@@ -118,7 +118,7 @@ public class QuartzSchedulerExecutorITest extends CommonBPMServicesTest {
         Date now = new Date();
         SJobDescriptor jobDescriptor = BuilderFactory.get(SJobDescriptorBuilderFactory.class)
                 .createNewInstance(ReleaseWaitersJob.class.getName(), jobName + "1").done();
-        List<SJobParameter> parameters = new ArrayList<SJobParameter>();
+        List<SJobParameter> parameters = new ArrayList<>();
         parameters.add(BuilderFactory.get(SJobParameterBuilderFactory.class).createNewInstance("jobName", jobName).done());
         parameters.add(BuilderFactory.get(SJobParameterBuilderFactory.class).createNewInstance("jobKey", "1").done());
         Trigger trigger = new UnixCronTriggerForTest("events", now, 10, "0/1 * * * * ?");

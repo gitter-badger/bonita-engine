@@ -31,7 +31,7 @@ public class ProfileMemberCreator implements Serializable {
     private final Map<ProfileMemberField, Serializable> fields;
 
     public ProfileMemberCreator(final long profileId) {
-        fields = new HashMap<ProfileMemberField, Serializable>(5);
+        fields = new HashMap<>(5);
         fields.put(ProfileMemberField.PROFILE_ID, profileId);
     }
 

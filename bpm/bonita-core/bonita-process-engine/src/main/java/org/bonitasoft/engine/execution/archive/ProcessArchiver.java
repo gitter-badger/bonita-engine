@@ -159,8 +159,8 @@ public class ProcessArchiver {
 
             if (logger.isLoggable(ProcessArchiver.class, TechnicalLogSeverity.DEBUG)) {
                 final StringBuilder builder = new StringBuilder();
-                builder.append("Archiving " + processInstance.getClass().getSimpleName());
-                builder.append("with id = <" + processInstance.getId() + ">");
+                builder.append("Archiving ").append(processInstance.getClass().getSimpleName());
+                builder.append("with id = <").append(processInstance.getId()).append(">");
                 logger.log(ProcessArchiver.class, TechnicalLogSeverity.DEBUG, MessageFormat.format(" and state {2}", processInstance.getStateId()));
             }
             try {

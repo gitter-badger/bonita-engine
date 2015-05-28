@@ -50,7 +50,7 @@ public class SEndEventDefinitionImpl extends SThrowEventDefinitionImpl implement
             setTerminateEventTriggerDefinition(new STerminateEventTriggerDefinitionImpl());
         }
         final List<ThrowErrorEventTriggerDefinition> errorEventTriggerDefinitions = eventDefinition.getErrorEventTriggerDefinitions();
-        sErrorEventTriggerDefinitions = new ArrayList<SThrowErrorEventTriggerDefinition>(errorEventTriggerDefinitions.size());
+        sErrorEventTriggerDefinitions = new ArrayList<>(errorEventTriggerDefinitions.size());
         for (final ThrowErrorEventTriggerDefinition throwErrorEventTriggerDefinition : errorEventTriggerDefinitions) {
             addErrorEventTriggerDefinition(new SThrowErrorEventTriggerDefinitionImpl(throwErrorEventTriggerDefinition.getErrorCode()));
         }
@@ -58,7 +58,7 @@ public class SEndEventDefinitionImpl extends SThrowEventDefinitionImpl implement
 
     public SEndEventDefinitionImpl(final long id, final String name) {
         super(id, name);
-        sErrorEventTriggerDefinitions = new ArrayList<SThrowErrorEventTriggerDefinition>(1);
+        sErrorEventTriggerDefinitions = new ArrayList<>(1);
     }
 
     @Override

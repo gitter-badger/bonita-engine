@@ -172,7 +172,7 @@ public class OrganizationIT extends TestWithTechnicalUser {
         checkCustomUserInfoDefinition(LOCATION_NAME, null, firstDefinition);
         checkCustomUserInfoDefinition(SKILLS_NAME, SKILLS_DESCRIPTION, secondDefinition);
 
-        final Map<String, CustomUserInfoDefinition> userInfoDefMap = new HashMap<String, CustomUserInfoDefinition>(2);
+        final Map<String, CustomUserInfoDefinition> userInfoDefMap = new HashMap<>(2);
         userInfoDefMap.put(firstDefinition.getName(), firstDefinition);
         userInfoDefMap.put(secondDefinition.getName(), secondDefinition);
         return userInfoDefMap;
@@ -188,7 +188,7 @@ public class OrganizationIT extends TestWithTechnicalUser {
         checkCustomUserInfoDefinition(LOCATION_NAME, "The office location", firstDefinition);
         checkCustomUserInfoDefinition(SKILLS_NAME, "The user skills were updated", secondDefinition);
 
-        final Map<String, CustomUserInfoDefinition> userInfoDefMap = new HashMap<String, CustomUserInfoDefinition>(2);
+        final Map<String, CustomUserInfoDefinition> userInfoDefMap = new HashMap<>(2);
         userInfoDefMap.put(firstDefinition.getName(), firstDefinition);
         userInfoDefMap.put(secondDefinition.getName(), secondDefinition);
         return userInfoDefMap;
@@ -226,13 +226,12 @@ public class OrganizationIT extends TestWithTechnicalUser {
 
     private void importOrganization(final String fileName) throws IOException, OrganizationImportException {
         final InputStream xmlStream = OrganizationIT.class.getResourceAsStream(fileName);
-        final InputStreamReader reader = new InputStreamReader(xmlStream);
-        try {
+        try (InputStreamReader reader = new InputStreamReader(xmlStream)) {
             final byte[] organisationContent = IOUtils.toByteArray(reader);
             getIdentityAPI().importOrganization(new String(organisationContent, UTF_8));
         } finally {
             xmlStream.close();
-            reader.close();
+
         }
     }
 
@@ -279,12 +278,9 @@ public class OrganizationIT extends TestWithTechnicalUser {
     @Test
     public void importComplexOrganization() throws Exception {
         // create XML file
-        final InputStream xmlStream = OrganizationIT.class.getResourceAsStream("complexOrganization.xml");
-        try {
+        try (InputStream xmlStream = OrganizationIT.class.getResourceAsStream("complexOrganization.xml")) {
             final byte[] organisationContent = IOUtils.toByteArray(xmlStream);
             getIdentityAPI().importOrganization(new String(organisationContent));
-        } finally {
-            xmlStream.close();
         }
         final User jack = getIdentityAPI().getUserByUserName("jack");
         final User john = getIdentityAPI().getUserByUserName("john");
@@ -349,13 +345,10 @@ public class OrganizationIT extends TestWithTechnicalUser {
     public void importACMEOrganizationTwiceWithDefaultProfile() throws Exception {
         // create XML file
 
-        final InputStream xmlStream = OrganizationIT.class.getResourceAsStream("ACME.xml");
-        try {
+        try (InputStream xmlStream = OrganizationIT.class.getResourceAsStream("ACME.xml")) {
             final byte[] organisationContent = IOUtils.toByteArray(xmlStream);
             getIdentityAPI().importOrganization(new String(organisationContent));
             getIdentityAPI().importOrganization(new String(organisationContent));
-        } finally {
-            xmlStream.close();
         }
 
         // clean-up
@@ -367,25 +360,22 @@ public class OrganizationIT extends TestWithTechnicalUser {
     public void importACMEOrganizationTwiceButRemoveGroupsAndRole() throws Exception {
         // create XML file
 
-        final InputStream xmlStream = OrganizationIT.class.getResourceAsStream("ACME.xml");
         final byte[] organisationContent;
-        try {
+        try (InputStream xmlStream = OrganizationIT.class.getResourceAsStream("ACME.xml")) {
             organisationContent = IOUtils.toByteArray(xmlStream);
-        } finally {
-            xmlStream.close();
         }
         getIdentityAPI().importOrganization(new String(organisationContent));
         final long numberOfGroups = getIdentityAPI().getNumberOfGroups();
         final long numberOfRoles = getIdentityAPI().getNumberOfRoles();
         // remove some groups and roles
         final List<Group> groups = getIdentityAPI().getGroups(1, 3, GroupCriterion.NAME_ASC);
-        final List<Long> groupIds = new ArrayList<Long>(groups.size());
+        final List<Long> groupIds = new ArrayList<>(groups.size());
         for (final Group group : groups) {
             groupIds.add(group.getId());
         }
         getIdentityAPI().deleteGroups(groupIds);
         final List<Role> roles = getIdentityAPI().getRoles(0, 2, RoleCriterion.NAME_ASC);
-        final List<Long> roleIds = new ArrayList<Long>(roles.size());
+        final List<Long> roleIds = new ArrayList<>(roles.size());
         for (final Role role : roles) {
             roleIds.add(role.getId());
         }
@@ -1014,12 +1004,9 @@ public class OrganizationIT extends TestWithTechnicalUser {
     }
 
     private void importOrganizationWithPolicy(final String xmlFile, final ImportPolicy policy) throws Exception {
-        final InputStream xmlStream = OrganizationIT.class.getResourceAsStream(xmlFile);
-        try {
+        try (InputStream xmlStream = OrganizationIT.class.getResourceAsStream(xmlFile)) {
             final String organizationContent = IOUtils.toString(xmlStream);
             getIdentityAPI().importOrganization(organizationContent, policy);
-        } finally {
-            xmlStream.close();
         }
     }
 
@@ -1160,38 +1147,38 @@ public class OrganizationIT extends TestWithTechnicalUser {
 
         // Role
         for (final Entry<RoleField, Serializable> entry : roleCreator.getFields().entrySet()) {
-            assertTrue(organizationContent.indexOf((String) entry.getValue()) != -1);
+            assertTrue(organizationContent.contains((String) entry.getValue()));
         }
 
         // Group
         for (final Entry<GroupField, Serializable> entry : groupCreator.getFields().entrySet()) {
-            assertTrue(organizationContent.indexOf((String) entry.getValue()) != -1);
+            assertTrue(organizationContent.contains((String) entry.getValue()));
         }
 
         // User
-        assertTrue(organizationContent.indexOf("Céline*^$") != -1);
-        assertTrue(organizationContent.indexOf("ééééééééééééééééééé") != -1);
+        assertTrue(organizationContent.contains("Céline*^$"));
+        assertTrue(organizationContent.contains("ééééééééééééééééééé"));
 
         // UserMembership
-        assertTrue(organizationContent.indexOf(getIdentityAPI().getUserMembership(membership.getId()).getGroupName()) != -1);
+        assertTrue(organizationContent.contains(getIdentityAPI().getUserMembership(membership.getId()).getGroupName()));
 
         // Verify all tags
-        assertTrue(organizationContent.indexOf("<organization:Organization") != -1);
-        assertTrue(organizationContent.indexOf("<users>") != -1);
-        assertTrue(organizationContent.indexOf("<user") != -1);
-        assertTrue(organizationContent.indexOf("</user>") != -1);
-        assertTrue(organizationContent.indexOf("</users>") != -1);
-        assertTrue(organizationContent.indexOf("<roles>") != -1);
-        assertTrue(organizationContent.indexOf("<role") != -1);
-        assertTrue(organizationContent.indexOf("</role>") != -1);
-        assertTrue(organizationContent.indexOf("</roles>") != -1);
-        assertTrue(organizationContent.indexOf("<groups>") != -1);
-        assertTrue(organizationContent.indexOf("<group") != -1);
-        assertTrue(organizationContent.indexOf("</group>") != -1);
-        assertTrue(organizationContent.indexOf(" </groups>") != -1);
-        assertTrue(organizationContent.indexOf("<memberships") != -1);
-        assertTrue(organizationContent.indexOf("</memberships>") != -1);
-        assertTrue(organizationContent.indexOf("</organization:Organization>") != -1);
+        assertTrue(organizationContent.contains("<organization:Organization"));
+        assertTrue(organizationContent.contains("<users>"));
+        assertTrue(organizationContent.contains("<user"));
+        assertTrue(organizationContent.contains("</user>"));
+        assertTrue(organizationContent.contains("</users>"));
+        assertTrue(organizationContent.contains("<roles>"));
+        assertTrue(organizationContent.contains("<role"));
+        assertTrue(organizationContent.contains("</role>"));
+        assertTrue(organizationContent.contains("</roles>"));
+        assertTrue(organizationContent.contains("<groups>"));
+        assertTrue(organizationContent.contains("<group"));
+        assertTrue(organizationContent.contains("</group>"));
+        assertTrue(organizationContent.contains(" </groups>"));
+        assertTrue(organizationContent.contains("<memberships"));
+        assertTrue(organizationContent.contains("</memberships>"));
+        assertTrue(organizationContent.contains("</organization:Organization>"));
 
         // clean-up
         deleteUsers(user, user2);
@@ -1208,30 +1195,30 @@ public class OrganizationIT extends TestWithTechnicalUser {
         final String organizationContent = getIdentityAPI().exportOrganization();
 
         // Role
-        assertTrue(organizationContent.indexOf("ééé") != -1);
+        assertTrue(organizationContent.contains("ééé"));
 
         // Group
-        assertTrue(organizationContent.indexOf("ééééééééé") != -1);
+        assertTrue(organizationContent.contains("ééééééééé"));
 
         // User
-        assertTrue(organizationContent.indexOf("éé") != -1);
+        assertTrue(organizationContent.contains("éé"));
 
         // Verify all tags
-        assertTrue(organizationContent.indexOf("<organization:Organization") != -1);
-        assertTrue(organizationContent.indexOf("<users>") != -1);
-        assertTrue(organizationContent.indexOf("<user") != -1);
-        assertTrue(organizationContent.indexOf("</user>") != -1);
-        assertTrue(organizationContent.indexOf("</users>") != -1);
-        assertTrue(organizationContent.indexOf("<roles>") != -1);
-        assertTrue(organizationContent.indexOf("<role") != -1);
-        assertTrue(organizationContent.indexOf("</role>") != -1);
-        assertTrue(organizationContent.indexOf("</roles>") != -1);
-        assertTrue(organizationContent.indexOf("<groups>") != -1);
-        assertTrue(organizationContent.indexOf("<group") != -1);
-        assertTrue(organizationContent.indexOf("</group>") != -1);
-        assertTrue(organizationContent.indexOf(" </groups>") != -1);
-        assertTrue(organizationContent.indexOf("<memberships/>") != -1);
-        assertTrue(organizationContent.indexOf("</organization:Organization>") != -1);
+        assertTrue(organizationContent.contains("<organization:Organization"));
+        assertTrue(organizationContent.contains("<users>"));
+        assertTrue(organizationContent.contains("<user"));
+        assertTrue(organizationContent.contains("</user>"));
+        assertTrue(organizationContent.contains("</users>"));
+        assertTrue(organizationContent.contains("<roles>"));
+        assertTrue(organizationContent.contains("<role"));
+        assertTrue(organizationContent.contains("</role>"));
+        assertTrue(organizationContent.contains("</roles>"));
+        assertTrue(organizationContent.contains("<groups>"));
+        assertTrue(organizationContent.contains("<group"));
+        assertTrue(organizationContent.contains("</group>"));
+        assertTrue(organizationContent.contains(" </groups>"));
+        assertTrue(organizationContent.contains("<memberships/>"));
+        assertTrue(organizationContent.contains("</organization:Organization>"));
 
         // clean-up
         getIdentityAPI().deleteOrganization();
@@ -1269,12 +1256,12 @@ public class OrganizationIT extends TestWithTechnicalUser {
         // export and check
         final String organizationContent = getIdentityAPI().exportOrganization();
 
-        assertTrue(organizationContent.indexOf(DEVELOPER) != -1);
-        assertTrue(organizationContent.indexOf("Bonita developer") != -1);
-        assertTrue(organizationContent.indexOf(ENGINE) != -1);
-        assertTrue(organizationContent.indexOf("engine team") != -1);
-        assertTrue(organizationContent.indexOf(getIdentityAPI().getUserMembership(membership1.getId()).getGroupName()) != -1);
-        assertTrue(organizationContent.indexOf(getIdentityAPI().getUserMembership(membership2.getId()).getGroupName()) != -1);
+        assertTrue(organizationContent.contains(DEVELOPER));
+        assertTrue(organizationContent.contains("Bonita developer"));
+        assertTrue(organizationContent.contains(ENGINE));
+        assertTrue(organizationContent.contains("engine team"));
+        assertTrue(organizationContent.contains(getIdentityAPI().getUserMembership(membership1.getId()).getGroupName()));
+        assertTrue(organizationContent.contains(getIdentityAPI().getUserMembership(membership2.getId()).getGroupName()));
 
         // clean-up
         getIdentityAPI().deleteUser(persistedUser1.getId());
@@ -1311,7 +1298,7 @@ public class OrganizationIT extends TestWithTechnicalUser {
 
         // export and check
         final String organizationContent = getIdentityAPI().exportOrganization();
-        assertTrue(organizationContent.indexOf("false") != -1);
+        assertTrue(organizationContent.contains("false"));
 
         // clean-up
         getIdentityAPI().deleteUser(persistedUser.getId());
@@ -1327,7 +1314,7 @@ public class OrganizationIT extends TestWithTechnicalUser {
 
         // export and check
         final String organizationContent = getIdentityAPI().exportOrganization();
-        assertTrue(organizationContent.indexOf("true") != -1);
+        assertTrue(organizationContent.contains("true"));
 
         // clean-up
         getIdentityAPI().deleteUser(persistedUser.getId());

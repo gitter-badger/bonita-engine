@@ -127,12 +127,10 @@ public class Folder {
 
     public byte[] zip(Folder destFolder) throws IOException {
         final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        final ZipOutputStream zos = new ZipOutputStream(baos);
-        try {
+        try (ZipOutputStream zos = new ZipOutputStream(baos)) {
             org.bonitasoft.engine.io.IOUtil.zipDir(this.folder.getAbsolutePath(), zos, destFolder.getFile().getAbsolutePath());
             return baos.toByteArray();
         } finally {
-            zos.close();
             baos.close();
         }
     }
@@ -140,7 +138,7 @@ public class Folder {
     public Map<String, byte[]> getResources(String filenamesPattern) throws IOException {
         final Collection<File> files = FileUtils.listFiles(getFile(), new DeepRegexFileFilter(getFile(), filenamesPattern),
                 DirectoryFileFilter.DIRECTORY);
-        final Map<String, byte[]> res = new HashMap<String, byte[]>(files.size());
+        final Map<String, byte[]> res = new HashMap<>(files.size());
             for (final File file : files) {
                 final String key = Util.generateRelativeResourcePath(getFile(), file);
                 final byte[] value = IOUtil.getAllContentFrom(file);
@@ -155,7 +153,7 @@ public class Folder {
 
     public Map<String, byte[]> listFilesAsResources() throws IOException {
         checkFolderExists();
-        final Map<String, byte[]> resources = new HashMap<String, byte[]>();
+        final Map<String, byte[]> resources = new HashMap<>();
         for (File file : this.folder.listFiles()) {
             resources.put(file.getName(), IOUtil.getAllContentFrom(file));
         }

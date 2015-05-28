@@ -32,8 +32,8 @@ public abstract class ThrowEventDefinitionBinding extends FlowNodeDefinitionBind
     private final List<ThrowSignalEventTriggerDefinition> signalEventTriggers;
 
     public ThrowEventDefinitionBinding() {
-        messageEventTriggers = new ArrayList<ThrowMessageEventTriggerDefinition>(5);
-        signalEventTriggers = new ArrayList<ThrowSignalEventTriggerDefinition>(1);
+        messageEventTriggers = new ArrayList<>(5);
+        signalEventTriggers = new ArrayList<>(1);
     }
 
     @Override

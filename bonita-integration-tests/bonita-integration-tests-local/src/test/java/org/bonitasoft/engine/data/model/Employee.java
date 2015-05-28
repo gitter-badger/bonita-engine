@@ -33,7 +33,7 @@ public class Employee extends LightEmployee implements Serializable {
   
   public void addAddress(final Address address) {
     if (this.addresses == null) {
-      this.addresses = new ArrayList<Address>();
+      this.addresses = new ArrayList<>();
     }
     this.addresses.add(address);
   }

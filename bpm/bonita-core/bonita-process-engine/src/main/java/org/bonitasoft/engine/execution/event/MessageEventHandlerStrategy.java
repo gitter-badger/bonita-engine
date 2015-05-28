@@ -220,7 +220,7 @@ public class MessageEventHandlerStrategy extends CoupleEventHandlerStrategy {
             final SExpressionContext expressionContext) throws SExpressionTypeUnknownException, SExpressionEvaluationException,
             SExpressionDependencyMissingException, SInvalidExpressionException {
         final int size = Math.min(5, correlations.size());
-        final List<SExpression> toEval = new ArrayList<SExpression>(size * 2);
+        final List<SExpression> toEval = new ArrayList<>(size * 2);
         if (size > 0) {
             for (int i = 0; i < size; i++) {
                 final SCorrelationDefinition sCorrelationDefinition = correlations.get(i);
@@ -229,13 +229,13 @@ public class MessageEventHandlerStrategy extends CoupleEventHandlerStrategy {
             }
             final List<Object> res = expressionResolverService.evaluate(toEval, expressionContext);
 
-            final List<String> keys = new ArrayList<String>(size);
-            final List<String> values = new ArrayList<String>(size);
+            final List<String> keys = new ArrayList<>(size);
+            final List<String> values = new ArrayList<>(size);
             for (int i = 0; i < size; i++) {
                 keys.add(String.valueOf(res.get(i * 2)));
                 values.add(String.valueOf(res.get(i * 2 + 1)));
             }
-            final List<String> sortedKeys = new ArrayList<String>(keys);
+            final List<String> sortedKeys = new ArrayList<>(keys);
             Collections.sort(sortedKeys);
             for (int i = 0; i < size; i++) {
                 final String key = sortedKeys.get(i);

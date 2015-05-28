@@ -105,7 +105,7 @@ public class DependencyServiceImplTest {
      */
     @Test
     public final void getDependenciesByIds() throws SBonitaReadException, SDependencyException {
-        final List<SDependency> sDependencies = new ArrayList<SDependency>();
+        final List<SDependency> sDependencies = new ArrayList<>();
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SDependency>> any())).thenReturn(sDependencies);
 
         Assert.assertEquals(sDependencies, dependencyServiceImpl.getDependencies(Collections.singletonList(456L)));
@@ -123,7 +123,7 @@ public class DependencyServiceImplTest {
      */
     @Test
     public final void getDependenciesWithOptions() throws SBonitaReadException, SDependencyException {
-        final List<SDependency> sDependencies = new ArrayList<SDependency>();
+        final List<SDependency> sDependencies = new ArrayList<>();
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SDependency>> any())).thenReturn(sDependencies);
 
         final QueryOptions options = new QueryOptions(0, 10);
@@ -145,7 +145,7 @@ public class DependencyServiceImplTest {
      */
     @Test
     public final void getDependencyIds() throws SBonitaReadException, SDependencyException {
-        final List<SDependency> sDependencies = new ArrayList<SDependency>();
+        final List<SDependency> sDependencies = new ArrayList<>();
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SDependency>> any())).thenReturn(sDependencies);
 
         Assert.assertEquals(sDependencies, dependencyServiceImpl.getDependencyIds(54156L, ScopeType.PROCESS, 1, 100));
@@ -189,7 +189,7 @@ public class DependencyServiceImplTest {
      */
     @Test
     public final void getDependencyMappingsWithDependencyIdAndQueryOptions() throws SBonitaReadException, SDependencyException {
-        final List<SDependencyMapping> sDependencyMappings = new ArrayList<SDependencyMapping>();
+        final List<SDependencyMapping> sDependencyMappings = new ArrayList<>();
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SDependencyMapping>> any())).thenReturn(sDependencyMappings);
 
         final QueryOptions options = new QueryOptions(0, 10);
@@ -210,7 +210,7 @@ public class DependencyServiceImplTest {
      */
     @Test
     public final void getDependencyMappingsWithOptions() throws SBonitaReadException, SDependencyException {
-        final List<SDependencyMapping> sDependencyMappings = new ArrayList<SDependencyMapping>();
+        final List<SDependencyMapping> sDependencyMappings = new ArrayList<>();
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SDependencyMapping>> any())).thenReturn(sDependencyMappings);
 
         final QueryOptions options = new QueryOptions(0, 10);
@@ -234,7 +234,7 @@ public class DependencyServiceImplTest {
     public final void getDisconnectedDependencyMappingsNothing() throws SBonitaReadException, SDependencyException {
         final ArtifactAccessor artifactAccessor = mock(ArtifactAccessor.class);
         when(artifactAccessor.artifactExists(any(ScopeType.class), any(Long.class))).thenReturn(true);
-        final List<SDependencyMapping> sDependencyMappings = new ArrayList<SDependencyMapping>();
+        final List<SDependencyMapping> sDependencyMappings = new ArrayList<>();
         sDependencyMappings.add(mock(SDependencyMapping.class));
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SDependencyMapping>> any())).thenReturn(sDependencyMappings);
 
@@ -246,7 +246,7 @@ public class DependencyServiceImplTest {
     public final void getDisconnectedDependencyMappings() throws SBonitaReadException, SDependencyException {
         final ArtifactAccessor artifactAccessor = mock(ArtifactAccessor.class);
         when(artifactAccessor.artifactExists(any(ScopeType.class), any(Long.class))).thenReturn(false);
-        final List<SDependencyMapping> sDependencyMappings = new ArrayList<SDependencyMapping>();
+        final List<SDependencyMapping> sDependencyMappings = new ArrayList<>();
         sDependencyMappings.add(mock(SDependencyMapping.class));
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SDependencyMapping>> any())).thenReturn(sDependencyMappings);
 

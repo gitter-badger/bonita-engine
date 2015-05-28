@@ -242,7 +242,7 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
         builder.addTransition(multiTaskName, userTaskName);
         builder.addTransition(userTaskName, "end");
 
-        final List<BarResource> resources = new ArrayList<BarResource>();
+        final List<BarResource> resources = new ArrayList<>();
         addResource(resources, "/org/bonitasoft/engine/connectors/TestConnectorInJar.impl", "TestConnectorInJar.impl");
         addResource(resources, "/org/bonitasoft/engine/connectors/connector-in-jar.jar.bak", "connector-in-jar.jar");
         final BusinessArchiveBuilder businessArchiveBuilder = new BusinessArchiveBuilder().createNewBusinessArchive();
@@ -360,14 +360,14 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
     }
 
     private Map<String, Expression> getConnectorInputParameters(final String mainName, final Expression mainExp) {
-        final Map<String, Expression> connectorInputParameters = new HashMap<String, Expression>();
+        final Map<String, Expression> connectorInputParameters = new HashMap<>();
         connectorInputParameters.put(mainName, mainExp);
         return connectorInputParameters;
     }
 
     private Map<String, Map<String, Serializable>> getInputValues(final String mainName, final List<String> names, final List<String> vars) {
-        final Map<String, Map<String, Serializable>> inputValues = new HashMap<String, Map<String, Serializable>>();
-        final Map<String, Serializable> values = new HashMap<String, Serializable>();
+        final Map<String, Map<String, Serializable>> inputValues = new HashMap<>();
+        final Map<String, Serializable> values = new HashMap<>();
         if (names != null && !names.isEmpty() && vars != null && !vars.isEmpty() && names.size() == vars.size()) {
             for (int i = 0; i < names.size(); i++) {
                 values.put(names.get(i), vars.get(i));
@@ -384,7 +384,7 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
         designProcessDefinition.addActor(ACTOR_NAME);
         designProcessDefinition.addAutomaticTask("step1").addConnector("myConnector1", "connectorInJar", "1.0.0", ConnectorEvent.ON_ENTER);
 
-        final List<BarResource> resources = new ArrayList<BarResource>();
+        final List<BarResource> resources = new ArrayList<>();
         addResource(resources, "/org/bonitasoft/engine/connectors/TestConnectorInJar.impl", "TestConnectorInJar.impl");
         addResource(resources, "/org/bonitasoft/engine/connectors/connector-in-jar.jar.bak", "connector-in-jar.jar");
         final BusinessArchiveBuilder businessArchiveBuilder = new BusinessArchiveBuilder().createNewBusinessArchive();
@@ -1183,9 +1183,9 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
         // connector return param1="welcome Lily and Lucy and Mett"
         // operations: put "Jack" in data valueOfInput3, param1 in "externalData" and "John" in "externalDataConst"
         // Create Operation map:
-        final List<Operation> operations = new ArrayList<Operation>(2);
+        final List<Operation> operations = new ArrayList<>(2);
         // set valueOfInput3
-        final Map<String, Serializable> contexts = new HashMap<String, Serializable>();
+        final Map<String, Serializable> contexts = new HashMap<>();
         operations.add(new OperationBuilder().createNewInstance().setLeftOperand("externalData", true)
                 .setRightOperand(new ExpressionBuilder().createInputExpression("param1", String.class.getName())).setType(OperatorType.ASSIGNMENT).done());
         operations.add(new OperationBuilder().createNewInstance().setLeftOperand("externalDataConst", true)
@@ -1262,7 +1262,7 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
         processDefinitionBuilder.addUserTask("step2", ACTOR_NAME);
         processDefinitionBuilder.addTransition("step1", "step2");
 
-        final List<User> userIds = new ArrayList<User>();
+        final List<User> userIds = new ArrayList<>();
         userIds.add(user);
         userIds.add(jack);
         final ProcessDefinition processDefinition = deployProcessWithActorAndTestConnectorEngineExecutionContextAndFilterWithAutoAssign(
@@ -1272,7 +1272,7 @@ public class RemoteConnectorExecutionIT extends ConnectorExecutionIT {
         waitForUserTask(processInstance, "step2");
 
         final DataInstance processDataInstance = getProcessAPI().getProcessDataInstance(dataName, processInstance.getId());
-        assertEquals(Long.valueOf(userId), processDataInstance.getValue());
+        assertEquals(userId, processDataInstance.getValue());
 
         disableAndDeleteProcess(processDefinition);
         deleteUser(jack);

@@ -88,7 +88,7 @@ public class ConstraintDefinitionImpl implements ConstraintDefinition {
         this.name = name;
         this.explanation = explanation;
         this.expression = expression;
-        inputNames = new ArrayList<String>();
+        inputNames = new ArrayList<>();
     }
 
     @Override

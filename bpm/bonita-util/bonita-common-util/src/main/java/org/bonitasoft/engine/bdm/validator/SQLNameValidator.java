@@ -28,7 +28,7 @@ public class SQLNameValidator {
 
     static Set<String> sqlKeywords;
     static {
-        sqlKeywords = new HashSet<String>();
+        sqlKeywords = new HashSet<>();
     }
 
     public SQLNameValidator() {

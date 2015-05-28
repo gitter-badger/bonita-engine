@@ -366,15 +366,15 @@ public class MultipleStartPointsProcessCommandIT extends TestWithUser {
     private TestUtils.Process startProcess(final long startedBy, final long processDefinitionId, final List<String> activityNames,
             final List<Operation> operations,
             final Map<String, Serializable> context) throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("started_by", startedBy);
         parameters.put("process_definition_id", processDefinitionId);
-        parameters.put("activity_names", new ArrayList<String>(activityNames));
+        parameters.put("activity_names", new ArrayList<>(activityNames));
         if (operations != null) {
-            parameters.put("operations", new ArrayList<Operation>(operations));
+            parameters.put("operations", new ArrayList<>(operations));
         }
         if (context != null) {
-            parameters.put("context", new HashMap<String, Serializable>(context));
+            parameters.put("context", new HashMap<>(context));
         }
 
         return wrapper.wrap((ProcessInstance) getCommandAPI().execute("multipleStartPointsProcessCommand", parameters));
@@ -413,10 +413,10 @@ public class MultipleStartPointsProcessCommandIT extends TestWithUser {
                 "TestConnectorWithOutput.impl", TestConnectorWithOutput.class, "TestConnectorWithOutput.jar");
 
         // Start the process with the command on the step2
-        final Map<String, Serializable> parametersCommand = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parametersCommand = new HashMap<>();
         parametersCommand.put("started_by", user.getId());
         parametersCommand.put("process_definition_id", processDefinition.getId());
-        parametersCommand.put("activity_names", new ArrayList<String>(Arrays.asList("step2")));
+        parametersCommand.put("activity_names", new ArrayList<>(Arrays.asList("step2")));
         // command API execution
         getCommandAPI().execute("multipleStartPointsProcessCommand", parametersCommand);
 

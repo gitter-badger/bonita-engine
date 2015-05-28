@@ -44,9 +44,7 @@ public abstract class AbstractEventServiceImpl implements EventService {
      */
     @Override
     public void fireEvent(final SEvent event) throws SFireEventException {
-        if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-            logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "fireEvent"));
-        }
+        trace(LogUtil.getLogBeforeMethod(this.getClass(), "fireEvent"));
         if (event != null) {
             // if at least 1 eventFilter contains a group of handlers for the given event type
             if (containsHandlerFor(event.getType())) {
@@ -54,10 +52,8 @@ public abstract class AbstractEventServiceImpl implements EventService {
                 final Collection<SHandler<SEvent>> handlers = getHandlersFor(event.getType());
 
                 if (handlers.size() > 0) {
-                    if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-                        logger.log(this.getClass(), TechnicalLogSeverity.TRACE, "Found " + handlers.size() + " for event " + event.getType()
-                                + ". All handlers: " + handlers);
-                    }
+                    trace("Found " + handlers.size() + " for event " + event.getType()
+                            + ". All handlers: " + handlers);
                     SFireEventException sFireEventException = null;
                     for (final SHandler<SEvent> handler : handlers) {
                         // for each handler, I check if it's interested or not by the given event
@@ -81,15 +77,17 @@ public abstract class AbstractEventServiceImpl implements EventService {
                     }
                 }
             }
-            if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-                logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogAfterMethod(this.getClass(), "fireEvent"));
-            }
+            trace(LogUtil.getLogAfterMethod(this.getClass(), "fireEvent"));
         } else {
-            if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-                logger.log(this.getClass(), TechnicalLogSeverity.TRACE,
-                        LogUtil.getLogOnExceptionMethod(this.getClass(), "fireEvent", "Unable to fire a null event"));
-            }
+            trace(LogUtil.getLogOnExceptionMethod(this.getClass(), "fireEvent", "Unable to fire a null event"));
             throw new SFireEventException("Unable to fire a null event");
+        }
+    }
+
+    void trace(String fireEvent) {
+        if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
+            logger.log(this.getClass(), TechnicalLogSeverity.TRACE,
+                    fireEvent);
         }
     }
 
@@ -102,19 +100,12 @@ public abstract class AbstractEventServiceImpl implements EventService {
      */
     @Override
     public final void addHandler(final String eventType, final SHandler<SEvent> handler) throws HandlerRegistrationException {
-        if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-            logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "addHandler"));
-        }
+        trace(LogUtil.getLogBeforeMethod(this.getClass(), "addHandler"));
         if (handler != null && eventType != null) {
             addHandlerFor(eventType, handler);
-            if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-                logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogAfterMethod(this.getClass(), "addHandler"));
-            }
+            trace(LogUtil.getLogAfterMethod(this.getClass(), "addHandler"));
         } else {
-            if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-                logger.log(this.getClass(), TechnicalLogSeverity.TRACE,
-                        LogUtil.getLogOnExceptionMethod(this.getClass(), "addHandler", "Event type and/or handler is null"));
-            }
+            trace(LogUtil.getLogOnExceptionMethod(this.getClass(), "addHandler", "Event type and/or handler is null"));
             throw new HandlerRegistrationException("One of the parameters is null : " + " eventType: " + eventType + " handler:" + handler);
         }
     }
@@ -123,36 +114,25 @@ public abstract class AbstractEventServiceImpl implements EventService {
 
     @Override
     public final void removeAllHandlers(final SHandler<SEvent> handler) throws HandlerUnregistrationException {
-        if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-            logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "removeAllHandlers"));
-        }
+        trace(LogUtil.getLogBeforeMethod(this.getClass(), "removeAllHandlers"));
         if (handler == null) {
-            if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-                logger.log(this.getClass(), TechnicalLogSeverity.TRACE,
-                        LogUtil.getLogOnExceptionMethod(this.getClass(), "removeAllHandlers", "Unable to remove a null event"));
-            }
+            trace(LogUtil.getLogOnExceptionMethod(this.getClass(), "removeAllHandlers", "Unable to remove a null event"));
             throw new HandlerUnregistrationException();
         }
         removeAllHandlersFor(handler);
-        if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-            logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogAfterMethod(this.getClass(), "removeAllHandlers"));
-        }
+        trace(LogUtil.getLogAfterMethod(this.getClass(), "removeAllHandlers"));
     }
 
     protected abstract void removeAllHandlersFor(SHandler<SEvent> handler);
 
     @Override
     public final void removeHandler(final String eventType, final SHandler<SEvent> h) throws HandlerUnregistrationException {
-        if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-            logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "removeHandler"));
-        }
+        trace(LogUtil.getLogBeforeMethod(this.getClass(), "removeHandler"));
         if (h == null || eventType == null) {
             throw new HandlerUnregistrationException();
         }
         removeHandlerFor(eventType, h);
-        if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-            logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogAfterMethod(this.getClass(), "removeHandler"));
-        }
+        trace(LogUtil.getLogAfterMethod(this.getClass(), "removeHandler"));
     }
 
     /**
@@ -164,17 +144,13 @@ public abstract class AbstractEventServiceImpl implements EventService {
 
     @Override
     public final Set<SHandler<SEvent>> getHandlers(final String eventType) {
-        if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-            logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogBeforeMethod(this.getClass(), "getHandlers"));
-        }
+        trace(LogUtil.getLogBeforeMethod(this.getClass(), "getHandlers"));
         final Collection<SHandler<SEvent>> handlers = getHandlersFor(eventType);
-        if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.TRACE)) {
-            logger.log(this.getClass(), TechnicalLogSeverity.TRACE, LogUtil.getLogAfterMethod(this.getClass(), "getHandlers"));
-        }
+        trace(LogUtil.getLogAfterMethod(this.getClass(), "getHandlers"));
         if (handlers == null) {
             return Collections.emptySet();
         }
-        final HashSet<SHandler<SEvent>> hashSet = new HashSet<SHandler<SEvent>>(handlers.size());
+        final HashSet<SHandler<SEvent>> hashSet = new HashSet<>(handlers.size());
         hashSet.addAll(handlers);
         return hashSet;
     }

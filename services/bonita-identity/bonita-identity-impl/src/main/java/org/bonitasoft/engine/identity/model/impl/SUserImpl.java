@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.identity.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.identity.model.SUser;
 import org.bonitasoft.engine.identity.model.SUserLogin;
 
@@ -212,83 +214,30 @@ public class SUserImpl extends SPersistentObjectImpl implements SUser {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof SUserImpl)) {
-            return false;
-        }
-        if (!super.equals(o)) {
-            return false;
-        }
-
-        final SUserImpl sUser = (SUserImpl) o;
-
-        if (createdBy != sUser.createdBy) {
-            return false;
-        }
-        if (creationDate != sUser.creationDate) {
-            return false;
-        }
-        if (enabled != sUser.enabled) {
-            return false;
-        }
-        if (lastUpdate != sUser.lastUpdate) {
-            return false;
-        }
-        if (managerUserId != sUser.managerUserId) {
-            return false;
-        }
-        if (firstName != null ? !firstName.equals(sUser.firstName) : sUser.firstName != null) {
-            return false;
-        }
-        if (iconName != null ? !iconName.equals(sUser.iconName) : sUser.iconName != null) {
-            return false;
-        }
-        if (iconPath != null ? !iconPath.equals(sUser.iconPath) : sUser.iconPath != null) {
-            return false;
-        }
-        if (jobTitle != null ? !jobTitle.equals(sUser.jobTitle) : sUser.jobTitle != null) {
-            return false;
-        }
-        if (lastName != null ? !lastName.equals(sUser.lastName) : sUser.lastName != null) {
-            return false;
-        }
-        if (password != null ? !password.equals(sUser.password) : sUser.password != null) {
-            return false;
-        }
-        if (sUserLogin != null ? !sUserLogin.equals(sUser.sUserLogin) : sUser.sUserLogin != null) {
-            return false;
-        }
-        if (title != null ? !title.equals(sUser.title) : sUser.title != null) {
-            return false;
-        }
-        if (userName != null ? !userName.equals(sUser.userName) : sUser.userName != null) {
-            return false;
-        }
-
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        SUserImpl sUser = (SUserImpl) o;
+        return Objects.equals(managerUserId, sUser.managerUserId) &&
+                Objects.equals(creationDate, sUser.creationDate) &&
+                Objects.equals(createdBy, sUser.createdBy) &&
+                Objects.equals(lastUpdate, sUser.lastUpdate) &&
+                Objects.equals(enabled, sUser.enabled) &&
+                Objects.equals(firstName, sUser.firstName) &&
+                Objects.equals(lastName, sUser.lastName) &&
+                Objects.equals(password, sUser.password) &&
+                Objects.equals(userName, sUser.userName) &&
+                Objects.equals(iconName, sUser.iconName) &&
+                Objects.equals(iconPath, sUser.iconPath) &&
+                Objects.equals(title, sUser.title) &&
+                Objects.equals(jobTitle, sUser.jobTitle) &&
+                Objects.equals(sUserLogin, sUser.sUserLogin);
     }
 
     @Override
     public int hashCode() {
-        int result = super.hashCode();
-        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
-        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (userName != null ? userName.hashCode() : 0);
-        result = 31 * result + (iconName != null ? iconName.hashCode() : 0);
-        result = 31 * result + (iconPath != null ? iconPath.hashCode() : 0);
-        result = 31 * result + (int) (managerUserId ^ managerUserId >>> 32);
-        result = 31 * result + (title != null ? title.hashCode() : 0);
-        result = 31 * result + (jobTitle != null ? jobTitle.hashCode() : 0);
-        result = 31 * result + (int) (creationDate ^ creationDate >>> 32);
-        result = 31 * result + (int) (createdBy ^ createdBy >>> 32);
-        result = 31 * result + (int) (lastUpdate ^ lastUpdate >>> 32);
-        result = 31 * result + (enabled ? 1 : 0);
-        result = 31 * result + (sUserLogin != null ? sUserLogin.hashCode() : 0);
-        return result;
+        return Objects.hash(super.hashCode(), firstName, lastName, password, userName, iconName, iconPath, managerUserId, title, jobTitle, creationDate, createdBy, lastUpdate, enabled, sUserLogin);
     }
 
     @Override

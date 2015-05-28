@@ -30,17 +30,17 @@ public class SBonitaRuntimeException extends RuntimeException {
 
     public SBonitaRuntimeException(final Throwable cause) {
         super(cause);
-        context = new TreeMap<SExceptionContext, Serializable>();
+        context = new TreeMap<>();
     }
 
     public SBonitaRuntimeException(final String message, final Throwable cause) {
         super(message, cause);
-        context = new TreeMap<SExceptionContext, Serializable>();
+        context = new TreeMap<>();
     }
 
     public SBonitaRuntimeException(final String message) {
         super(message);
-        context = new TreeMap<SExceptionContext, Serializable>();
+        context = new TreeMap<>();
     }
 
     /**
@@ -234,7 +234,7 @@ public class SBonitaRuntimeException extends RuntimeException {
     private void appendContextMessage(final StringBuilder stringBuilder) {
         if (!context.isEmpty()) {
             for (final Entry<SExceptionContext, Serializable> entry : context.entrySet()) {
-                stringBuilder.append(entry.getKey() + "=" + entry.getValue() + " | ");
+                stringBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append(" | ");
             }
         }
     }

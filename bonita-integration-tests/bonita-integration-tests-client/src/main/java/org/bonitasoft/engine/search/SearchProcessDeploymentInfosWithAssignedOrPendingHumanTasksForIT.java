@@ -67,29 +67,29 @@ public class SearchProcessDeploymentInfosWithAssignedOrPendingHumanTasksForIT ex
     public void before() throws Exception {
         super.before();
         // create users
-        users = new ArrayList<User>(2);
+        users = new ArrayList<>(2);
         users.add(createUser("chicobento", "bpm"));
         users.add(createUser("cebolinha", "bpm"));
         users.add(createUser("cascao", "bpm"));
 
         // create groups
-        groups = new ArrayList<Group>(2);
+        groups = new ArrayList<>(2);
         groups.add(createGroup("group1"));
         groups.add(createGroup("group2"));
 
         // create roles
-        roles = new ArrayList<Role>(2);
+        roles = new ArrayList<>(2);
         roles.add(createRole("role1"));
         roles.add(createRole("role2"));
 
         // create user memberships
-        userMemberships = new ArrayList<UserMembership>(3);
+        userMemberships = new ArrayList<>(3);
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(2).getId(), groups.get(0).getId(), roles.get(0).getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(0).getId(), groups.get(0).getId(), roles.get(1).getId()));
         userMemberships.add(getIdentityAPI().addUserMembership(users.get(1).getId(), groups.get(1).getId(), roles.get(0).getId()));
 
         // create processes
-        enabledProcessDefinitions = new ArrayList<ProcessDefinition>(4);
+        enabledProcessDefinitions = new ArrayList<>(4);
         createProcessesDefinitions();
     }
 

@@ -93,7 +93,7 @@ public class LoginAPIIT extends CommonAPIIT {
     private void deleteSession(final long sessionId) throws IOException, AlreadyExistsException, CreationException, CreationException,
             CommandNotFoundException, CommandParameterizationException, CommandExecutionException, DeletionException, DependencyNotFoundException, BonitaHomeNotSetException, ServerAPIException, UnknownAPITypeException {
         // execute a command to delete a session
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("sessionId", sessionId);
         final CommandAPI commandAPI = TenantAPIAccessor.getCommandAPI(getSession());
         commandAPI.execute(COMMAND_NAME, parameters);

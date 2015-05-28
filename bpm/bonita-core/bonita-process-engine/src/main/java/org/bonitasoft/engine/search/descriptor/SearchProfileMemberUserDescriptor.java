@@ -38,7 +38,7 @@ public class SearchProfileMemberUserDescriptor extends SearchEntityDescriptor {
     private final Map<Class<? extends PersistentObject>, Set<String>> profileMemberAllFields;
 
     public SearchProfileMemberUserDescriptor() {
-        searchEntityKeys = new HashMap<String, FieldDescriptor>(5);
+        searchEntityKeys = new HashMap<>(5);
         searchEntityKeys.put(ProfileMemberSearchDescriptor.ID, new FieldDescriptor(SProfileMember.class, SProfileMemberBuilderFactory.ID));
         searchEntityKeys.put(ProfileMemberSearchDescriptor.PROFILE_ID, new FieldDescriptor(SProfileMember.class, SProfileMemberBuilderFactory.PROFILE_ID));
         searchEntityKeys.put(ProfileMemberSearchDescriptor.ROLE_ID, new FieldDescriptor(SProfileMember.class, SProfileMemberBuilderFactory.ROLE_ID));
@@ -48,8 +48,8 @@ public class SearchProfileMemberUserDescriptor extends SearchEntityDescriptor {
         searchEntityKeys.put(ProfileMemberSearchDescriptor.DISPLAY_NAME_PART2, new FieldDescriptor(SUser.class, BuilderFactory.get(SUserBuilderFactory.class).getLastNameKey()));
         searchEntityKeys.put(ProfileMemberSearchDescriptor.DISPLAY_NAME_PART3, new FieldDescriptor(SUser.class, BuilderFactory.get(SUserBuilderFactory.class).getUserNameKey()));
 
-        profileMemberAllFields = new HashMap<Class<? extends PersistentObject>, Set<String>>(1);
-        final Set<String> userFields = new HashSet<String>(3);
+        profileMemberAllFields = new HashMap<>(1);
+        final Set<String> userFields = new HashSet<>(3);
         userFields.add(BuilderFactory.get(SUserBuilderFactory.class).getFirstNameKey());
         userFields.add(BuilderFactory.get(SUserBuilderFactory.class).getLastNameKey());
         userFields.add(BuilderFactory.get(SUserBuilderFactory.class).getUserNameKey());

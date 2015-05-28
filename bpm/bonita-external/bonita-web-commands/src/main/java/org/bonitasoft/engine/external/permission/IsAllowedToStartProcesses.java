@@ -49,7 +49,7 @@ public class IsAllowedToStartProcesses extends CommandWithParameters {
             throws SCommandParameterizationException, SCommandExecutionException {
         this.serviceAccessor = serviceAccessor;
         final ActorMappingService actorMappingService = this.serviceAccessor.getActorMappingService();
-        final Map<Long, Boolean> resMap = new HashMap<Long, Boolean>();
+        final Map<Long, Boolean> resMap = new HashMap<>();
 
         final List<Long> processDefinitionIds = getMandatoryParameter(parameters, PROCESSDEFINITION_IDS_KEY, "Mandatory parameter " + PROCESSDEFINITION_IDS_KEY
                 + " is missing or not convertible to List<Long>.");

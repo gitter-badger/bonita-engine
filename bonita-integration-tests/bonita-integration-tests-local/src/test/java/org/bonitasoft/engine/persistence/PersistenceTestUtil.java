@@ -57,7 +57,7 @@ public class PersistenceTestUtil {
     }
 
     protected static Map<String, Object> getMap(final String key, final Object value) {
-        final Map<String, Object> map = new HashMap<String, Object>();
+        final Map<String, Object> map = new HashMap<>();
         map.put(key, value);
         return map;
     }

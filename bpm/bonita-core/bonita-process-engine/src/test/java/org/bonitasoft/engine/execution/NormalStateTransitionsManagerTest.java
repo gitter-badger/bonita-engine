@@ -62,7 +62,7 @@ public class NormalStateTransitionsManagerTest {
         doReturn(FLOW_NODE_INSTANCE_ID).when(flowNodeInstance).getId();
         doReturn(SStateCategory.NORMAL).when(flowNodeInstance).getStateCategory();
 
-        stateTransitions = new HashMap<Integer, FlowNodeState>(2);
+        stateTransitions = new HashMap<>(2);
         stateTransitions.put(NORMAL_NON_TERMINAL_STATE_ID, normalTerminalState);
     }
 

@@ -35,7 +35,7 @@ public class SFireEventException extends SBonitaException {
 
     public void addHandlerException(final Exception e) {
         if (handlerExceptions == null) {
-            handlerExceptions = new ArrayList<Exception>();
+            handlerExceptions = new ArrayList<>();
         }
         handlerExceptions.add(e);
     }

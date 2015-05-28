@@ -114,7 +114,7 @@ public class BusinessDataExpressionExecutorStrategyTest {
     }
 
     private HashMap<String, Object> buildBusinessDataExpressionContext(final long containerId, final DataInstanceContainer containerType) {
-        final HashMap<String, Object> context = new HashMap<String, Object>();
+        final HashMap<String, Object> context = new HashMap<>();
         context.put(SExpressionContext.CONTAINER_ID_KEY, containerId);
         context.put(SExpressionContext.CONTAINER_TYPE_KEY, containerType.name());
         return context;
@@ -222,7 +222,7 @@ public class BusinessDataExpressionExecutorStrategyTest {
 
     @Test
     public void evaluate_should_first_check_if_expression_already_evaluated_and_available_in_context() throws Exception {
-        final HashMap<String, Object> context = new HashMap<String, Object>();
+        final HashMap<String, Object> context = new HashMap<>();
         final SimpleBizData expectedBizData = new SimpleBizData(12L);
         final String bizDataName = "businessDataName";
         context.put(bizDataName, expectedBizData);

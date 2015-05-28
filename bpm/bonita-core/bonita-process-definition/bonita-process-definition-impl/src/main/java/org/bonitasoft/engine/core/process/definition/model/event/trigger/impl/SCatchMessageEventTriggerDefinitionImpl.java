@@ -46,13 +46,13 @@ public class SCatchMessageEventTriggerDefinitionImpl extends SMessageEventTrigge
     }
 
     public SCatchMessageEventTriggerDefinitionImpl() {
-        sOperations = new ArrayList<SOperation>();
+        sOperations = new ArrayList<>();
     }
 
     public SCatchMessageEventTriggerDefinitionImpl(final CatchMessageEventTriggerDefinition messageEventTrigger) {
         super(messageEventTrigger);
         final List<Operation> operations = messageEventTrigger.getOperations();
-        sOperations = new ArrayList<SOperation>(operations.size());
+        sOperations = new ArrayList<>(operations.size());
         for (final Operation operation : operations) {
             sOperations.add(toSOperation(operation));
         }

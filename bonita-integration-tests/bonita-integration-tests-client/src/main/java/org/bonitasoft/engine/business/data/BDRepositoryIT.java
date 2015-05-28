@@ -175,7 +175,7 @@ public class BDRepositoryIT extends CommonAPIIT {
         final SimpleField firstName = new SimpleField();
         firstName.setName("firstName");
         firstName.setType(FieldType.STRING);
-        firstName.setLength(Integer.valueOf(10));
+        firstName.setLength(10);
 
         final SimpleField lastName = new SimpleField();
         lastName.setName("lastName");
@@ -185,7 +185,7 @@ public class BDRepositoryIT extends CommonAPIIT {
         final SimpleField phoneNumbers = new SimpleField();
         phoneNumbers.setName("phoneNumbers");
         phoneNumbers.setType(FieldType.STRING);
-        phoneNumbers.setLength(Integer.valueOf(10));
+        phoneNumbers.setLength(10);
         phoneNumbers.setCollection(Boolean.TRUE);
 
         final SimpleField hireDate = new SimpleField();
@@ -515,7 +515,7 @@ public class BDRepositoryIT extends CommonAPIIT {
                                 .append("; Employee e = new Employee(); e.firstName = 'John'; e.lastName = 'Doe'; return \"Employee [firstName=\" + e.firstName + \", lastName=\" + e.lastName + \"]\"")
                                 .toString(),
                         String.class.getName());
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>();
         expressions.put(stringExpression, new HashMap<String, Serializable>());
 
         final ProcessDefinitionBuilder processDefinitionBuilder = new ProcessDefinitionBuilder().createNewInstance("test", "1.2-alpha");
@@ -641,7 +641,7 @@ public class BDRepositoryIT extends CommonAPIIT {
 
         // Let's check we can retrieve firstName using DAO call:
         final long processInstanceId = processInstance.getId();
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>(1);
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>(1);
         final String getLastNameWithDAOExpression = "retrieveEmployeeByFirstName";
         expressions.put(
                 new ExpressionBuilder().createGroovyScriptExpression(getLastNameWithDAOExpression, "import " + EMPLOYEE_QUALIFIED_NAME + "; Employee e = "
@@ -716,7 +716,7 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     private void addEmployee(final String firstName, final String lastName, final AddressRef... addresses) throws Exception {
-        final List<Expression> dependencies = new ArrayList<Expression>();
+        final List<Expression> dependencies = new ArrayList<>();
         if (addresses != null) {
             for (final AddressRef ref : addresses) {
                 dependencies.add(ref.createDependency());
@@ -769,8 +769,8 @@ public class BDRepositoryIT extends CommonAPIIT {
         sb.append("'" + lastName + "'");
         sb.append("\n");
         if (addresses != null) {
-            for (int i = 0; i < addresses.length; i++) {
-                sb.append("e.addToAddresses(" + addresses[i].getVarName() + ")");
+            for (AddressRef address : addresses) {
+                sb.append("e.addToAddresses(" + address.getVarName() + ")");
                 sb.append("\n");
             }
         }
@@ -831,7 +831,7 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     private String getEmployeeToString(final String businessDataName, final long processInstanceId) throws InvalidExpressionException {
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>(5);
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>(5);
         final String expressionEmployee = "retrieve_Employee";
         expressions.put(
                 new ExpressionBuilder().createGroovyScriptExpression(expressionEmployee, "\"Employee [firstName=\" + " + businessDataName
@@ -900,7 +900,7 @@ public class BDRepositoryIT extends CommonAPIIT {
         final ProcessInstance processInstance = getProcessAPI().startProcess(definition.getId());
 
         final long step1Id = waitForUserTask(processInstance, "step1");
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>(2);
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>(2);
         expressions.put(new ExpressionBuilder().createQueryBusinessDataExpression("countEmployee", "Employee.countEmployee", Long.class.getName()),
                 Collections.<String, Serializable> emptyMap());
 
@@ -917,7 +917,7 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     public void assertCount(final long processInstanceId) throws Exception {
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>(2);
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>(2);
         expressions.put(new ExpressionBuilder().createQueryBusinessDataExpression("countEmployee", "Employee.countEmployee", Long.class.getName()),
                 Collections.<String, Serializable> emptyMap());
 
@@ -1318,7 +1318,7 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     private void verifyCommandGetBusinessDataById(final SimpleBusinessDataReference businessDataReference) throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
         parameters.put("businessDataId", businessDataReference.getStorageId());
         parameters.put("entityClassName", EMPLOYEE_QUALIFIED_NAME);
         parameters.put("businessDataChildName", "address");
@@ -1342,8 +1342,8 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     private void verifyCommandGetQuery_findByFirstNameAndLastNameNewOrder() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
-        final Map<String, Serializable> queryParameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
+        final Map<String, Serializable> queryParameters = new HashMap<>();
 
         queryParameters.put("firstName", "Alphonse");
         queryParameters.put("lastName", "Dupond");
@@ -1364,8 +1364,8 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     private void verifyCommandGetQuery_getEmployeeByPhoneNumber() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
-        final Map<String, Serializable> queryParameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
+        final Map<String, Serializable> queryParameters = new HashMap<>();
 
         queryParameters.put("phoneNumber", "123456789");
 
@@ -1385,8 +1385,8 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     private void verifyCommandGetQuery_findByFirstNameFetchAddresses() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
-        final Map<String, Serializable> queryParameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
+        final Map<String, Serializable> queryParameters = new HashMap<>();
 
         queryParameters.put("firstName", "Alphonse");
 
@@ -1406,7 +1406,7 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     private void verifyCommandGetQuery_countEmployee() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
 
         parameters.put("queryName", COUNT_EMPLOYEE);
         parameters.put(ENTITY_CLASS_NAME, EMPLOYEE_QUALIFIED_NAME);
@@ -1423,8 +1423,8 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     private void verifyCommandGetQuery_findByHireDate() throws Exception {
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>();
-        final Map<String, Serializable> queryParameters = new HashMap<String, Serializable>();
+        final Map<String, Serializable> parameters = new HashMap<>();
+        final Map<String, Serializable> queryParameters = new HashMap<>();
         queryParameters.put("date1", "1930-01-15");
         queryParameters.put("date2", "2050-12-31");
 
@@ -1616,7 +1616,7 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     public Long getNumberOfAddresses(final long processInstanceId) throws Exception {
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>(2);
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>(2);
         expressions.put(new ExpressionBuilder().createQueryBusinessDataExpression("countAddresses", "Address.countAddress", Long.class.getName()),
                 Collections.<String, Serializable> emptyMap());
 
@@ -1625,7 +1625,7 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     public String getAddressAsAString(final String addressName, final long processInstanceId) throws Exception {
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>(2);
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>(2);
         expressions.put(
                 new ExpressionBuilder().createGroovyScriptExpression("getAddress", "\"Address [street=\" + " + addressName
                         + ".street + \", city=\" + " + addressName + ".city + \"]\";", String.class.getName(),
@@ -1635,7 +1635,7 @@ public class BDRepositoryIT extends CommonAPIIT {
     }
 
     private String getEmployeeAsAString(final String businessDataName, final long processInstanceId) throws InvalidExpressionException {
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>(5);
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>(5);
         final String expressionEmployee = "retrieve_Employee";
         expressions.put(
                 new ExpressionBuilder().createGroovyScriptExpression(expressionEmployee,

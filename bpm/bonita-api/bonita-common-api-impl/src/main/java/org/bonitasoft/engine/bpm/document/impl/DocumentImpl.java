@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.bpm.document.impl;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.bonitasoft.engine.bpm.document.Document;
 
@@ -180,46 +181,25 @@ public class DocumentImpl implements Document {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         DocumentImpl document = (DocumentImpl) o;
-
-        if (author != document.author) return false;
-        if (hasContent != document.hasContent) return false;
-        if (id != document.id) return false;
-        if (index != document.index) return false;
-        if (processInstanceId != document.processInstanceId) return false;
-        if (contentMimeType != null ? !contentMimeType.equals(document.contentMimeType) : document.contentMimeType != null)
-            return false;
-        if (contentStorageId != null ? !contentStorageId.equals(document.contentStorageId) : document.contentStorageId != null)
-            return false;
-        if (creationDate != null ? !creationDate.equals(document.creationDate) : document.creationDate != null)
-            return false;
-        if (description != null ? !description.equals(document.description) : document.description != null)
-            return false;
-        if (fileName != null ? !fileName.equals(document.fileName) : document.fileName != null) return false;
-        if (name != null ? !name.equals(document.name) : document.name != null) return false;
-        if (url != null ? !url.equals(document.url) : document.url != null) return false;
-        if (version != null ? !version.equals(document.version) : document.version != null) return false;
-
-        return true;
+        return Objects.equals(id, document.id) &&
+                Objects.equals(processInstanceId, document.processInstanceId) &&
+                Objects.equals(author, document.author) &&
+                Objects.equals(hasContent, document.hasContent) &&
+                Objects.equals(index, document.index) &&
+                Objects.equals(name, document.name) &&
+                Objects.equals(creationDate, document.creationDate) &&
+                Objects.equals(fileName, document.fileName) &&
+                Objects.equals(contentMimeType, document.contentMimeType) &&
+                Objects.equals(contentStorageId, document.contentStorageId) &&
+                Objects.equals(url, document.url) &&
+                Objects.equals(description, document.description) &&
+                Objects.equals(version, document.version);
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (int) (processInstanceId ^ (processInstanceId >>> 32));
-        result = 31 * result + (name != null ? name.hashCode() : 0);
-        result = 31 * result + (int) (author ^ (author >>> 32));
-        result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
-        result = 31 * result + (hasContent ? 1 : 0);
-        result = 31 * result + (fileName != null ? fileName.hashCode() : 0);
-        result = 31 * result + (contentMimeType != null ? contentMimeType.hashCode() : 0);
-        result = 31 * result + (contentStorageId != null ? contentStorageId.hashCode() : 0);
-        result = 31 * result + (url != null ? url.hashCode() : 0);
-        result = 31 * result + (description != null ? description.hashCode() : 0);
-        result = 31 * result + (version != null ? version.hashCode() : 0);
-        result = 31 * result + index;
-        return result;
+        return Objects.hash(id, processInstanceId, name, author, creationDate, hasContent, fileName, contentMimeType, contentStorageId, url, description, version, index);
     }
 
     @Override

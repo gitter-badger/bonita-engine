@@ -83,11 +83,11 @@ public class HttpAPIServletCall extends ServletCall {
             final String parametersValues = this.getParameter(PARAMETERS_VALUES);
             final String parametersClasses = this.getParameter(CLASS_NAME_PARAMETERS);
 
-            Map<String, Serializable> myOptions = new HashMap<String, Serializable>();
+            Map<String, Serializable> myOptions = new HashMap<>();
             if (options != null && !options.isEmpty()) {
                 myOptions = fromXML(options, XSTREAM);
             }
-            List<String> myClassNameParameters = new ArrayList<String>();
+            List<String> myClassNameParameters = new ArrayList<>();
             if (parametersClasses != null && !parametersClasses.isEmpty() && !parametersClasses.equals(ARRAY)) {
                 myClassNameParameters = fromXML(parametersClasses, XSTREAM);
             }
@@ -136,9 +136,7 @@ public class HttpAPIServletCall extends ServletCall {
             in = xstream.createObjectInputStream(xmlReader);
             try {
                 return (T) in.readObject();
-            } catch (final IOException e) {
-                throw new BonitaRuntimeException("unable to deserialize object " + object, e);
-            } catch (final ClassNotFoundException e) {
+            } catch (final IOException | ClassNotFoundException e) {
                 throw new BonitaRuntimeException("unable to deserialize object " + object, e);
             } finally {
                 in.close();

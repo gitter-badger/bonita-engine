@@ -86,9 +86,9 @@ public class XPathReadExpressionExecutorStrategyTest {
         final SExpression expression = new SExpressionImpl("expName1", xPathSelector, getXPathType(), String.class.getName(), null,
                 Arrays.<SExpression> asList(dep));
 
-        final Map<Integer, Object> resolvedExpressions = new HashMap<Integer, Object>(1);
+        final Map<Integer, Object> resolvedExpressions = new HashMap<>(1);
         resolvedExpressions.put(dep.getDiscriminant(), XML_CONTENT_AUTHOR);
-        final HashMap<String, Object> dependencyValues = new HashMap<String, Object>(1);
+        final HashMap<String, Object> dependencyValues = new HashMap<>(1);
         final Object result = strategy.evaluate(expression, dependencyValues, resolvedExpressions, ContainerState.ACTIVE);
         assertEquals("XPath", result);
     }
@@ -104,7 +104,7 @@ public class XPathReadExpressionExecutorStrategyTest {
         final SExpressionImpl dep = new SExpressionImpl(null, XML_CONTENT_AUTHOR, SExpressionType.TYPE_CONSTANT.name(), String.class.getName(), null, null);
         final SExpression expression = new SExpressionImpl("expName1", "//article", getXPathType(), "InvalidReturnType", null, Arrays.<SExpression> asList(dep));
         final Map<Integer, Object> resolvedExpressions = getResolvedExpressionMap(expression);
-        final HashMap<String, Object> dependencyValues = new HashMap<String, Object>(1);
+        final HashMap<String, Object> dependencyValues = new HashMap<>(1);
         strategy.evaluate(expression, dependencyValues, resolvedExpressions, ContainerState.ACTIVE);
     }
 
@@ -164,7 +164,7 @@ public class XPathReadExpressionExecutorStrategyTest {
         final SExpressionImpl dep = new SExpressionImpl(null, content, SExpressionType.TYPE_CONSTANT.name(), String.class.getName(), null, null);
         final SExpression expression = new SExpressionImpl("expName1", selector, getXPathType(), returnType.getName(), null, Arrays.<SExpression> asList(dep));
         final Map<Integer, Object> resolvedExpressions = getResolvedExpressionMap(expression);
-        final HashMap<String, Object> dependencyValues = new HashMap<String, Object>(1);
+        final HashMap<String, Object> dependencyValues = new HashMap<>(1);
         final Object result = strategy.evaluate(expression, dependencyValues, resolvedExpressions, ContainerState.ACTIVE);
         return (T) result;
     }
@@ -186,8 +186,8 @@ public class XPathReadExpressionExecutorStrategyTest {
     @Test(expected = SExpressionDependencyMissingException.class)
     public void evaluateInvalidDependencies() throws SExpressionException {
         final SExpression expression = new SExpressionImpl("expName1", "//article/@nom", getXPathType(), String.class.getName(), null, null);
-        final Map<Integer, Object> resolvedExpressions = new HashMap<Integer, Object>(0);
-        final HashMap<String, Object> dependencyValues = new HashMap<String, Object>(0);
+        final Map<Integer, Object> resolvedExpressions = new HashMap<>(0);
+        final HashMap<String, Object> dependencyValues = new HashMap<>(0);
         strategy.evaluate(expression, dependencyValues, resolvedExpressions, ContainerState.ACTIVE);
     }
 
@@ -202,7 +202,7 @@ public class XPathReadExpressionExecutorStrategyTest {
     }
 
     private Map<Integer, Object> getResolvedExpressionMap(final SExpression... expressions) {
-        final HashMap<Integer, Object> hashMap = new HashMap<Integer, Object>();
+        final HashMap<Integer, Object> hashMap = new HashMap<>();
         for (final SExpression expression : expressions) {
             final List<SExpression> dependencies = expression.getDependencies();
             for (final SExpression dependency : dependencies) {

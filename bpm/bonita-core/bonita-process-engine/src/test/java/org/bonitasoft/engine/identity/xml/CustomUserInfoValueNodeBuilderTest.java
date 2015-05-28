@@ -54,7 +54,7 @@ public class CustomUserInfoValueNodeBuilderTest {
     @Test
     public void getNode_should_return_node_containing_all_children() {
         // given
-        List<ExportedCustomUserInfoValue> infoValues = new ArrayList<ExportedCustomUserInfoValue>(2);
+        List<ExportedCustomUserInfoValue> infoValues = new ArrayList<>(2);
         infoValues.add(new ExportedCustomUserInfoValue(SKILLS_NAME, SKILLS_VALUE));
         infoValues.add(new ExportedCustomUserInfoValue(LOCATION_NAME, LOCATION_VALUE));
 

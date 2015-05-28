@@ -63,7 +63,7 @@ public class ActorProcessDependencyDeployer implements ProcessDependencyDeployer
             throw new ActorMappingImportException("unable to instantiate parser of actor mapping", e);
         }
         final Set<SActorDefinition> actors = processDefinition.getActors();
-        final Set<SActor> sActors = new HashSet<SActor>(actors.size() + 1);
+        final Set<SActor> sActors = new HashSet<>(actors.size() + 1);
         final SActorDefinition actorInitiator = processDefinition.getActorInitiator();
         String initiatorName = null;
         if (actorInitiator != null) {
@@ -107,7 +107,7 @@ public class ActorProcessDependencyDeployer implements ProcessDependencyDeployer
 
     public List<Problem> checkResolution(final ActorMappingService actorMappingService, final long processDefinitionId) {
         try {
-            final List<Problem> problems = new ArrayList<Problem>();
+            final List<Problem> problems = new ArrayList<>();
             QueryOptions queryOptions = new QueryOptions(0, 100, SActor.class, "id", OrderByType.ASC);
             List<SActor> actors = actorMappingService.getActors(processDefinitionId, queryOptions);
             while (!actors.isEmpty()) {

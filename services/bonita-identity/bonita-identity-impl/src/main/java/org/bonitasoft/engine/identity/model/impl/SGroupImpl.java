@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.identity.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.identity.model.SGroup;
 
 /**
@@ -115,61 +117,21 @@ public class SGroupImpl extends SNamedElementImpl implements SGroup {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (int) (createdBy ^ createdBy >>> 32);
-        result = prime * result + (int) (creationDate ^ creationDate >>> 32);
-        result = prime * result + (iconName == null ? 0 : iconName.hashCode());
-        result = prime * result + (iconPath == null ? 0 : iconPath.hashCode());
-        result = prime * result + (int) (lastUpdate ^ lastUpdate >>> 32);
-        result = prime * result + (parentPath == null ? 0 : parentPath.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        SGroupImpl sGroup = (SGroupImpl) o;
+        return Objects.equals(createdBy, sGroup.createdBy) &&
+                Objects.equals(creationDate, sGroup.creationDate) &&
+                Objects.equals(lastUpdate, sGroup.lastUpdate) &&
+                Objects.equals(parentPath, sGroup.parentPath) &&
+                Objects.equals(iconName, sGroup.iconName) &&
+                Objects.equals(iconPath, sGroup.iconPath);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SGroupImpl other = (SGroupImpl) obj;
-        if (createdBy != other.createdBy) {
-            return false;
-        }
-        if (creationDate != other.creationDate) {
-            return false;
-        }
-        if (iconName == null) {
-            if (other.iconName != null) {
-                return false;
-            }
-        } else if (!iconName.equals(other.iconName)) {
-            return false;
-        }
-        if (iconPath == null) {
-            if (other.iconPath != null) {
-                return false;
-            }
-        } else if (!iconPath.equals(other.iconPath)) {
-            return false;
-        }
-        if (lastUpdate != other.lastUpdate) {
-            return false;
-        }
-        if (parentPath == null) {
-            if (other.parentPath != null) {
-                return false;
-            }
-        } else if (!parentPath.equals(other.parentPath)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), parentPath, iconName, iconPath, createdBy, creationDate, lastUpdate);
     }
-
 }

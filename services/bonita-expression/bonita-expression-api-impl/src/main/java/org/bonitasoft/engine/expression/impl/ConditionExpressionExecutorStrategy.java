@@ -55,7 +55,7 @@ public class ConditionExpressionExecutorStrategy extends NonEmptyContentExpressi
     public ConditionExpressionExecutorStrategy(LogicalComplementExecutor logicalComplementExecutor, BinaryComparatorExecutor binaryComparatorExecutor) {
         this.logicalComplementExecutor = logicalComplementExecutor;
         this.binaryComparatorExecutor = binaryComparatorExecutor;
-        validOperators = new ArrayList<String>(7);
+        validOperators = new ArrayList<>(7);
         validOperators.add(LESS_THAN_COMPARATOR);
         validOperators.add(GREATER_THAN_COMPARATOR);
         validOperators.add(lESS_THAN_OR_EQUALS_COMPARATOR);
@@ -96,7 +96,7 @@ public class ConditionExpressionExecutorStrategy extends NonEmptyContentExpressi
     public List<Object> evaluate(final List<SExpression> expressions, final Map<String, Object> context, final Map<Integer, Object> resolvedExpressions,
             final ContainerState containerState)
             throws SExpressionEvaluationException {
-        final List<Object> evaluatedExpressions = new ArrayList<Object>(expressions.size());
+        final List<Object> evaluatedExpressions = new ArrayList<>(expressions.size());
         for (final SExpression sExpression : expressions) {
             evaluatedExpressions.add(evaluate(sExpression, context, resolvedExpressions, containerState));
         }

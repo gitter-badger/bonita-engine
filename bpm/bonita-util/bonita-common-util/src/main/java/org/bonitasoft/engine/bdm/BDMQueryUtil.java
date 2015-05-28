@@ -166,8 +166,8 @@ public class BDMQueryUtil {
     }
 
     public static List<Query> createProvidedQueriesForBusinessObject(final BusinessObject businessObject) {
-        final List<Query> queries = new ArrayList<Query>();
-        final Set<String> queryNames = new HashSet<String>();
+        final List<Query> queries = new ArrayList<>();
+        final Set<String> queryNames = new HashSet<>();
         for (final UniqueConstraint uc : businessObject.getUniqueConstraints()) {
             final Query query = createQueryForUniqueConstraint(businessObject, uc);
             queryNames.add(query.getName());
@@ -231,7 +231,7 @@ public class BDMQueryUtil {
     }
 
     public static Set<String> getAllProvidedQueriesNameForBusinessObject(final BusinessObject businessObject) {
-        final Set<String> queryNames = new HashSet<String>();
+        final Set<String> queryNames = new HashSet<>();
         for (final UniqueConstraint uc : businessObject.getUniqueConstraints()) {
             queryNames.add(createQueryNameForUniqueConstraint(uc));
         }
@@ -311,7 +311,7 @@ public class BDMQueryUtil {
     }
 
     public static List<Query> createProvidedQueriesForLazyField(final BusinessObjectModel bom, final BusinessObject bo) {
-        final List<Query> queries = new ArrayList<Query>();
+        final List<Query> queries = new ArrayList<>();
         for (final BusinessObject businessObject : bom.getBusinessObjects()) {
             for (final Field f : businessObject.getFields()) {
                 if (f instanceof RelationField && ((RelationField) f).isLazy()) {

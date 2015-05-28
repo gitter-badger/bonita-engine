@@ -50,16 +50,16 @@ public class JavaMethodCallExpressionExecutorStrategyTest {
 
     @Before
     public void setUp() {
-        list = new ArrayList<Integer>(2);
+        list = new ArrayList<>(2);
         list.add(1);
         list.add(2);
         listDep = new SExpressionImpl("dep", "myValues", ExpressionExecutorStrategy.TYPE_VARIABLE, List.class.getName(), null, null);
-        listResolvedExp = new HashMap<Integer, Object>(1);
+        listResolvedExp = new HashMap<>(1);
         listResolvedExp.put(listDep.getDiscriminant(), list);
 
         order = new Order("32, rue Gustave Eiffel - 38500 - Grenoble", 123L);
         orderDep = new SExpressionImpl("dep", "order", ExpressionExecutorStrategy.TYPE_VARIABLE, Order.class.getName(), null, null);
-        orderResolvedExp = new HashMap<Integer, Object>(1);
+        orderResolvedExp = new HashMap<>(1);
         orderResolvedExp.put(orderDep.getDiscriminant(), order);
     }
 
@@ -92,7 +92,7 @@ public class JavaMethodCallExpressionExecutorStrategyTest {
 
     @Test
     public void testEvaluateListOfExpressions() throws Exception {
-        final List<SExpression> expressions = new ArrayList<SExpression>(2);
+        final List<SExpression> expressions = new ArrayList<>(2);
         expressions.add(new SExpressionImpl("exp1", "getShippingAddress", ExpressionExecutorStrategy.TYPE_JAVA_METHOD_CALL, String.class.getName(), null,
                 Collections.singletonList(orderDep)));
         expressions.add(new SExpressionImpl("exp1", "getReferenceNumber", ExpressionExecutorStrategy.TYPE_JAVA_METHOD_CALL, Long.class.getName(), null,
@@ -120,7 +120,7 @@ public class JavaMethodCallExpressionExecutorStrategyTest {
 
     @Test(expected = SInvalidExpressionException.class)
     public void testDepencenciesCannotHasMoreThanOneElement() throws Exception {
-        final List<SExpression> dependencies = new ArrayList<SExpression>(2);
+        final List<SExpression> dependencies = new ArrayList<>(2);
         dependencies.add(orderDep);
         dependencies.add(listDep);
 

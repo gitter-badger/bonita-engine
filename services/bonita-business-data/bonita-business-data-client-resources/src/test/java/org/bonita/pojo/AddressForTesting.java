@@ -13,6 +13,7 @@
  **/
 package org.bonita.pojo;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -84,81 +85,18 @@ public class AddressForTesting implements org.bonitasoft.engine.bdm.Entity {
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final AddressForTesting other = (AddressForTesting) obj;
-        if (persistenceId == null) {
-            if (other.persistenceId != null) {
-                return false;
-            }
-        } else {
-            if (!persistenceId.equals(other.persistenceId)) {
-                return false;
-            }
-        }
-        if (persistenceVersion == null) {
-            if (other.persistenceVersion != null) {
-                return false;
-            }
-        } else {
-            if (!persistenceVersion.equals(other.persistenceVersion)) {
-                return false;
-            }
-        }
-        if (street == null) {
-            if (other.street != null) {
-                return false;
-            }
-        } else {
-            if (!street.equals(other.street)) {
-                return false;
-            }
-        }
-        if (city == null) {
-            if (other.city != null) {
-                return false;
-            }
-        } else {
-            if (!city.equals(other.city)) {
-                return false;
-            }
-        }
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        AddressForTesting that = (AddressForTesting) o;
+        return Objects.equals(persistenceId, that.persistenceId) &&
+                Objects.equals(persistenceVersion, that.persistenceVersion) &&
+                Objects.equals(street, that.street) &&
+                Objects.equals(city, that.city);
     }
 
     @Override
     public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        int persistenceIdCode = 0;
-        if (persistenceId != null) {
-            persistenceIdCode = persistenceId.hashCode();
-        }
-        result = prime * result + persistenceIdCode;
-        int persistenceVersionCode = 0;
-        if (persistenceVersion != null) {
-            persistenceVersionCode = persistenceVersion.hashCode();
-        }
-        result = prime * result + persistenceVersionCode;
-        int streetCode = 0;
-        if (street != null) {
-            streetCode = street.hashCode();
-        }
-        result = prime * result + streetCode;
-        int cityCode = 0;
-        if (city != null) {
-            cityCode = city.hashCode();
-        }
-        result = prime * result + cityCode;
-        return result;
+        return Objects.hash(persistenceId, persistenceVersion, street, city);
     }
-
 }

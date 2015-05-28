@@ -120,10 +120,7 @@ public class ConnectorExecutorImpl implements ConnectorExecutor {
         final Future<Map<String, Object>> submit = executorService.submit(callable);
         try {
             return getValue(submit);
-        } catch (final InterruptedException e) {
-            disconnectSilently(sConnector);
-            throw new SConnectorException(e);
-        } catch (final ExecutionException e) {
+        } catch (final InterruptedException | ExecutionException e) {
             disconnectSilently(sConnector);
             throw new SConnectorException(e);
         } catch (final TimeoutException e) {
@@ -246,7 +243,7 @@ public class ConnectorExecutorImpl implements ConnectorExecutor {
     @Override
     public void start() {
         if (executorService == null) {
-            final BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<Runnable>(queueCapacity);
+            final BlockingQueue<Runnable> workQueue = new ArrayBlockingQueue<>(queueCapacity);
             final RejectedExecutionHandler handler = new QueueRejectedExecutionHandler(loggerService);
             final ConnectorExecutorThreadFactory threadFactory = new ConnectorExecutorThreadFactory("ConnectorExecutor");
             setExecutor(new ThreadPoolExecutor(corePoolSize, maximumPoolSize, keepAliveTimeSeconds, TimeUnit.SECONDS, workQueue, threadFactory, handler));

@@ -132,7 +132,6 @@ public class RecorderImpl implements Recorder {
             logFireEventExceptionAndThrowSRecorderException(e, methodName);
         } catch (final Exception e) {
             traceException(methodName, e);
-            // FIXME what to do if some handlers fail?
             throw new SRecorderException(e);
         }
     }

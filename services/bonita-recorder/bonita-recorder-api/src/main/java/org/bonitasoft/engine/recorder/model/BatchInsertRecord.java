@@ -23,7 +23,7 @@ public class BatchInsertRecord {
     private final List<PersistentObject> entity;
 
     public BatchInsertRecord(final List<? extends PersistentObject> entity) {
-        this.entity = new ArrayList<PersistentObject>(entity);
+        this.entity = new ArrayList<>(entity);
     }
 
     public List<PersistentObject> getEntity() {

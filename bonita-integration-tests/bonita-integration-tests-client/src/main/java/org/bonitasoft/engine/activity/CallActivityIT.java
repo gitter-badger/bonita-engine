@@ -499,7 +499,7 @@ public class CallActivityIT extends TestWithTechnicalUser {
     }
 
     private List<Operation> getStartOperations() throws InvalidExpressionException {
-        final ArrayList<Operation> operations = new ArrayList<Operation>(2);
+        final ArrayList<Operation> operations = new ArrayList<>(2);
         operations.add(BuildTestUtil.buildAssignOperation("fName", "Fulano", ExpressionType.TYPE_CONSTANT, String.class.getName()));
         operations.add(BuildTestUtil.buildAssignOperation("lName", "de Tal", ExpressionType.TYPE_CONSTANT, String.class.getName()));
         return operations;
@@ -737,7 +737,7 @@ public class CallActivityIT extends TestWithTechnicalUser {
             targetProcessDef = getSimpleProcess(ACTOR_NAME, "targetProcess", PROCESS_VERSION, false);
             final Expression targetProcessNameExpr = new ExpressionBuilder().createConstantStringExpression("targetProcess");
             final Expression vExpression = new ExpressionBuilder().createDataExpression("v", String.class.getName());
-            final List<Expression> dependencies = new ArrayList<Expression>(1);
+            final List<Expression> dependencies = new ArrayList<>(1);
             dependencies.add(vExpression);
             final Expression targetProcessVersionExpr = new ExpressionBuilder().createGroovyScriptExpression("version", "v", String.class.getName(),
                     dependencies);

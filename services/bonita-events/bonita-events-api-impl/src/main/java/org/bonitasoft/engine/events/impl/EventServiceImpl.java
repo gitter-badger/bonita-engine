@@ -40,7 +40,7 @@ public class EventServiceImpl extends AbstractEventServiceImpl {
 
     public EventServiceImpl(final TechnicalLoggerService logger) {
         super(logger);
-        registeredHandlers = new HashMap<String, List<SHandler<SEvent>>>();
+        registeredHandlers = new HashMap<>();
     }
 
     @Override
@@ -70,7 +70,7 @@ public class EventServiceImpl extends AbstractEventServiceImpl {
             handlers.add(handler);
         } else {
             // if the given type doesn't already exist in the eventFilters list, we create it
-            final List<SHandler<SEvent>> newHandlerList = new ArrayList<SHandler<SEvent>>(3);
+            final List<SHandler<SEvent>> newHandlerList = new ArrayList<>(3);
             newHandlerList.add(handler);
             registeredHandlers.put(eventType, newHandlerList);
         }

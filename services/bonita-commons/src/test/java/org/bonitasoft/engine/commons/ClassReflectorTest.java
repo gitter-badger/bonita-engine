@@ -59,7 +59,7 @@ public class ClassReflectorTest {
     public void testGetGetterMethod() throws Exception {
         assertThat(ClassReflector.getGetterName("bigChoice", Boolean.class)).isEqualTo("isBigChoice");
         assertThat(ClassReflector.getGetterName("longs", Long.class)).isEqualTo("getLongs");
-        assertThat(ClassReflector.getGetterName("bigChoices", new ArrayList<Boolean>().getClass())).isEqualTo("getBigChoices");
+        assertThat(ClassReflector.getGetterName("bigChoices", ArrayList.class)).isEqualTo("getBigChoices");
 
     }
 
@@ -188,7 +188,7 @@ public class ClassReflectorTest {
     @Test
     public void testInvokeMethodWithParams() throws Exception {
         final Class<?>[] parameterType = new Class<?>[] { String.class, Integer.class };
-        final Object[] parameterValues = new Object[] { "string", new Integer(1) };
+        final Object[] parameterValues = new Object[] { "string", 1};
 
         final Object result = ClassReflector.invokeMethod(pojo, "twoParamMethod", parameterType, parameterValues);
         assertThat(result.toString()).isEqualTo("string*1");

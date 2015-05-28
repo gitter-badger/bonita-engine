@@ -256,7 +256,7 @@ public class FormMappingServiceImpl implements FormMappingService {
 
     @Override
     public SFormMapping get(long processDefinitionId, Integer type, String task) throws SBonitaReadException {
-        Map<String, Object> parameters = new HashMap<String, Object>(3);
+        Map<String, Object> parameters = new HashMap<>(3);
         parameters.put("processDefinitionId", processDefinitionId);
         parameters.put("type", type);
         parameters.put("task", task);
@@ -265,7 +265,7 @@ public class FormMappingServiceImpl implements FormMappingService {
 
     @Override
     public SFormMapping get(long processDefinitionId, Integer type) throws SBonitaReadException {
-        Map<String, Object> parameters = new HashMap<String, Object>(3);
+        Map<String, Object> parameters = new HashMap<>(3);
         parameters.put("processDefinitionId", processDefinitionId);
         parameters.put("type", type);
         return persistenceService.selectOne(new SelectOneDescriptor<SFormMapping>("getFormMappingOfProcessDefinition", parameters, SFormMapping.class));
@@ -273,7 +273,7 @@ public class FormMappingServiceImpl implements FormMappingService {
 
     @Override
     public List<SFormMapping> list(long processDefinitionId, int fromIndex, int numberOfResults) throws SBonitaReadException {
-        Map<String, Object> parameters = new HashMap<String, Object>(3);
+        Map<String, Object> parameters = new HashMap<>(3);
         parameters.put("processDefinitionId", processDefinitionId);
         return persistenceService.selectList(new SelectListDescriptor<SFormMapping>("getFormMappingsOfProcessDefinition", parameters, SFormMapping.class,
                 new QueryOptions(
@@ -282,7 +282,7 @@ public class FormMappingServiceImpl implements FormMappingService {
 
     @Override
     public List<SFormMapping> list(int fromIndex, int numberOfResults) throws SBonitaReadException {
-        Map<String, Object> parameters = new HashMap<String, Object>(3);
+        Map<String, Object> parameters = new HashMap<>(3);
         return persistenceService.selectList(new SelectListDescriptor<SFormMapping>("getFormMappings", parameters, SFormMapping.class, new QueryOptions(
                 fromIndex, numberOfResults)));
     }

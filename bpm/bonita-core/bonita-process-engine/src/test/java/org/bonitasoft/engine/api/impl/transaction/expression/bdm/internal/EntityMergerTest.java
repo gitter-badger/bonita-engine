@@ -59,7 +59,7 @@ public class EntityMergerTest {
 
     @Test
     public void merge_a_collection_of_entity_should_not_call_merge_on_bdrService_for_each_entity() {
-        final List<Entity> listOfEntities = new ArrayList<Entity>();
+        final List<Entity> listOfEntities = new ArrayList<>();
         listOfEntities.add(testEntity);
         listOfEntities.add(testEntity);
         listOfEntities.add(testEntity);
@@ -76,7 +76,7 @@ public class EntityMergerTest {
 
     @Test
     public void merge_a_collection_of_simple_serializable_should_not_call_merge_on_bdrService() {
-        final List<String> listOfEntities = new ArrayList<String>();
+        final List<String> listOfEntities = new ArrayList<>();
         listOfEntities.add("Hello");
         listOfEntities.add("Goodbye");
         listOfEntities.add("Have a nice day");

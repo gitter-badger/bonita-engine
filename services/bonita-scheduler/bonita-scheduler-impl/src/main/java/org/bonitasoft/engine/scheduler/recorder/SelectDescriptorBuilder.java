@@ -30,12 +30,12 @@ public class SelectDescriptorBuilder {
 
     // FIXME put in a common model
     public static <T extends PersistentObject> SelectByIdDescriptor<T> getElementById(final Class<T> clazz, final String elementName, final long id) {
-        return new SelectByIdDescriptor<T>("get" + elementName + "ById", clazz, id);
+        return new SelectByIdDescriptor<>("get" + elementName + "ById", clazz, id);
     }
 
     public static SelectListDescriptor<SFailedJob> getFailedJobs(final QueryOptions queryOptions) {
         final Map<String, Object> parameters = Collections.emptyMap();
-        return new SelectListDescriptor<SFailedJob>("getFailedJobs", parameters, SJobDescriptor.class, queryOptions);
+        return new SelectListDescriptor<>("getFailedJobs", parameters, SJobDescriptor.class, queryOptions);
     }
 
 }

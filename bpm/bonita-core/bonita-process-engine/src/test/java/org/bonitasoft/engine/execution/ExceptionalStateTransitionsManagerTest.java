@@ -83,7 +83,7 @@ public class ExceptionalStateTransitionsManagerTest {
         doReturn(FLOW_NODE_INSTANCE_ID).when(flowNodeInstance).getId();
         doReturn(SStateCategory.NORMAL).when(flowNodeInstance).getStateCategory();
 
-        stateTransitions = new HashMap<Integer, FlowNodeState>(2);
+        stateTransitions = new HashMap<>(2);
         stateTransitions.put(-1, abortingNonTerminalState);
         stateTransitions.put(ABORTING_NON_TERMINAL_STATE_ID, abortingTerminalState);
     }

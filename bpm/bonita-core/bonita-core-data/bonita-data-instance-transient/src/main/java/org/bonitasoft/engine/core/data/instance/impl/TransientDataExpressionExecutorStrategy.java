@@ -61,8 +61,8 @@ public class TransientDataExpressionExecutorStrategy extends NonEmptyContentExpr
         long containerId;
         String containerType;
         final int maxExpressionSize = expressions.size();
-        final ArrayList<String> dataNames = new ArrayList<String>(maxExpressionSize);
-        final HashMap<String, Serializable> results = new HashMap<String, Serializable>(maxExpressionSize);
+        final ArrayList<String> dataNames = new ArrayList<>(maxExpressionSize);
+        final HashMap<String, Serializable> results = new HashMap<>(maxExpressionSize);
         for (final SExpression sExpression : expressions) {
             final String dataName = sExpression.getContent();
             if (dependencyValues.containsKey(dataName)) {
@@ -101,9 +101,7 @@ public class TransientDataExpressionExecutorStrategy extends NonEmptyContentExpr
                     results.put(dataInstance.getName(), dataInstance.getValue());
                 }
                 return buildExpressionResultSameOrderAsInputList(expressions, results);
-            } catch (final SBonitaReadException e) {
-                throw new SExpressionEvaluationException("Can't read transient data", e, currentData);
-            } catch (final SDataInstanceException e) {
+            } catch (final SBonitaReadException | SDataInstanceException e) {
                 throw new SExpressionEvaluationException("Can't read transient data", e, currentData);
             }
         }
@@ -116,7 +114,7 @@ public class TransientDataExpressionExecutorStrategy extends NonEmptyContentExpr
     }
 
     private List<Object> buildExpressionResultSameOrderAsInputList(final List<SExpression> expressions, final Map<String, Serializable> results) {
-        final ArrayList<Object> list = new ArrayList<Object>(expressions.size());
+        final ArrayList<Object> list = new ArrayList<>(expressions.size());
         for (final SExpression expression : expressions) {
             list.add(results.get(expression.getContent()));
         }

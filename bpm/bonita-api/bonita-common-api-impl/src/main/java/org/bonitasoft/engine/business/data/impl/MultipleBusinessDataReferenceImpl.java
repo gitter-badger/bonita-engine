@@ -31,7 +31,7 @@ public class MultipleBusinessDataReferenceImpl extends BusinessDataReferenceImpl
 
     public MultipleBusinessDataReferenceImpl(final String name, final String type, final List<Long> storageIds) {
         super(name, type);
-        this.storageIds = new ArrayList<Long>();
+        this.storageIds = new ArrayList<>();
         for (final Long storageId : storageIds) {
             this.storageIds.add(storageId);
         }

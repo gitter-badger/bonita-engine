@@ -33,10 +33,10 @@ public class ExportedProfileMapping {
     private List<Pair<String, String>> memberships;
 
     public ExportedProfileMapping() {
-        users = new ArrayList<String>();
-        groups = new ArrayList<String>();
-        roles = new ArrayList<String>();
-        memberships = new ArrayList<Pair<String, String>>();
+        users = new ArrayList<>();
+        groups = new ArrayList<>();
+        roles = new ArrayList<>();
+        memberships = new ArrayList<>();
     }
 
     public List<String> getUsers() {

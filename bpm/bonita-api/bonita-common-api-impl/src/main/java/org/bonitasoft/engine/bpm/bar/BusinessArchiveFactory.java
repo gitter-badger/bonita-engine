@@ -95,11 +95,8 @@ public class BusinessArchiveFactory {
             return getBusinessArchive(barOrFolder);
         }
 
-        final FileInputStream inputStream = new FileInputStream(barOrFolder);
-        try {
+        try (FileInputStream inputStream = new FileInputStream(barOrFolder)) {
             return readBusinessArchive(inputStream);
-        } finally {
-            inputStream.close();
         }
     }
 
@@ -181,11 +178,9 @@ public class BusinessArchiveFactory {
         }
 
         final FileOutputStream fileOutput = new FileOutputStream(businessArchiveFile);
-        final ZipOutputStream zos = new ZipOutputStream(fileOutput);
-        try {
+        try (ZipOutputStream zos = new ZipOutputStream(fileOutput)) {
             IOUtil.zipDir(folder.getAbsolutePath(), zos, folder.getAbsolutePath());
         } finally {
-            zos.close();
             fileOutput.close();
         }
     }

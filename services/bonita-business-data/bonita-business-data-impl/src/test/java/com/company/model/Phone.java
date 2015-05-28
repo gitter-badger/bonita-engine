@@ -14,6 +14,7 @@
 
 package com.company.model;
 
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;

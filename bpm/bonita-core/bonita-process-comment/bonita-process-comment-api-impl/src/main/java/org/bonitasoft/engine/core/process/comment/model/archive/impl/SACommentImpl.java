@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.core.process.comment.model.archive.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.core.process.comment.model.SComment;
 import org.bonitasoft.engine.core.process.comment.model.archive.SAComment;
 import org.bonitasoft.engine.persistence.PersistentObject;
@@ -134,65 +136,23 @@ public class SACommentImpl implements SAComment {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (int) (archiveDate ^ archiveDate >>> 32);
-        result = prime * result + (content == null ? 0 : content.hashCode());
-        result = prime * result + (int) (id ^ id >>> 32);
-        result = prime * result + (int) (postDate ^ postDate >>> 32);
-        result = prime * result + (int) (processInstanceId ^ processInstanceId >>> 32);
-        result = prime * result + (int) (sourceObjectId ^ sourceObjectId >>> 32);
-        result = prime * result + (int) (tenantId ^ tenantId >>> 32);
-        result = prime * result + (userId == null ? 0 : userId.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SACommentImpl saComment = (SACommentImpl) o;
+        return Objects.equals(id, saComment.id) &&
+                Objects.equals(tenantId, saComment.tenantId) &&
+                Objects.equals(processInstanceId, saComment.processInstanceId) &&
+                Objects.equals(sourceObjectId, saComment.sourceObjectId) &&
+                Objects.equals(postDate, saComment.postDate) &&
+                Objects.equals(archiveDate, saComment.archiveDate) &&
+                Objects.equals(userId, saComment.userId) &&
+                Objects.equals(content, saComment.content);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SACommentImpl other = (SACommentImpl) obj;
-        if (archiveDate != other.archiveDate) {
-            return false;
-        }
-        if (content == null) {
-            if (other.content != null) {
-                return false;
-            }
-        } else if (!content.equals(other.content)) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (postDate != other.postDate) {
-            return false;
-        }
-        if (processInstanceId != other.processInstanceId) {
-            return false;
-        }
-        if (sourceObjectId != other.sourceObjectId) {
-            return false;
-        }
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        if (userId == null) {
-            if (other.userId != null) {
-                return false;
-            }
-        } else if (!userId.equals(other.userId)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, tenantId, userId, processInstanceId, sourceObjectId, postDate, archiveDate, content);
     }
 
     @Override

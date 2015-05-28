@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.external.identity.mapping.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.external.identity.mapping.model.SExternalIdentityMapping;
 
 /**
@@ -161,61 +163,24 @@ public class SExternalIdentityMappingImpl implements SExternalIdentityMapping {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + (externalId == null ? 0 : externalId.hashCode());
-        result = prime * result + (int) (groupId ^ groupId >>> 32);
-        result = prime * result + (int) (id ^ id >>> 32);
-        result = prime * result + (kind == null ? 0 : kind.hashCode());
-        result = prime * result + (int) (roleId ^ roleId >>> 32);
-        result = prime * result + (int) (tenantId ^ tenantId >>> 32);
-        result = prime * result + (int) (userId ^ userId >>> 32);
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SExternalIdentityMappingImpl that = (SExternalIdentityMappingImpl) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(tenantId, that.tenantId) &&
+                Objects.equals(userId, that.userId) &&
+                Objects.equals(groupId, that.groupId) &&
+                Objects.equals(roleId, that.roleId) &&
+                Objects.equals(kind, that.kind) &&
+                Objects.equals(externalId, that.externalId) &&
+                Objects.equals(displayNamePart1, that.displayNamePart1) &&
+                Objects.equals(displayNamePart2, that.displayNamePart2) &&
+                Objects.equals(displayNamePart3, that.displayNamePart3);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SExternalIdentityMappingImpl other = (SExternalIdentityMappingImpl) obj;
-        if (externalId == null) {
-            if (other.externalId != null) {
-                return false;
-            }
-        } else if (!externalId.equals(other.externalId)) {
-            return false;
-        }
-        if (groupId != other.groupId) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (kind == null) {
-            if (other.kind != null) {
-                return false;
-            }
-        } else if (!kind.equals(other.kind)) {
-            return false;
-        }
-        if (roleId != other.roleId) {
-            return false;
-        }
-        if (tenantId != other.tenantId) {
-            return false;
-        }
-        if (userId != other.userId) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, tenantId, kind, externalId, userId, groupId, roleId, displayNamePart1, displayNamePart2, displayNamePart3);
     }
-
 }

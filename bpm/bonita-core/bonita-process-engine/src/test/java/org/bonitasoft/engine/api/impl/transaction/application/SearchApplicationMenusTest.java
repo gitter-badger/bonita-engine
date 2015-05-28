@@ -78,7 +78,7 @@ public class SearchApplicationMenusTest {
     public void executeSearch_should_return_result_of_applicationService_searchApplicationMenus() throws Exception {
         //given
         final QueryOptions options = new QueryOptions(START_INDEX, MAX_RESULTS);
-        final List<SApplicationMenu> menus = new ArrayList<SApplicationMenu>(1);
+        final List<SApplicationMenu> menus = new ArrayList<>(1);
         menus.add(mock(SApplicationMenu.class));
         given(applicationService.searchApplicationMenus(options)).willReturn(menus);
 

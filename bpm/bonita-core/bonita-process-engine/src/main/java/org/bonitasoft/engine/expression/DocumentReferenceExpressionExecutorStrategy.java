@@ -71,7 +71,7 @@ public class DocumentReferenceExpressionExecutorStrategy extends NonEmptyContent
 
         try {
             final long processInstanceId = getProcessInstance(containerId, containerType);
-            final ArrayList<Object> results = new ArrayList<Object>(expressions.size());
+            final ArrayList<Object> results = new ArrayList<>(expressions.size());
             for (final SExpression expression : expressions) {
                 results.add(getDocument(processInstanceId, expression, time));
             }

@@ -63,7 +63,7 @@ public class ApplicationMenuModelConverter {
     }
 
     public List<ApplicationMenu> toApplicationMenu(final List<SApplicationMenu> sApplicationMenus) throws SBonitaException {
-        final List<ApplicationMenu> menus = new ArrayList<ApplicationMenu>(sApplicationMenus.size());
+        final List<ApplicationMenu> menus = new ArrayList<>(sApplicationMenus.size());
         for (final SApplicationMenu sMenu : sApplicationMenus) {
             menus.add(toApplicationMenu(sMenu));
         }

@@ -117,7 +117,7 @@ public class DocumentServiceImplTest {
     }
 
     private List<SMappedDocument> constructList(final int size) {
-        final ArrayList<SMappedDocument> list = new ArrayList<SMappedDocument>();
+        final ArrayList<SMappedDocument> list = new ArrayList<>();
         for (int i = 0; i < size; i++) {
             list.add(new SMappedDocumentImpl());
         }

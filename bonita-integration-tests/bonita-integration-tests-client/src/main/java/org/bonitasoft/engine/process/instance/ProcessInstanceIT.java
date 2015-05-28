@@ -572,7 +572,7 @@ public class ProcessInstanceIT extends AbstractProcessInstanceIT {
         final ProcessDefinition processDefinition = deployAndEnableProcessWithActor(processBuilder.done(), ACTOR_NAME, user);
 
         try {
-            final Map<String, Serializable> variables = new HashMap<String, Serializable>();
+            final Map<String, Serializable> variables = new HashMap<>();
             variables.put("bigD", new BigDecimal("3.141592653589793"));
             final ProcessInstance instance = getProcessAPI().startProcess(otherUser.getId(), processDefinition.getId(), variables);
             final ProcessInstance processInstance2 = getProcessAPI().getProcessInstance(instance.getId());
@@ -580,7 +580,7 @@ public class ProcessInstanceIT extends AbstractProcessInstanceIT {
             DataInstance dataInstance = getProcessAPI().getProcessDataInstance("bigD", instance.getId());
             assertEquals(new BigDecimal("3.141592653589793"), dataInstance.getValue());
             dataInstance = getProcessAPI().getProcessDataInstance("D", instance.getId());
-            assertEquals(Double.valueOf(3.14), dataInstance.getValue());
+            assertEquals(3.14, dataInstance.getValue());
 
             assertEquals(otherUser.getId(), processInstance2.getStartedBy());
             assertEquals(user.getId(), processInstance2.getStartedBySubstitute());
@@ -618,8 +618,8 @@ public class ProcessInstanceIT extends AbstractProcessInstanceIT {
         try {
             // create Operation keyed map
             final Operation integerOperation = BuildTestUtil.buildIntegerOperation(dataName, 2);
-            final List<Operation> operations = new ArrayList<Operation>();
-            final Map<String, Serializable> contexts = new HashMap<String, Serializable>();
+            final List<Operation> operations = new ArrayList<>();
+            final Map<String, Serializable> contexts = new HashMap<>();
             contexts.put("page", "1");
             operations.add(integerOperation);
             final long processDefinitionId = processDefinition.getId();
@@ -647,7 +647,7 @@ public class ProcessInstanceIT extends AbstractProcessInstanceIT {
     }
 
     private List<ProcessInstance> startNbProcess(final List<ProcessDefinition> processDefinitions) throws Exception {
-        final List<ProcessInstance> process = new ArrayList<ProcessInstance>();
+        final List<ProcessInstance> process = new ArrayList<>();
         for (final ProcessDefinition processDefinition : processDefinitions) {
             process.add(getProcessAPI().startProcess(processDefinition.getId()));
             Thread.sleep(5);// avoid two instances with the same date

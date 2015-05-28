@@ -133,9 +133,7 @@ public class GroovyScriptExpressionExecutorCacheStrategyTest {
             public void run() {
                 try {
                     script2 = groovyScriptExpressionExecutorCacheStrategy.getScriptFromCache("MyScriptContent", 12l);
-                } catch (SCacheException e) {
-                    e.printStackTrace();
-                } catch (SClassLoaderException e) {
+                } catch (SCacheException | SClassLoaderException e) {
                     e.printStackTrace();
                 }
             }

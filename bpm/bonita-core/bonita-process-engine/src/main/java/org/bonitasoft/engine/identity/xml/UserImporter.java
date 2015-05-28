@@ -55,7 +55,7 @@ public class UserImporter {
     }
 
     public Map<String, SUser> importUsers(final List<ExportedUser> usersToImport) throws SBonitaException {
-        final Map<String, SUser> userNameToSUsers = new HashMap<String, SUser>((int) Math.min(Integer.MAX_VALUE, identityService.getNumberOfUsers()));
+        final Map<String, SUser> userNameToSUsers = new HashMap<>((int) Math.min(Integer.MAX_VALUE, identityService.getNumberOfUsers()));
         for (final ExportedUser userToImport : usersToImport) {
             SUser sUser = null;
             if (hasUserWithUserName(userToImport.getUserName())) {

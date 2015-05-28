@@ -16,6 +16,7 @@ package org.bonitasoft.engine.bpm.flownode.impl.internal;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 import java.util.UUID;
 
 import org.bonitasoft.engine.bpm.connector.ConnectorDefinition;
@@ -160,89 +161,24 @@ public abstract class FlowNodeDefinitionImpl extends NamedElementImpl implements
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (connectors == null ? 0 : connectors.hashCode());
-        result = prime * result + (defaultTransition == null ? 0 : defaultTransition.hashCode());
-        result = prime * result + (description == null ? 0 : description.hashCode());
-        result = prime * result + (displayDescription == null ? 0 : displayDescription.hashCode());
-        result = prime * result + (displayDescriptionAfterCompletion == null ? 0 : displayDescriptionAfterCompletion.hashCode());
-        result = prime * result + (displayName == null ? 0 : displayName.hashCode());
-        result = prime * result + (incomings == null ? 0 : incomings.hashCode());
-        result = prime * result + (outgoings == null ? 0 : outgoings.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        FlowNodeDefinitionImpl that = (FlowNodeDefinitionImpl) o;
+        return Objects.equals(incomings, that.incomings) &&
+                Objects.equals(outgoings, that.outgoings) &&
+                Objects.equals(connectors, that.connectors) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(displayDescription, that.displayDescription) &&
+                Objects.equals(displayName, that.displayName) &&
+                Objects.equals(displayDescriptionAfterCompletion, that.displayDescriptionAfterCompletion) &&
+                Objects.equals(defaultTransition, that.defaultTransition);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final FlowNodeDefinitionImpl other = (FlowNodeDefinitionImpl) obj;
-        if (connectors == null) {
-            if (other.connectors != null) {
-                return false;
-            }
-        } else if (!connectors.equals(other.connectors)) {
-            return false;
-        }
-        if (defaultTransition == null) {
-            if (other.defaultTransition != null) {
-                return false;
-            }
-        } else if (!defaultTransition.equals(other.defaultTransition)) {
-            return false;
-        }
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (displayDescription == null) {
-            if (other.displayDescription != null) {
-                return false;
-            }
-        } else if (!displayDescription.equals(other.displayDescription)) {
-            return false;
-        }
-        if (displayDescriptionAfterCompletion == null) {
-            if (other.displayDescriptionAfterCompletion != null) {
-                return false;
-            }
-        } else if (!displayDescriptionAfterCompletion.equals(other.displayDescriptionAfterCompletion)) {
-            return false;
-        }
-        if (displayName == null) {
-            if (other.displayName != null) {
-                return false;
-            }
-        } else if (!displayName.equals(other.displayName)) {
-            return false;
-        }
-        if (incomings == null) {
-            if (other.incomings != null) {
-                return false;
-            }
-        } else if (!incomings.equals(other.incomings)) {
-            return false;
-        }
-        if (outgoings == null) {
-            if (other.outgoings != null) {
-                return false;
-            }
-        } else if (!outgoings.equals(other.outgoings)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), incomings, outgoings, connectors, description, displayDescription, displayName, displayDescriptionAfterCompletion, defaultTransition);
     }
 
     @Override

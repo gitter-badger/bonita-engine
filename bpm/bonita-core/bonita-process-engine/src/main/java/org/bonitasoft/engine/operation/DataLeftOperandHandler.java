@@ -133,7 +133,7 @@ public class DataLeftOperandHandler implements LeftOperandHandler {
     @Override
     public void loadLeftOperandInContext(final List<SLeftOperand> sLeftOperand, final SExpressionContext expressionContext, Map<String, Object> contextToSet) throws SBonitaReadException {
         try {
-            ArrayList<String> names = new ArrayList<String>(sLeftOperand.size());
+            ArrayList<String> names = new ArrayList<>(sLeftOperand.size());
             for (SLeftOperand leftOperand : sLeftOperand) {
                 names.add(leftOperand.getName());
             }

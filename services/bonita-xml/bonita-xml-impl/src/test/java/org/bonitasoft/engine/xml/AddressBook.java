@@ -33,7 +33,7 @@ public class AddressBook {
     public AddressBook(final String name, final String version) {
         this.name = name;
         this.version = version;
-        this.persons = new ArrayList<Person>();
+        this.persons = new ArrayList<>();
     }
 
     public void addPerson(final Person person) {

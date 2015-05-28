@@ -95,7 +95,7 @@ public class DocumentLeftOperandHandlerTest {
     public void should_update_check_the_type() throws Exception {
         exception.expect(SOperationExecutionException.class);
         exception.expectMessage("Document operation only accepts an expression returning a DocumentValue and not java.util.HashMap");
-        handler.update(new SLeftOperandImpl(), Collections.<String, Object>emptyMap(), new HashMap<Object, Object>(), 45l, "container");
+        handler.update(new SLeftOperandImpl(), Collections.<String, Object>emptyMap(), new HashMap<>(), 45l, "container");
     }
 
     @Test

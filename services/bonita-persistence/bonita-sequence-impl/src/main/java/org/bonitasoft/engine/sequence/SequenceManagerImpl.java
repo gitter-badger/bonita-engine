@@ -41,7 +41,7 @@ public class SequenceManagerImpl implements SequenceManager {
 
     private final LockService lockService;
 
-    private final Map<Long, TenantSequenceManagerImpl> sequenceManagers = new HashMap<Long, TenantSequenceManagerImpl>();
+    private final Map<Long, TenantSequenceManagerImpl> sequenceManagers = new HashMap<>();
 
     private final Object mutex = new SequenceManagerImplMutex();
 

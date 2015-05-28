@@ -32,7 +32,7 @@ public class SXMLObjectDataInstanceImplTest {
     @Test
     public void SXMLObjectDataInstanceImpl_should_return_given_value() {
         //given
-        final Serializable givenValue = new String("serializable value");
+        final Serializable givenValue = "serializable value";
 
         final SXMLObjectDataInstanceImpl sxmlObjectDataInstanceImpl = new SXMLObjectDataInstanceImpl(dataDefinition);
 

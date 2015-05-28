@@ -49,7 +49,7 @@ public class ContractInputExpressionExecutorStrategyTest {
     private ContractInputExpressionExecutorStrategy strategy;
 
     private Map<String, Object> buildInitialContext(final long containerId) {
-        final Map<String, Object> context = new HashMap<String, Object>(2);
+        final Map<String, Object> context = new HashMap<>(2);
         context.put(SExpressionContext.CONTAINER_ID_KEY, containerId);
         context.put(SExpressionContext.CONTAINER_TYPE_KEY, DataInstanceContainer.ACTIVITY_INSTANCE.name());
         return context;
@@ -61,7 +61,7 @@ public class ContractInputExpressionExecutorStrategyTest {
 
     @Test
     public void evaluateShouldReturnTheContractInput() throws Exception {
-        final Map<String, Object> inputs = new HashMap<String, Object>();
+        final Map<String, Object> inputs = new HashMap<>();
         inputs.put("comment", "No way!");
         final SExpression expression = buildInputContractExpression("comment", String.class);
         final Map<String, Object> context = buildInitialContext(465465L);
@@ -109,7 +109,7 @@ public class ContractInputExpressionExecutorStrategyTest {
 
     @Test
     public void evaluateShouldReturnTheContractInputs() throws Exception {
-        final Map<String, Object> inputs = new HashMap<String, Object>();
+        final Map<String, Object> inputs = new HashMap<>();
         inputs.put("comment", "No way!");
         inputs.put("isValid", false);
         final SExpression expression1 = buildInputContractExpression("comment", String.class);

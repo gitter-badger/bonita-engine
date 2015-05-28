@@ -78,7 +78,7 @@ public abstract class AbstractExpressionServiceTest extends CommonBPMServicesTes
             SExpressionEvaluationException, SExpressionDependencyMissingException, SInvalidExpressionException, STransactionCreationException,
             STransactionCommitException, STransactionRollbackException {
         getTransactionService().begin();
-        final Map<String, Object> dependencyValues = new HashMap<String, Object>();
+        final Map<String, Object> dependencyValues = new HashMap<>();
         dependencyValues.put(ExpressionExecutorStrategy.DEFINITION_ID, DEFINITION_ID_VALUE);
         final Object result = getExpressionService().evaluate(expression, dependencyValues, resolvedExpressions, ContainerState.ACTIVE);
         getTransactionService().complete();

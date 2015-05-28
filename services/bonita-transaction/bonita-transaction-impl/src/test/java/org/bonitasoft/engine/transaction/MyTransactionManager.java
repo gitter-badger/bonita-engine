@@ -92,7 +92,7 @@ public class MyTransactionManager implements TransactionManager {
 
     public static class MyTransaction implements Transaction {
 
-        private final List<Synchronization> synchros = new LinkedList<Synchronization>();
+        private final List<Synchronization> synchros = new LinkedList<>();
 
         private int status = Status.STATUS_ACTIVE;
 

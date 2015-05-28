@@ -121,7 +121,7 @@ public class BPMInstancesCreatorTest {
     private List<SConnectorDefinition> getConnectorList() {
         final SConnectorDefinition connector1 = mock(SConnectorDefinition.class);
         final SConnectorDefinition connector2 = mock(SConnectorDefinition.class);
-        final List<SConnectorDefinition> connectors = new ArrayList<SConnectorDefinition>(2);
+        final List<SConnectorDefinition> connectors = new ArrayList<>(2);
         connectors.add(connector1);
         connectors.add(connector2);
         return connectors;

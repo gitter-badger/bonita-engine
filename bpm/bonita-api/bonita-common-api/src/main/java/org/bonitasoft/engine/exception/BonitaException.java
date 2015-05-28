@@ -33,7 +33,7 @@ public class BonitaException extends Exception implements BonitaContextException
 
     private static final long serialVersionUID = -5413586694735909486L;
 
-    private final Map<ExceptionContext, Serializable> context = new TreeMap<ExceptionContext, Serializable>();
+    private final Map<ExceptionContext, Serializable> context = new TreeMap<>();
 
     private String userName = "";
 
@@ -314,7 +314,7 @@ public class BonitaException extends Exception implements BonitaContextException
     private void appendContextMessage(final StringBuilder stringBuilder) {
         if (!context.isEmpty()) {
             for (final Entry<ExceptionContext, Serializable> entry : context.entrySet()) {
-                stringBuilder.append(entry.getKey() + "=" + entry.getValue() + " | ");
+                stringBuilder.append(entry.getKey()).append("=").append(entry.getValue()).append(" | ");
             }
         }
     }

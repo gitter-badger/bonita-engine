@@ -121,7 +121,7 @@ public class CategoryServiceImplTest {
     @Test
     public final void getCategories() throws SCategoryException, SBonitaReadException {
         // Given
-        final List<SCategory> sCategories = new ArrayList<SCategory>();
+        final List<SCategory> sCategories = new ArrayList<>();
         final String field = "field";
         final OrderByType order = OrderByType.ASC;
         final int fromIndex = 0;
@@ -160,7 +160,7 @@ public class CategoryServiceImplTest {
     @Test
     public final void getCategoriesOfProcessDefinition() throws SCategoryException, SBonitaReadException {
         // Given
-        final List<SCategory> sCategories = new ArrayList<SCategory>();
+        final List<SCategory> sCategories = new ArrayList<>();
         final long processDefinitionId = 2L;
         final int fromIndex = 0;
         final int numberOfCategories = 1;
@@ -328,7 +328,7 @@ public class CategoryServiceImplTest {
     @Test
     public final void getNumberOfCategorizedProcessIds() throws SCategoryException, SBonitaReadException {
         // Given
-        final List<Long> processIds = new ArrayList<Long>();
+        final List<Long> processIds = new ArrayList<>();
         processIds.add(14654L);
         final long numberOfCategories = 3L;
         doReturn(numberOfCategories).when(persistenceService).selectOne(SelectDescriptorBuilder.getNumberOfCategorizedProcessIds(processIds));
@@ -361,7 +361,7 @@ public class CategoryServiceImplTest {
     @Test(expected = SCategoryException.class)
     public final void getNumberOfCategorizedProcessIdsThrowException() throws SBonitaReadException, SCategoryException {
         // Given
-        final List<Long> processIds = new ArrayList<Long>();
+        final List<Long> processIds = new ArrayList<>();
         processIds.add(14654L);
         doThrow(new SBonitaReadException("")).when(persistenceService).selectOne(SelectDescriptorBuilder.getNumberOfCategorizedProcessIds(processIds));
 
@@ -377,7 +377,7 @@ public class CategoryServiceImplTest {
     @Test
     public final void getCategoriesUnrelatedToProcessDefinition() throws SBonitaReadException, SCategoryException {
         // Given
-        final List<SCategory> sCategories = new ArrayList<SCategory>();
+        final List<SCategory> sCategories = new ArrayList<>();
         final long processDefinitionId = 54894L;
         final int fromIndex = 0;
         final int numberOfCategories = 10;

@@ -509,7 +509,7 @@ public class ProcessInstanceServiceImplTest {
         // Given
         final List<Long> archivedProcessInstanceIds = Arrays.asList(41L);
         final Map<String, Object> parameters = Collections.singletonMap("sourceObjectIds", (Object) archivedProcessInstanceIds);
-        final SelectListDescriptor<SAProcessInstance> selectListDescriptor = new SelectListDescriptor<SAProcessInstance>(
+        final SelectListDescriptor<SAProcessInstance> selectListDescriptor = new SelectListDescriptor<>(
                 "getArchivedProcessInstancesInAllStates", parameters, SAProcessInstance.class, new QueryOptions(0, archivedProcessInstanceIds.size()));
         final List<SAProcessInstance> saProcessInstances = Arrays.asList(mock(SAProcessInstance.class));
         doReturn(saProcessInstances).when(readPersistenceService).selectList(selectListDescriptor);
@@ -527,7 +527,7 @@ public class ProcessInstanceServiceImplTest {
         // Given
         final List<Long> archivedProcessInstanceIds = Arrays.asList(41L);
         final Map<String, Object> parameters = Collections.singletonMap("sourceObjectIds", (Object) archivedProcessInstanceIds);
-        final SelectListDescriptor<SAProcessInstance> selectListDescriptor = new SelectListDescriptor<SAProcessInstance>(
+        final SelectListDescriptor<SAProcessInstance> selectListDescriptor = new SelectListDescriptor<>(
                 "getArchivedProcessInstancesInAllStates", parameters, SAProcessInstance.class, new QueryOptions(0, archivedProcessInstanceIds.size()));
         doThrow(new SBonitaReadException("plop")).when(readPersistenceService).selectList(selectListDescriptor);
 
@@ -540,7 +540,7 @@ public class ProcessInstanceServiceImplTest {
         // Given
         final long archivedProcessInstanceId = 41L;
         final Map<String, Object> parameters = Collections.singletonMap("id", (Object) archivedProcessInstanceId);
-        final SelectOneDescriptor<SAProcessInstance> selectOneDescriptor = new SelectOneDescriptor<SAProcessInstance>(
+        final SelectOneDescriptor<SAProcessInstance> selectOneDescriptor = new SelectOneDescriptor<>(
                 "getArchivedProcessInstance", parameters, SAProcessInstance.class);
         final SAProcessInstance saProcessInstance = mock(SAProcessInstance.class);
         doReturn(saProcessInstance).when(readPersistenceService).selectOne(selectOneDescriptor);
@@ -558,7 +558,7 @@ public class ProcessInstanceServiceImplTest {
         // Given
         final long archivedProcessInstanceId = 41L;
         final Map<String, Object> parameters = Collections.singletonMap("id", (Object) archivedProcessInstanceId);
-        final SelectOneDescriptor<SAProcessInstance> selectOneDescriptor = new SelectOneDescriptor<SAProcessInstance>(
+        final SelectOneDescriptor<SAProcessInstance> selectOneDescriptor = new SelectOneDescriptor<>(
                 "getArchivedProcessInstance", parameters, SAProcessInstance.class);
         doThrow(new SBonitaReadException("plop")).when(readPersistenceService).selectOne(selectOneDescriptor);
 
@@ -762,9 +762,9 @@ public class ProcessInstanceServiceImplTest {
 
     @Test
     public void getNumberOfProcessInstances_should_call_getNumberOfEntities() throws Exception {
-        final Map<String, Object> inputParameters = new HashMap<String, Object>();
+        final Map<String, Object> inputParameters = new HashMap<>();
         inputParameters.put("processDefinitionId", 45L);
-        final SelectOneDescriptor<Long> countDescriptor = new SelectOneDescriptor<Long>("countProcessInstancesOfProcessDefinition", inputParameters,
+        final SelectOneDescriptor<Long> countDescriptor = new SelectOneDescriptor<>("countProcessInstancesOfProcessDefinition", inputParameters,
                 SProcessInstance.class);
         when(readPersistenceService.selectOne(countDescriptor)).thenReturn(4L);
 

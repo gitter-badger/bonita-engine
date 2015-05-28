@@ -67,8 +67,8 @@ public class ProcessCategoryIT extends TestWithTechnicalUser {
     @Before
     public void before() throws Exception {
         super.before();
-        categories = new ArrayList<Category>();
-        processDefinitions = new ArrayList<ProcessDefinition>();
+        categories = new ArrayList<>();
+        processDefinitions = new ArrayList<>();
     }
 
     @Override
@@ -351,7 +351,7 @@ public class ProcessCategoryIT extends TestWithTechnicalUser {
         final long categoryId = category.getId();
         // generate process definition id
         processDefinitions = generateProcessDefinition(3, "process", "version");
-        final List<Long> processDefinitionIds = new ArrayList<Long>();
+        final List<Long> processDefinitionIds = new ArrayList<>();
         for (final ProcessDefinition processDefinition : processDefinitions) {
             processDefinitionIds.add(processDefinition.getId());
         }
@@ -414,7 +414,7 @@ public class ProcessCategoryIT extends TestWithTechnicalUser {
         final long categoryId = category.getId();
         // generate process definitions
         processDefinitions = generateProcessDefinition(3, "process", "version");
-        final List<Long> processDefinitionIds = new ArrayList<Long>();
+        final List<Long> processDefinitionIds = new ArrayList<>();
         for (final ProcessDefinition processDefinition : processDefinitions) {
             processDefinitionIds.add(processDefinition.getId());
         }
@@ -546,7 +546,7 @@ public class ProcessCategoryIT extends TestWithTechnicalUser {
         categories.add(category);
         // generate process definitions
         processDefinitions = generateProcessDefinition(3, "process", "version");
-        final List<Long> processDefinitionIds = new ArrayList<Long>();
+        final List<Long> processDefinitionIds = new ArrayList<>();
         for (final ProcessDefinition processDefinition : processDefinitions) {
             processDefinitionIds.add(processDefinition.getId());
         }
@@ -567,7 +567,7 @@ public class ProcessCategoryIT extends TestWithTechnicalUser {
         categories.add(category);
         // generate process definitions
         processDefinitions = generateProcessDefinition(3, "process", "version");
-        final List<Long> processDefinitionIds = new ArrayList<Long>();
+        final List<Long> processDefinitionIds = new ArrayList<>();
         for (final ProcessDefinition processDefinition : processDefinitions) {
             processDefinitionIds.add(processDefinition.getId());
         }
@@ -689,7 +689,7 @@ public class ProcessCategoryIT extends TestWithTechnicalUser {
 
     private List<Category> generateCategory(final int count, final String categoryName, final String description) throws AlreadyExistsException,
             CreationException {
-        final List<Category> categoryList = new ArrayList<Category>();
+        final List<Category> categoryList = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
             categoryList.add(getProcessAPI().createCategory(categoryName + i, description + i));
         }
@@ -698,7 +698,7 @@ public class ProcessCategoryIT extends TestWithTechnicalUser {
 
     private List<ProcessDefinition> generateProcessDefinition(final int count, final String processName, final String version)
             throws InvalidBusinessArchiveFormatException, ProcessDeployException, InvalidProcessDefinitionException, AlreadyExistsException {
-        final List<ProcessDefinition> processDefinitionList = new ArrayList<ProcessDefinition>();
+        final List<ProcessDefinition> processDefinitionList = new ArrayList<>();
         for (int i = 1; i <= count; i++) {
             final DesignProcessDefinition designProcessDefinition = BuildTestUtil.buildProcessDefinitionWithHumanAndAutomaticSteps(processName + i,
                     version + i, Arrays.asList("step1"), Arrays.asList(true));

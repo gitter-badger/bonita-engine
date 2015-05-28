@@ -36,7 +36,7 @@ public class TenantAccessorTest {
         TenantAPIAccessor.refresh();
 
         TenantAPIAccessor.getLoginAPI();
-        final Map<String, String> passedParameters = new HashMap<String, String>();
+        final Map<String, String> passedParameters = new HashMap<>();
         passedParameters.put("NawakKey", "NawakValue");
         APITypeManager.setAPITypeAndParams(ApiAccessType.EJB3, passedParameters);
         try {

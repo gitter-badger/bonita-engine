@@ -49,7 +49,7 @@ public class EventUtil {
     private static final String STATE = "state";
 
     public static Map<String, Serializable> getEventForProcess(final SProcessInstance instance) {
-        final Map<String, Serializable> map = new HashMap<String, Serializable>(4);
+        final Map<String, Serializable> map = new HashMap<>(4);
         map.put(TYPE, PROCESS);
         map.put(ID, instance.getId());
         map.put(STATE_ID, instance.getStateId());
@@ -59,7 +59,7 @@ public class EventUtil {
     }
 
     public static Map<String, Serializable> getEventForFlowNode(final SFlowNodeInstance flowNodeInstance) {
-        final Map<String, Serializable> map = new HashMap<String, Serializable>(5);
+        final Map<String, Serializable> map = new HashMap<>(5);
         map.put(TYPE, FLOW_NODE);
         map.put(ID, flowNodeInstance.getId());
         map.put(ROOT_CONTAINER_ID, flowNodeInstance.getRootContainerId());

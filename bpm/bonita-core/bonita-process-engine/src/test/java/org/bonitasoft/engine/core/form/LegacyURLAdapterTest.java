@@ -84,10 +84,10 @@ public class LegacyURLAdapterTest {
         when(processDefinition.getVersion()).thenReturn("processVersion");
         when(processDefinitionService.getProcessDefinition(1L)).thenReturn(processDefinition);
 
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
+        Map<String, Serializable> context = new HashMap<>();
         context.put(URLAdapterConstants.CONTEXT_PATH, "/bonita");
         context.put(URLAdapterConstants.LOCALE, "en");
-        Map<String, String[]> queryParametersMap = new HashMap<String, String[]>();
+        Map<String, String[]> queryParametersMap = new HashMap<>();
         queryParametersMap.put(URLAdapterConstants.ID_QUERY_PARAM, new String[] { "42" });
         context.put(URLAdapterConstants.QUERY_PARAMETERS, (Serializable) queryParametersMap);
 

@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.core.document.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.core.document.model.SLightDocument;
 
 /**
@@ -132,44 +134,22 @@ public class SLightDocumentImpl implements SLightDocument {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o)
-            return true;
-        if (o == null || getClass() != o.getClass())
-            return false;
-
-        SLightDocumentImpl sDocument = (SLightDocumentImpl) o;
-
-        if (author != sDocument.author)
-            return false;
-        if (creationDate != sDocument.creationDate)
-            return false;
-        if (hasContent != sDocument.hasContent)
-            return false;
-        if (id != sDocument.id)
-            return false;
-        if (tenantId != sDocument.tenantId)
-            return false;
-        if (fileName != null ? !fileName.equals(sDocument.fileName) : sDocument.fileName != null)
-            return false;
-        if (mimeType != null ? !mimeType.equals(sDocument.mimeType) : sDocument.mimeType != null)
-            return false;
-        if (url != null ? !url.equals(sDocument.url) : sDocument.url != null)
-            return false;
-
-        return true;
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SLightDocumentImpl that = (SLightDocumentImpl) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(tenantId, that.tenantId) &&
+                Objects.equals(author, that.author) &&
+                Objects.equals(creationDate, that.creationDate) &&
+                Objects.equals(hasContent, that.hasContent) &&
+                Objects.equals(fileName, that.fileName) &&
+                Objects.equals(mimeType, that.mimeType) &&
+                Objects.equals(url, that.url);
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (int) (tenantId ^ (tenantId >>> 32));
-        result = 31 * result + (int) (author ^ (author >>> 32));
-        result = 31 * result + (int) (creationDate ^ (creationDate >>> 32));
-        result = 31 * result + (hasContent ? 1 : 0);
-        result = 31 * result + (fileName != null ? fileName.hashCode() : 0);
-        result = 31 * result + (mimeType != null ? mimeType.hashCode() : 0);
-        result = 31 * result + (url != null ? url.hashCode() : 0);
-        return result;
+        return Objects.hash(id, tenantId, author, creationDate, hasContent, fileName, mimeType, url);
     }
 
     @Override

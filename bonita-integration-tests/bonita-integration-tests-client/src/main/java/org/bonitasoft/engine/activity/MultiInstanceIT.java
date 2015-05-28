@@ -712,8 +712,8 @@ public class MultiInstanceIT extends TestWithTechnicalUser {
         builder.addUserTask("step1", ACTOR_NAME).addMultiInstance(false, new ExpressionBuilder().createConstantIntegerExpression(3));
         builder.addAutomaticTask("step2").addTransition("step1", "step2");
 
-        final List<User> listUsers = new ArrayList<User>();
-        final List<String> listActors = new ArrayList<String>();
+        final List<User> listUsers = new ArrayList<>();
+        final List<String> listActors = new ArrayList<>();
         listUsers.add(john);
         listActors.add(ACTOR_NAME);
         listUsers.add(jack);
@@ -761,8 +761,8 @@ public class MultiInstanceIT extends TestWithTechnicalUser {
         builder.addUserTask("step1", ACTOR_NAME).addMultiInstance(true, new ExpressionBuilder().createConstantIntegerExpression(loopMax));
         builder.addAutomaticTask("step2").addTransition("step1", "step2");
 
-        final List<User> listUsers = new ArrayList<User>();
-        final List<String> listActors = new ArrayList<String>();
+        final List<User> listUsers = new ArrayList<>();
+        final List<String> listActors = new ArrayList<>();
         listUsers.add(john);
         listActors.add(ACTOR_NAME);
         listUsers.add(jack);
@@ -942,7 +942,7 @@ public class MultiInstanceIT extends TestWithTechnicalUser {
         for (final BarResource barResource : impl) {
             businessArchiveBuilder.addUserFilters(barResource);
         }
-        final List<BarResource> generateFilterDependencies = new ArrayList<BarResource>(1);
+        final List<BarResource> generateFilterDependencies = new ArrayList<>(1);
         final byte[] data = IOUtil.generateJar(TestFilterWithAutoAssign.class);
         generateFilterDependencies.add(new BarResource("TestFilterWithAutoAssign.jar", data));
 
@@ -959,7 +959,7 @@ public class MultiInstanceIT extends TestWithTechnicalUser {
     }
 
     private List<BarResource> generateFilterImplementations(final String filterName) throws IOException {
-        final List<BarResource> resources = new ArrayList<BarResource>(1);
+        final List<BarResource> resources = new ArrayList<>(1);
         final InputStream inputStream = TestConnector.class.getClassLoader().getResourceAsStream("org/bonitasoft/engine/filter/user/" + filterName + ".impl");
         final byte[] data = IOUtil.getAllContentFrom(inputStream);
         inputStream.close();

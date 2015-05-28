@@ -105,7 +105,7 @@ public class ProfilesImporter {
     public List<ImportStatus> importProfiles(final long importerId) throws ExecutionException {
         importStrategy.beforeImport();
         try {
-            final List<ImportStatus> importStatus = new ArrayList<ImportStatus>(exportedProfiles.size());
+            final List<ImportStatus> importStatus = new ArrayList<>(exportedProfiles.size());
             for (final ExportedProfile exportedProfile : exportedProfiles) {
                 if (exportedProfile.getName() == null || exportedProfile.getName().isEmpty()) {
                     continue;
@@ -155,7 +155,7 @@ public class ProfilesImporter {
     protected List<ImportError> importProfileEntries(final ProfileService profileService, final List<ExportedParentProfileEntry> parentProfileEntries,
             final long profileId)
             throws SProfileEntryCreationException {
-        final ArrayList<ImportError> errors = new ArrayList<ImportError>();
+        final ArrayList<ImportError> errors = new ArrayList<>();
         for (final ExportedParentProfileEntry parentProfileEntry : parentProfileEntries) {
             if (parentProfileEntry.hasErrors()) {
                 errors.addAll(parentProfileEntry.getErrors());
@@ -180,7 +180,7 @@ public class ProfilesImporter {
     List<ImportError> importProfileMapping(final ProfileService profileService, final IdentityService identityService,
             final long profileId,
             final ExportedProfileMapping exportedProfileMapping) throws SProfileMemberCreationException {
-        final ArrayList<ImportError> errors = new ArrayList<ImportError>();
+        final ArrayList<ImportError> errors = new ArrayList<>();
 
         for (final String userName : exportedProfileMapping.getUsers()) {
             SUser user = null;
@@ -260,17 +260,17 @@ public class ProfilesImporter {
     protected SProfileEntry createProfileEntry(final ExportedParentProfileEntry parentEntry, final long profileId, final long parentId) {
         return BuilderFactory.get(SProfileEntryBuilderFactory.class).createNewInstance(parentEntry.getName(), profileId)
                 .setDescription(parentEntry.getDescription()).setIndex(parentEntry.getIndex()).setPage(parentEntry.getPage())
-                .setParentId(parentId).setType(parentEntry.getType()).setCustom(Boolean.valueOf(parentEntry.isCustom())).done();
+                .setParentId(parentId).setType(parentEntry.getType()).setCustom(parentEntry.isCustom()).done();
     }
 
     protected SProfileEntry createProfileEntry(final ExportedProfileEntry childEntry, final long profileId, final long parentId) {
         return BuilderFactory.get(SProfileEntryBuilderFactory.class).createNewInstance(childEntry.getName(), profileId)
                 .setDescription(childEntry.getDescription()).setIndex(childEntry.getIndex()).setPage(childEntry.getPage())
-                .setParentId(parentId).setType(childEntry.getType()).setCustom(Boolean.valueOf(childEntry.isCustom())).done();
+                .setParentId(parentId).setType(childEntry.getType()).setCustom(childEntry.isCustom()).done();
     }
 
     public static List<String> toWarnings(final List<ImportStatus> importProfiles) {
-        final ArrayList<String> warns = new ArrayList<String>();
+        final ArrayList<String> warns = new ArrayList<>();
         for (final ImportStatus importStatus : importProfiles) {
             for (final ImportError error : importStatus.getErrors()) {
                 warns.add("Unable to find the " + error.getType().name().toLowerCase() + " " + error.getName() + " on " + importStatus.getName());
@@ -287,12 +287,8 @@ public class ProfilesImporter {
             reader.close();
             reader = new StringReader(xmlContent);
             return (List<ExportedProfile>) parser.getObjectFromXML(reader);
-        } catch (final IOException ioe) {
+        } catch (final IOException | SXMLParseException | SValidationException ioe) {
             throw new IOException(ioe);
-        } catch (final SValidationException e) {
-            throw new IOException(e);
-        } catch (final SXMLParseException e) {
-            throw new IOException(e);
         } finally {
             reader.close();
         }

@@ -24,7 +24,7 @@ import org.bonitasoft.engine.bpm.process.impl.ProcessDefinitionBuilder;
  */
 public class Branch extends Fragment {
 
-    private List<List<Fragment>> sequence = new ArrayList<List<Fragment>>();
+    private List<List<Fragment>> sequence = new ArrayList<>();
 
     private Fragment origin;
 
@@ -61,7 +61,7 @@ public class Branch extends Fragment {
 
     @Override
     public void build(ProcessDefinitionBuilder builder) {
-        List<Fragment> sources = new ArrayList<Fragment>();
+        List<Fragment> sources = new ArrayList<>();
         origin.build(builder);
         sources.add(origin);
         for (List<Fragment> targets : sequence) {

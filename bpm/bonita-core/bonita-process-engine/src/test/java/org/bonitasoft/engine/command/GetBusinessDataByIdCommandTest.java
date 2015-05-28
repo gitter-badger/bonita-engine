@@ -60,7 +60,7 @@ public class GetBusinessDataByIdCommandTest {
     @Before
     public void setUp() throws Exception {
         command = new GetBusinessDataByIdCommand();
-        parameters = new HashMap<String, Serializable>();
+        parameters = new HashMap<>();
         parameters.put(GetBusinessDataByIdCommand.BUSINESS_DATA_ID, PARAMETER_IDENTIFIER);
         parameters.put(GetBusinessDataByIdCommand.ENTITY_CLASS_NAME, PARAMETER_CLASS_NAME);
         parameters.put(BusinessDataCommandField.BUSINESS_DATA_URI_PATTERN, PARAMETER_BUSINESSDATA_CLASS_URI_VALUE);

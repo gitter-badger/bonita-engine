@@ -15,6 +15,7 @@ package org.bonitasoft.engine.bdm.model;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
@@ -43,7 +44,7 @@ public class Query {
     private List<QueryParameter> queryParameters;
 
     public Query() {
-        queryParameters = new ArrayList<QueryParameter>();
+        queryParameters = new ArrayList<>();
     }
 
     public Query(final String name, final String content, final String returnType) {
@@ -92,46 +93,19 @@ public class Query {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((content == null) ? 0 : content.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((queryParameters == null) ? 0 : queryParameters.hashCode());
-        result = prime * result + ((returnType == null) ? 0 : returnType.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Query query = (Query) o;
+        return Objects.equals(name, query.name) &&
+                Objects.equals(content, query.content) &&
+                Objects.equals(returnType, query.returnType) &&
+                Objects.equals(queryParameters, query.queryParameters);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Query other = (Query) obj;
-        if (content == null) {
-            if (other.content != null)
-                return false;
-        } else if (!content.equals(other.content))
-            return false;
-        if (name == null) {
-            if (other.name != null)
-                return false;
-        } else if (!name.equals(other.name))
-            return false;
-        if (queryParameters == null) {
-            if (other.queryParameters != null)
-                return false;
-        } else if (!queryParameters.equals(other.queryParameters))
-            return false;
-        if (returnType == null) {
-            if (other.returnType != null)
-                return false;
-        } else if (!returnType.equals(other.returnType))
-            return false;
-        return true;
+    public int hashCode() {
+        return Objects.hash(name, content, returnType, queryParameters);
     }
 
     @Override

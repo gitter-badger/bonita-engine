@@ -33,7 +33,7 @@ public class ExpressionBinding extends NamedElementBinding {
 
     private String type;
 
-    private final List<Expression> dependencies = new ArrayList<Expression>();
+    private final List<Expression> dependencies = new ArrayList<>();
 
     public static final String DISPLAY_NAME = "displayName";
 

@@ -86,7 +86,7 @@ public class PlatformCommandServiceImplTest {
      */
     @Test
     public final void getPlatformCommandsWithOptions() throws SBonitaReadException, SPlatformCommandGettingException {
-        final List<SPlatformCommand> sPlatformCommands = new ArrayList<SPlatformCommand>();
+        final List<SPlatformCommand> sPlatformCommands = new ArrayList<>();
         sPlatformCommands.add(mock(SPlatformCommand.class));
         final QueryOptions options = new QueryOptions(0, 10);
         when(persistenceService.selectList(Matchers.<SelectListDescriptor<SPlatformCommand>> any())).thenReturn(sPlatformCommands);

@@ -162,7 +162,7 @@ public class ActivityDataInstanceIT extends TestWithUser {
         final long activityInstanceId = waitForUserTask(processInstance, "step1");
 
         final String updatedValue = "afterUpdate";
-        final Map<String, Serializable> variables = new HashMap<String, Serializable>(2);
+        final Map<String, Serializable> variables = new HashMap<>(2);
         variables.put("dataName", updatedValue);
         getProcessAPI().updateActivityInstanceVariables(activityInstanceId, variables);
 
@@ -180,7 +180,7 @@ public class ActivityDataInstanceIT extends TestWithUser {
         final ProcessInstance processInstance = getProcessAPI().startProcess(processDeploymentInfo.getProcessId());
         final long activityInstanceId = waitForUserTask(processInstance, "step1");
 
-        final Map<String, Serializable> variables = new HashMap<String, Serializable>(2);
+        final Map<String, Serializable> variables = new HashMap<>(2);
         variables.put("dataName1", "afterUpdate");
         try {
             getProcessAPI().updateActivityInstanceVariables(activityInstanceId, variables);
@@ -333,7 +333,7 @@ public class ActivityDataInstanceIT extends TestWithUser {
         final ProcessInstance processInstance = getProcessAPI().startProcess(processDefinition.getId());
         final Long userTaskId = waitForUserTask(processInstance, userTaskName);
 
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>(2);
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>(2);
         final Expression persistedVariableExpression = new ExpressionBuilder().createDataExpression("persistedVariable", String.class.getName());
         final Expression transientVariableExpression = new ExpressionBuilder().createTransientDataExpression("transientVariable", String.class.getName());
         expressions.put(persistedVariableExpression, (Map<String, Serializable>) null);

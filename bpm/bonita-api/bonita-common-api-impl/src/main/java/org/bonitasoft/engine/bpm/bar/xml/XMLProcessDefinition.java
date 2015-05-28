@@ -382,7 +382,7 @@ public class XMLProcessDefinition {
 
     public static final String CONTEXT_ENTRY_KEY = "key";
 
-    public Map<Object, String> objectToId = new HashMap<Object, String>();
+    public Map<Object, String> objectToId = new HashMap<>();
 
     public static final class BEntry<K, V> implements Map.Entry<K, V> {
 

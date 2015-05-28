@@ -139,9 +139,7 @@ public abstract class TransactionServiceTest {
             } finally {
                 try {
                     transactionService.complete();
-                } catch (final STransactionCommitException e) {
-                    e.printStackTrace();
-                } catch (final STransactionRollbackException e) {
+                } catch (final STransactionCommitException | STransactionRollbackException e) {
                     e.printStackTrace();
                 }
             }

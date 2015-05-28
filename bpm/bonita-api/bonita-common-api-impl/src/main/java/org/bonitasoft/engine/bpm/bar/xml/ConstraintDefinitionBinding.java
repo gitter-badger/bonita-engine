@@ -32,7 +32,7 @@ public class ConstraintDefinitionBinding extends NamedElementBinding {
     private final List<String> inputNames;
 
     public ConstraintDefinitionBinding() {
-        inputNames = new ArrayList<String>();
+        inputNames = new ArrayList<>();
     }
 
     @Override

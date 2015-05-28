@@ -13,6 +13,8 @@
  **/
 package org.bonitasoft.engine.platform.command.model.impl;
 
+import java.util.Objects;
+
 import org.bonitasoft.engine.platform.command.model.SPlatformCommand;
 
 /**
@@ -93,53 +95,19 @@ public class SPlatformCommandImpl implements SPlatformCommand {
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((description == null) ? 0 : description.hashCode());
-        result = prime * result + (int) (id ^ (id >>> 32));
-        result = prime * result + ((implementation == null) ? 0 : implementation.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        SPlatformCommandImpl that = (SPlatformCommandImpl) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(tenantId, that.tenantId) &&
+                Objects.equals(name, that.name) &&
+                Objects.equals(description, that.description) &&
+                Objects.equals(implementation, that.implementation);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final SPlatformCommandImpl other = (SPlatformCommandImpl) obj;
-        if (description == null) {
-            if (other.description != null) {
-                return false;
-            }
-        } else if (!description.equals(other.description)) {
-            return false;
-        }
-        if (id != other.id) {
-            return false;
-        }
-        if (implementation == null) {
-            if (other.implementation != null) {
-                return false;
-            }
-        } else if (!implementation.equals(other.implementation)) {
-            return false;
-        }
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(id, tenantId, name, description, implementation);
     }
-
 }

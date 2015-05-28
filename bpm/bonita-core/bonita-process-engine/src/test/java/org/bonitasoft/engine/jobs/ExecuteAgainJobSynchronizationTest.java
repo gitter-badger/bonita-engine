@@ -60,7 +60,7 @@ public class ExecuteAgainJobSynchronizationTest {
 
     @Test
     public void beforeCommitShouldExecuteAgainTheJob() throws Exception {
-        final List<SJobDescriptor> jobDescriptors = new ArrayList<SJobDescriptor>();
+        final List<SJobDescriptor> jobDescriptors = new ArrayList<>();
         jobDescriptors.add(mock(SJobDescriptor.class));
         when(jobService.searchJobDescriptors(any(QueryOptions.class))).thenReturn(jobDescriptors);
 

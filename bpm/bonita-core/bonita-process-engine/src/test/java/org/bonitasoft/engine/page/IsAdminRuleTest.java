@@ -14,7 +14,7 @@ public class IsAdminRuleTest {
 
     @Test
     public void isAllowed_should_return_true_if_admin_in_context() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
+        Map<String, Serializable> context = new HashMap<>();
         context.put(AuthorizationRuleConstants.IS_ADMIN, true);
 
         assertThat(isAdminRule.isAllowed("key", context)).isTrue();
@@ -22,7 +22,7 @@ public class IsAdminRuleTest {
 
     @Test
     public void isAllowed_should_return_false_if_not_admin_in_context() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
+        Map<String, Serializable> context = new HashMap<>();
         context.put(AuthorizationRuleConstants.IS_ADMIN, false);
 
         assertThat(isAdminRule.isAllowed("key", context)).isFalse();
@@ -30,7 +30,7 @@ public class IsAdminRuleTest {
 
     @Test
     public void isAllowed_should_return_false_if_empty_context() throws Exception {
-        Map<String, Serializable> context = new HashMap<String, Serializable>();
+        Map<String, Serializable> context = new HashMap<>();
 
         assertThat(isAdminRule.isAllowed("key", context)).isFalse();
     }

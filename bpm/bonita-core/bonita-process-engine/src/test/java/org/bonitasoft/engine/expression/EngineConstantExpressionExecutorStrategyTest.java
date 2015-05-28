@@ -63,7 +63,7 @@ public class EngineConstantExpressionExecutorStrategyTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
 
-        defaultDependencyValues = new HashMap<String, Object>(2);
+        defaultDependencyValues = new HashMap<>(2);
         defaultDependencyValues.put(SExpressionContext.CONTAINER_ID_KEY, containerId);
         defaultDependencyValues.put(SExpressionContext.CONTAINER_TYPE_KEY, DataInstanceContainer.ACTIVITY_INSTANCE.name());
     }
@@ -115,7 +115,7 @@ public class EngineConstantExpressionExecutorStrategyTest {
     @Test
     public void taskAssigneeProcessInstance() throws Exception {
         final SExpression expression = mock(SExpression.class);
-        final Map<String, Object> dependencyValues = new HashMap<String, Object>(defaultDependencyValues);
+        final Map<String, Object> dependencyValues = new HashMap<>(defaultDependencyValues);
         dependencyValues.put(SExpressionContext.CONTAINER_TYPE_KEY, DataInstanceContainer.PROCESS_INSTANCE.name());
 
         when(expression.getContent()).thenReturn(ExpressionConstants.TASK_ASSIGNEE_ID.getEngineConstantName());
@@ -155,7 +155,7 @@ public class EngineConstantExpressionExecutorStrategyTest {
         final Long taskAssigneeId = 10L;
         final EngineExecutionContext engineExecutionContext = new EngineExecutionContext();
         engineExecutionContext.setTaskAssigneeId(taskAssigneeId);
-        final Map<String, Object> dependencies = new HashMap<String, Object>(defaultDependencyValues);
+        final Map<String, Object> dependencies = new HashMap<>(defaultDependencyValues);
         dependencies.put(ExpressionConstants.ENGINE_EXECUTION_CONTEXT.getEngineConstantName(), engineExecutionContext);
 
         final EngineConstantExpressionExecutorStrategy strategy = new EngineConstantExpressionExecutorStrategy(activityInstanceService, null, null, null);
@@ -176,7 +176,7 @@ public class EngineConstantExpressionExecutorStrategyTest {
         final long processInstanceId = 187555L;
         final EngineExecutionContext engineExecutionContext = new EngineExecutionContext();
         engineExecutionContext.setProcessInstanceId(processInstanceId);
-        final Map<String, Object> dependencies = new HashMap<String, Object>(defaultDependencyValues);
+        final Map<String, Object> dependencies = new HashMap<>(defaultDependencyValues);
         dependencies.put(ExpressionConstants.ENGINE_EXECUTION_CONTEXT.getEngineConstantName(), engineExecutionContext);
 
         final EngineConstantExpressionExecutorStrategy strategy = new EngineConstantExpressionExecutorStrategy(null, null, null, null);
@@ -193,7 +193,7 @@ public class EngineConstantExpressionExecutorStrategyTest {
         when(expression.getContent()).thenReturn(ExpressionConstants.PROCESS_INSTANCE_ID.getEngineConstantName());
 
         final long processInstanceId = 799451L;
-        final Map<String, Object> dependencies = new HashMap<String, Object>(0);
+        final Map<String, Object> dependencies = new HashMap<>(0);
 
         final EngineConstantExpressionExecutorStrategy strategy = new EngineConstantExpressionExecutorStrategy(null, null, null, null);
         final Serializable noValue = strategy.evaluate(expression, dependencies, Collections.<Integer, Object> emptyMap(), ContainerState.ACTIVE);
@@ -230,7 +230,7 @@ public class EngineConstantExpressionExecutorStrategyTest {
         long arbitraryValue = 123456L;
         when(saai.getLogicalGroup(anyInt())).thenReturn(arbitraryValue);
 
-        final Map<String, Object> dependencies = new HashMap<String, Object>(defaultDependencyValues);
+        final Map<String, Object> dependencies = new HashMap<>(defaultDependencyValues);
         dependencies.put("time", System.currentTimeMillis());
 
         final EngineConstantExpressionExecutorStrategy strategy = new EngineConstantExpressionExecutorStrategy(activityInstanceService, null, null, null);

@@ -63,7 +63,7 @@ public class UserFilterServiceDecorator implements UserFilterService {
         SExpression engineExecutionContext;
         apiAccessorExpression = EngineConstantExpressionBuilder.getConnectorAPIAccessorExpression();
         engineExecutionContext = EngineConstantExpressionBuilder.getEngineExecutionContext();
-        final Map<String, SExpression> enrichedInputs = new HashMap<String, SExpression>(inputs);
+        final Map<String, SExpression> enrichedInputs = new HashMap<>(inputs);
         enrichedInputs.put("connectorApiAccessor", apiAccessorExpression);
         enrichedInputs.put("engineExecutionContext", engineExecutionContext);
         return userFilterService.executeFilter(processDefinitionId, sUserFilterDefinition, enrichedInputs, classLoader, expressionContext, actorName);

@@ -21,6 +21,7 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -71,11 +72,8 @@ public class CodeGenerator {
     }
 
     public void generate(final File destDir) throws IOException {
-        final PrintStream stream = new PrintStream(new NullStream());
-        try {
+        try (PrintStream stream = new PrintStream(new NullStream())) {
             model.build(destDir, stream);
-        } finally {
-            stream.close();
         }
     }
 
@@ -94,7 +92,7 @@ public class CodeGenerator {
     }
 
     public JDefinedClass addInterface(final String fullyqualifiedName) throws JClassAlreadyExistsException {
-        if (fullyqualifiedName.indexOf(".") == -1) {
+        if (!fullyqualifiedName.contains(".")) {
             return model.rootPackage()._class(JMod.PUBLIC, fullyqualifiedName, ClassType.INTERFACE);
         }
         return model._class(fullyqualifiedName, ClassType.INTERFACE);
@@ -282,14 +280,12 @@ public class CodeGenerator {
     }
 
     protected Set<ElementType> getSupportedElementTypes(final Class<? extends Annotation> annotationType) {
-        final Set<ElementType> elementTypes = new HashSet<ElementType>();
+        final Set<ElementType> elementTypes = new HashSet<>();
         final Target targetAnnotation = annotationType.getAnnotation(Target.class);
         if (targetAnnotation != null) {
             final ElementType[] value = targetAnnotation.value();
             if (value != null) {
-                for (final ElementType et : value) {
-                    elementTypes.add(et);
-                }
+                Collections.addAll(elementTypes, value);
             }
         }
         return elementTypes;

@@ -148,7 +148,7 @@ public class ArchiveServiceTest extends CommonBPMServicesTest {
     }
 
     private Employee selectEmployeeByIdFromDefinitiveArchive(final Employee employee) throws SBonitaReadException {
-        final SelectByIdDescriptor<Employee> selectByIdDescriptor1 = new SelectByIdDescriptor<Employee>("getEmployeeById", Employee.class, employee.getId());
+        final SelectByIdDescriptor<Employee> selectByIdDescriptor1 = new SelectByIdDescriptor<>("getEmployeeById", Employee.class, employee.getId());
         return archiveService.getDefinitiveArchiveReadPersistenceService().selectById(selectByIdDescriptor1);
     }
 

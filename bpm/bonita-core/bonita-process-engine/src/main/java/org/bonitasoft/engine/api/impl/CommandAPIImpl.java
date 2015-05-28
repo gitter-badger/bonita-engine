@@ -158,12 +158,8 @@ public class CommandAPIImpl implements CommandAPI {
             final String tenantCommandClassName = sCommand.getImplementation();
             final ClassLoader contextClassLoader = Thread.currentThread().getContextClassLoader();
             return (TenantCommand) contextClassLoader.loadClass(tenantCommandClassName).newInstance();
-        } catch (final ClassNotFoundException cnfe) {
+        } catch (final ClassNotFoundException | IllegalAccessException | InstantiationException cnfe) {
             throw new SCommandParameterizationException(cnfe);
-        } catch (final InstantiationException ie) {
-            throw new SCommandParameterizationException(ie);
-        } catch (final IllegalAccessException iae) {
-            throw new SCommandParameterizationException(iae);
         }
     }
 
@@ -317,10 +313,8 @@ public class CommandAPIImpl implements CommandAPI {
             final EntityUpdateDescriptor changeDescriptor = getCommandUpdateDescriptor(updateDescriptor, commandUpdateBuilder);
             final SCommand sCommand = commandFetcher.fetch(commandService);
             commandService.update(sCommand, changeDescriptor);
-        } catch (final SCommandNotFoundException scnfe) {
+        } catch (final SCommandNotFoundException | SCommandUpdateException scnfe) {
             throw new UpdateException(scnfe);
-        } catch (final SCommandUpdateException e) {
-            throw new UpdateException(e);
         }
     }
 

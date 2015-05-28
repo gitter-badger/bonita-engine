@@ -21,7 +21,7 @@ import java.util.Map;
  */
 public class EntityUpdateDescriptor {
 
-    Map<String, Object> fields = new HashMap<String, Object>();
+    Map<String, Object> fields = new HashMap<>();
 
     public Map<String, Object> getFields() {
         return fields;

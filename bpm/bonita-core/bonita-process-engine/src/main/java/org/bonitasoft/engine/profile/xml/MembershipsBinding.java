@@ -29,7 +29,7 @@ public class MembershipsBinding extends ElementBinding {
 
     @Override
     public void setAttributes(final Map<String, String> attributes) {
-        memberships = new ArrayList<Pair<String, String>>(5);
+        memberships = new ArrayList<>(5);
     }
 
     @Override

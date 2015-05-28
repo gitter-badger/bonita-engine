@@ -365,7 +365,7 @@ public class ProcessAPIImplTest {
                 any(ParentContainerResolver.class));
 
         // Then update the data instances
-        final Map<String, Serializable> dataNameValues = new HashMap<String, Serializable>();
+        final Map<String, Serializable> dataNameValues = new HashMap<>();
         dataNameValues.put("foo", "go");
         dataNameValues.put("bar", "go");
 
@@ -421,7 +421,7 @@ public class ProcessAPIImplTest {
                 any(ParentContainerResolver.class));
 
         // Then update the data instances
-        final Map<String, Serializable> dataNameValues = new HashMap<String, Serializable>();
+        final Map<String, Serializable> dataNameValues = new HashMap<>();
         dataNameValues.put("foo", "go");
         dataNameValues.put("bar", "go");
         try {
@@ -475,7 +475,7 @@ public class ProcessAPIImplTest {
     @Test
     public void getJobParametersShouldConvertMapIntoList() {
         // given:
-        final Map<String, Serializable> parameters = new HashMap<String, Serializable>(2);
+        final Map<String, Serializable> parameters = new HashMap<>(2);
         final String key1 = "mon param 1";
         final String key2 = "my second param";
         final SJobParameter expectedValue1 = mockSJobParameter(key1);
@@ -733,7 +733,7 @@ public class ProcessAPIImplTest {
         when(dataInstanceService.getDataInstances(anyListOf(String.class), anyLong(),
                 eq(DataInstanceContainer.ACTIVITY_INSTANCE.toString()), any(ParentContainerResolver.class))).thenReturn(Arrays.asList(dataInstance));
 
-        final List<Operation> operations = new ArrayList<Operation>();
+        final List<Operation> operations = new ArrayList<>();
         operations.add(operation);
         doReturn(Arrays.asList(mock(SOperation.class))).when(processAPI).convertOperations(operations);
 
@@ -834,7 +834,7 @@ public class ProcessAPIImplTest {
     }
 
     private List<SConnectorImplementationDescriptor> createConnectorList() {
-        final List<SConnectorImplementationDescriptor> sConnectorImplementationDescriptors = new ArrayList<SConnectorImplementationDescriptor>();
+        final List<SConnectorImplementationDescriptor> sConnectorImplementationDescriptors = new ArrayList<>();
         final SConnectorImplementationDescriptor sConnectorImplementationDescriptor = new SConnectorImplementationDescriptor("className", "id", "version",
                 "definitionId", "definitionVersion", new JarDependencies(Arrays.asList("dep1", "dep2")));
         sConnectorImplementationDescriptors.add(sConnectorImplementationDescriptor);
@@ -1076,17 +1076,17 @@ public class ProcessAPIImplTest {
 
     @Test
     public void getPendingHumanTaskInstances_should_return_user_tasks_of_enabled_and_disabled_processes() throws Exception {
-        final Set<Long> actorIds = new HashSet<Long>();
+        final Set<Long> actorIds = new HashSet<>();
         actorIds.add(454545L);
         final long userId = 1983L;
-        final List<Long> processDefinitionIds = new ArrayList<Long>();
+        final List<Long> processDefinitionIds = new ArrayList<>();
         processDefinitionIds.add(7897987L);
         when(processDefinitionService.getProcessDefinitionIds(0, Integer.MAX_VALUE)).thenReturn(processDefinitionIds);
-        final List<SActor> actors = new ArrayList<SActor>();
+        final List<SActor> actors = new ArrayList<>();
         final SActor actor = mock(SActor.class);
         actors.add(actor);
         when(actor.getId()).thenReturn(454545L);
-        when(actorMappingService.getActors(new HashSet<Long>(processDefinitionIds), userId)).thenReturn(actors);
+        when(actorMappingService.getActors(new HashSet<>(processDefinitionIds), userId)).thenReturn(actors);
         final OrderAndField orderAndField = OrderAndFields.getOrderAndFieldForActivityInstance(ActivityInstanceCriterion.NAME_DESC);
 
         processAPI.getPendingHumanTaskInstances(userId, 0, 100, ActivityInstanceCriterion.NAME_DESC);

@@ -30,7 +30,7 @@ public class ChildrenEntriesBinding extends ElementBinding {
 
     @Override
     public void setAttributes(final Map<String, String> attributes) {
-        profileEntries = new ArrayList<ExportedProfileEntry>(10);
+        profileEntries = new ArrayList<>(10);
     }
 
     @Override

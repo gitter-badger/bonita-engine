@@ -66,7 +66,7 @@ public class MemoryLockService implements LockService {
         // the goal of this map of mutexs is not to solve completely the competition between keys
         // it is only improving the default "one lock" behavior by partitioning ids among a chosen pool size
         // this a sharding approach
-        final Map<Integer, Object> tmpMutexs = new HashMap<Integer, Object>();
+        final Map<Integer, Object> tmpMutexs = new HashMap<>();
         for (int i = 0; i < lockPoolSize; i++) {
             tmpMutexs.put(i, new MemoryLockServiceMutex());
         }

@@ -34,7 +34,7 @@ import org.bonitasoft.engine.work.WorkService;
  */
 public class ContainerRegistry {
 
-    private final Map<String, ContainerExecutor> executors = new HashMap<String, ContainerExecutor>(2);
+    private final Map<String, ContainerExecutor> executors = new HashMap<>(2);
 
     private final WorkService workService;
 

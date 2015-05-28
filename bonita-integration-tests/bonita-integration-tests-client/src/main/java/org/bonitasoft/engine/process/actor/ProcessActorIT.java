@@ -319,7 +319,7 @@ public class ProcessActorIT extends TestWithUser {
         final List<ActorInstance> actors = getProcessAPI().getActors(processDefinition.getId(), 0, 5, null);
         assertNotNull(actors);
         assertEquals(2, actors.size());
-        final List<Long> actorIds = new ArrayList<Long>();
+        final List<Long> actorIds = new ArrayList<>();
         for (final ActorInstance actorInstance : actors) {
             actorIds.add(actorInstance.getId());
         }
@@ -651,7 +651,7 @@ public class ProcessActorIT extends TestWithUser {
         final ProcessDefinition processDefinition = deployAndEnableProcessWithActor(designProcessDefinition, ACTOR_NAME, user);
 
         final ActorInstance actorInstance = getProcessAPI().getActorInitiator(processDefinition.getId());
-        final Set<Long> actorIds = new HashSet<Long>();
+        final Set<Long> actorIds = new HashSet<>();
         actorIds.add(actorInstance.getId());
 
         final List<ProcessDeploymentInfo> processDeploymentInfos = getProcessAPI().getStartableProcessDeploymentInfosForActors(actorIds, 0, 10,
@@ -671,7 +671,7 @@ public class ProcessActorIT extends TestWithUser {
         final ProcessDefinition processDefinition = deployAndEnableProcessWithActor(designProcessDefinition, ACTOR_NAME, user);
 
         final ActorInstance actorInstance = getProcessAPI().getActorInitiator(processDefinition.getId());
-        final Set<Long> actorIds = new HashSet<Long>();
+        final Set<Long> actorIds = new HashSet<>();
         actorIds.add(actorInstance.getId());
 
         final boolean isAllowedToStartProcess = getProcessAPI().isAllowedToStartProcess(processDefinition.getId(), actorIds);
@@ -882,7 +882,7 @@ public class ProcessActorIT extends TestWithUser {
 
         final ActorInstance firstActorInstance = getProcessAPI().getActorInitiator(firstDefinition.getId());
         final ActorInstance secondActorInstance = getProcessAPI().getActorInitiator(secondDefinition.getId());
-        final Set<Long> actorIds = new HashSet<Long>();
+        final Set<Long> actorIds = new HashSet<>();
         actorIds.add(firstActorInstance.getId());
         actorIds.add(secondActorInstance.getId());
 

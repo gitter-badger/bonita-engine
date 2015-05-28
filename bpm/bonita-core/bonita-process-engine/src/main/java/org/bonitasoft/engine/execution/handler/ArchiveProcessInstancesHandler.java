@@ -75,8 +75,6 @@ public class ArchiveProcessInstancesHandler implements SProcessInstanceHandler<S
 
             ProcessArchiver.archiveProcessInstance(processInstance, archiveService, processInstanceService, dataInstanceService, documentService,
                     logger, commentService, processDefinitionService, connectorInstanceService, classLoaderService);
-        } catch (final SArchivingException e) {
-            throw new SHandlerExecutionException(e);
         } catch (SBonitaException e) {
             throw new SHandlerExecutionException(e);
         }

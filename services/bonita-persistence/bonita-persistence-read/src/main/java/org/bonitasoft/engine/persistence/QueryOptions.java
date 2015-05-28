@@ -17,6 +17,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author Charles Souillard
@@ -96,7 +97,7 @@ public class QueryOptions implements Serializable {
         if (fieldName == null || orderByType == null) {
             orderByOptions = Collections.emptyList();
         } else {
-            orderByOptions = new ArrayList<OrderByOption>();
+            orderByOptions = new ArrayList<>();
             orderByOptions.add(new OrderByOption(clazz, fieldName, orderByType));
         }
         filters = Collections.emptyList();
@@ -118,7 +119,7 @@ public class QueryOptions implements Serializable {
         super();
         fromIndex = 0;
         numberOfResults = UNLIMITED_NUMBER_OF_RESULTS;
-        orderByOptions = new ArrayList<OrderByOption>();
+        orderByOptions = new ArrayList<>();
         orderByOptions.add(new OrderByOption(clazz, fieldName, orderByType));
         filters = Collections.emptyList();
         multipleFilter = null;
@@ -170,42 +171,19 @@ public class QueryOptions implements Serializable {
     }
 
     @Override
-    public boolean equals(final Object o) {
-        if (this == o) {
-            return true;
-        }
-        if (!(o instanceof QueryOptions)) {
-            return false;
-        }
-
-        final QueryOptions that = (QueryOptions) o;
-
-        if (fromIndex != that.fromIndex) {
-            return false;
-        }
-        if (numberOfResults != that.numberOfResults) {
-            return false;
-        }
-        if (filters != null ? !filters.equals(that.filters) : that.filters != null) {
-            return false;
-        }
-        if (multipleFilter != null ? !multipleFilter.equals(that.multipleFilter) : that.multipleFilter != null) {
-            return false;
-        }
-        if (orderByOptions != null ? !orderByOptions.equals(that.orderByOptions) : that.orderByOptions != null) {
-            return false;
-        }
-
-        return true;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        QueryOptions that = (QueryOptions) o;
+        return Objects.equals(fromIndex, that.fromIndex) &&
+                Objects.equals(numberOfResults, that.numberOfResults) &&
+                Objects.equals(filters, that.filters) &&
+                Objects.equals(multipleFilter, that.multipleFilter) &&
+                Objects.equals(orderByOptions, that.orderByOptions);
     }
 
     @Override
     public int hashCode() {
-        int result = fromIndex;
-        result = 31 * result + numberOfResults;
-        result = 31 * result + (filters != null ? filters.hashCode() : 0);
-        result = 31 * result + (multipleFilter != null ? multipleFilter.hashCode() : 0);
-        result = 31 * result + (orderByOptions != null ? orderByOptions.hashCode() : 0);
-        return result;
+        return Objects.hash(fromIndex, numberOfResults, filters, multipleFilter, orderByOptions);
     }
 }

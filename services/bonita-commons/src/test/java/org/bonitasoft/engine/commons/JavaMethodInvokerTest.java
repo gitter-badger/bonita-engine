@@ -67,8 +67,8 @@ public class JavaMethodInvokerTest {
     @Test
     public void invokeJavaMethod_should_update_a_list() throws Exception {
         final JavaMethodInvoker invoker = new JavaMethodInvoker();
-        final List<User> users = new ArrayList<User>();
-        final List<User> createdUsers = new ArrayList<User>();
+        final List<User> users = new ArrayList<>();
+        final List<User> createdUsers = new ArrayList<>();
         createdUsers.add(new User("Matti"));
 
         invoker.invokeJavaMethod(createdUsers.getClass().getName(), createdUsers, users, "addAll", List.class.getName());
@@ -82,7 +82,7 @@ public class JavaMethodInvokerTest {
 
         final JavaMethodInvoker invoker = new JavaMethodInvoker();
 
-        final MyClass object = (MyClass) invoker.invokeJavaMethod(Integer.class.getName(), Integer.valueOf(83), myData, "setThing", "int");
+        final MyClass object = (MyClass) invoker.invokeJavaMethod(Integer.class.getName(), 83, myData, "setThing", "int");
 
         assertThat(object.getThing()).isEqualTo(83);
     }

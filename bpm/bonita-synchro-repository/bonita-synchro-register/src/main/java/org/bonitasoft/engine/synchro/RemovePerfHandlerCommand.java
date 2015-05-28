@@ -58,11 +58,10 @@ public class RemovePerfHandlerCommand extends TenantCommand {
 
     private void removeAllHandlers(final EventService eventService, final String eventType, final Class<?> clazz) {
         final Set<SHandler<SEvent>> handlers = eventService.getHandlers(eventType);
-        Collection<SHandler<SEvent>> removeCandidates = new LinkedList<SHandler<SEvent>>();
+        Collection<SHandler<SEvent>> removeCandidates = new LinkedList<>();
         
         if (handlers != null) {
-            for (final Iterator<SHandler<SEvent>> iter = handlers.iterator(); iter.hasNext(); ) {
-                final SHandler<SEvent> handler = iter.next();
+            for (final SHandler<SEvent> handler : handlers) {
                 if (clazz.isInstance(handler)) {
                     removeCandidates.add(handler);
                 }

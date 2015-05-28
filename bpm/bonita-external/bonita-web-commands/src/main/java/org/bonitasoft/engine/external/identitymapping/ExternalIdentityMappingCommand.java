@@ -196,7 +196,7 @@ public abstract class ExternalIdentityMappingCommand extends MemberCommand {
     }
 
     private List<EntityMember> toEntityMembers(final List<SExternalIdentityMapping> serverObjects) {
-        final List<EntityMember> list = new ArrayList<EntityMember>(serverObjects.size());
+        final List<EntityMember> list = new ArrayList<>(serverObjects.size());
         for (final SExternalIdentityMapping sMapping : serverObjects) {
             list.add(toEntityMember(sMapping));
         }

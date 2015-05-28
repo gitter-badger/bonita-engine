@@ -14,6 +14,7 @@
 package org.bonitasoft.engine.bpm.connector.impl;
 
 import java.util.Date;
+import java.util.Objects;
 
 import org.bonitasoft.engine.bpm.connector.ArchivedConnectorInstance;
 import org.bonitasoft.engine.bpm.connector.ConnectorEvent;
@@ -118,73 +119,24 @@ public class ArchivedConnectorInstanceImpl extends NamedElementImpl implements A
     }
 
     @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = super.hashCode();
-        result = prime * result + (activationEvent == null ? 0 : activationEvent.hashCode());
-        result = prime * result + (archiveDate == null ? 0 : archiveDate.hashCode());
-        result = prime * result + (connectorId == null ? 0 : connectorId.hashCode());
-        result = prime * result + (int) (containerId ^ containerId >>> 32);
-        result = prime * result + (containerType == null ? 0 : containerType.hashCode());
-        result = prime * result + (int) (sourceObjectId ^ sourceObjectId >>> 32);
-        result = prime * result + (state == null ? 0 : state.hashCode());
-        result = prime * result + (version == null ? 0 : version.hashCode());
-        return result;
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        ArchivedConnectorInstanceImpl that = (ArchivedConnectorInstanceImpl) o;
+        return Objects.equals(containerId, that.containerId) &&
+                Objects.equals(sourceObjectId, that.sourceObjectId) &&
+                Objects.equals(archiveDate, that.archiveDate) &&
+                Objects.equals(containerType, that.containerType) &&
+                Objects.equals(connectorId, that.connectorId) &&
+                Objects.equals(version, that.version) &&
+                Objects.equals(activationEvent, that.activationEvent) &&
+                Objects.equals(state, that.state);
     }
 
     @Override
-    public boolean equals(final Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (!super.equals(obj)) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final ArchivedConnectorInstanceImpl other = (ArchivedConnectorInstanceImpl) obj;
-        if (activationEvent != other.activationEvent) {
-            return false;
-        }
-        if (archiveDate == null) {
-            if (other.archiveDate != null) {
-                return false;
-            }
-        } else if (!archiveDate.equals(other.archiveDate)) {
-            return false;
-        }
-        if (connectorId == null) {
-            if (other.connectorId != null) {
-                return false;
-            }
-        } else if (!connectorId.equals(other.connectorId)) {
-            return false;
-        }
-        if (containerId != other.containerId) {
-            return false;
-        }
-        if (containerType == null) {
-            if (other.containerType != null) {
-                return false;
-            }
-        } else if (!containerType.equals(other.containerType)) {
-            return false;
-        }
-        if (sourceObjectId != other.sourceObjectId) {
-            return false;
-        }
-        if (state != other.state) {
-            return false;
-        }
-        if (version == null) {
-            if (other.version != null) {
-                return false;
-            }
-        } else if (!version.equals(other.version)) {
-            return false;
-        }
-        return true;
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), archiveDate, containerId, containerType, connectorId, version, activationEvent, state, sourceObjectId);
     }
 
     @Override

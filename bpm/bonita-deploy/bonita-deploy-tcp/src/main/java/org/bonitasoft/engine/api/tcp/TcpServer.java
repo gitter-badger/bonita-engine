@@ -25,7 +25,7 @@ import org.bonitasoft.engine.api.internal.ServerAPI;
  */
 public class TcpServer {
 
-    private final List<ServerSocketThread> sockets = new ArrayList<ServerSocketThread>();
+    private final List<ServerSocketThread> sockets = new ArrayList<>();
 
     public TcpServer(final List<Integer> ports) throws InterruptedException, IOException {
         final int nbOfPorts = ports.size();

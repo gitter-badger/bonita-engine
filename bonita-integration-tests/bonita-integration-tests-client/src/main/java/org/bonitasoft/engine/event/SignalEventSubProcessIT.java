@@ -57,7 +57,7 @@ public class SignalEventSubProcessIT extends AbstractWaitingEventIT {
         waitForFlowNodeInExecutingState(processInstance, SUB_PROCESS_NAME, false);
         final long subStepId = waitForUserTask(processInstance, SUB_PROCESS_USER_TASK_NAME);
 
-        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<Expression, Map<String, Serializable>>();
+        final Map<Expression, Map<String, Serializable>> expressions = new HashMap<>();
         expressions.put(new ExpressionBuilder().createDataExpression(SHORT_DATA_NAME, String.class.getName()), new HashMap<String, Serializable>(0));
         final Map<String, Serializable> expressionResults = getProcessAPI().evaluateExpressionsOnActivityInstance(subStepId, expressions);
         assertEquals("childActivityVar", expressionResults.get(SHORT_DATA_NAME));

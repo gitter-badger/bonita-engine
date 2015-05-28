@@ -36,8 +36,8 @@ public abstract class AbstractConnector implements Connector {
     private EngineExecutionContext executionContext;
 
     public AbstractConnector() {
-        inputParameters = new HashMap<String, Object>();
-        outputParameters = new HashMap<String, Object>();
+        inputParameters = new HashMap<>();
+        outputParameters = new HashMap<>();
     }
 
     @Override

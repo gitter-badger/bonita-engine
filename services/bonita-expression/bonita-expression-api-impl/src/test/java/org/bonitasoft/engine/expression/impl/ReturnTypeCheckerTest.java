@@ -31,7 +31,7 @@ public class ReturnTypeCheckerTest {
     public void checkReturnTypeShouldFillExceptionContextWithActivityInstanceIdIfAny() {
         // given:
         final SExpression expression = new SExpressionImpl("expressionName", "not_used_here", null, "InvalidClassName_causing_ClassNotFound", null, null);
-        final Map<String, Object> context = new HashMap<String, Object>();
+        final Map<String, Object> context = new HashMap<>();
         final long activityInstanceId = 1499999L;
         context.put("containerType", "ACTIVITY_INSTANCE");
         context.put("containerId", activityInstanceId);
@@ -51,7 +51,7 @@ public class ReturnTypeCheckerTest {
     public void checkReturnTypeShouldFillExceptionContextWithProcessInstanceIdIfAny() {
         // given:
         final SExpression expression = new SExpressionImpl("expressionName", "not_used_here", null, "InvalidClassName_causing_ClassNotFound", null, null);
-        final Map<String, Object> context = new HashMap<String, Object>();
+        final Map<String, Object> context = new HashMap<>();
         final long processInstanceId = 8779L;
         context.put("containerType", "PROCESS_INSTANCE");
         context.put("containerId", processInstanceId);

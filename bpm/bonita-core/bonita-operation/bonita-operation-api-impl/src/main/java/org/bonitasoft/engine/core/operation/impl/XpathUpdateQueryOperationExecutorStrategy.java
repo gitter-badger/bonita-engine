@@ -81,7 +81,6 @@ public class XpathUpdateQueryOperationExecutorStrategy implements OperationExecu
             final String dataValue = (String) expressionContext.getInputValues().get(dataInstanceName);
             final SExpressionContext sExpressionContext = new SExpressionContext();
             sExpressionContext.setInputValues(expressionContext.getInputValues());
-            final Object variableValue = value;
 
             final DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
             final DocumentBuilder builder = factory.newDocumentBuilder();
@@ -89,66 +88,57 @@ public class XpathUpdateQueryOperationExecutorStrategy implements OperationExecu
             final XPath xpath = XPathFactory.newInstance().newXPath();
             final String xpathExpression = operation.getOperator();
             final Node node = (Node) xpath.compile(xpathExpression).evaluate(document, XPathConstants.NODE);
-            if (isSetAttribute(xpathExpression, variableValue)) {
-                if (node == null) { // Create the attribute
-                    final String parentPath = xpathExpression.substring(0, xpathExpression.lastIndexOf('/'));
-                    final String attributeName = xpathExpression.substring(xpathExpression.lastIndexOf('/') + 2); // +1 for @
-                    final Node parentNode = (Node) xpath.compile(parentPath).evaluate(document, XPathConstants.NODE);
-                    if (parentNode instanceof Element) {
-                        final Element element = (Element) parentNode;
-                        if (variableValue instanceof String) {
-                            element.setAttribute(attributeName, getStringValue(variableValue));
-                        } else if (variableValue instanceof Attr) {
-                            element.setAttribute(((Attr) variableValue).getName(), ((Attr) variableValue).getTextContent());
-                        }
-                    }
-                } else if (node instanceof Attr) { // Set an existing attribute
-                    if (variableValue instanceof Attr) {
-                        node.setTextContent(((Attr) variableValue).getTextContent());
-                    } else {
-                        node.setTextContent(getStringValue(variableValue));
-                    }
-                } else if (node instanceof Element) { // add attribute to an element
-                    final Attr attr = (Attr) variableValue;
-                    ((Element) node).setAttribute(attr.getName(), attr.getValue());
-                }
+            if (isSetAttribute(xpathExpression, value)) {
+                handleAttribute(value, document, xpath, xpathExpression, node);
             } else if (node instanceof Text) {
-                node.setTextContent(getStringValue(variableValue));
+                node.setTextContent(getStringValue(value));
             } else if (node instanceof Element) {
-                Node newNode = null;
-                if (variableValue instanceof Node) {
-                    newNode = document.importNode((Node) variableValue, true);
-                } else if (variableValue instanceof String) {
-                    newNode = document.importNode(DocumentManager.generateDocument(getStringValue(variableValue)).getDocumentElement(), true);
-                }
-
-                // if (isAppend) {
-                // node.appendChild(newNode);
-                // } else { // replace
-                final Node parentNode = node.getParentNode();
-                parentNode.removeChild(node);
-                parentNode.appendChild(newNode);
-                // }
-            } else if (node == null && xpathExpression.endsWith("/text()") && variableValue instanceof String) {
+                handleElement(value, document, node);
+            } else if (node == null && xpathExpression.endsWith("/text()") && value instanceof String) {
                 final String parentPath = xpathExpression.substring(0, xpathExpression.lastIndexOf('/'));
                 final Node parentNode = (Node) xpath.compile(parentPath).evaluate(document, XPathConstants.NODE);
-                parentNode.appendChild(document.createTextNode(getStringValue(variableValue)));
+                parentNode.appendChild(document.createTextNode(getStringValue(value)));
             }
             return DocumentManager.getDocumentContent(document);
-        } catch (final ParserConfigurationException pce) {
+        } catch (final ParserConfigurationException | TransformerException | XPathExpressionException | IOException | SAXException | TransformerFactoryConfigurationError pce) {
             throw new SOperationExecutionException(pce);
-        } catch (final SAXException saxe) {
-            throw new SOperationExecutionException(saxe);
-        } catch (final IOException ioe) {
-            throw new SOperationExecutionException(ioe);
-        } catch (final XPathExpressionException xpee) {
-            throw new SOperationExecutionException(xpee);
-        } catch (final TransformerConfigurationException tce) {
-            throw new SOperationExecutionException(tce);
-        } catch (final TransformerFactoryConfigurationError tfce) {
-            throw new SOperationExecutionException(tfce);
-        } catch (final TransformerException te) {
-            throw new SOperationExecutionException(te);
+        }
+    }
+
+    void handleElement(Object value, Document document, Node node) throws ParserConfigurationException, SAXException, IOException {
+        Node newNode = null;
+        if (value instanceof Node) {
+            newNode = document.importNode((Node) value, true);
+        } else if (value instanceof String) {
+            newNode = document.importNode(DocumentManager.generateDocument(getStringValue(value)).getDocumentElement(), true);
+        }
+        final Node parentNode = node.getParentNode();
+        parentNode.removeChild(node);
+        parentNode.appendChild(newNode);
+    }
+
+    void handleAttribute(Object value, Document document, XPath xpath, String xpathExpression, Node node) throws XPathExpressionException {
+        if (node == null) { // Create the attribute
+            final String parentPath = xpathExpression.substring(0, xpathExpression.lastIndexOf('/'));
+            final String attributeName = xpathExpression.substring(xpathExpression.lastIndexOf('/') + 2); // +1 for @
+            final Node parentNode = (Node) xpath.compile(parentPath).evaluate(document, XPathConstants.NODE);
+            if (parentNode instanceof Element) {
+                final Element element = (Element) parentNode;
+                if (value instanceof String) {
+                    element.setAttribute(attributeName, getStringValue(value));
+                } else if (value instanceof Attr) {
+                    element.setAttribute(((Attr) value).getName(), ((Attr) value).getTextContent());
+                }
+            }
+        } else if (node instanceof Attr) { // Set an existing attribute
+            if (value instanceof Attr) {
+                node.setTextContent(((Attr) value).getTextContent());
+            } else {
+                node.setTextContent(getStringValue(value));
+            }
+        } else if (node instanceof Element) { // add attribute to an element
+            final Attr attr = (Attr) value;
+            ((Element) node).setAttribute(attr.getName(), attr.getValue());
         }
     }
 

@@ -52,13 +52,13 @@ public class HTTPServerAPIIT {
 
     private static Server server;
 
-    private final Map<String, Serializable> options = new HashMap<String, Serializable>();
+    private final Map<String, Serializable> options = new HashMap<>();
 
     private final String apiInterfaceName = "someInterface";
 
     private final String methodName = "someMethod";
 
-    final List<String> classNameParameters = new ArrayList<String>();
+    final List<String> classNameParameters = new ArrayList<>();
 
     final Object[] parametersValues = null;
 
@@ -112,7 +112,7 @@ public class HTTPServerAPIIT {
 
     @Test
     public void invokeMethodWithBasicAuthentication() throws Exception {
-        Map<String, String> configuration = new HashMap<String, String>();
+        Map<String, String> configuration = new HashMap<>();
         configuration.put("server.url", baseResourceUrl);
         configuration.put("application.name", APPLICATION_NAME);
         configuration.put("basicAuthentication.active", "true");
@@ -125,7 +125,7 @@ public class HTTPServerAPIIT {
 
     @Test(expected = ServerWrappedException.class)
     public void invokeBasicAuthenticationWithWrongCredentialsShouldFail() throws Exception {
-        Map<String, String> configuration = new HashMap<String, String>();
+        Map<String, String> configuration = new HashMap<>();
         configuration.put("server.url", baseResourceUrl);
         configuration.put("application.name", APPLICATION_NAME);
         configuration.put("basicAuthentication.active", "true");

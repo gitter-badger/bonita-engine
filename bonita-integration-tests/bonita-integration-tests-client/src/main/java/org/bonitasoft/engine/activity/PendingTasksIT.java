@@ -529,7 +529,7 @@ public class PendingTasksIT extends TestWithTechnicalUser {
         final Group group = createGroup("group");
         final Role role = createRole("role");
         final int USER_LIST_SIZE = 21;
-        final List<User> users = new ArrayList<User>(USER_LIST_SIZE);
+        final List<User> users = new ArrayList<>(USER_LIST_SIZE);
         for (int i = 0; i < USER_LIST_SIZE; i++) {
             final User newUser = createUser("user_" + i, "pwd");
             users.add(newUser);

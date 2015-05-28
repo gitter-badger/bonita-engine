@@ -43,7 +43,7 @@ public class ContactDataUpdater implements Serializable {
      * Default Constructor.
      */
     public ContactDataUpdater() {
-        fields = new HashMap<ContactDataField, Serializable>(5);
+        fields = new HashMap<>(5);
     }
 
     /**

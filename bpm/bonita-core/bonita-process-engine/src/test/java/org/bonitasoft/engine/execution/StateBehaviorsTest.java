@@ -107,7 +107,7 @@ public class StateBehaviorsTest {
     final long flownodeInstanceId = 3541L;
     final long processDefinitionId = 4567L;
 
-    private final static Map<Integer, String> phaseNames = new HashMap<Integer, String>(5);
+    private final static Map<Integer, String> phaseNames = new HashMap<>(5);
     static {
         phaseNames.put(1, "BEFORE_ON_ENTER");
         phaseNames.put(2, "DURING_ON_ENTER");

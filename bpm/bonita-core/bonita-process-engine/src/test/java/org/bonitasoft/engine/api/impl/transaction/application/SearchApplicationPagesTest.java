@@ -78,7 +78,7 @@ public class SearchApplicationPagesTest {
     public void executeSearch_should_return_the_result_of_applicationService_searchApplicationPages() throws Exception {
         //given
         final QueryOptions queryOptions = new QueryOptions(START_INDEX, MAX_RESULTS);
-        final List<SApplicationPage> appPages = new ArrayList<SApplicationPage>(1);
+        final List<SApplicationPage> appPages = new ArrayList<>(1);
         appPages.add(mock(SApplicationPage.class));
         given(applicationService.searchApplicationPages(queryOptions)).willReturn(appPages);
 

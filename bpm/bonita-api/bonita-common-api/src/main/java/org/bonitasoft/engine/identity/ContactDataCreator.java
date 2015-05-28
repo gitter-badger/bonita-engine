@@ -43,7 +43,7 @@ public class ContactDataCreator implements Serializable {
      * Create a new creator instance
      */
     public ContactDataCreator() {
-        fields = new HashMap<ContactDataField, Serializable>(5);
+        fields = new HashMap<>(5);
     }
 
     /**
