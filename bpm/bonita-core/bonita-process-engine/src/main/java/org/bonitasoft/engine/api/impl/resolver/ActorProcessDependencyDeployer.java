@@ -20,6 +20,7 @@ import org.bonitasoft.engine.actor.mapping.model.SActor;
 import org.bonitasoft.engine.actor.mapping.model.SActorBuilder;
 import org.bonitasoft.engine.actor.mapping.model.SActorBuilderFactory;
 import org.bonitasoft.engine.actor.mapping.model.SActorMember;
+import org.bonitasoft.engine.actor.xml.ActorMappingParserFactory;
 import org.bonitasoft.engine.api.impl.transaction.actor.ImportActorMapping;
 import org.bonitasoft.engine.bpm.actor.ActorMappingImportException;
 import org.bonitasoft.engine.bpm.bar.BusinessArchive;
@@ -51,15 +52,24 @@ import java.util.Set;
  */
 public class ActorProcessDependencyDeployer implements ProcessDependencyDeployer {
 
+    private final ActorMappingService actorMappingService;
+    private final IdentityService identityService;
+    private final ActorMappingParserFactory actorMappingParserFactory;
+
+    public ActorProcessDependencyDeployer(ActorMappingService actorMappingService, IdentityService identityService, ActorMappingParserFactory actorMappingParserFactory) {
+        this.actorMappingService = actorMappingService;
+        this.identityService = identityService;
+        this.actorMappingParserFactory = actorMappingParserFactory;
+    }
+
     @Override
-    public boolean deploy(final TenantServiceAccessor tenantAccessor, final BusinessArchive businessArchive, final SProcessDefinition processDefinition)
+    public boolean deploy(final BusinessArchive businessArchive, final SProcessDefinition processDefinition)
             throws ActorMappingImportException {
-        final ActorMappingService actorMappingService = tenantAccessor.getActorMappingService();
         BuilderFactory.getInstance();
         final SActorBuilderFactory sActorBuilderFactory = BuilderFactory.get(SActorBuilderFactory.class);
         final IdentityService identityService = tenantAccessor.getIdentityService();
         final Set<SActorDefinition> actors = processDefinition.getActors();
-        final Set<SActor> sActors = new HashSet<SActor>(actors.size() + 1);
+        final Set<SActor> sActors = new HashSet<>(actors.size() + 1);
         final SActorDefinition actorInitiator = processDefinition.getActorInitiator();
         String initiatorName = null;
         if (actorInitiator != null) {
@@ -90,8 +100,7 @@ public class ActorProcessDependencyDeployer implements ProcessDependencyDeployer
     }
 
     @Override
-    public List<Problem> checkResolution(final TenantServiceAccessor tenantAccessor, final SProcessDefinition processDefinition) {
-        final ActorMappingService actorMappingService = tenantAccessor.getActorMappingService();
+    public List<Problem> checkResolution(final SProcessDefinition processDefinition) {
         final long processDefinitionId = processDefinition.getId();
         return checkResolution(actorMappingService, processDefinitionId);
     }

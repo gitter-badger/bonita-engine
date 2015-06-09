@@ -15,6 +15,7 @@
 package org.bonitasoft.engine.service;
 
 import org.bonitasoft.engine.actor.mapping.ActorMappingService;
+import org.bonitasoft.engine.actor.xml.ActorMappingParserFactory;
 import org.bonitasoft.engine.api.impl.TenantConfiguration;
 import org.bonitasoft.engine.api.impl.resolver.DependencyResolver;
 import org.bonitasoft.engine.archive.ArchiveService;
@@ -29,6 +30,7 @@ import org.bonitasoft.engine.classloader.ClassLoaderService;
 import org.bonitasoft.engine.command.CommandService;
 import org.bonitasoft.engine.commons.transaction.TransactionExecutor;
 import org.bonitasoft.engine.connector.ConnectorExecutor;
+import org.bonitasoft.engine.core.BusinessArchiveService;
 import org.bonitasoft.engine.core.category.CategoryService;
 import org.bonitasoft.engine.core.connector.ConnectorInstanceService;
 import org.bonitasoft.engine.core.connector.ConnectorService;
@@ -160,6 +162,8 @@ public interface TenantServiceAccessor extends ServiceAccessor {
 
     ParserFactory getParserFactgory();
 
+    ActorMappingParserFactory getActorMappingParserFactory();
+
     XMLWriter getXMLWriter();
 
     ExpressionResolverService getExpressionResolverService();
@@ -245,4 +249,6 @@ public interface TenantServiceAccessor extends ServiceAccessor {
     ReadPersistenceService getReadPersistenceService();
 
     Recorder getRecorder();
+
+    BusinessArchiveService getBusinessArchiveService();
 }

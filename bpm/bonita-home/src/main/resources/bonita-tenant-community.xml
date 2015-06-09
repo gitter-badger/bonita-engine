@@ -231,14 +231,43 @@
     <bean id="dependencyResolver" class="org.bonitasoft.engine.api.impl.resolver.DependencyResolver">
         <constructor-arg name="dependencyResolvers">
             <list>
-                <bean class="org.bonitasoft.engine.api.impl.resolver.ActorProcessDependencyDeployer" />
-                <bean class="org.bonitasoft.engine.api.impl.resolver.ConnectorProcessDependencyDeployer" />
-                <bean class="org.bonitasoft.engine.api.impl.resolver.UserFilterProcessDependencyDeployer" />
-                <bean class="org.bonitasoft.engine.api.impl.resolver.ParameterProcessDependencyDeployer" />
-                <bean class="org.bonitasoft.engine.api.impl.resolver.FormMappingAndPageDependencyDeployer" />
-                <bean class="org.bonitasoft.engine.api.impl.resolver.BusinessDataProcessDependencyDeployer" />
+                <bean class="org.bonitasoft.engine.api.impl.resolver.ActorProcessDependencyDeployer">
+                    <constructor-arg name="actorMappingService" ref="actorMappingService" />
+                    <constructor-arg name="identityService" ref="identityService" />
+                    <constructor-arg name="actorMappingParserFactory" ref="actorMappingParserFactory" />
+                </bean>
+                <bean class="org.bonitasoft.engine.api.impl.resolver.ConnectorProcessDependencyDeployer">
+                    <constructor-arg name="connectorService" ref="connectorService" />
+                    <constructor-arg name="readSessionAccessor" ref="sessionAccessor" />
+                </bean>
+                <bean class="org.bonitasoft.engine.api.impl.resolver.UserFilterProcessDependencyDeployer">
+                    <constructor-arg name="userFilterService" ref="userFilterService" />
+                    <constructor-arg name="readSessionAccessor" ref="sessionAccessor" />
+                </bean>
+                <bean class="org.bonitasoft.engine.api.impl.resolver.ParameterProcessDependencyDeployer">
+                    <constructor-arg name="parameterService" ref="parameterService" />
+                </bean>
+                <bean class="org.bonitasoft.engine.api.impl.resolver.FormMappingAndPageDependencyDeployer">
+                    <constructor-arg name="sessionService" ref="sessionService" />
+                    <constructor-arg name="sessionAccessor" ref="sessionAccessor" />
+                    <constructor-arg name="pageService" ref="pageService" />
+                    <constructor-arg name="technicalLoggerService" ref="tenantTechnicalLoggerService" />
+                    <constructor-arg name="formMappingService" ref="formMappingService" />
+                </bean>
+                <bean class="org.bonitasoft.engine.api.impl.resolver.BusinessDataProcessDependencyDeployer">
+                    <constructor-arg name="businessDataRepository" ref="businessDataRepository" />
+                </bean>
             </list>
         </constructor-arg>
+        <constructor-arg name="technicalLoggerService" ref="tenantTechnicalLoggerService" />
+    </bean>
+
+    <bean id="businessArchiveService" class="org.bonitasoft.engine.core.BusinessArchiveServiceImpl">
+        <constructor-arg name="processDefinitionService" ref="processDefinitionService" />
+        <constructor-arg name="dependencyService" ref="dependencyService" />
+        <constructor-arg name="dependencyResolver" ref="dependencyResolver" />
+        <constructor-arg name="logger" ref="tenantTechnicalLoggerService" />
+        <constructor-arg name="readSessionAccessor" ref="sessionAccessor" />
     </bean>
 
     <bean id="commandService" class="org.bonitasoft.engine.command.api.impl.CommandServiceImpl">
@@ -956,6 +985,10 @@
         <constructor-arg name="eventService" ref="tenantEventService" />
         <constructor-arg name="queriableLoggerService" ref="syncQueriableLoggerService" />
         <constructor-arg name="identityService" ref="identityService" />
+    </bean>
+
+    <bean id="actorMappingParserFactory" class="org.bonitasoft.engine.actor.xml.ActorMappingParserFactory">
+        <constructor-arg name="parserFactory" ref="parserFactory" />
     </bean>
 
     <bean id="bonitaExecutorServiceFactory" class="org.bonitasoft.engine.work.DefaultBonitaExecutorServiceFactory">

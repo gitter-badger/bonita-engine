@@ -35,6 +35,7 @@ import org.bonitasoft.engine.classloader.ClassLoaderService;
 import org.bonitasoft.engine.command.CommandService;
 import org.bonitasoft.engine.commons.transaction.TransactionExecutor;
 import org.bonitasoft.engine.connector.ConnectorExecutor;
+import org.bonitasoft.engine.core.BusinessArchiveService;
 import org.bonitasoft.engine.core.category.CategoryService;
 import org.bonitasoft.engine.core.connector.ConnectorInstanceService;
 import org.bonitasoft.engine.core.connector.ConnectorService;
@@ -234,6 +235,7 @@ public class SpringTenantServiceAccessor implements TenantServiceAccessor {
     private GenericAuthenticationService genericAuthenticationService;
     private ReadPersistenceService readPersistenceService;
     private Recorder recorder;
+    private BusinessArchiveService businessArchiveService;
 
     public SpringTenantServiceAccessor(final Long tenantId) {
         beanAccessor = SpringFileSystemBeanAccessorFactory.getTenantAccessor(tenantId);
@@ -831,6 +833,15 @@ public class SpringTenantServiceAccessor implements TenantServiceAccessor {
         }
         return recorder;
     }
+
+    @Override
+    public BusinessArchiveService getBusinessArchiveService() {
+        if (businessArchiveService == null) {
+            businessArchiveService = beanAccessor.getService(BusinessArchiveService.class);
+        }
+        return businessArchiveService;
+    }
+
 
     @Override
     public BusinessDataService getBusinessDataService() {
