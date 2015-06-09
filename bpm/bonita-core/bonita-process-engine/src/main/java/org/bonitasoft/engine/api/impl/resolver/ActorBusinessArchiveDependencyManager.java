@@ -16,6 +16,7 @@
 package org.bonitasoft.engine.api.impl.resolver;
 
 import org.bonitasoft.engine.actor.mapping.ActorMappingService;
+import org.bonitasoft.engine.actor.mapping.SActorDeletionException;
 import org.bonitasoft.engine.actor.mapping.model.SActor;
 import org.bonitasoft.engine.actor.mapping.model.SActorBuilder;
 import org.bonitasoft.engine.actor.mapping.model.SActorBuilderFactory;
@@ -30,6 +31,7 @@ import org.bonitasoft.engine.bpm.process.Problem.Level;
 import org.bonitasoft.engine.bpm.process.impl.internal.ProblemImpl;
 import org.bonitasoft.engine.builder.BuilderFactory;
 import org.bonitasoft.engine.commons.exceptions.SBonitaException;
+import org.bonitasoft.engine.commons.exceptions.SObjectModificationException;
 import org.bonitasoft.engine.core.process.definition.model.SActorDefinition;
 import org.bonitasoft.engine.core.process.definition.model.SProcessDefinition;
 import org.bonitasoft.engine.identity.IdentityService;
@@ -50,13 +52,13 @@ import java.util.Set;
  * @author Matthieu Chaffotte
  * @author Celine Souchet
  */
-public class ActorProcessDependencyDeployer implements ProcessDependencyDeployer {
+public class ActorBusinessArchiveDependencyManager implements BusinessArchiveDependencyManager {
 
     private final ActorMappingService actorMappingService;
     private final IdentityService identityService;
     private final ActorMappingParserFactory actorMappingParserFactory;
 
-    public ActorProcessDependencyDeployer(ActorMappingService actorMappingService, IdentityService identityService, ActorMappingParserFactory actorMappingParserFactory) {
+    public ActorBusinessArchiveDependencyManager(ActorMappingService actorMappingService, IdentityService identityService, ActorMappingParserFactory actorMappingParserFactory) {
         this.actorMappingService = actorMappingService;
         this.identityService = identityService;
         this.actorMappingParserFactory = actorMappingParserFactory;
@@ -103,6 +105,15 @@ public class ActorProcessDependencyDeployer implements ProcessDependencyDeployer
     public List<Problem> checkResolution(final SProcessDefinition processDefinition) {
         final long processDefinitionId = processDefinition.getId();
         return checkResolution(actorMappingService, processDefinitionId);
+    }
+
+    @Override
+    public void delete(SProcessDefinition processDefinition) throws SObjectModificationException {
+        try {
+            actorMappingService.deleteActors(processDefinition.getId());
+        } catch (SActorDeletionException e) {
+            throw new SObjectModificationException("Unable to delete actors of the process definition <"+processDefinition.getName()+">",e);
+        }
     }
 
     public List<Problem> checkResolution(final ActorMappingService actorMappingService, final long processDefinitionId) {

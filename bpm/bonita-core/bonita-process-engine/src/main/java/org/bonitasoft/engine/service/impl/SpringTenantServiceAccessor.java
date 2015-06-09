@@ -21,7 +21,7 @@ import java.util.List;
 
 import org.bonitasoft.engine.actor.mapping.ActorMappingService;
 import org.bonitasoft.engine.api.impl.TenantConfiguration;
-import org.bonitasoft.engine.api.impl.resolver.DependencyResolver;
+import org.bonitasoft.engine.api.impl.resolver.BusinessArchiveDependenciesManager;
 import org.bonitasoft.engine.archive.ArchiveService;
 import org.bonitasoft.engine.authentication.GenericAuthenticationService;
 import org.bonitasoft.engine.authentication.GenericAuthenticationServiceAccessor;
@@ -180,7 +180,7 @@ public class SpringTenantServiceAccessor implements TenantServiceAccessor {
 
     private CacheService cacheService;
 
-    private DependencyResolver dependencyResolver;
+    private BusinessArchiveDependenciesManager businessArchiveDependenciesManager;
 
     private WorkService workService;
 
@@ -654,11 +654,11 @@ public class SpringTenantServiceAccessor implements TenantServiceAccessor {
     }
 
     @Override
-    public DependencyResolver getDependencyResolver() {
-        if (dependencyResolver == null) {
-            dependencyResolver = beanAccessor.getService(DependencyResolver.class);
+    public BusinessArchiveDependenciesManager getBusinessArchiveDependenciesManager() {
+        if (businessArchiveDependenciesManager == null) {
+            businessArchiveDependenciesManager = beanAccessor.getService(BusinessArchiveDependenciesManager.class);
         }
-        return dependencyResolver;
+        return businessArchiveDependenciesManager;
     }
 
     @Override

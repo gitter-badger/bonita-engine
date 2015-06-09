@@ -49,7 +49,7 @@ import org.bonitasoft.engine.api.ProcessAPI;
 import org.bonitasoft.engine.api.impl.connector.ConnectorReseter;
 import org.bonitasoft.engine.api.impl.connector.ResetAllFailedConnectorStrategy;
 import org.bonitasoft.engine.api.impl.flownode.FlowNodeRetrier;
-import org.bonitasoft.engine.api.impl.resolver.ProcessDependencyDeployer;
+import org.bonitasoft.engine.api.impl.resolver.BusinessArchiveDependencyManager;
 import org.bonitasoft.engine.api.impl.transaction.CustomTransactions;
 import org.bonitasoft.engine.api.impl.transaction.activity.GetArchivedActivityInstance;
 import org.bonitasoft.engine.api.impl.transaction.activity.GetArchivedActivityInstances;
@@ -506,7 +506,6 @@ public class ProcessAPIImpl implements ProcessAPI {
             checkIfItIsPossibleToDeleteProcessInstance(processDefinitionId, hasOpenProcessInstances);
             final boolean hasArchivedProcessInstances = searchArchivedProcessInstances(searchOptions).getCount() > 0;
             checkIfItIsPossibleToDeleteProcessInstance(processDefinitionId, hasArchivedProcessInstances);
-
             processManagementAPIImplDelegate.deleteProcessDefinition(processDefinitionId);
         } catch (final Exception e) {
             throw new DeletionException(e);
@@ -653,8 +652,8 @@ public class ProcessAPIImpl implements ProcessAPI {
         BusinessArchive businessArchive;
         try {
             businessArchive = new BusinessArchiveBuilder().createNewBusinessArchive().setProcessDefinition(designProcessDefinition).done();
-        } catch (final InvalidBusinessArchiveFormatException ibafe) {
-            throw new InvalidProcessDefinitionException(ibafe.getMessage());
+        } catch (final InvalidBusinessArchiveFormatException e) {
+            throw new InvalidProcessDefinitionException(e.getMessage());
         }
         return deployAndEnableProcess(businessArchive);
     }
@@ -665,8 +664,8 @@ public class ProcessAPIImpl implements ProcessAPI {
         final ProcessDefinition processDefinition = deploy(businessArchive);
         try {
             enableProcess(processDefinition.getId());
-        } catch (final ProcessDefinitionNotFoundException pdnfe) {
-            throw new ProcessEnablementException(pdnfe.getMessage());
+        } catch (final ProcessDefinitionNotFoundException e) {
+            throw new ProcessEnablementException(e.getMessage());
         }
         return processDefinition;
     }
@@ -677,8 +676,8 @@ public class ProcessAPIImpl implements ProcessAPI {
             final BusinessArchive businessArchive = new BusinessArchiveBuilder().createNewBusinessArchive().setProcessDefinition(designProcessDefinition)
                     .done();
             return deploy(businessArchive);
-        } catch (final InvalidBusinessArchiveFormatException ibafe) {
-            throw new ProcessDeployException(ibafe);
+        } catch (final InvalidBusinessArchiveFormatException e) {
+            throw new ProcessDeployException(e);
         }
     }
 
@@ -1115,7 +1114,7 @@ public class ProcessAPIImpl implements ProcessAPI {
             final SActorMember actorMember = actorMappingService.addUserToActor(actorId, userId);
             final long processDefinitionId = actorMappingService.getActor(actorId).getScopeId();
             final ActorMember clientActorMember = ModelConvertor.toActorMember(actorMember);
-            tenantAccessor.getDependencyResolver().resolveDependencies(processDefinitionId, tenantAccessor);
+            tenantAccessor.getBusinessArchiveDependenciesManager().resolveDependencies(processDefinitionId, tenantAccessor);
             return clientActorMember;
         } catch (final SBonitaException sbe) {
             throw new CreationException(sbe);
@@ -1160,7 +1159,7 @@ public class ProcessAPIImpl implements ProcessAPI {
             final SActorMember actorMember = actorMappingService.addGroupToActor(actorId, groupId);
             final long processDefinitionId = actorMappingService.getActor(actorId).getScopeId();
             final ActorMember clientActorMember = ModelConvertor.toActorMember(actorMember);
-            tenantAccessor.getDependencyResolver().resolveDependencies(processDefinitionId, tenantAccessor);
+            tenantAccessor.getBusinessArchiveDependenciesManager().resolveDependencies(processDefinitionId, tenantAccessor);
             return clientActorMember;
         } catch (final SBonitaException e) {
             throw new CreationException(e);
@@ -1206,7 +1205,7 @@ public class ProcessAPIImpl implements ProcessAPI {
             final SActorMember actorMember = actorMappingService.addRoleToActor(actorId, roleId);
             final long processDefinitionId = actorMappingService.getActor(actorId).getScopeId();
             final ActorMember clientActorMember = ModelConvertor.toActorMember(actorMember);
-            tenantAccessor.getDependencyResolver().resolveDependencies(processDefinitionId, tenantAccessor);
+            tenantAccessor.getBusinessArchiveDependenciesManager().resolveDependencies(processDefinitionId, tenantAccessor);
             return clientActorMember;
         } catch (final SBonitaException sbe) {
             throw new CreationException(sbe);
@@ -1262,7 +1261,7 @@ public class ProcessAPIImpl implements ProcessAPI {
             final SActorMember actorMember = actorMappingService.addRoleAndGroupToActor(actorId, roleId, groupId);
             final long processDefinitionId = actorMappingService.getActor(actorId).getScopeId();
             final ActorMember clientActorMember = ModelConvertor.toActorMember(actorMember);
-            tenantAccessor.getDependencyResolver().resolveDependencies(processDefinitionId, tenantAccessor);
+            tenantAccessor.getBusinessArchiveDependenciesManager().resolveDependencies(processDefinitionId, tenantAccessor);
             return clientActorMember;
         } catch (final SBonitaException sbe) {
             throw new CreationException(sbe);
@@ -1295,7 +1294,7 @@ public class ProcessAPIImpl implements ProcessAPI {
             removeActorMember.execute();
             final SActorMember actorMember = removeActorMember.getResult();
             final long processDefinitionId = getActor(actorMember.getActorId()).getProcessDefinitionId();
-            tenantAccessor.getDependencyResolver().resolveDependencies(processDefinitionId, tenantAccessor);
+            tenantAccessor.getBusinessArchiveDependenciesManager().resolveDependencies(processDefinitionId, tenantAccessor);
         } catch (final SBonitaException | ActorNotFoundException sbe) {
             throw new DeletionException(sbe);
         }
@@ -2579,7 +2578,7 @@ public class ProcessAPIImpl implements ProcessAPI {
             final IdentityService identityService = tenantAccessor.getIdentityService();
             try {
                 new ImportActorMapping(actorMappingService,identityService).importActorMappingFromXml(xmlContent,processDefinitionId);
-                tenantAccessor.getDependencyResolver().resolveDependencies(processDefinitionId, tenantAccessor);
+                tenantAccessor.getBusinessArchiveDependenciesManager().resolveDependencies(processDefinitionId, tenantAccessor);
             } catch (final SBonitaException sbe) {
                 throw new ActorMappingImportException(sbe);
             }
@@ -4988,7 +4987,7 @@ public class ProcessAPIImpl implements ProcessAPI {
         final TenantServiceAccessor tenantAccessor = getTenantAccessor();
         final ProcessDefinitionService processDefinitionService = tenantAccessor.getProcessDefinitionService();
 
-        final List<ProcessDependencyDeployer> resolvers = tenantAccessor.getDependencyResolver().getResolvers();
+        final List<BusinessArchiveDependencyManager> resolvers = tenantAccessor.getBusinessArchiveDependenciesManager().getResolvers();
         SProcessDefinition processDefinition;
         try {
             processDefinition = processDefinitionService.getProcessDefinition(processDefinitionId);
@@ -4996,7 +4995,7 @@ public class ProcessAPIImpl implements ProcessAPI {
             throw new ProcessDefinitionNotFoundException(e);
         }
         final List<Problem> problems = new ArrayList<Problem>();
-        for (final ProcessDependencyDeployer resolver : resolvers) {
+        for (final BusinessArchiveDependencyManager resolver : resolvers) {
             final List<Problem> problem = resolver.checkResolution(processDefinition);
             if (problem != null) {
                 problems.addAll(problem);

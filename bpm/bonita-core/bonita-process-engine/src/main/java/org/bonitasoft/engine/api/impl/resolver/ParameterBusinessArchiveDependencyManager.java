@@ -43,17 +43,17 @@ import org.bonitasoft.engine.service.TenantServiceAccessor;
  * @author Matthieu Chaffotte
  * @author Celine Souchet
  */
-public class ParameterProcessDependencyDeployer implements ProcessDependencyDeployer {
+public class ParameterBusinessArchiveDependencyManager implements BusinessArchiveDependencyManager {
 
     private final ParameterService parameterService;
 
-    public ParameterProcessDependencyDeployer(ParameterService parameterService) {
+    public ParameterBusinessArchiveDependencyManager(ParameterService parameterService) {
         this.parameterService = parameterService;
     }
 
     @Override
     public boolean deploy(final BusinessArchive businessArchive,
-                          final SProcessDefinition processDefinition) throws NotFoundException, CreationException {
+            final SProcessDefinition processDefinition) throws NotFoundException, CreationException {
         final Set<SParameterDefinition> parameters = processDefinition.getParameters();
         boolean resolved = true;
         if (parameters.isEmpty()) {
@@ -103,6 +103,15 @@ public class ParameterProcessDependencyDeployer implements ProcessDependencyDepl
             }
         } while (parameters.size() == 100);
         return problems;
+    }
+
+    @Override
+    public void delete(SProcessDefinition processDefinition) throws SObjectModificationException {
+        try {
+            parameterService.deleteAll(processDefinition.getId());
+        } catch (SParameterProcessNotFoundException | SBonitaReadException e) {
+            throw new SObjectModificationException("Unable to delete parameters of the process definition <" + processDefinition.getName() + ">", e);
+        }
     }
 
 }
