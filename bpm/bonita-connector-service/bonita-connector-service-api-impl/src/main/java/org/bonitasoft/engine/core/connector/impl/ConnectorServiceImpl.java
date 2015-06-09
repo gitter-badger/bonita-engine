@@ -262,19 +262,19 @@ public class ConnectorServiceImpl implements ConnectorService {
 
     protected String buildConnectorImplementationKey(final long rootDefinitionId, final String connectorId, final String version) {
         return new StringBuilder()
-                .append(rootDefinitionId)
-                .append(":")
-                .append(connectorId)
-                .append("-")
-                .append(version)
-                .toString();
+        .append(rootDefinitionId)
+        .append(":")
+        .append(connectorId)
+        .append("-")
+        .append(version)
+        .toString();
     }
 
     @Override
     public ConnectorResult executeMutipleEvaluation(final long processDefinitionId, final String connectorDefinitionId,
             final String connectorDefinitionVersion, final Map<String, SExpression> connectorInputParameters,
             final Map<String, Map<String, Serializable>> inputValues, final ClassLoader classLoader, final SExpressionContext sexpContext)
-            throws SConnectorException {
+                    throws SConnectorException {
         try {
             final SConnectorImplementationDescriptor implementation = getImplementation(processDefinitionId, String.valueOf(sessionAccessor.getTenantId()),
                     connectorDefinitionId, connectorDefinitionVersion);
@@ -436,7 +436,7 @@ public class ConnectorServiceImpl implements ConnectorService {
         for (final Map.Entry<String, byte[]> file : classpath.entrySet()) {
             final String name = file.getKey();
             final SDependency sDependency = BuilderFactory.get(SDependencyBuilderFactory.class)
-                    .createNewInstance(name, processDefinitionId, ScopeType.PROCESS, name + ".jar", file.getValue()).done();
+                        .createNewInstance(name, processDefinitionId, ScopeType.PROCESS, name, file.getValue()).done();
             dependencies.add(sDependency);
         }
         dependencyService.updateDependenciesOfArtifact(processDefinitionId, ScopeType.PROCESS, dependencies);
@@ -662,7 +662,7 @@ public class ConnectorServiceImpl implements ConnectorService {
 
     /**
      * @param connectorImplementationDescriptor
-     *        check the implementation has all required properties or not
+     *            check the implementation has all required properties or not
      * @return
      */
     private boolean isGoodImplementation(final SConnectorImplementationDescriptor connectorImplementationDescriptor) {
