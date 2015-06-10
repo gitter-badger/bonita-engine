@@ -38,6 +38,7 @@ import org.bonitasoft.engine.core.process.definition.model.SActorDefinition;
 import org.bonitasoft.engine.core.process.definition.model.SProcessDefinition;
 import org.bonitasoft.engine.identity.IdentityService;
 import org.bonitasoft.engine.log.technical.TechnicalLogSeverity;
+import org.bonitasoft.engine.log.technical.TechnicalLoggerService;
 import org.bonitasoft.engine.persistence.OrderByType;
 import org.bonitasoft.engine.persistence.QueryOptions;
 import org.bonitasoft.engine.persistence.SBonitaReadException;
@@ -61,12 +62,15 @@ public class ActorBusinessArchiveDependencyManager implements BusinessArchiveDep
     private final IdentityService identityService;
     private final ActorMappingParserFactory actorMappingParserFactory;
     private final XMLWriter xmlWriter;
+    private final TechnicalLoggerService technicalLoggerService;
 
-    public ActorBusinessArchiveDependencyManager(ActorMappingService actorMappingService, IdentityService identityService, ActorMappingParserFactory actorMappingParserFactory, XMLWriter xmlWriter) {
+    public ActorBusinessArchiveDependencyManager(ActorMappingService actorMappingService, IdentityService identityService,
+            ActorMappingParserFactory actorMappingParserFactory, XMLWriter xmlWriter, TechnicalLoggerService technicalLoggerService) {
         this.actorMappingService = actorMappingService;
         this.identityService = identityService;
         this.actorMappingParserFactory = actorMappingParserFactory;
         this.xmlWriter = xmlWriter;
+        this.technicalLoggerService = technicalLoggerService;
     }
 
     @Override
@@ -117,7 +121,7 @@ public class ActorBusinessArchiveDependencyManager implements BusinessArchiveDep
         try {
             actorMappingService.deleteActors(processDefinition.getId());
         } catch (SActorDeletionException e) {
-            throw new SObjectModificationException("Unable to delete actors of the process definition <"+processDefinition.getName()+">",e);
+            throw new SObjectModificationException("Unable to delete actors of the process definition <" + processDefinition.getName() + ">", e);
         }
     }
 
