@@ -281,4 +281,5 @@ public interface DependencyService {
      */
     void updateDependenciesOfArtifact(long id, ScopeType type, List<SDependency> dependencies) throws SDependencyException;
 
+    SDependency createMappedDependency(String name, byte[] jarContent, String fileName, long artifactId, ScopeType scopeType) throws SDependencyException;
 }

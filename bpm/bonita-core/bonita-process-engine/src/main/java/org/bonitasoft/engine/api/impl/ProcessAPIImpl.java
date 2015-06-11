@@ -76,8 +76,6 @@ import org.bonitasoft.engine.api.impl.transaction.category.RemoveCategoriesFromP
 import org.bonitasoft.engine.api.impl.transaction.category.UpdateCategory;
 import org.bonitasoft.engine.api.impl.transaction.comment.AddComment;
 import org.bonitasoft.engine.api.impl.transaction.connector.GetConnectorImplementation;
-import org.bonitasoft.engine.api.impl.transaction.connector.GetConnectorImplementations;
-import org.bonitasoft.engine.api.impl.transaction.connector.GetNumberOfConnectorImplementations;
 import org.bonitasoft.engine.api.impl.transaction.event.GetEventInstances;
 import org.bonitasoft.engine.api.impl.transaction.expression.EvaluateExpressionsDefinitionLevel;
 import org.bonitasoft.engine.api.impl.transaction.expression.EvaluateExpressionsInstanceLevel;
@@ -110,6 +108,7 @@ import org.bonitasoft.engine.api.impl.transaction.task.GetNumberOfAssignedUserTa
 import org.bonitasoft.engine.api.impl.transaction.task.GetNumberOfOpenTasksForUsers;
 import org.bonitasoft.engine.api.impl.transaction.task.SetTaskPriority;
 import org.bonitasoft.engine.archive.ArchiveService;
+import org.bonitasoft.engine.bar.BusinessArchiveService;
 import org.bonitasoft.engine.bpm.actor.ActorCriterion;
 import org.bonitasoft.engine.bpm.actor.ActorInstance;
 import org.bonitasoft.engine.bpm.actor.ActorMappingExportException;
@@ -209,7 +208,6 @@ import org.bonitasoft.engine.commons.exceptions.SObjectCreationException;
 import org.bonitasoft.engine.commons.transaction.TransactionContent;
 import org.bonitasoft.engine.commons.transaction.TransactionContentWithResult;
 import org.bonitasoft.engine.commons.transaction.TransactionExecutor;
-import org.bonitasoft.engine.bar.BusinessArchiveService;
 import org.bonitasoft.engine.core.category.CategoryService;
 import org.bonitasoft.engine.core.category.exception.SCategoryAlreadyExistsException;
 import org.bonitasoft.engine.core.category.exception.SCategoryInProcessAlreadyExistsException;
@@ -4518,11 +4516,8 @@ public class ProcessAPIImpl implements ProcessAPI {
 
         final ConnectorService connectorService = tenantAccessor.getConnectorService();
         final OrderAndField orderAndField = OrderAndFields.getOrderAndFieldForConnectorImplementation(sortingCriterion);
-        final GetConnectorImplementations transactionContent = new GetConnectorImplementations(connectorService, processDefinitionId,
-                tenantAccessor.getTenantId(), startIndex, maxsResults, orderAndField.getField(), orderAndField.getOrder());
         try {
-            transactionContent.execute();
-            final List<SConnectorImplementationDescriptor> sConnectorImplementationDescriptors = transactionContent.getResult();
+            final List<SConnectorImplementationDescriptor> sConnectorImplementationDescriptors = connectorService.getConnectorImplementations(processDefinitionId, startIndex, maxsResults, orderAndField.getField(), orderAndField.getOrder());;
             return ModelConvertor.toConnectorImplementationDescriptors(sConnectorImplementationDescriptors);
         } catch (final SBonitaException e) {
             throw new RetrieveException(e);
@@ -4534,11 +4529,8 @@ public class ProcessAPIImpl implements ProcessAPI {
         final TenantServiceAccessor tenantAccessor = getTenantAccessor();
 
         final ConnectorService connectorService = tenantAccessor.getConnectorService();
-        final GetNumberOfConnectorImplementations transactionContent = new GetNumberOfConnectorImplementations(connectorService, processDefinitionId,
-                tenantAccessor.getTenantId());
         try {
-            transactionContent.execute();
-            return transactionContent.getResult();
+            return  connectorService.getNumberOfConnectorImplementations(processDefinitionId);
         } catch (final SBonitaException e) {
             throw new RetrieveException(e);
         }

@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bonitasoft.engine.bar.BARResourceType;
-import org.bonitasoft.engine.bar.BusinessArchiveResourceService;
+import org.bonitasoft.engine.bar.ResourcesService;
 import org.bonitasoft.engine.bar.SBARResource;
 import org.bonitasoft.engine.bpm.bar.BarResource;
 import org.bonitasoft.engine.bpm.bar.BusinessArchive;
@@ -29,16 +29,16 @@ import org.bonitasoft.engine.core.process.definition.model.SProcessDefinition;
  * @author Baptiste Mesta
  */
 public abstract class BARResourceDependencyManager implements BusinessArchiveDependencyManager {
-    protected final BusinessArchiveResourceService businessArchiveResourceService;
+    protected final ResourcesService resourcesService;
 
-    public BARResourceDependencyManager(BusinessArchiveResourceService businessArchiveResourceService) {
-        this.businessArchiveResourceService = businessArchiveResourceService;
+    public BARResourceDependencyManager(ResourcesService resourcesService) {
+        this.resourcesService = resourcesService;
     }
 
     void saveResources(BusinessArchive businessArchive, SProcessDefinition processDefinition, String folder, BARResourceType type) {
         final Map<String, byte[]> resources = businessArchive.getResources("^" + folder + "/.*$");
         for (Map.Entry<String, byte[]> entry : resources.entrySet()) {
-            businessArchiveResourceService.add(processDefinition.getId(), entry.getKey().substring((folder + "/").length()),
+            resourcesService.add(processDefinition.getId(), entry.getKey().substring((folder + "/").length()),
                     type, entry.getValue());
         }
     }
@@ -47,7 +47,7 @@ public abstract class BARResourceDependencyManager implements BusinessArchiveDep
         List<SBARResource> resources;
         int from = 0;
         do {
-            resources = businessArchiveResourceService.getAll(processDefinitionId, document, from, 10);
+            resources = resourcesService.getAll(processDefinitionId, document, from, 10);
             addToBusinessArchive(businessArchiveBuilder, resources);
             from += 10;
         } while (resources.size() == 10);

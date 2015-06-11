@@ -15,7 +15,9 @@ package org.bonitasoft.engine.api.impl;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonMap;
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.entry;
+import static org.assertj.core.api.Assertions.fail;
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyInt;
@@ -26,7 +28,14 @@ import static org.mockito.Matchers.anyMapOf;
 import static org.mockito.Matchers.anySetOf;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.doThrow;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -39,11 +48,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.google.common.collect.Lists;
 import org.bonitasoft.engine.actor.mapping.ActorMappingService;
 import org.bonitasoft.engine.actor.mapping.SActorNotFoundException;
 import org.bonitasoft.engine.actor.mapping.model.SActor;
 import org.bonitasoft.engine.api.DocumentAPI;
-import org.bonitasoft.engine.api.impl.transaction.connector.GetConnectorImplementations;
 import org.bonitasoft.engine.api.impl.transaction.identity.GetSUser;
 import org.bonitasoft.engine.bpm.connector.ConnectorCriterion;
 import org.bonitasoft.engine.bpm.connector.ConnectorImplementationDescriptor;
@@ -159,8 +168,6 @@ import org.mockito.Mock;
 import org.mockito.Spy;
 import org.mockito.runners.MockitoJUnitRunner;
 
-import com.google.common.collect.Lists;
-
 @RunWith(MockitoJUnitRunner.class)
 public class ProcessAPIImplTest {
 
@@ -211,8 +218,6 @@ public class ProcessAPIImplTest {
     private DocumentAPI documentAPI;
     @Mock
     private ConnectorService connectorService;
-    @Mock
-    private GetConnectorImplementations getConnectorImplementation;
     @Mock
     private ContractDataService contractDataService;
     @Mock
@@ -771,7 +776,7 @@ public class ProcessAPIImplTest {
     public void getConnectorsImplementations_should_throw__exception() throws Exception {
         //given
         final SConnectorException sConnectorException = new SConnectorException("message");
-        doThrow(sConnectorException).when(connectorService).getConnectorImplementations(anyLong(), anyLong(),
+        doThrow(sConnectorException).when(connectorService).getConnectorImplementations(anyLong(),
                 anyInt(), anyInt(), anyString(),
                 any(OrderByType.class));
 
@@ -784,7 +789,7 @@ public class ProcessAPIImplTest {
     public void getNumberOfConnectorImplementations_should_throw__exception() throws Exception {
         //given
         final SConnectorException sConnectorException = new SConnectorException("message");
-        doThrow(sConnectorException).when(connectorService).getNumberOfConnectorImplementations(anyLong(), anyLong());
+        doThrow(sConnectorException).when(connectorService).getNumberOfConnectorImplementations(anyLong());
 
         //when then exception
         processAPI.getNumberOfConnectorImplementations(PROCESS_DEFINITION_ID);
@@ -806,7 +811,7 @@ public class ProcessAPIImplTest {
         //given
         final List<SConnectorImplementationDescriptor> sConnectorImplementationDescriptors = createConnectorList();
 
-        doReturn(sConnectorImplementationDescriptors).when(connectorService).getConnectorImplementations(anyLong(), anyLong(),
+        doReturn(sConnectorImplementationDescriptors).when(connectorService).getConnectorImplementations(anyLong(),
                 anyInt(), anyInt(), anyString(),
                 any(OrderByType.class));
 
@@ -824,7 +829,7 @@ public class ProcessAPIImplTest {
         final List<SConnectorImplementationDescriptor> sConnectorImplementationDescriptors = createConnectorList();
 
         doReturn((long) sConnectorImplementationDescriptors.size()).when(connectorService)
-                .getNumberOfConnectorImplementations(PROCESS_DEFINITION_ID, TENANT_ID);
+                .getNumberOfConnectorImplementations(PROCESS_DEFINITION_ID);
 
         //when
         final long numberOfConnectorImplementations = processAPI.getNumberOfConnectorImplementations(PROCESS_DEFINITION_ID);

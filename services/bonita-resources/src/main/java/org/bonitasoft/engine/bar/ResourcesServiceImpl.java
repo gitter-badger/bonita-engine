@@ -22,7 +22,7 @@ import java.util.Map;
 /**
  * @author Baptiste Mesta
  */
-public class BusinessArchiveResourceServiceImpl implements BusinessArchiveResourceService {
+public class ResourcesServiceImpl implements ResourcesService {
 
     private final HashMap<String, byte[]> documents = new HashMap<>();
     private final HashMap<String, byte[]> external = new HashMap<>();
@@ -32,7 +32,6 @@ public class BusinessArchiveResourceServiceImpl implements BusinessArchiveResour
     @Override
     public void add(long processDefinitionId, String name, BARResourceType type, byte[] content) {
         switch (type) {
-
             case DOCUMENT:
                 documents.put(processDefinitionId+name, content);
                 break;

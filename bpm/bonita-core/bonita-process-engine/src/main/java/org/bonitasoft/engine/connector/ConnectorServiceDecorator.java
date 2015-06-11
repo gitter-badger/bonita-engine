@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bonitasoft.engine.bar.SBARResource;
 import org.bonitasoft.engine.core.connector.ConnectorResult;
 import org.bonitasoft.engine.core.connector.ConnectorService;
 import org.bonitasoft.engine.core.connector.exception.SConnectorException;
@@ -75,9 +76,9 @@ public class ConnectorServiceDecorator implements ConnectorService {
     }
 
     @Override
-    public List<SConnectorImplementationDescriptor> getConnectorImplementations(final long processDefinitionId, final long tenantId, final int fromIndex,
+    public List<SConnectorImplementationDescriptor> getConnectorImplementations(final long processDefinitionId, final int fromIndex,
             final int numberPerPage, final String field, final OrderByType order) throws SConnectorException {
-        return connectorService.getConnectorImplementations(processDefinitionId, tenantId, fromIndex, numberPerPage, field, order);
+        return connectorService.getConnectorImplementations(processDefinitionId, fromIndex, numberPerPage, field, order);
     }
 
     @Override
@@ -117,7 +118,17 @@ public class ConnectorServiceDecorator implements ConnectorService {
     }
 
     @Override
-    public Long getNumberOfConnectorImplementations(final long processDefinitionId, final long tenantId) throws SConnectorException {
-        return connectorService.getNumberOfConnectorImplementations(processDefinitionId, tenantId);
+    public Long getNumberOfConnectorImplementations(final long processDefinitionId) throws SConnectorException {
+        return connectorService.getNumberOfConnectorImplementations(processDefinitionId);
+    }
+
+    @Override
+    public List<SBARResource> getConnectorImplementations(long processDefinitionId, int from, int numberOfElements) {
+        return connectorService.getConnectorImplementations(processDefinitionId, from, numberOfElements);
+    }
+
+    @Override
+    public void addConnectorImplementation(Long processDefinitionId, String name, byte[] content) {
+        connectorService.addConnectorImplementation(processDefinitionId, name, content);
     }
 }

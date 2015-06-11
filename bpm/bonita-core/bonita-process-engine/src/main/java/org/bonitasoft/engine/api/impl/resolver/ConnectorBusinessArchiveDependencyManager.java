@@ -15,10 +15,10 @@ package org.bonitasoft.engine.api.impl.resolver;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
-import org.bonitasoft.engine.bar.BARResourceType;
-import org.bonitasoft.engine.bar.BusinessArchiveResourceService;
+import org.bonitasoft.engine.bar.SBARResource;
 import org.bonitasoft.engine.bpm.bar.BarResource;
 import org.bonitasoft.engine.bpm.bar.BusinessArchive;
 import org.bonitasoft.engine.bpm.bar.BusinessArchiveBuilder;
@@ -42,17 +42,22 @@ import org.bonitasoft.engine.sessionaccessor.STenantIdNotSetException;
  * @author Matthieu Chaffotte
  * @author Celine Souchet
  */
-public class ConnectorBusinessArchiveDependencyManager extends BARResourceDependencyManager {
+public class ConnectorBusinessArchiveDependencyManager implements BusinessArchiveDependencyManager {
 
     public static final String CONNECTOR = "connector";
+    public static final int BATCH_SIZE = 10;
     private final ConnectorService connectorService;
     private final ReadSessionAccessor readSessionAccessor;
 
-    public ConnectorBusinessArchiveDependencyManager(ConnectorService connectorService, ReadSessionAccessor readSessionAccessor,
-            BusinessArchiveResourceService businessArchiveResourceService) {
-        super(businessArchiveResourceService);
+    public ConnectorBusinessArchiveDependencyManager(ConnectorService connectorService, ReadSessionAccessor readSessionAccessor) {
         this.connectorService = connectorService;
         this.readSessionAccessor = readSessionAccessor;
+    }
+
+    void addToBusinessArchive(BusinessArchiveBuilder businessArchiveBuilder, List<SBARResource> resources) {
+        for (SBARResource resource : resources) {
+            businessArchiveBuilder.addConnectorImplementation(new BarResource(resource.getName(), resource.getContent()));
+        }
     }
 
     @Override
@@ -60,7 +65,10 @@ public class ConnectorBusinessArchiveDependencyManager extends BARResourceDepend
             throws ConnectorException {
         try {
             final long tenantId = getTenantId();
-            saveResources(businessArchive, processDefinition, CONNECTOR, BARResourceType.CONNECTOR);
+            final Map<String, byte[]> resources = businessArchive.getResources("^" + CONNECTOR + "/.*$");
+            for (Map.Entry<String, byte[]> entry : resources.entrySet()) {
+                connectorService.addConnectorImplementation(processDefinition.getId(), entry.getKey().substring((CONNECTOR + "/").length()), entry.getValue());
+            }
             return connectorService.loadConnectors(processDefinition, tenantId)
                     && checkAllConnectorsHaveImplementation(connectorService, processDefinition, tenantId).isEmpty();
         } catch (final SConnectorException | STenantIdNotSetException e) {
@@ -127,11 +135,20 @@ public class ConnectorBusinessArchiveDependencyManager extends BARResourceDepend
 
     @Override
     public void exportBusinessArchive(long processDefinitionId, BusinessArchiveBuilder businessArchiveBuilder) throws SBonitaException {
-        exportResourcesToBusinessArchive(processDefinitionId, businessArchiveBuilder, BARResourceType.CONNECTOR);
+        List<SBARResource> resources = getConnectorImplementations(processDefinitionId);
+        addToBusinessArchive(businessArchiveBuilder, resources);
     }
 
-    @Override
-    void addToBusinessArchive(BusinessArchiveBuilder businessArchiveBuilder, BarResource resource) {
-        businessArchiveBuilder.addConnectorImplementation(resource);
+    List<SBARResource> getConnectorImplementations(long processDefinitionId) {
+        List<SBARResource> allResources = new ArrayList<>();
+        List<SBARResource> resources;
+        int from = 0;
+        do {
+            resources = connectorService.getConnectorImplementations(processDefinitionId, from, BATCH_SIZE);
+            from += BATCH_SIZE;
+            allResources.addAll(resources);
+        } while (resources.size() == BATCH_SIZE);
+        return allResources;
     }
+
 }

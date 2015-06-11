@@ -715,6 +715,8 @@
 									<!-- Recorder -->
 									<include>org.bonitasoft.engine.recorder:bonita-recorder-api</include>
 									<include>org.bonitasoft.engine.recorder:bonita-recorder-impl</include>
+									<!-- Resources -->
+									<include>org.bonitasoft.engine:bonita-resources</include>
 									<!-- Scheduler -->
 									<include>org.bonitasoft.engine.scheduler:bonita-scheduler-api</include>
 									<include>org.bonitasoft.engine.scheduler:bonita-scheduler-impl</include>

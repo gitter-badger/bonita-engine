@@ -769,4 +769,15 @@ public class DependencyServiceImpl implements DependencyService {
         return hashMap;
     }
 
+    @Override
+    public SDependency createMappedDependency(String name, byte[] jarContent, String fileName, long artifactId, ScopeType scopeType) throws SDependencyException {
+        final SDependency sDependency = BuilderFactory.get(SDependencyBuilderFactory.class)
+                .createNewInstance(name, artifactId, scopeType, fileName, jarContent)
+                .done();
+        createDependency(sDependency);
+        final SDependencyMapping sDependencyMapping = BuilderFactory.get(SDependencyMappingBuilderFactory.class)
+                .createNewInstance(sDependency.getId(), artifactId, scopeType).done();
+        createDependencyMapping(sDependencyMapping);
+        return sDependency;
+    }
 }

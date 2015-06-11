@@ -19,7 +19,7 @@ import java.util.List;
 /**
  * @author Baptiste Mesta
  */
-public interface BusinessArchiveResourceService {
+public interface ResourcesService {
 
     void add(long processDefinitionId, String name, BARResourceType type, byte[] content);
 

@@ -36,6 +36,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bonitasoft.engine.bar.ResourcesService;
 import org.bonitasoft.engine.cache.CacheService;
 import org.bonitasoft.engine.cache.SCacheException;
 import org.bonitasoft.engine.connector.ConnectorExecutor;
@@ -101,6 +102,8 @@ public class ConnectorServiceImplTest {
 
     @Mock
     private DependencyService dependencyService;
+    @Mock
+    private ResourcesService resourcesService;
 
     @Mock
     private SConnectorImplementationDescriptor connectorImplDescriptorInCache;
@@ -117,7 +120,7 @@ public class ConnectorServiceImplTest {
 
         connectorService = new ConnectorServiceImpl(/* cacheService */mock(CacheService.class), mock(ConnectorExecutor.class), parserFactory,
                 mock(ReadSessionAccessor.class),
-                mock(ExpressionResolverService.class), mock(OperationService.class), dependencyService, null, mock(TimeTracker.class));
+                mock(ExpressionResolverService.class), mock(OperationService.class), dependencyService, null, mock(TimeTracker.class), resourcesService);
     }
 
     @Test(expected = SInvalidConnectorImplementationException.class)
@@ -236,7 +239,7 @@ public class ConnectorServiceImplTest {
             IOException, SConnectorException, SInvalidConnectorImplementationException, SCacheException {
         connectorService = new ConnectorServiceImpl(cacheService, mock(ConnectorExecutor.class), parserFactory,
                 mock(ReadSessionAccessor.class),
-                mock(ExpressionResolverService.class), mock(OperationService.class), dependencyService, null, mock(TimeTracker.class));
+                mock(ExpressionResolverService.class), mock(OperationService.class), dependencyService, null, mock(TimeTracker.class), resourcesService);
 
         final long tenantId = 98774L;
         final long processDefId = 17L;
@@ -277,7 +280,7 @@ public class ConnectorServiceImplTest {
         doReturn(connectorImplDescriptor).when(cacheService).get(ConnectorServiceImpl.CONNECTOR_CACHE_NAME, buildConnectorImplementationKey);
 
         //when
-        connectorService.getConnectorImplementations(processDefId, tenantId, 0,
+        connectorService.getConnectorImplementations(processDefId, 0,
                 10, "", OrderByType.ASC);
 
         //then

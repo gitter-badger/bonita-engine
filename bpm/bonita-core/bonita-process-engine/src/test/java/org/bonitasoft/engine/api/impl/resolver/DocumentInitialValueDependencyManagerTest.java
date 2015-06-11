@@ -24,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bonitasoft.engine.bar.BARResourceType;
-import org.bonitasoft.engine.bar.BusinessArchiveResourceService;
+import org.bonitasoft.engine.bar.ResourcesService;
 import org.bonitasoft.engine.bar.SBARResource;
 import org.bonitasoft.engine.bpm.bar.BarResource;
 import org.bonitasoft.engine.bpm.bar.BusinessArchive;
@@ -45,7 +45,7 @@ public class DocumentInitialValueDependencyManagerTest {
 
     public static final long PROCESS_ID = 456l;
     @Mock
-    private BusinessArchiveResourceService businessArchiveResourceService;
+    private ResourcesService resourcesService;
     @InjectMocks
     private DocumentInitialValueDependencyManager documentInitialValueDependencyManager;
 
@@ -60,17 +60,17 @@ public class DocumentInitialValueDependencyManagerTest {
 
         documentInitialValueDependencyManager.deploy(businessArchiveBuilder.done(), processDefinition);
 
-        verify(businessArchiveResourceService).add(PROCESS_ID, "myDoc.pdf", BARResourceType.DOCUMENT, new byte[] { 0 });
-        verify(businessArchiveResourceService).add(PROCESS_ID, "myDoc2.pdf", BARResourceType.DOCUMENT, new byte[] { 1 });
+        verify(resourcesService).add(PROCESS_ID, "myDoc.pdf", BARResourceType.DOCUMENT, new byte[] { 0 });
+        verify(resourcesService).add(PROCESS_ID, "myDoc2.pdf", BARResourceType.DOCUMENT, new byte[] { 1 });
     }
 
     @Test
     public void testExportBusinessArchive() throws Exception {
         final BusinessArchiveBuilder businessArchiveBuilder = new BusinessArchiveBuilder().createNewBusinessArchive();
         businessArchiveBuilder.setProcessDefinition(new ProcessDefinitionBuilder().createNewInstance("tata", "toto").done());
-        doReturn(getBarResources()).when(businessArchiveResourceService).getAll(PROCESS_ID, BARResourceType.DOCUMENT, 0, 10);
+        doReturn(getBarResources()).when(resourcesService).getAll(PROCESS_ID, BARResourceType.DOCUMENT, 0, 10);
         doReturn(Collections.singletonList(new SBARResource("10.pdf", BARResourceType.DOCUMENT, PROCESS_ID, new byte[] { 10 }))).when(
-                businessArchiveResourceService).getAll(PROCESS_ID, BARResourceType.DOCUMENT, 10, 10);
+                resourcesService).getAll(PROCESS_ID, BARResourceType.DOCUMENT, 10, 10);
 
         documentInitialValueDependencyManager.exportBusinessArchive(PROCESS_ID, businessArchiveBuilder);
 

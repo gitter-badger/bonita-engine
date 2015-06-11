@@ -19,7 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.bonitasoft.engine.api.impl.transaction.dependency.AddSDependency;
 import org.bonitasoft.engine.bpm.bar.BarResource;
 import org.bonitasoft.engine.bpm.bar.BusinessArchive;
 import org.bonitasoft.engine.bpm.bar.BusinessArchiveBuilder;
@@ -95,7 +94,8 @@ public class ClasspathDependencyManager implements BusinessArchiveDependencyMana
 
         for (Map.Entry<String, byte[]> entry : resources.entrySet()) {
             if (!dependencies.contains(getDependencyName(processDefinitionId, entry.getKey()))) {
-                addDependency(entry.getKey(), entry.getValue(), dependencyService, processDefinitionId);
+                final String name = entry.getKey();
+                dependencyService.createMappedDependency(name, entry.getValue(), name /* it is the real filename*/, processDefinitionId, ScopeType.PROCESS);
             }
         }
     }
@@ -104,18 +104,12 @@ public class ClasspathDependencyManager implements BusinessArchiveDependencyMana
         return processDefinitionId + "_" + name;
     }
 
-    private void addDependency(final String name, final byte[] jarContent, final DependencyService dependencyService,
-            final long processDefinitionId) throws SDependencyException {
-        final AddSDependency addSDependency = new AddSDependency(dependencyService, name, jarContent, processDefinitionId, ScopeType.PROCESS);
-        addSDependency.execute();
-    }
-
     private List<String> getDependenciesOfProcess(final DependencyService dependencyService, final List<Long> dependencyIds) throws SBonitaException {
         if (dependencyIds.isEmpty()) {
             return Collections.emptyList();
         }
         final List<SDependency> dependencies = dependencyService.getDependencies(dependencyIds);
-        final ArrayList<String> dependencyNames = new ArrayList<String>(dependencies.size());
+        final ArrayList<String> dependencyNames = new ArrayList<>(dependencies.size());
         for (final SDependency sDependency : dependencies) {
             dependencyNames.add(sDependency.getName());
         }
@@ -123,7 +117,7 @@ public class ClasspathDependencyManager implements BusinessArchiveDependencyMana
     }
 
     private List<Long> getDependencyMappingsOfProcess(final DependencyService dependencyService, final long processDefinitionId) throws SDependencyException {
-        final List<Long> dependencyIds = new ArrayList<Long>();
+        final List<Long> dependencyIds = new ArrayList<>();
         int fromIndex = 0;
         List<Long> currentPage;
         do {

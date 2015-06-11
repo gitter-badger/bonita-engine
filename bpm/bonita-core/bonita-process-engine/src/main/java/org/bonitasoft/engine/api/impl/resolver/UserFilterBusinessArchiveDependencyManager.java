@@ -17,7 +17,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bonitasoft.engine.bar.BARResourceType;
-import org.bonitasoft.engine.bar.BusinessArchiveResourceService;
+import org.bonitasoft.engine.bar.ResourcesService;
 import org.bonitasoft.engine.bpm.bar.BarResource;
 import org.bonitasoft.engine.bpm.bar.BusinessArchive;
 import org.bonitasoft.engine.bpm.bar.BusinessArchiveBuilder;
@@ -42,8 +42,8 @@ public class UserFilterBusinessArchiveDependencyManager extends BARResourceDepen
     private final UserFilterService userFilterService;
 
     public UserFilterBusinessArchiveDependencyManager(ReadSessionAccessor readSessionAccessor, UserFilterService userFilterService,
-            BusinessArchiveResourceService businessArchiveResourceService) {
-        super(businessArchiveResourceService);
+            ResourcesService resourcesService) {
+        super(resourcesService);
         this.readSessionAccessor = readSessionAccessor;
         this.userFilterService = userFilterService;
     }

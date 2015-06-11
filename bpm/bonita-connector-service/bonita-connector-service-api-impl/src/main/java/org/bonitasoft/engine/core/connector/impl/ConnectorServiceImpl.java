@@ -28,6 +28,9 @@ import java.util.regex.Pattern;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 
+import org.bonitasoft.engine.bar.BARResourceType;
+import org.bonitasoft.engine.bar.ResourcesService;
+import org.bonitasoft.engine.bar.SBARResource;
 import org.bonitasoft.engine.builder.BuilderFactory;
 import org.bonitasoft.engine.cache.CacheService;
 import org.bonitasoft.engine.cache.SCacheException;
@@ -82,12 +85,9 @@ import org.bonitasoft.engine.xml.SXMLParseException;
  */
 public class ConnectorServiceImpl implements ConnectorService {
 
-    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
-
-    private static final String IMPLEMENTATION_EXT = ".impl";
-
     protected static final String CONNECTOR_CACHE_NAME = "CONNECTOR";
-
+    private static final String LINE_SEPARATOR = System.getProperty("line.separator");
+    private static final String IMPLEMENTATION_EXT = ".impl";
     private final Parser parser;
 
     private final CacheService cacheService;
@@ -105,15 +105,17 @@ public class ConnectorServiceImpl implements ConnectorService {
     private final TechnicalLoggerService logger;
 
     private final TimeTracker timeTracker;
+    private final ResourcesService resourcesService;
 
     public ConnectorServiceImpl(final CacheService cacheService, final ConnectorExecutor connectorExecutor, final ParserFactory parserFactory,
             final ReadSessionAccessor sessionAccessor, final ExpressionResolverService expressionResolverService, final OperationService operationService,
-            final DependencyService dependencyService, final TechnicalLoggerService logger, final TimeTracker timeTracker) {
+            final DependencyService dependencyService, final TechnicalLoggerService logger, final TimeTracker timeTracker, ResourcesService resourcesService) {
         this.cacheService = cacheService;
         this.connectorExecutor = connectorExecutor;
         this.sessionAccessor = sessionAccessor;
         this.expressionResolverService = expressionResolverService;
-        final List<Class<? extends ElementBinding>> bindings = new ArrayList<Class<? extends ElementBinding>>();
+        this.resourcesService = resourcesService;
+        final List<Class<? extends ElementBinding>> bindings = new ArrayList<>();
         bindings.add(ConnectorImplementationBinding.class);
         bindings.add(JarDependenciesBinding.class);
         parser = parserFactory.createParser(bindings);
@@ -121,6 +123,31 @@ public class ConnectorServiceImpl implements ConnectorService {
         this.dependencyService = dependencyService;
         this.logger = logger;
         this.timeTracker = timeTracker;
+    }
+
+    /**
+     * Build the log message using the connector instance's context (name, version, connector id, connector instance id, container type, container id)
+     *
+     * @param conectorInstance
+     * @return the log message built using the connector instance's context
+     */
+    private static String buildConnectorContextMessage(final SConnectorInstance conectorInstance) {
+        return " [name: <" + conectorInstance.getName() + ">, version: <" + conectorInstance.getVersion() + ">, connector id: <" + conectorInstance.getConnectorId() + ">, connector instance id: <" + conectorInstance.getId() + ">, container type: <" + conectorInstance.getContainerType() + ">, container id: <" + conectorInstance.getContainerId() + ">, activation event: <" + conectorInstance.getActivationEvent() + ">]";
+    }
+
+    private static String buildConnectorInputMessage(final Map<String, Object> inputParameters) {
+        final StringBuilder stb = new StringBuilder();
+        if (inputParameters != null && !inputParameters.isEmpty()) {
+            stb.append(LINE_SEPARATOR);
+            stb.append("Inputs: ");
+            stb.append(LINE_SEPARATOR);
+            final Set<String> inputNames = inputParameters.keySet();
+            for (final String inputName : inputNames) {
+                stb.append("    <").append(inputName).append("> : <").append(inputParameters.get(inputName)).append(">");
+                stb.append(LINE_SEPARATOR);
+            }
+        }
+        return stb.toString();
     }
 
     @Override
@@ -132,7 +159,7 @@ public class ConnectorServiceImpl implements ConnectorService {
             SConnectorImplementationDescriptor descriptor = getImplementation(rootDefinitionId, tenantId, sConnectorInstance.getConnectorId(),
                     sConnectorInstance.getVersion());
             if (descriptor == null) {
-                loadConnectors(rootDefinitionId, Integer.valueOf(tenantId));
+                loadConnectors(rootDefinitionId);
                 descriptor = getImplementation(rootDefinitionId, tenantId, sConnectorInstance.getConnectorId(), sConnectorInstance.getVersion());
                 if (descriptor == null) {
                     throw new SConnectorException("There is no implementation found for the connector " + sConnectorInstance.getConnectorId()
@@ -141,9 +168,7 @@ public class ConnectorServiceImpl implements ConnectorService {
             }
             final String implementationClassName = descriptor.getImplementationClassName();
             connectorResult = executeConnectorInClassloader(implementationClassName, classLoader, inputParameters);
-        } catch (final SCacheException e) {
-            throw new SConnectorException(e);
-        } catch (final STenantIdNotSetException e) {
+        } catch (final SCacheException | STenantIdNotSetException e) {
             throw new SConnectorException(e);
         }
         if (logger.isLoggable(this.getClass(), TechnicalLogSeverity.DEBUG)) {
@@ -152,47 +177,6 @@ public class ConnectorServiceImpl implements ConnectorService {
             logger.log(this.getClass(), TechnicalLogSeverity.DEBUG, message);
         }
         return connectorResult;
-    }
-
-    /**
-     * Build the log message using the connector instance's context (name, version, connector id, connector instance id, container type, container id)
-     *
-     * @param conectorInstance
-     * @return the log message built using the connector instance's context
-     */
-    private static String buildConnectorContextMessage(final SConnectorInstance conectorInstance) {
-        final StringBuilder stb = new StringBuilder();
-        stb.append(" [name: <");
-        stb.append(conectorInstance.getName());
-        stb.append(">, version: <");
-        stb.append(conectorInstance.getVersion());
-        stb.append(">, connector id: <");
-        stb.append(conectorInstance.getConnectorId());
-        stb.append(">, connector instance id: <");
-        stb.append(conectorInstance.getId());
-        stb.append(">, container type: <");
-        stb.append(conectorInstance.getContainerType());
-        stb.append(">, container id: <");
-        stb.append(conectorInstance.getContainerId());
-        stb.append(">, activation event: <");
-        stb.append(conectorInstance.getActivationEvent());
-        stb.append(">]");
-        return stb.toString();
-    }
-
-    private static String buildConnectorInputMessage(final Map<String, Object> inputParameters) {
-        final StringBuilder stb = new StringBuilder();
-        if (inputParameters != null && !inputParameters.isEmpty()) {
-            stb.append(LINE_SEPARATOR);
-            stb.append("Inputs: ");
-            stb.append(LINE_SEPARATOR);
-            final Set<String> inputNames = inputParameters.keySet();
-            for (final String inputName : inputNames) {
-                stb.append("    <" + inputName + "> : <" + inputParameters.get(inputName) + ">");
-                stb.append(LINE_SEPARATOR);
-            }
-        }
-        return stb.toString();
     }
 
     @Override
@@ -243,7 +227,7 @@ public class ConnectorServiceImpl implements ConnectorService {
             descriptor = (SConnectorImplementationDescriptor) cacheService.get(CONNECTOR_CACHE_NAME, key);
             if (descriptor == null) {
                 // No value in cache : reload connector to ensure the cache stores all connectors for the current process
-                loadConnectors(rootDefinitionId, Long.parseLong(tenantId));
+                loadConnectors(rootDefinitionId);
                 descriptor = (SConnectorImplementationDescriptor) cacheService.get(CONNECTOR_CACHE_NAME, key);
             }
         } catch (final NumberFormatException e) {
@@ -254,20 +238,14 @@ public class ConnectorServiceImpl implements ConnectorService {
         return descriptor;
     }
 
-    private void storeImplementation(final long processDefinitionId, final SConnectorImplementationDescriptor connectorImplementation) throws SCacheException {
+    private void cache(final long processDefinitionId, final SConnectorImplementationDescriptor connectorImplementation) throws SCacheException {
         final String key = buildConnectorImplementationKey(processDefinitionId, connectorImplementation.getDefinitionId(),
                 connectorImplementation.getDefinitionVersion());
         cacheService.store(CONNECTOR_CACHE_NAME, key, connectorImplementation);
     }
 
     protected String buildConnectorImplementationKey(final long rootDefinitionId, final String connectorId, final String version) {
-        return new StringBuilder()
-        .append(rootDefinitionId)
-        .append(":")
-        .append(connectorId)
-        .append("-")
-        .append(version)
-        .toString();
+        return String.valueOf(rootDefinitionId) + ":" + connectorId + "-" + version;
     }
 
     @Override
@@ -319,9 +297,7 @@ public class ConnectorServiceImpl implements ConnectorService {
             throw new SConnectorException(implementationClassName + " can not be found.", e);
         } catch (final InstantiationException e) {
             throw new SConnectorException(implementationClassName + " can not be instantiated.", e);
-        } catch (final IllegalAccessException e) {
-            throw new SConnectorException(e);
-        } catch (final org.bonitasoft.engine.connector.exception.SConnectorException e) {
+        } catch (final IllegalAccessException | org.bonitasoft.engine.connector.exception.SConnectorException e) {
             throw new SConnectorException(e);
         } finally {
             Thread.currentThread().setContextClassLoader(contextClassLoader);
@@ -334,7 +310,7 @@ public class ConnectorServiceImpl implements ConnectorService {
             final Map<String, Map<String, Serializable>> inputValues) throws SExpressionTypeUnknownException, SExpressionEvaluationException,
             SExpressionDependencyMissingException, SInvalidExpressionException {
         final long startTime = System.currentTimeMillis();
-        final Map<String, Object> inputParameters = new HashMap<String, Object>(parameters.size());
+        final Map<String, Object> inputParameters = new HashMap<>(parameters.size());
         try {
             for (final Entry<String, SExpression> input : parameters.entrySet()) {
                 if (sExpressionContext != null) {
@@ -363,52 +339,34 @@ public class ConnectorServiceImpl implements ConnectorService {
 
     @Override
     public boolean loadConnectors(final SProcessDefinition sDefinition, final long tenantId) throws SConnectorException {
-        return loadConnectors(sDefinition.getId(), tenantId);
+        return loadConnectors(sDefinition.getId());
     }
 
-    protected boolean loadConnectors(final long processDefinitionId, final long tenantId) throws SConnectorException {
-        boolean resolved = true;
+    protected boolean loadConnectors(final long processDefinitionId) throws SConnectorException {
+        String name = null;
         try {
-            //TODO user BusinessArchiveResourceService instead of bonita home
-            final Map<String, byte[]> connectorFiles = BonitaHomeServer.getInstance().getProcessManager().getConnectorFiles(tenantId, processDefinitionId);
-
-            if (connectorFiles != null && connectorFiles.size() > 0) {
-                final Pattern pattern = Pattern.compile("^.*\\" + IMPLEMENTATION_EXT + "$");
-                for (final Map.Entry<String, byte[]> resource : connectorFiles.entrySet()) {
-                    final String name = resource.getKey();
-                    if (pattern.matcher(name).matches()) {
-                        SConnectorImplementationDescriptor connectorImplementation;
-                        try {
-                            final Object objectFromXML = parser.getObjectFromXML(resource.getValue());
+            final List<SBARResource> connectorImplementations = getConnectorImplementations(processDefinitionId, 0, Integer.MAX_VALUE);
+            for (SBARResource connectorImplementationFile : connectorImplementations) {
+                name = connectorImplementationFile.getName();
+                final Object objectFromXML = parser.getObjectFromXML(connectorImplementationFile.getContent());
                             if (objectFromXML == null) {
                                 throw new SConnectorException("Can not parse ConnectorImplementation XML. The file name is <" + name + ">.");
                             }
                             // check dependencies in the bar
-                            connectorImplementation = (SConnectorImplementationDescriptor) objectFromXML;
-                            storeImplementation(processDefinitionId, connectorImplementation);
-                        } catch (final IOException e) {
-                            throw new SConnectorException("Can not load ConnectorImplementation XML. The file name is <" + name + ">.", e);
-                        } catch (final SXMLParseException e) {
+                cache(processDefinitionId, (SConnectorImplementationDescriptor) objectFromXML);
+            }
+        } catch (final IOException | SXMLParseException e) {
                             throw new SConnectorException("Can not load ConnectorImplementation XML. The file name is <" + name + ">.", e);
                         } catch (final SCacheException e) {
                             throw new SConnectorException("Unable to cache the connector implementation " + name + ".", e);
                         }
-                        // TODO parse the definitions to ensure all connectors are loaded
-                        resolved = true;
-                    }
-                }
+        return true;
             }
-        } catch (final BonitaHomeNotSetException e) {
-            throw new SConnectorException("Bonita home is not set !!", e);
-        } catch (IOException e) {
-            throw new SConnectorException(e);
-        }
-        return resolved;
-    }
 
     @Override
     public void setConnectorImplementation(final SProcessDefinition sProcessDefinition, final long tenantId, final String connectorId,
             final String connectorVersion, final byte[] connectorImplementationArchive) throws SConnectorException, SInvalidConnectorImplementationException {
+        //FIXME reimplement me with resource service
         // store file in file system.
         replaceConnectorImpl(sProcessDefinition, tenantId, connectorImplementationArchive, connectorId, connectorVersion);
         // reload cache
@@ -433,7 +391,7 @@ public class ConnectorServiceImpl implements ConnectorService {
     private void deployNewDependencies(final long processDefinitionId, final long tenantId) throws SDependencyException, IOException, BonitaHomeNotSetException {
         // deploy new ones from the filesystem (bonita-home):
         final Map<String, byte[]> classpath = BonitaHomeServer.getInstance().getProcessManager().getProcessClasspath(tenantId, processDefinitionId);
-        final ArrayList<SDependency> dependencies = new ArrayList<SDependency>();
+        final ArrayList<SDependency> dependencies = new ArrayList<>();
         for (final Map.Entry<String, byte[]> file : classpath.entrySet()) {
             final String name = file.getKey();
             final SDependency sDependency = BuilderFactory.get(SDependencyBuilderFactory.class)
@@ -526,7 +484,7 @@ public class ConnectorServiceImpl implements ConnectorService {
             }
         } catch (final IOException | BonitaHomeNotSetException e) {
             throw new SInvalidConnectorImplementationException(e);
-        }
+                }
     }
 
     private SConnectorImplementationDescriptor getConnectorImplementationDescriptor(final byte[] bytes) throws SInvalidConnectorImplementationException {
@@ -537,9 +495,7 @@ public class ConnectorServiceImpl implements ConnectorService {
                 throw new SInvalidConnectorImplementationException("Can not parse ConnectorImplementation XML.");
             }
             return connectorImplementation;
-        } catch (final IOException e) {
-            throw new SInvalidConnectorImplementationException("Can not load ConnectorImplementation XML.", e);
-        } catch (final SXMLParseException e) {
+        } catch (final IOException | SXMLParseException e) {
             throw new SInvalidConnectorImplementationException("Can not load ConnectorImplementation XML.", e);
         }
     }
@@ -581,14 +537,15 @@ public class ConnectorServiceImpl implements ConnectorService {
     }
 
     @Override
-    public Long getNumberOfConnectorImplementations(final long processDefinitionId, final long tenantId) throws SConnectorException {
-        return Long.valueOf(getAllConnectorImplementations(processDefinitionId, tenantId).size());
+    public Long getNumberOfConnectorImplementations(final long processDefinitionId) throws SConnectorException {
+        //FIXME db request
+        return (long) getConnectorImplementations(processDefinitionId, 0, Integer.MAX_VALUE).size();
     }
 
     @Override
-    public List<SConnectorImplementationDescriptor> getConnectorImplementations(final long processDefinitionId, final long tenantId, final int fromIndex,
+    public List<SConnectorImplementationDescriptor> getConnectorImplementations(final long processDefinitionId, final int fromIndex,
             final int numberPerPage, final String field, final OrderByType order) throws SConnectorException {
-        final List<SConnectorImplementationDescriptor> sConnectorImplementationDescriptors = getAllConnectorImplementations(processDefinitionId, tenantId);
+        final List<SConnectorImplementationDescriptor> sConnectorImplementationDescriptors = getAllConnectorImplementations(processDefinitionId);
         if (sConnectorImplementationDescriptors != null && sConnectorImplementationDescriptors.size() > 0) {
             // pagination
             if (sConnectorImplementationDescriptors.size() <= fromIndex) {
@@ -614,11 +571,10 @@ public class ConnectorServiceImpl implements ConnectorService {
 
     /**
      * @param processDefinitionId
-     * @param tenantId
      * @return
      * @throws SConnectorException
      */
-    private List<SConnectorImplementationDescriptor> getAllConnectorImplementations(final long processDefinitionId, final long tenantId)
+    private List<SConnectorImplementationDescriptor> getAllConnectorImplementations(final long processDefinitionId)
             throws SConnectorException {
         // get all connector implementations for processDefinitionId
         List<SConnectorImplementationDescriptor> sConnectorImplementationDescriptors = null;
@@ -626,13 +582,13 @@ public class ConnectorServiceImpl implements ConnectorService {
             final int size = cacheService.getCacheSize(CONNECTOR_CACHE_NAME);
             // reload connectors if connector cache size is 0;
             if (size == 0) {
-                this.loadConnectors(processDefinitionId, tenantId);
+                this.loadConnectors(processDefinitionId);
             }
-            sConnectorImplementationDescriptors = getConnectorImplementationsFromCacheService(processDefinitionId, tenantId);
+            sConnectorImplementationDescriptors = getConnectorImplementationsFromCacheService(processDefinitionId);
             if (sConnectorImplementationDescriptors.isEmpty()) {
                 // reload connectors if cache is not filed, e.g. server restart
-                this.loadConnectors(processDefinitionId, tenantId);
-                sConnectorImplementationDescriptors = getConnectorImplementationsFromCacheService(processDefinitionId, tenantId);
+                this.loadConnectors(processDefinitionId);
+                sConnectorImplementationDescriptors = getConnectorImplementationsFromCacheService(processDefinitionId);
             }
         } catch (final SCacheException e) {
             // If cache name not found, ignore it.
@@ -640,10 +596,10 @@ public class ConnectorServiceImpl implements ConnectorService {
         return sConnectorImplementationDescriptors;
     }
 
-    private List<SConnectorImplementationDescriptor> getConnectorImplementationsFromCacheService(final long processDefinitionId, final long tenantId)
+    private List<SConnectorImplementationDescriptor> getConnectorImplementationsFromCacheService(final long processDefinitionId)
             throws SCacheException, SConnectorException {
         List<SConnectorImplementationDescriptor> sConnectorImplementationDescriptors;
-        sConnectorImplementationDescriptors = new ArrayList<SConnectorImplementationDescriptor>();
+        sConnectorImplementationDescriptors = new ArrayList<>();
         final List<?> cacheKeys = cacheService.getKeys(CONNECTOR_CACHE_NAME);
         if (cacheKeys.size() > 0) {
             for (final Object cacheKey : cacheKeys) {
@@ -651,7 +607,7 @@ public class ConnectorServiceImpl implements ConnectorService {
                     SConnectorImplementationDescriptor connectorImplementationDescriptor = (SConnectorImplementationDescriptor) cacheService.get(
                             CONNECTOR_CACHE_NAME, cacheKey);
                     if (!isGoodImplementation(connectorImplementationDescriptor)) {
-                        this.loadConnectors(processDefinitionId, tenantId);
+                        this.loadConnectors(processDefinitionId);
                         connectorImplementationDescriptor = (SConnectorImplementationDescriptor) cacheService.get(CONNECTOR_CACHE_NAME, cacheKey);
                     }
                     sConnectorImplementationDescriptors.add(connectorImplementationDescriptor);
@@ -684,7 +640,7 @@ public class ConnectorServiceImpl implements ConnectorService {
                  * Maybe connector was out of cache
                  * We try to reload connector before throwing an exception
                  */
-                loadConnectors(processDefinitionId, tenantId);
+                loadConnectors(processDefinitionId);
                 connectorImplementationDescriptor = (SConnectorImplementationDescriptor) cacheService.get(CONNECTOR_CACHE_NAME,
                         connectorImplementationNameInCache);
                 if (connectorImplementationDescriptor == null) {
@@ -698,4 +654,13 @@ public class ConnectorServiceImpl implements ConnectorService {
         return connectorImplementationDescriptor;
     }
 
+    @Override
+    public List<SBARResource> getConnectorImplementations(long processDefinitionId, int from, int numberOfElements) {
+        return resourcesService.getAll(processDefinitionId, BARResourceType.CONNECTOR, from, numberOfElements);
+    }
+
+    @Override
+    public void addConnectorImplementation(Long processDefinitionId, String name, byte[] content) {
+        resourcesService.add(processDefinitionId, name, BARResourceType.CONNECTOR, content);
+    }
 }

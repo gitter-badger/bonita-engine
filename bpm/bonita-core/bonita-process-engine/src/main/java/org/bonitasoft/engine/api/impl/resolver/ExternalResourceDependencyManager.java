@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 import org.bonitasoft.engine.bar.BARResourceType;
-import org.bonitasoft.engine.bar.BusinessArchiveResourceService;
+import org.bonitasoft.engine.bar.ResourcesService;
 import org.bonitasoft.engine.bpm.bar.BarResource;
 import org.bonitasoft.engine.bpm.bar.BusinessArchive;
 import org.bonitasoft.engine.bpm.bar.BusinessArchiveBuilder;
@@ -35,8 +35,8 @@ public class ExternalResourceDependencyManager extends BARResourceDependencyMana
 
     public static final String RESOURCES = "resources";
 
-    public ExternalResourceDependencyManager(BusinessArchiveResourceService businessArchiveResourceService) {
-        super(businessArchiveResourceService);
+    public ExternalResourceDependencyManager(ResourcesService resourcesService) {
+        super(resourcesService);
     }
 
     @Override

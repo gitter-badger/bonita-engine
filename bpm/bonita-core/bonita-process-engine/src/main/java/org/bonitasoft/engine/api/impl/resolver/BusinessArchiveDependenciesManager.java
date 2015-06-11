@@ -25,7 +25,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import org.bonitasoft.engine.api.impl.transaction.dependency.AddSDependency;
 import org.bonitasoft.engine.bpm.bar.BusinessArchive;
 import org.bonitasoft.engine.bpm.bar.BusinessArchiveBuilder;
 import org.bonitasoft.engine.bpm.bar.InvalidBusinessArchiveFormatException;
@@ -258,8 +257,7 @@ public class BusinessArchiveDependenciesManager {
 
     private void addDependency(final String name, final byte[] jarContent, final DependencyService dependencyService,
             final long processDefinitionId) throws SDependencyException {
-        final AddSDependency addSDependency = new AddSDependency(dependencyService, name, jarContent, processDefinitionId, ScopeType.PROCESS);
-        addSDependency.execute();
+        dependencyService.createMappedDependency(name, jarContent, name + ".jar", processDefinitionId, ScopeType.PROCESS);
     }
 
     public List<BusinessArchiveDependencyManager> getResolvers() {
