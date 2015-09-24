@@ -47,7 +47,7 @@ public abstract class BARResourceDependencyManager implements BusinessArchiveDep
         List<SBARResource> resources;
         int from = 0;
         do {
-            resources = resourcesService.getAll(processDefinitionId, document, from, 10);
+            resources = resourcesService.get(processDefinitionId, document, from, 10);
             addToBusinessArchive(businessArchiveBuilder, resources);
             from += 10;
         } while (resources.size() == 10);

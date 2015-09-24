@@ -89,23 +89,16 @@ public class ConnectorServiceImpl implements ConnectorService {
     private static final String LINE_SEPARATOR = System.getProperty("line.separator");
     private static final String IMPLEMENTATION_EXT = ".impl";
     private final Parser parser;
-
     private final CacheService cacheService;
-
     private final ConnectorExecutor connectorExecutor;
-
     private final ReadSessionAccessor sessionAccessor;
-
     private final ExpressionResolverService expressionResolverService;
-
     private final OperationService operationService;
-
     private final DependencyService dependencyService;
-
     private final TechnicalLoggerService logger;
-
     private final TimeTracker timeTracker;
     private final ResourcesService resourcesService;
+    private BonitaHomeServer bonitaHomeServer;
 
     public ConnectorServiceImpl(final CacheService cacheService, final ConnectorExecutor connectorExecutor, final ParserFactory parserFactory,
             final ReadSessionAccessor sessionAccessor, final ExpressionResolverService expressionResolverService, final OperationService operationService,
@@ -123,6 +116,11 @@ public class ConnectorServiceImpl implements ConnectorService {
         this.dependencyService = dependencyService;
         this.logger = logger;
         this.timeTracker = timeTracker;
+        this.bonitaHomeServer = BonitaHomeServer.getInstance();
+    }
+
+    void setBonitaHomeServer(BonitaHomeServer bonitaHomeServer) {
+        this.bonitaHomeServer = bonitaHomeServer;
     }
 
     /**
@@ -390,7 +388,7 @@ public class ConnectorServiceImpl implements ConnectorService {
 
     private void deployNewDependencies(final long processDefinitionId, final long tenantId) throws SDependencyException, IOException, BonitaHomeNotSetException {
         // deploy new ones from the filesystem (bonita-home):
-        final Map<String, byte[]> classpath = BonitaHomeServer.getInstance().getProcessManager().getProcessClasspath(tenantId, processDefinitionId);
+        final Map<String, byte[]> classpath = bonitaHomeServer.getProcessManager().getProcessClasspath(tenantId, processDefinitionId);
         final ArrayList<SDependency> dependencies = new ArrayList<>();
         for (final Map.Entry<String, byte[]> file : classpath.entrySet()) {
             final String name = file.getKey();
@@ -473,11 +471,11 @@ public class ConnectorServiceImpl implements ConnectorService {
                 }
                 final byte[] fileContent = IOUtil.getBytes(zipInputstream);
                 if (entryName.endsWith(".jar")) {
-                    BonitaHomeServer.getInstance().getProcessManager().storeClasspathFile(tenantId, sDefinition.getId(), entryName, fileContent);
+                    bonitaHomeServer.getProcessManager().storeClasspathFile(tenantId, sDefinition.getId(), entryName, fileContent);
                 }
                 // Ignore source files when deploying new Connector implementation:
                 else if (!entryName.endsWith(".java")) {
-                    BonitaHomeServer.getInstance().getProcessManager().storeConnectorFile(tenantId, sDefinition.getId(), entryName, fileContent);
+                    bonitaHomeServer.getProcessManager().storeConnectorFile(tenantId, sDefinition.getId(), entryName, fileContent);
                 }
 
                 zipInputstream.closeEntry();
@@ -502,7 +500,7 @@ public class ConnectorServiceImpl implements ConnectorService {
 
     protected void deleteOldImplementation(final long tenantId, final long processId, final String connectorId, final String connectorVersion)
             throws SInvalidConnectorImplementationException, BonitaHomeNotSetException, IOException {
-        final Map<String, byte[]> listFiles = BonitaHomeServer.getInstance().getProcessManager().getConnectorFiles(tenantId, processId);
+        final Map<String, byte[]> listFiles = bonitaHomeServer.getProcessManager().getConnectorFiles(tenantId, processId);
         final Pattern pattern = Pattern.compile("^.*\\" + IMPLEMENTATION_EXT + "$");
         List<String> jarFileNames = null;
         // delete .impl file for the specified connector
@@ -511,7 +509,7 @@ public class ConnectorServiceImpl implements ConnectorService {
             if (pattern.matcher(name).matches()) {
                 final SConnectorImplementationDescriptor connectorImplementation = getConnectorImplementationDescriptor(resource.getValue());
                 if (connectorId.equals(connectorImplementation.getDefinitionId()) && connectorVersion.equals(connectorImplementation.getDefinitionVersion())) {
-                    BonitaHomeServer.getInstance().getProcessManager().deleteConnectorFile(tenantId, processId, name);
+                    bonitaHomeServer.getProcessManager().deleteConnectorFile(tenantId, processId, name);
                     jarFileNames = connectorImplementation.getJarDependencies().getDependencies();
                     break;
                 }
@@ -520,7 +518,7 @@ public class ConnectorServiceImpl implements ConnectorService {
 
         // delete the .jar files for the specified connector
         if (jarFileNames != null) {
-            BonitaHomeServer.getInstance().getProcessManager().deleteClasspathFiles(tenantId, processId, jarFileNames.toArray(new String[jarFileNames.size()]));
+            bonitaHomeServer.getProcessManager().deleteClasspathFiles(tenantId, processId, jarFileNames.toArray(new String[jarFileNames.size()]));
         }
     }
 
@@ -656,7 +654,7 @@ public class ConnectorServiceImpl implements ConnectorService {
 
     @Override
     public List<SBARResource> getConnectorImplementations(long processDefinitionId, int from, int numberOfElements) {
-        return resourcesService.getAll(processDefinitionId, BARResourceType.CONNECTOR, from, numberOfElements);
+        return resourcesService.get(processDefinitionId, BARResourceType.CONNECTOR, from, numberOfElements);
     }
 
     @Override

@@ -53,7 +53,7 @@ public class ResourcesServiceImpl implements ResourcesService {
     }
 
     @Override
-    public List<SBARResource> getAll(long processDefinitionId, BARResourceType type, int from, int numberOfElements) {
+    public List<SBARResource> get(long processDefinitionId, BARResourceType type, int from, int numberOfElements) {
         switch (type) {
             case DOCUMENT:
                 return getSbarResources(processDefinitionId, this.documents);

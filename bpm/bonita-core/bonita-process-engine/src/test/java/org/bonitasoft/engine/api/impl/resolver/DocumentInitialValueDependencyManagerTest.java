@@ -68,9 +68,9 @@ public class DocumentInitialValueDependencyManagerTest {
     public void testExportBusinessArchive() throws Exception {
         final BusinessArchiveBuilder businessArchiveBuilder = new BusinessArchiveBuilder().createNewBusinessArchive();
         businessArchiveBuilder.setProcessDefinition(new ProcessDefinitionBuilder().createNewInstance("tata", "toto").done());
-        doReturn(getBarResources()).when(resourcesService).getAll(PROCESS_ID, BARResourceType.DOCUMENT, 0, 10);
+        doReturn(getBarResources()).when(resourcesService).get(PROCESS_ID, BARResourceType.DOCUMENT, 0, 10);
         doReturn(Collections.singletonList(new SBARResource("10.pdf", BARResourceType.DOCUMENT, PROCESS_ID, new byte[] { 10 }))).when(
-                resourcesService).getAll(PROCESS_ID, BARResourceType.DOCUMENT, 10, 10);
+                resourcesService).get(PROCESS_ID, BARResourceType.DOCUMENT, 10, 10);
 
         documentInitialValueDependencyManager.exportBusinessArchive(PROCESS_ID, businessArchiveBuilder);
 

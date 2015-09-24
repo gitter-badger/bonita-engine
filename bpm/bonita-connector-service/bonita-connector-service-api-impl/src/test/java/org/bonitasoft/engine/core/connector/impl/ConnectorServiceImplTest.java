@@ -14,20 +14,18 @@
 package org.bonitasoft.engine.core.connector.impl;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyList;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
+import static org.mockito.Mockito.doNothing;
+import static org.mockito.Mockito.doReturn;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.spy;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import static org.powermock.api.mockito.PowerMockito.doNothing;
-import static org.powermock.api.mockito.PowerMockito.doReturn;
-import static org.powermock.api.mockito.PowerMockito.mock;
-import static org.powermock.api.mockito.PowerMockito.mockStatic;
-import static org.powermock.api.mockito.PowerMockito.spy;
-import static org.powermock.api.mockito.PowerMockito.when;
+import static org.mockito.Mockito.when;
 
-import java.io.File;
-import java.io.FilenameFilter;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.Arrays;
@@ -36,7 +34,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bonitasoft.engine.bar.BARResourceType;
 import org.bonitasoft.engine.bar.ResourcesService;
+import org.bonitasoft.engine.bar.SBARResource;
 import org.bonitasoft.engine.cache.CacheService;
 import org.bonitasoft.engine.cache.SCacheException;
 import org.bonitasoft.engine.connector.ConnectorExecutor;
@@ -52,6 +52,7 @@ import org.bonitasoft.engine.exception.BonitaHomeNotSetException;
 import org.bonitasoft.engine.home.BonitaHomeServer;
 import org.bonitasoft.engine.home.ProcessManager;
 import org.bonitasoft.engine.io.IOUtil;
+import org.bonitasoft.engine.log.technical.TechnicalLoggerService;
 import org.bonitasoft.engine.persistence.OrderByType;
 import org.bonitasoft.engine.sessionaccessor.ReadSessionAccessor;
 import org.bonitasoft.engine.tracking.TimeTracker;
@@ -62,65 +63,55 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.powermock.core.classloader.annotations.PrepareForTest;
-import org.powermock.modules.junit4.PowerMockRunner;
+import org.mockito.runners.MockitoJUnitRunner;
 
 /**
  * @author Baptiste Mesta
  */
 @SuppressWarnings("javadoc")
-@RunWith(PowerMockRunner.class)
-@PrepareForTest(BonitaHomeServer.class)
+@RunWith(MockitoJUnitRunner.class)
 public class ConnectorServiceImplTest {
-
-    /**
-     * @author Emmanuel Duchastenier
-     */
-    protected FilenameFilter jarFilenameFilter = new FilenameFilter() {
-
-        @Override
-        public boolean accept(final File dir, final String name) {
-            return name.endsWith(".jar");
-        }
-    };
 
     @Mock
     private BonitaHomeServer bonitaHomeServer;
+    @Mock
+    private Parser parser;
+    @Mock
+    private CacheService cacheService;
+    @Mock
+    private ParserFactory parserFactory;
+    @Mock
+    private DependencyService dependencyService;
+    @Mock
+    private ResourcesService resourcesService;
+    @Mock
+    private SConnectorImplementationDescriptor connectorImplDescriptorInCache;
+    @Mock
+    private ConnectorExecutor connectorExecutor;
+    @Mock
+    private ReadSessionAccessor sessionAccessor;
+    @Mock
+    private ExpressionResolverService expressionResolverService;
+    @Mock
+    private OperationService operationService;
+    @Mock
+    private TimeTracker timeTracker;
+    @Mock
+    private TechnicalLoggerService technicalLoggerService;
     @Mock
     private ProcessManager processManager;
 
     private ConnectorServiceImpl connectorService;
 
-    @Mock
-    private Parser parser;
-
-    @Mock
-    private CacheService cacheService;
-
-    @Mock
-    private ParserFactory parserFactory;
-
-    @Mock
-    private DependencyService dependencyService;
-    @Mock
-    private ResourcesService resourcesService;
-
-    @Mock
-    private SConnectorImplementationDescriptor connectorImplDescriptorInCache;
-
     @SuppressWarnings("unchecked")
     @Before
     public void setup() {
-        mockStatic(BonitaHomeServer.class);
-
-        when(BonitaHomeServer.getInstance()).thenReturn(bonitaHomeServer);
-        when(bonitaHomeServer.getProcessManager()).thenReturn(processManager);
-
         doReturn(parser).when(parserFactory).createParser(anyList());
-
-        connectorService = new ConnectorServiceImpl(/* cacheService */mock(CacheService.class), mock(ConnectorExecutor.class), parserFactory,
-                mock(ReadSessionAccessor.class),
-                mock(ExpressionResolverService.class), mock(OperationService.class), dependencyService, null, mock(TimeTracker.class), resourcesService);
+        when(bonitaHomeServer.getProcessManager()).thenReturn(processManager);
+        connectorService = spy(new ConnectorServiceImpl(cacheService, connectorExecutor, parserFactory, sessionAccessor, expressionResolverService,
+                operationService, dependencyService,
+                technicalLoggerService, timeTracker, resourcesService));
+        connectorService.setBonitaHomeServer(bonitaHomeServer);
     }
 
     @Test(expected = SInvalidConnectorImplementationException.class)
@@ -173,24 +164,25 @@ public class ConnectorServiceImplTest {
         Map<String, byte[]> zipFileMap = new HashMap<>(3);
         final byte[] implBytes = "tototo".getBytes();
         zipFileMap.put("HoogardenBeerConnector.impl", implBytes);
-        final byte[] dep1Bytes = {12, 94, 14, 12};
+        final byte[] dep1Bytes = { 12, 94, 14, 12 };
         zipFileMap.put("some1.jar", dep1Bytes);
-        final byte[] hoogardenConnectorBytes = {12, 94, 14, 9, 54, 65, 98, 54, 21, 32, 65};
+        final byte[] hoogardenConnectorBytes = { 12, 94, 14, 9, 54, 65, 98, 54, 21, 32, 65 };
         zipFileMap.put("HoogardenConnector.jar", hoogardenConnectorBytes);
         final byte[] zip1 = IOUtil.zip(zipFileMap);
         final Map<String, byte[]> returnedMap = new HashMap<>();
-        returnedMap.put("file.jar", new byte[]{1});
-        returnedMap.put("file.impl", new byte[]{2});
-        when(parser.getObjectFromXML(eq(new byte[]{2}))).thenReturn(oldConnectorDescriptor);
+        returnedMap.put("file.jar", new byte[] { 1 });
+        returnedMap.put("file.impl", new byte[] { 2 });
+        when(parser.getObjectFromXML(eq(new byte[] { 2 }))).thenReturn(oldConnectorDescriptor);
         when(parser.getObjectFromXML(eq(implBytes))).thenReturn(hoogardenConnectorDescriptor);
 
-        doReturn(returnedMap).when(processManager).getConnectorFiles(tenantId, processDefId);
+        doReturn(Collections.singletonList(new SBARResource("file.impl", BARResourceType.CONNECTOR, processDefId, new byte[] { 2 }))).when(resourcesService)
+                .get(eq(processDefId), eq(BARResourceType.CONNECTOR), eq(0), anyInt());
         connectorService.setConnectorImplementation(sProcessDef, tenantId, connectorDefId, connectorDefVersion, zip1);
         verify(processManager, times(1)).storeClasspathFile(tenantId, processDefId, "HoogardenConnector.jar", hoogardenConnectorBytes);
         verify(processManager, times(1)).storeClasspathFile(tenantId, processDefId, "some1.jar", dep1Bytes);
         verify(processManager, times(1)).storeConnectorFile(tenantId, processDefId, "HoogardenBeerConnector.impl", implBytes);
-        verify(processManager, times(1)).deleteClasspathFiles(tenantId, processDefId, "file.jar");
-        verify(processManager, times(1)).deleteConnectorFile(tenantId, processDefId, "file.impl");
+        //verify(processManager, times(1)).deleteClasspathFiles(tenantId, processDefId, "file.jar");
+        //verify(processManager, times(1)).deleteConnectorFile(tenantId, processDefId, "file.impl");
     }
 
     @Test
@@ -205,10 +197,9 @@ public class ConnectorServiceImplTest {
         zipFileMap.put("src/net/company/MyImplem.java", "some Java source file content".getBytes());
         final byte[] zip = IOUtil.zip(zipFileMap);
 
-        final ConnectorServiceImpl spy = spy(connectorService);
-        doNothing().when(spy).deleteOldImplementation(tenantId, processDefId, connectorDefId, connectorDefVersion);
+        doNothing().when(connectorService).deleteOldImplementation(tenantId, processDefId, connectorDefId, connectorDefVersion);
 
-        spy.unzipNewImplementation(sProcessDef, tenantId, zip, connectorDefId, connectorDefVersion);
+        connectorService.unzipNewImplementation(sProcessDef, tenantId, zip, connectorDefId, connectorDefVersion);
 
         verify(processManager, times(0)).storeConnectorFile(eq(tenantId), eq(processDefId), anyString(), any(byte[].class));
     }
@@ -235,11 +226,8 @@ public class ConnectorServiceImplTest {
 
     private void checkGetConnectorImplementationUsesCache(final int givenCacheSizeToBeReturned, final int expectedNumberOfCacheStoreInvocations,
             final boolean shouldCacheContainsConnectorImplementation)
-            throws BonitaHomeNotSetException, SXMLParseException,
-            IOException, SConnectorException, SInvalidConnectorImplementationException, SCacheException {
-        connectorService = new ConnectorServiceImpl(cacheService, mock(ConnectorExecutor.class), parserFactory,
-                mock(ReadSessionAccessor.class),
-                mock(ExpressionResolverService.class), mock(OperationService.class), dependencyService, null, mock(TimeTracker.class), resourcesService);
+                    throws BonitaHomeNotSetException, SXMLParseException,
+                    IOException, SConnectorException, SInvalidConnectorImplementationException, SCacheException {
 
         final long tenantId = 98774L;
         final long processDefId = 17L;
@@ -257,12 +245,14 @@ public class ConnectorServiceImplTest {
         when(parser.getObjectFromXML(eq("tototo".getBytes()))).thenReturn(connectorImplDescriptor);
 
         final Map<String, byte[]> zipFileMap = new HashMap<>(3);
+
         zipFileMap.put("HoogardenBeerConnector.impl", "tototo".getBytes());
         zipFileMap.put("some1.jar", new byte[] { 12, 94, 14, 12 });
         zipFileMap.put("HoogardenConnector.jar", new byte[] { 12, 94, 14, 9, 54, 65, 98, 54, 21, 32, 65 });
         final byte[] zip1 = IOUtil.zip(zipFileMap);
 
-        doReturn(zipFileMap).when(processManager).getConnectorFiles(tenantId, processDefId);
+        doReturn(Collections.singletonList(new SBARResource("HoogardenBeerConnector.impl", BARResourceType.CONNECTOR, processDefId, "tototo".getBytes())))
+                .when(resourcesService).get(eq(processDefId), eq(BARResourceType.CONNECTOR), eq(0), anyInt());
 
         //setConnectorImplementation store to cache
         connectorService.setConnectorImplementation(sProcessDef, tenantId, connectorDefId, connectorDefVersion, zip1);
@@ -274,7 +264,7 @@ public class ConnectorServiceImplTest {
         final String buildConnectorImplementationKey = connectorService
                 .buildConnectorImplementationKey(processDefId, connectorImplId, connectorImplVersion);
         if (shouldCacheContainsConnectorImplementation) {
-            cacheContentKeys = Arrays.asList(buildConnectorImplementationKey);
+            cacheContentKeys = Collections.singletonList(buildConnectorImplementationKey);
         }
         doReturn(cacheContentKeys).when(cacheService).getKeys(ConnectorServiceImpl.CONNECTOR_CACHE_NAME);
         doReturn(connectorImplDescriptor).when(cacheService).get(ConnectorServiceImpl.CONNECTOR_CACHE_NAME, buildConnectorImplementationKey);

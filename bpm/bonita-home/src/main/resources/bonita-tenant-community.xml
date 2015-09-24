@@ -237,19 +237,16 @@
                 <bean class="org.bonitasoft.engine.api.impl.resolver.ActorBusinessArchiveDependencyManager">
                     <constructor-arg name="actorMappingService" ref="actorMappingService" />
                     <constructor-arg name="identityService" ref="identityService" />
-                    <constructor-arg name="actorMappingParserFactory" ref="actorMappingParserFactory" />
-                    <constructor-arg name="xmlWriter" ref="xmlWriter" />
                     <constructor-arg name="technicalLoggerService" ref="tenantTechnicalLoggerService" />
                 </bean>
                 <bean class="org.bonitasoft.engine.api.impl.resolver.ConnectorBusinessArchiveDependencyManager">
                     <constructor-arg name="connectorService" ref="connectorService" />
                     <constructor-arg name="readSessionAccessor" ref="sessionAccessor" />
-                    <constructor-arg name="businessArchiveResourceService" ref="businessArchiveResourceService" />
                 </bean>
                 <bean class="org.bonitasoft.engine.api.impl.resolver.UserFilterBusinessArchiveDependencyManager">
                     <constructor-arg name="userFilterService" ref="userFilterService" />
                     <constructor-arg name="readSessionAccessor" ref="sessionAccessor" />
-                    <constructor-arg name="businessArchiveResourceService" ref="businessArchiveResourceService" />
+                    <constructor-arg name="resourcesService" ref="resourcesService" />
                 </bean>
                 <bean class="org.bonitasoft.engine.api.impl.resolver.ParameterBusinessArchiveDependencyManager">
                     <constructor-arg name="parameterService" ref="parameterService" />
@@ -266,17 +263,17 @@
                     <constructor-arg name="businessDataRepository" ref="businessDataRepository" />
                 </bean>
                 <bean class="org.bonitasoft.engine.api.impl.resolver.DocumentInitialValueDependencyManager">
-                    <constructor-arg name="businessArchiveResourceService" ref="businessArchiveResourceService" />
+                    <constructor-arg name="resourcesService" ref="resourcesService" />
                 </bean>
                 <bean class="org.bonitasoft.engine.api.impl.resolver.ExternalResourceDependencyManager">
-                    <constructor-arg name="businessArchiveResourceService" ref="businessArchiveResourceService" />
+                    <constructor-arg name="resourcesService" ref="resourcesService" />
                 </bean>
             </list>
         </constructor-arg>
         <constructor-arg name="technicalLoggerService" ref="tenantTechnicalLoggerService" />
     </bean>
 
-    <bean id="businessArchiveResourceService" class="org.bonitasoft.engine.bar.BusinessArchiveResourceServiceImpl">
+    <bean id="resourcesService" class="org.bonitasoft.engine.bar.ResourcesServiceImpl">
     </bean>
 
     <bean id="businessArchiveService" class="org.bonitasoft.engine.bar.BusinessArchiveServiceImpl">
@@ -1005,10 +1002,6 @@
         <constructor-arg name="identityService" ref="identityService" />
     </bean>
 
-    <bean id="actorMappingParserFactory" class="org.bonitasoft.engine.actor.xml.ActorMappingParserFactory">
-        <constructor-arg name="parserFactory" ref="parserFactory" />
-    </bean>
-
     <bean id="bonitaExecutorServiceFactory" class="org.bonitasoft.engine.work.DefaultBonitaExecutorServiceFactory">
         <constructor-arg name="logger" ref="tenantTechnicalLoggerService" />
         <constructor-arg name="tenantId" value="${tenantId}" />
@@ -1375,6 +1368,7 @@
         <constructor-arg name="dependencyService" ref="dependencyService" />
         <constructor-arg name="logger" ref="tenantTechnicalLoggerService" />
         <constructor-arg name="timeTracker" ref="timeTracker" />
+        <constructor-arg name="resourcesService" ref="resourcesService" />
     </bean>
 
     <bean id="connectorService" class="org.bonitasoft.engine.connector.ConnectorServiceDecorator">

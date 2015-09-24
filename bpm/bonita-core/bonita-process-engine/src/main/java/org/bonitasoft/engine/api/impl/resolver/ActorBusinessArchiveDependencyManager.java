@@ -45,7 +45,6 @@ import org.bonitasoft.engine.log.technical.TechnicalLoggerService;
 import org.bonitasoft.engine.persistence.OrderByType;
 import org.bonitasoft.engine.persistence.QueryOptions;
 import org.bonitasoft.engine.persistence.SBonitaReadException;
-import org.bonitasoft.engine.xml.XMLWriter;
 
 /**
  * @author Baptiste Mesta
@@ -56,14 +55,12 @@ public class ActorBusinessArchiveDependencyManager implements BusinessArchiveDep
 
     private final ActorMappingService actorMappingService;
     private final IdentityService identityService;
-    private final XMLWriter xmlWriter;
     private final TechnicalLoggerService technicalLoggerService;
 
     public ActorBusinessArchiveDependencyManager(ActorMappingService actorMappingService, IdentityService identityService,
-            XMLWriter xmlWriter, TechnicalLoggerService technicalLoggerService) {
+            TechnicalLoggerService technicalLoggerService) {
         this.actorMappingService = actorMappingService;
         this.identityService = identityService;
-        this.xmlWriter = xmlWriter;
         this.technicalLoggerService = technicalLoggerService;
     }
 

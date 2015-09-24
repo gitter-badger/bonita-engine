@@ -25,6 +25,6 @@ public interface ResourcesService {
 
     void removeAll(long processDefinitionId);
 
-    List<SBARResource> getAll(long processDefinitionId, BARResourceType type, int from, int numberOfElements);
+    List<SBARResource> get(long processDefinitionId, BARResourceType type, int from, int numberOfElements);
 
 }
