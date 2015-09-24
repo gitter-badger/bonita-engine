@@ -1,4 +1,3 @@
-
 /**
  * Copyright (C) 2015 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
@@ -12,8 +11,13 @@
  * program; if not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth
  * Floor, Boston, MA 02110-1301, USA.
  **/
-
 package org.bonitasoft.engine.api.impl.resolver;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 import org.bonitasoft.engine.actor.mapping.ActorMappingService;
 import org.bonitasoft.engine.actor.mapping.SActorDeletionException;
@@ -21,7 +25,6 @@ import org.bonitasoft.engine.actor.mapping.model.SActor;
 import org.bonitasoft.engine.actor.mapping.model.SActorBuilder;
 import org.bonitasoft.engine.actor.mapping.model.SActorBuilderFactory;
 import org.bonitasoft.engine.actor.mapping.model.SActorMember;
-import org.bonitasoft.engine.actor.xml.ActorMappingParserFactory;
 import org.bonitasoft.engine.api.impl.transaction.actor.ExportActorMapping;
 import org.bonitasoft.engine.api.impl.transaction.actor.ImportActorMapping;
 import org.bonitasoft.engine.bpm.actor.ActorMappingImportException;
@@ -43,13 +46,6 @@ import org.bonitasoft.engine.persistence.OrderByType;
 import org.bonitasoft.engine.persistence.QueryOptions;
 import org.bonitasoft.engine.persistence.SBonitaReadException;
 import org.bonitasoft.engine.xml.XMLWriter;
-import org.bonitasoft.engine.service.TenantServiceAccessor;
-
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 /**
  * @author Baptiste Mesta
@@ -60,15 +56,13 @@ public class ActorBusinessArchiveDependencyManager implements BusinessArchiveDep
 
     private final ActorMappingService actorMappingService;
     private final IdentityService identityService;
-    private final ActorMappingParserFactory actorMappingParserFactory;
     private final XMLWriter xmlWriter;
     private final TechnicalLoggerService technicalLoggerService;
 
     public ActorBusinessArchiveDependencyManager(ActorMappingService actorMappingService, IdentityService identityService,
-            ActorMappingParserFactory actorMappingParserFactory, XMLWriter xmlWriter, TechnicalLoggerService technicalLoggerService) {
+            XMLWriter xmlWriter, TechnicalLoggerService technicalLoggerService) {
         this.actorMappingService = actorMappingService;
         this.identityService = identityService;
-        this.actorMappingParserFactory = actorMappingParserFactory;
         this.xmlWriter = xmlWriter;
         this.technicalLoggerService = technicalLoggerService;
     }
@@ -78,7 +72,6 @@ public class ActorBusinessArchiveDependencyManager implements BusinessArchiveDep
             throws ActorMappingImportException {
         BuilderFactory.getInstance();
         final SActorBuilderFactory sActorBuilderFactory = BuilderFactory.get(SActorBuilderFactory.class);
-        final IdentityService identityService = tenantAccessor.getIdentityService();
         final Set<SActorDefinition> actors = processDefinition.getActors();
         final Set<SActor> sActors = new HashSet<>(actors.size() + 1);
         final SActorDefinition actorInitiator = processDefinition.getActorInitiator();
@@ -105,7 +98,7 @@ public class ActorBusinessArchiveDependencyManager implements BusinessArchiveDep
             }
             // ignored
         } catch (SBonitaException e) {
-            tenantAccessor.getTechnicalLoggerService().log(this.getClass(), TechnicalLogSeverity.WARNING,"Error in importing the actor-mapping",e);
+            technicalLoggerService.log(this.getClass(), TechnicalLogSeverity.WARNING, "Error in importing the actor-mapping", e);
         }
         return checkResolution(actorMappingService, processDefinition.getId()).isEmpty();
     }
@@ -127,10 +120,8 @@ public class ActorBusinessArchiveDependencyManager implements BusinessArchiveDep
 
     @Override
     public void exportBusinessArchive(long processDefinitionId, BusinessArchiveBuilder businessArchiveBuilder) throws SBonitaException {
-        final ExportActorMapping exportActorMapping = new ExportActorMapping(actorMappingService, identityService, xmlWriter, processDefinitionId);
-        exportActorMapping.execute();
-        final String result = exportActorMapping.getResult();
-        businessArchiveBuilder.setActorMapping(result.getBytes());
+        final ExportActorMapping exportActorMapping = new ExportActorMapping(actorMappingService, identityService, processDefinitionId);
+        businessArchiveBuilder.setActorMapping(exportActorMapping.getActorMapping());
     }
 
     public List<Problem> checkResolution(final ActorMappingService actorMappingService, final long processDefinitionId) {

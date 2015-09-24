@@ -26,7 +26,6 @@ import org.bonitasoft.engine.bpm.process.Problem;
 import org.bonitasoft.engine.bpm.process.Problem.Level;
 import org.bonitasoft.engine.bpm.process.impl.internal.ProblemImpl;
 import org.bonitasoft.engine.commons.exceptions.SBonitaException;
-import org.bonitasoft.engine.commons.exceptions.SObjectCreationException;
 import org.bonitasoft.engine.commons.exceptions.SObjectModificationException;
 import org.bonitasoft.engine.core.process.definition.model.SParameterDefinition;
 import org.bonitasoft.engine.core.process.definition.model.SProcessDefinition;
@@ -37,7 +36,6 @@ import org.bonitasoft.engine.parameter.ParameterService;
 import org.bonitasoft.engine.parameter.SParameter;
 import org.bonitasoft.engine.parameter.SParameterProcessNotFoundException;
 import org.bonitasoft.engine.persistence.SBonitaReadException;
-import org.bonitasoft.engine.service.TenantServiceAccessor;
 
 /**
  * @author Baptiste Mesta
@@ -60,21 +58,21 @@ public class ParameterBusinessArchiveDependencyManager implements BusinessArchiv
         if (parameters.isEmpty()) {
             return true;
         }
-        final Map<String, String> defaultParamterValues = businessArchive.getParameters();
+        final Map<String, String> defaultParameterValues = businessArchive.getParameters();
         final Map<String, String> storedParameters = new HashMap<>();
         for (final SParameterDefinition sParameterDefinition : parameters) {
             final String name = sParameterDefinition.getName();
-            final String value = defaultParamterValues.get(sParameterDefinition.getName());
+            final String value = defaultParameterValues.get(sParameterDefinition.getName());
             if (value == null) {
                 resolved = false;
             }
             storedParameters.put(name, value);
         }
-        if (!resolved && parameters.size() != defaultParamterValues.size()) {
+        if (!resolved && parameters.size() != defaultParameterValues.size()) {
             resolved = false;
         }
         try {
-            parameterService.addOrUpdateAll(processDefinition.getId(), storedParameters);
+            parameterService.addAll(processDefinition.getId(), storedParameters);
         } catch (SBonitaException e) {
             throw new CreationException(e);
         }

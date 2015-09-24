@@ -41,6 +41,7 @@ import org.bonitasoft.engine.commons.exceptions.SObjectModificationException;
 import org.bonitasoft.engine.commons.exceptions.SObjectNotFoundException;
 import org.bonitasoft.engine.core.form.FormMappingService;
 import org.bonitasoft.engine.core.form.SFormMapping;
+import org.bonitasoft.engine.core.process.definition.ProcessDefinitionService;
 import org.bonitasoft.engine.core.process.definition.model.SProcessDefinition;
 import org.bonitasoft.engine.form.FormMapping;
 import org.bonitasoft.engine.form.FormMappingTarget;
@@ -53,6 +54,7 @@ import org.bonitasoft.engine.page.PageService;
 import org.bonitasoft.engine.page.SPage;
 import org.bonitasoft.engine.page.SPageMapping;
 import org.bonitasoft.engine.persistence.SBonitaReadException;
+import org.bonitasoft.engine.service.FormRequiredAnalyzer;
 import org.bonitasoft.engine.service.ModelConvertor;
 import org.bonitasoft.engine.session.SessionService;
 import org.bonitasoft.engine.sessionaccessor.SessionAccessor;
@@ -69,14 +71,16 @@ public class FormMappingAndPageDependencyManager implements BusinessArchiveDepen
     private final PageService pageService;
     private final TechnicalLoggerService technicalLoggerService;
     private final FormMappingService formMappingService;
+    private final ProcessDefinitionService processDefinitionService;
 
     public FormMappingAndPageDependencyManager(SessionService sessionService, SessionAccessor sessionAccessor, PageService pageService,
-            TechnicalLoggerService technicalLoggerService, FormMappingService formMappingService) {
+                                               TechnicalLoggerService technicalLoggerService, FormMappingService formMappingService, ProcessDefinitionService processDefinitionService) {
         this.sessionService = sessionService;
         this.sessionAccessor = sessionAccessor;
         this.pageService = pageService;
         this.technicalLoggerService = technicalLoggerService;
         this.formMappingService = formMappingService;
+        this.processDefinitionService = processDefinitionService;
     }
 
     @Override
@@ -154,7 +158,7 @@ public class FormMappingAndPageDependencyManager implements BusinessArchiveDepen
         final FormMappingModel formMappingModel = new FormMappingModel();
         final List<SFormMapping> formMappings = formMappingService.list(processDefinitionId, 0, Integer.MAX_VALUE);
         for (SFormMapping formMapping : formMappings) {
-            final FormMapping client = ModelConvertor.toFormMapping(formMapping);
+            final FormMapping client = ModelConvertor.toFormMapping(formMapping, new FormRequiredAnalyzer(processDefinitionService));
             String form = null;
             switch (client.getTarget()) {
                 case INTERNAL:

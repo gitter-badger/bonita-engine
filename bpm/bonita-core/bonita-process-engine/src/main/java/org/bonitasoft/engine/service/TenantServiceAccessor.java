@@ -15,7 +15,6 @@
 package org.bonitasoft.engine.service;
 
 import org.bonitasoft.engine.actor.mapping.ActorMappingService;
-import org.bonitasoft.engine.actor.xml.ActorMappingParserFactory;
 import org.bonitasoft.engine.api.impl.TenantConfiguration;
 import org.bonitasoft.engine.api.impl.resolver.BusinessArchiveDependenciesManager;
 import org.bonitasoft.engine.archive.ArchiveService;
@@ -161,8 +160,6 @@ public interface TenantServiceAccessor extends ServiceAccessor {
     TransientDataService getTransientDataService();
 
     ParserFactory getParserFactgory();
-
-    ActorMappingParserFactory getActorMappingParserFactory();
 
     XMLWriter getXMLWriter();
 

@@ -35,6 +35,7 @@ import org.bonitasoft.engine.bpm.process.impl.ProcessDefinitionBuilder;
 import org.bonitasoft.engine.core.form.FormMappingService;
 import org.bonitasoft.engine.core.form.SFormMapping;
 import org.bonitasoft.engine.core.form.impl.SFormMappingImpl;
+import org.bonitasoft.engine.core.process.definition.ProcessDefinitionService;
 import org.bonitasoft.engine.core.process.definition.model.SProcessDefinition;
 import org.bonitasoft.engine.form.FormMappingTarget;
 import org.bonitasoft.engine.form.FormMappingType;
@@ -57,7 +58,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 import org.mockito.stubbing.Answer;
 
 @RunWith(MockitoJUnitRunner.class)
-public class FormMappingAndPageDependencyDeployerTest {
+public class FormMappingAndPageDependencyManagerTest {
 
     public static final String PAGE = "myPage";
     public static final byte[] CONTENT1 = "content1".getBytes();
@@ -94,13 +95,15 @@ public class FormMappingAndPageDependencyDeployerTest {
     private SessionAccessor sessionAccessor;
     @Mock
     private TechnicalLoggerService technicalLoggerService;
+    @Mock
+    private ProcessDefinitionService processDefinitionService;
 
     private BusinessArchiveBuilder barBuilder;
 
     @Before
     public void before() {
         formMappingAndPageDependencyDeployer = spy(new FormMappingAndPageDependencyManager(sessionService, sessionAccessor, pageService,
-                technicalLoggerService, formMappingService));
+                technicalLoggerService, formMappingService, processDefinitionService));
         formMappings = new ArrayList<>();
 
         doReturn(pageService).when(tenantServiceAccessor).getPageService();
@@ -435,9 +438,9 @@ public class FormMappingAndPageDependencyDeployerTest {
         SFormMappingImpl sFormMappingProcessOverview = new SFormMappingImpl(321324, FormMappingType.PROCESS_OVERVIEW.getId(), null, SFormMapping.TARGET_NONE);
         SFormMappingImpl sFormMappingProcessStart = new SFormMappingImpl(321324, FormMappingType.PROCESS_START.getId(), null, SFormMapping.TARGET_NONE);
 
-        formMappingAndPageDependencyDeployer.checkFormMappingResolution(tenantServiceAccessor, sFormMappingTask, problems);
-        formMappingAndPageDependencyDeployer.checkFormMappingResolution(tenantServiceAccessor, sFormMappingProcessOverview, problems);
-        formMappingAndPageDependencyDeployer.checkFormMappingResolution(tenantServiceAccessor, sFormMappingProcessStart, problems);
+        formMappingAndPageDependencyDeployer.checkFormMappingResolution(sFormMappingTask, problems);
+        formMappingAndPageDependencyDeployer.checkFormMappingResolution(sFormMappingProcessOverview, problems);
+        formMappingAndPageDependencyDeployer.checkFormMappingResolution(sFormMappingProcessStart, problems);
         assertThat(problems).as("the problem list should not contain any mapping problem").hasSize(0);
     }
 
@@ -450,9 +453,9 @@ public class FormMappingAndPageDependencyDeployerTest {
         SFormMappingImpl sFormMappingProcessStart = new SFormMappingImpl(321324, FormMappingType.PROCESS_START.getId(), null, SFormMapping.TARGET_UNDEFINED);
 
 
-        formMappingAndPageDependencyDeployer.checkFormMappingResolution(tenantServiceAccessor, sFormMappingTask, problems);
-        formMappingAndPageDependencyDeployer.checkFormMappingResolution(tenantServiceAccessor, sFormMappingProcessOverview, problems);
-        formMappingAndPageDependencyDeployer.checkFormMappingResolution(tenantServiceAccessor, sFormMappingProcessStart, problems);
+        formMappingAndPageDependencyDeployer.checkFormMappingResolution(sFormMappingTask, problems);
+        formMappingAndPageDependencyDeployer.checkFormMappingResolution(sFormMappingProcessOverview, problems);
+        formMappingAndPageDependencyDeployer.checkFormMappingResolution(sFormMappingProcessStart, problems);
 
         assertThat(problems).as("the problem list should contain three mapping problems").hasSize(3).extracting("resource", "resourceId").contains(tuple("form mapping", "Step1"),
                 tuple("form mapping", FormMappingType.PROCESS_OVERVIEW.name()),

@@ -260,6 +260,7 @@
                     <constructor-arg name="pageService" ref="pageService" />
                     <constructor-arg name="technicalLoggerService" ref="tenantTechnicalLoggerService" />
                     <constructor-arg name="formMappingService" ref="formMappingService" />
+                    <constructor-arg name="processDefinitionService" ref="processDefinitionService" />
                 </bean>
                 <bean class="org.bonitasoft.engine.api.impl.resolver.BusinessDataBusinessArchiveDependencyManager">
                     <constructor-arg name="businessDataRepository" ref="businessDataRepository" />

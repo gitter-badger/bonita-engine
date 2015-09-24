@@ -1,4 +1,3 @@
-''
 /**
  * Copyright (C) 2015 Bonitasoft S.A.
  * Bonitasoft, 32 rue Gustave Eiffel - 38000 Grenoble
@@ -20,7 +19,6 @@ import static java.util.Collections.singletonMap;
 import java.io.File;
 import java.io.IOException;
 import java.io.Serializable;
-import java.io.StringWriter;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,7 +31,6 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.Properties;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
@@ -355,7 +352,6 @@ import org.bonitasoft.engine.log.technical.TechnicalLoggerService;
 import org.bonitasoft.engine.operation.LeftOperand;
 import org.bonitasoft.engine.operation.Operation;
 import org.bonitasoft.engine.operation.OperationBuilder;
-import org.bonitasoft.engine.parameter.SParameterProcessNotFoundException;
 import org.bonitasoft.engine.persistence.FilterOption;
 import org.bonitasoft.engine.persistence.OrderAndField;
 import org.bonitasoft.engine.persistence.OrderByOption;
@@ -713,9 +709,8 @@ public class ProcessAPIImpl implements ProcessAPI {
         } finally {
             if (barExport != null && barExport.exists()) {
                 barExport.delete();
+            }
         }
-    }
-    }
     }
 
     @Override
